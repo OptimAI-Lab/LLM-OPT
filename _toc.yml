@@ -2,7 +2,14 @@ format: jb-book
 root: index
 chapters:
   - file: syllabus
-  - file: lectures/intro
+  - file: lectures/Chapter1/intro
     title: Introduction to Optimization
-  - file: lectures/optimization
-    title: Gradient Methods
+  - file: lectures/Chapter2/optimization
+    title: Classical Optimization Theory
+    sections:
+      - file: lectures/Chapter2/gradient
+        title: Gradient Methods
+  - file: lectures/Chapter3/LLM
+    title: Introduction to Large Language Models
+  - file: lectures/Chapter4/opt_for_LLM
+    title: Optimization for Large Language Models
