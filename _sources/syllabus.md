@@ -11,7 +11,6 @@
 - LLM Pretraining
 - LLM Finetuning
 - Additional Topics
-- xxx
 
 ## Grading
 - Assignments: 40%
