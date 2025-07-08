@@ -14,6 +14,8 @@ sphinx:
     copyright: "2025"
     mathjax3_config:
       tex:
+        packages:
+          - ams
         macros:
           RR: "\\mathbb{R}"
           EE: "\\mathbb{E}"
@@ -82,6 +84,7 @@ sphinx:
           vone: "\\mathbf{1}"
           v0: "\\mathbf{0}"
           v1: "\\mathbf{1}"
+          valpha: "\\boldsymbol{\alpha}"
            
 
 
