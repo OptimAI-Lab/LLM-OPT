@@ -73,13 +73,13 @@ sphinx:
           vx: "\\mathbf{x}"
           vy: "\\mathbf{y}"
           vz: "\\mathbf{z}"
-          v0: "\\mathbf{0}"
-          v1: "\\mathbf{1}"
           vnull: "\\mathbf{\\emptyset}"     
           sign: "\\mathrm{sign}"
           SS: "\\mathbb{S}"
           SSp: "\\mathbb{S}_{+}"
           SSpp: "\\mathbb{S}_{++}"
+          vzero: "\\mathbf{0}"
+          vone: "\\mathbf{1}"
            
 
 
