@@ -80,6 +80,8 @@ sphinx:
           SSpp: "\\mathbb{S}_{++}"
           vzero: "\\mathbf{0}"
           vone: "\\mathbf{1}"
+          v0: "\\mathbf{0}"
+          v1: "\\mathbf{1}"
            
 
 
