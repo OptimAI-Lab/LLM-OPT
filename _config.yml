@@ -83,6 +83,36 @@ sphinx:
           v0: "\\mathbf{0}"
           v1: "\\mathbf{1}"
           valpha: "\\boldsymbol{\\alpha}"
+          vAlpha: "\\boldsymbol{\\Alpha}"
+          vbeta: "\\boldsymbol{\\beta}"
+          vBeta: "\\boldsymbol{\\Beta}"
+          vgamma: "\\boldsymbol{\\gamma}"
+          vGamma: "\\boldsymbol{\\Gamma}"
+          vdelta: "\\boldsymbol{\\delta}"
+          vDelta: "\\boldsymbol{\\Delta}"
+          vepsilon: "\\boldsymbol{\\epsilon}"
+          vtheta: "\\boldsymbol{\\theta}"
+          vphi: "\\boldsymbol{\\phi}"
+          vpsi: "\\boldsymbol{\\psi}"
+          vomega: "\\boldsymbol{\\omega}"
+          vmu: "\\boldsymbol{\\mu}"
+          vsigma: "\\boldsymbol{\\sigma}"
+          vSigma: "\\boldsymbol{\\Sigma}"
+          vLambda: "\\boldsymbol{\\Lambda}"
+          vGamma: "\\boldsymbol{\\Gamma}"
+          vTheta: "\\boldsymbol{\\Theta}"
+          vPhi: "\\boldsymbol{\\Phi}"
+          vPsi: "\\boldsymbol{\\Psi}"
+          vOmega: "\\boldsymbol{\\Omega}"
+          vxi: "\\boldsymbol{\\xi}"
+          vXi: "\\boldsymbol{\\Xi}"
+          vzeta: "\\boldsymbol{\\zeta}"
+          veta: "\\boldsymbol{\\eta}"
+          vupsilon: "\\boldsymbol{\\upsilon}"
+          vTau: "\\boldsymbol{\\Tau}"
+           
+
+
            
 
 
