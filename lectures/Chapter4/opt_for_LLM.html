@@ -338,16 +338,21 @@ document.write(`
 <h1>LLM Training as Large-scale Optimization<a class="headerlink" href="#llm-training-as-large-scale-optimization" title="Link to this heading">#</a></h1>
 <p>So far we have already discussed stochastic optimization problem:</p>
 <div class="math notranslate nohighlight" id="equation-eq-stoc-opt-chap4">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ell(\vw) := \sum_{i=1}^{n}\ell(\vw, \xi)\]</div>
-<p>and the basic SGD scheme (see also [add ref here to chap 2])</p>
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)]\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the data distribution. Note that for neural network training, we usually collect a set of training data <span class="math notranslate nohighlight">\(\{\xi_i\}_{i=1,2,...,n}\)</span> and optimize for the training loss</p>
+<div class="math notranslate nohighlight" id="equation-eq-stoc-opt-finite-sum-chap4">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-stoc-opt-finite-sum-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \frac{1}{n}\sum_{i=1}^{n}\ell(\vw, \xi_i)\]</div>
+<p>which is also know as the finite sum setting of the stochastic optimization.</p>
+<p>The basic stochastic gradient descent (SGD) scheme (see also [add ref here to chap 2]) is to simply sample a random index <span class="math notranslate nohighlight">\(i_t\)</span> at iteration <span class="math notranslate nohighlight">\(t\)</span>, and update (for simplicity, we denote <span class="math notranslate nohighlight">\(\xi_{t}:=\xi_{i_t}\)</span>)</p>
 <div class="math notranslate nohighlight" id="equation-eq-sgd-chap4">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\theta^{t+1}\leftarrow \theta^{t} - \eta_t\nabla F(x^t, \xi_t)\]</div>
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\nabla \ell(\vw^t, \xi_t).\]</div>
+<p>As discussed in Chapter 2, stochastic methods such as SGD only has a noisy estimate of the true gradients, thus suffering from</p>
 <p>multi line equation is also possible</p>
 <div class="math notranslate nohighlight" id="equation-eq-gradient">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
 a+b &amp;= c\end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-temp1">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eq-temp1" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-temp1" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 a &amp;= b+c \tag{a}\\
 a + b &amp;= c \tag{b}
 \end{align}\end{split}\]</div>
