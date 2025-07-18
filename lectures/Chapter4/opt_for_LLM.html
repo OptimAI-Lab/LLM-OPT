@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -336,15 +336,18 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="llm-training-as-large-scale-optimization">
 <h1>LLM Training as Large-scale Optimization<a class="headerlink" href="#llm-training-as-large-scale-optimization" title="Link to this heading">#</a></h1>
-<p>So far we have already discussed stochastic optimization and the basic SGD scheme (see also [add ref here])</p>
-<div class="math notranslate nohighlight" id="equation-eq-sgd-again">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-sgd-again" title="Link to this equation">#</a></span>\[\theta^{t+1}\leftarrow \theta^{t} - \eta_t\nabla F(x^t, \xi_t)\]</div>
+<p>So far we have already discussed stochastic optimization problem:</p>
+<div class="math notranslate nohighlight" id="equation-eq-stoc-opt-chap4">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ell(\vw) := \sum_{i=1}^{n}\ell(\vw, \xi)\]</div>
+<p>and the basic SGD scheme (see also [add ref here to chap 2])</p>
+<div class="math notranslate nohighlight" id="equation-eq-sgd-chap4">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\theta^{t+1}\leftarrow \theta^{t} - \eta_t\nabla F(x^t, \xi_t)\]</div>
 <p>multi line equation is also possible</p>
 <div class="math notranslate nohighlight" id="equation-eq-gradient">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
 a+b &amp;= c\end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-temp1">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-temp1" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-temp1" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 a &amp;= b+c \tag{a}\\
 a + b &amp;= c \tag{b}
 \end{align}\end{split}\]</div>
