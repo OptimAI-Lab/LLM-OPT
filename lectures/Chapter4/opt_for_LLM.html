@@ -346,13 +346,134 @@ document.write(`
 <p>The basic stochastic gradient descent (SGD) scheme (see also [add ref here to chap 2]) is to simply sample a random index <span class="math notranslate nohighlight">\(i_t\)</span> at iteration <span class="math notranslate nohighlight">\(t\)</span>, and update (for simplicity, we denote <span class="math notranslate nohighlight">\(\xi_{t}:=\xi_{i_t}\)</span>)</p>
 <div class="math notranslate nohighlight" id="equation-eq-sgd-chap4">
 <span class="eqno">(7)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\nabla \ell(\vw^t, \xi_t).\]</div>
-<p>As discussed in Chapter 2, stochastic methods such as SGD only has a noisy estimate of the true gradients, thus suffering from</p>
+<p>As discussed in Chapter 2, stochastic methods such as SGD only has a noisy estimate of the true gradients, thus suffering from the inexactness of the noise. This motivates the mini-batch version of the SGD algorithm: at each iteration, we sample a mini-batch of the data samples <span class="math notranslate nohighlight">\(\{i_{1,t},i_{2,t},...,i_{B,t}\}\)</span> where <span class="math notranslate nohighlight">\(B\)</span> is the so-called batch size, and update</p>
+<div class="math notranslate nohighlight" id="equation-eq-minibatch-sgd-chap4">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-minibatch-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}).\]</div>
+<p>Intuitively,</p>
+<p>Below we have a simple example</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchvision.transforms</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">transforms</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">Subset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Binary classification: digits 0 vs 1</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_mnist_binary</span><span class="p">():</span>
+    <span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+    <span class="n">binary_subset</span> <span class="o">=</span> <span class="n">Subset</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">binary_subset</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TwoLayerNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="o">=</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">,</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Get gradient for a batch</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gradients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">grads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">grads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">grads</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+<span class="c1"># Compute full gradient using a large batch</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_full_gradient</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">):</span>
+    <span class="n">all_grads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">get_gradients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">all_grads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">all_grads</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Compute average distance to true gradient</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_avg_distance_to_full_grad</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">full_grad</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">dists</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">num_batches</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">get_gradients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">g</span> <span class="o">-</span> <span class="n">full_grad</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">dists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+
+<span class="c1"># Main</span>
+<span class="n">batch_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">]</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">get_mnist_binary</span><span class="p">()</span>
+
+<span class="c1"># Use large batch to compute full gradient (approximate full dataset)</span>
+<span class="n">large_batch_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model_for_full</span> <span class="o">=</span> <span class="n">TwoLayerNN</span><span class="p">()</span>
+<span class="n">full_grad</span> <span class="o">=</span> <span class="n">compute_full_gradient</span><span class="p">(</span><span class="n">model_for_full</span><span class="p">,</span> <span class="n">large_batch_loader</span><span class="p">)</span>
+
+<span class="c1"># Loop over batch sizes</span>
+<span class="k">for</span> <span class="n">batch_size</span> <span class="ow">in</span> <span class="n">batch_sizes</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">TwoLayerNN</span><span class="p">()</span>
+    <span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">compute_avg_distance_to_full_grad</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">full_grad</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size: </span><span class="si">{</span><span class="n">batch_size</span><span class="si">}</span><span class="s2">, Avg distance to full grad: </span><span class="si">{</span><span class="n">dist</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">batch_sizes</span><span class="p">,</span> <span class="n">distances</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Batch Size (log scale)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Average Distance to Full Gradient (log scale)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Stochastic Gradient Bias vs Batch Size (MNIST 0 vs 1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Batch size: 4, Avg distance to full grad: 2.307725
+Batch size: 8, Avg distance to full grad: 1.388254
+Batch size: 16, Avg distance to full grad: 0.961190
+Batch size: 32, Avg distance to full grad: 1.106750
+Batch size: 64, Avg distance to full grad: 0.771912
+Batch size: 128, Avg distance to full grad: 0.791104
+Batch size: 256, Avg distance to full grad: 0.989365
+Batch size: 512, Avg distance to full grad: 0.835109
+</pre></div>
+</div>
+<img alt="../../_images/9dbb340bec507496d4053d960d799a77bb009192f7895569efe0dd94ebcb04a9.png" src="../../_images/9dbb340bec507496d4053d960d799a77bb009192f7895569efe0dd94ebcb04a9.png" />
+</div>
+</div>
+<!-- Resulting in the following image:
+![alt text](sgd_vs_bs.png) -->
+<p>Therefore,</p>
 <p>multi line equation is also possible</p>
 <div class="math notranslate nohighlight" id="equation-eq-gradient">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
 a+b &amp;= c\end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-temp1">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eq-temp1" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-temp1" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 a &amp;= b+c \tag{a}\\
 a + b &amp;= c \tag{b}
 \end{align}\end{split}\]</div>
