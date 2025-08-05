@@ -179,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notations.html">Notations and Conventions</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Optimization</a></li>
+
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">Gradient Methods</a></li>
 </ul>
@@ -310,7 +311,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -326,6 +329,25 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Optimization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Introduction to Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-linear-regression">Example 1: Linear Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-support-vector-machine-svm">Example 2: Support Vector Machine (SVM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-training-neural-networks">Example 3: Training Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-adversarial-attacks">Example 4: Adversarial Attacks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">Elements of an Optimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-learn">What We Will Learn</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -339,7 +361,9 @@ document.write(`
 <h1>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
@@ -352,17 +376,117 @@ document.write(`
 </div>
 </div>
 </div>
-<p>In this section we derive the gradient formula.</p>
-<div class="math notranslate nohighlight">
-\[
+<!-- In this section we derive the gradient formula. -->
+<!-- $$
 \nabla f(x) = \frac{\partial f}{\partial x}
-\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-gradient">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp;= \frac{\partial f}{\partial x} \\
-a+b &amp;= c\end{split}\]</div>
-<p>see also <span class="math notranslate nohighlight">\(\RR^{d}\)</span> and <span class="math notranslate nohighlight">\(\KL{a}{b}\)</span>,</p>
-<div class="math notranslate nohighlight" id="equation-eq-tests">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eq-tests" title="Link to this equation">#</a></span>\[\RR^{d},\ \KL{a}{b}\]</div>
+$$
+
+```{math}
+:label: eq-gradient
+\nabla f(x) &= \frac{\partial f}{\partial x} \\
+a+b &= c
+```
+
+see also $\RR^{d}$ and $\KL{a}{b}$,
+```{math}
+:label: eq-tests
+\RR^{d},\ \KL{a}{b}
+``` --></section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Introduction to Optimization<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>Optimization is the science of making the best possible decision from a set of available options. It arises naturally in everyday life:</p>
+<ul class="simple">
+<li><p>A company wants to maximize profit while minimizing costs.</p></li>
+<li><p>A commuter wants to choose the fastest route under traffic conditions.</p></li>
+<li><p>A researcher wants to allocate limited computational resources to various tasks.</p></li>
+</ul>
+<p>At its core, optimization is about trade-offs: between objectives, between feasibility and optimality, and between computational cost and solution quality.</p>
+<p>Mathematically, an optimization problem seeks to minimize (or maximize) an objective function over a set of variables, often under constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+\min_{x \in \mathcal{X}} \quad &amp; f(x)
+\end{aligned}\]</div>
+<p><span class="math notranslate nohighlight">\(x\)</span>: decision variable (can be a scalar, vector, or even structured object)</p>
+<p><span class="math notranslate nohighlight">\(f(x)\)</span>: objective or cost function, often measuring prediction error, energy, or resource usage</p>
+<p><span class="math notranslate nohighlight">\(\mathcal{X}\)</span>: feasible set, describing constraints on <span class="math notranslate nohighlight">\(x\)</span></p>
+<p>This general framework encompasses a vast array of real-world problems in machine learning, signal processing, control, and beyond.</p>
+<section id="why-optimization">
+<h2>Why Optimization?<a class="headerlink" href="#why-optimization" title="Link to this heading">#</a></h2>
+<p>Optimization appears everywhere in machine learning and artificial intelligence:</p>
+<p>Training a linear regression model: minimizing squared error</p>
+<p>Training neural networks: minimizing a cross-entropy loss</p>
+<p>Aligning LLMs: optimizing reward functions under preference constraints</p>
+<p>Adversarial robustness: maximizing model loss with respect to small input perturbations</p>
+<p>These problems differ in their structure, but they all boil down to choosing parameters to minimize a loss (or maximize a reward), possibly under various constraints.</p>
+</section>
+<section id="example-1-linear-regression">
+<h2>Example 1: Linear Regression<a class="headerlink" href="#example-1-linear-regression" title="Link to this heading">#</a></h2>
+<p>One of the most basic and widely used optimization problems is least squares regression:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\vw \in \RR^d} \quad \frac{1}{2n} \sum_{i=1}^n (\vw^\top \va_i - b_i)^2\]</div>
+<p>Here, each data point <span class="math notranslate nohighlight">\((\va_i, b_i)\)</span> contains features and a scalar label. The goal is to find a weight vector <span class="math notranslate nohighlight">\(\vx\)</span> that best predicts <span class="math notranslate nohighlight">\(b_i\)</span> from <span class="math notranslate nohighlight">\(\va_i\)</span>. This problem admits a closed-form solution but also provides a clean example of differentiable, unconstrained optimization.</p>
+</section>
+<section id="example-2-support-vector-machine-svm">
+<h2>Example 2: Support Vector Machine (SVM)<a class="headerlink" href="#example-2-support-vector-machine-svm" title="Link to this heading">#</a></h2>
+<p>Consider a binary classification problem with labels <span class="math notranslate nohighlight">\(b_i \in {-1, 1}\)</span>. The hard-margin SVM seeks the maximum-margin separating hyperplane:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\min_{\vw \in \RR^d} \quad &amp; \|\vw\|^2 \\
+\text{s.t.} \quad &amp; b_i (\vx^\top \va_i + x_0) \ge 1, \quad \forall i
+\end{aligned}\end{split}\]</div>
+<p>This is a convex, constrained optimization problem. It introduces duality theory and the idea of optimization under structural constraints — core ideas relevant to many modern methods including fine-tuning and prompt optimization for LLMs.</p>
+</section>
+<section id="example-3-training-neural-networks">
+<h2>Example 3: Training Neural Networks<a class="headerlink" href="#example-3-training-neural-networks" title="Link to this heading">#</a></h2>
+<p>Mathematically, an optimization problem is written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+\min_{\vw \in \mathcal{W}} \quad f(\vw)
+\end{aligned}\]</div>
+<p><span class="math notranslate nohighlight">\(\vw\)</span> is the optimization variable (e.g., model weights or parameters).</p>
+<p><span class="math notranslate nohighlight">\(f(\vw)\)</span> is the objective function — a scalar function we wish to minimize (e.g., loss, cost, error).</p>
+<p><span class="math notranslate nohighlight">\(\mathcal{W}\)</span> is the feasible set — a set of constraints on <span class="math notranslate nohighlight">\(\vw\)</span>, such as non-negativity, norm bounds, or sparsity.</p>
+<p>Key questions include:</p>
+<ul class="simple">
+<li><p>Does a solution <span class="math notranslate nohighlight">\(\vw^*\)</span> exist?</p></li>
+<li><p>If so, how do we characterize and compute it?</p></li>
+<li><p>Can we guarantee its quality, efficiency, or robustness?</p></li>
+</ul>
+<p>Optimization theory offers a unified language and set of tools to tackle these questions across a wide range of domains.</p>
+</section>
+<section id="example-4-adversarial-attacks">
+<h2>Example 4: Adversarial Attacks<a class="headerlink" href="#example-4-adversarial-attacks" title="Link to this heading">#</a></h2>
+<p>In adversarial learning, we formulate an optimization problem to maximize model error via perturbations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\max_{\vdelta} \quad &amp; \ell(\vx + \vdelta; y) \\
+\text{s.t.} \quad &amp; \|\vdelta\| \le \epsilon
+\end{aligned}\end{split}\]</div>
+<p>This highlights a robust optimization setting, where we aim to find worst-case inputs within a constrained region. The dual of this idea appears in robust LLM alignment and safety tuning.</p>
+</section>
+<section id="elements-of-an-optimization-problem">
+<h2>Elements of an Optimization Problem<a class="headerlink" href="#elements-of-an-optimization-problem" title="Link to this heading">#</a></h2>
+<p>Every optimization problem is characterized by:</p>
+<ul class="simple">
+<li><p>The type of variables: continuous, discrete, mixed</p></li>
+<li><p>The objective function: smooth/nonsmooth, convex/nonconvex, deterministic/stochastic</p></li>
+<li><p>The constraints: equalities, inequalities, box, norm, combinatorial</p></li>
+<li><p>The scale: number of variables and data points (relevant to LLMs!)</p></li>
+<li><p>The desired accuracy and computation budget</p></li>
+</ul>
+<p>Understanding these factors helps guide both the modeling and the algorithm selection process.</p>
+</section>
+<section id="what-we-will-learn">
+<h2>What We Will Learn<a class="headerlink" href="#what-we-will-learn" title="Link to this heading">#</a></h2>
+<p>In the rest of this book, we will explore:</p>
+<ul class="simple">
+<li><p>Core theoretical tools: optimality conditions, convexity, duality</p></li>
+<li><p>Algorithms: gradient descent, Newton methods, proximal methods, ADMM</p></li>
+<li><p>Modern extensions: stochastic optimization, large-scale methods, distributed training</p></li>
+<li><p>Applications to LLM training: pretraining, fine-tuning, RLHF, unlearning, and personalization</p></li>
+</ul>
+<p>Optimization is the common thread that binds these concepts — and mastering it is essential for building scalable, robust, and aligned AI systems.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -419,6 +543,32 @@ a+b &amp;= c\end{split}\]</div>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Optimization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Introduction to Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-linear-regression">Example 1: Linear Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-support-vector-machine-svm">Example 2: Support Vector Machine (SVM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-training-neural-networks">Example 3: Training Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-adversarial-attacks">Example 4: Adversarial Attacks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">Elements of an Optimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-learn">What We Will Learn</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -178,6 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../notations.html">Notations and Conventions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter1/intro.html">Introduction to Optimization</a></li>
+
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">Gradient Methods</a></li>
 </ul>
@@ -353,17 +354,17 @@ document.write(`
 <h2>Mini-batch and momentums<a class="headerlink" href="#mini-batch-and-momentums" title="Link to this heading">#</a></h2>
 <p>So far we have already discussed stochastic optimization problem:</p>
 <div class="math notranslate nohighlight" id="equation-eq-stoc-opt-chap4">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)]\]</div>
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)]\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the data distribution. Note that for neural network training, we usually collect a set of training data <span class="math notranslate nohighlight">\(\{\xi_i\}_{i=1,2,...,n}\)</span> and optimize for the training loss</p>
 <div class="math notranslate nohighlight" id="equation-eq-stoc-opt-finite-sum-chap4">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-stoc-opt-finite-sum-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \frac{1}{n}\sum_{i=1}^{n}\ell(\vw, \xi_i)\]</div>
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-stoc-opt-finite-sum-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \frac{1}{n}\sum_{i=1}^{n}\ell(\vw, \xi_i)\]</div>
 <p>which is also know as the finite sum setting of the stochastic optimization.</p>
 <p>The basic stochastic gradient descent (SGD) scheme (see also <span style="color:red">[add ref here to chap 2]</span>) is to simply sample a random index <span class="math notranslate nohighlight">\(i_t\)</span> at iteration <span class="math notranslate nohighlight">\(t\)</span>, and update (for simplicity, we denote <span class="math notranslate nohighlight">\(\xi_{t}:=\xi_{i_t}\)</span>)</p>
 <div class="math notranslate nohighlight" id="equation-eq-sgd-chap4">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\nabla \ell(\vw^t, \xi_t).\]</div>
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\nabla \ell(\vw^t, \xi_t).\]</div>
 <p>As discussed in Chapter 2, stochastic methods such as SGD only has a noisy estimate of the true gradients, thus suffering from the inexactness of the noise. This motivates the mini-batch version of the SGD algorithm: at each iteration, we sample a mini-batch of the data samples <span class="math notranslate nohighlight">\(\{i_{1,t},i_{2,t},...,i_{B,t}\}\)</span> where <span class="math notranslate nohighlight">\(B\)</span> is the so-called batch size, and update</p>
 <div class="math notranslate nohighlight" id="equation-eq-minibatch-sgd-chap4">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eq-minibatch-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \frac{\eta_t}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}).\]</div>
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-minibatch-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \frac{\eta_t}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}).\]</div>
 <p>Intuitively, the larger the batch size <span class="math notranslate nohighlight">\(B\)</span> is, the closer the average of stochastic gradient is to the true gradient <span class="math notranslate nohighlight">\(\nabla \ell(\vw^t)\)</span>.</p>
 <p>Below we have a simple example on training a simple two layer neural network for classifying MNIST hand-written digits <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. We just test the effect of different batch sizes and record the distance of the stochastic gradient toward the true gradient.</p>
 <div class="cell docutils container">
@@ -485,11 +486,11 @@ Batch size: 512, Avg distance to full grad: 0.835109
 <p>We can see from the image above that in general, a larger batch size reuslt in better approximation toward the true gradient. However, for each of the sample one need to conduct one back-propagation step, consequently a large batch size will incur a very large memory overhead.</p>
 <p>As described in Section <span style="color:red">xxx</span>, numerous variance reduction techniques are proposed to mitigate the large variance of stochastic gradient descent, without extra memory overheads. The most popular technique is perhaps adding a momentum, resulting in the stochastic gradient descent with momentum (SGD-M) method:</p>
 <div class="math notranslate nohighlight" id="equation-eq-sgd-mmt-chap4">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eq-sgd-mmt-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-sgd-mmt-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow (1-\beta)\vg^{t-1} + \beta\left(\frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}})\right)\\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \vg^t
 \end{align}\end{split}\]</div>
-<p>Note that here the batch size <span class="math notranslate nohighlight">\(B\)</span> can be significantly smaller than the batch size <span class="math notranslate nohighlight">\(B\)</span> in the mini-batch SGD <a class="reference internal" href="#equation-eq-minibatch-sgd-chap4">(8)</a>.</p>
+<p>Note that here the batch size <span class="math notranslate nohighlight">\(B\)</span> can be significantly smaller than the batch size <span class="math notranslate nohighlight">\(B\)</span> in the mini-batch SGD <a class="reference internal" href="#equation-eq-minibatch-sgd-chap4">(6)</a>.</p>
 <p>The intuition behind SGD-M is that, as the iteration count <span class="math notranslate nohighlight">\(t\)</span> increases, the gradient tracker <span class="math notranslate nohighlight">\(g^t\)</span> becomes a more and more precise estimator of the true gradient. Imagine that</p>
 <section id="possible-homeworks">
 <h3>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h3>

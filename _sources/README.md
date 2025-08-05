@@ -10,3 +10,8 @@ jupyter-book build . --all
 open _build/html/index.html
 ```
 to check the website on your local machine.
+
+
+Google doc link:
+
+[https://docs.google.com/document/d/1T_nDZsOlqntZ09aozTEBGTQuEmG40ZCxdZDnK5GNkRA/edit?tab=t.0]
