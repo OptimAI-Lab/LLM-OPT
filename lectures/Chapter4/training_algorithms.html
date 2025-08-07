@@ -59,7 +59,7 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "sign": "\\mathrm{sign}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter4/opt_for_LLM';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter4/training_algorithms';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Introduction to Large Language Models" href="../Chapter3/LLM.html" />
@@ -239,7 +239,7 @@
       
       
       
-      <li><a href="../../_sources/lectures/Chapter4/opt_for_LLM.ipynb" target="_blank"
+      <li><a href="../../_sources/lectures/Chapter4/training_algorithms.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -333,7 +333,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop-and-adam">RMSprop and Adam</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
 </ul>
 </li>
@@ -491,7 +493,93 @@ Batch size: 512, Avg distance to full grad: 0.835109
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \vg^t
 \end{align}\end{split}\]</div>
 <p>Note that here the batch size <span class="math notranslate nohighlight">\(B\)</span> can be significantly smaller than the batch size <span class="math notranslate nohighlight">\(B\)</span> in the mini-batch SGD <a class="reference internal" href="#equation-eq-minibatch-sgd-chap4">(6)</a>.</p>
-<p>The intuition behind SGD-M is that, as the iteration count <span class="math notranslate nohighlight">\(t\)</span> increases, the gradient tracker <span class="math notranslate nohighlight">\(g^t\)</span> becomes a more and more precise estimator of the true gradient. Imagine that</p>
+<p>The intuition behind SGD-M is that, as the iteration count <span class="math notranslate nohighlight">\(t\)</span> increases, the gradient tracker <span class="math notranslate nohighlight">\(g^t\)</span> becomes a more and more precise estimator of the true gradient. Imagine the situation where we take <span class="math notranslate nohighlight">\(\eta_t\)</span> reasonably small so that the neighboring iterations are not too far from each other, then <span class="math notranslate nohighlight">\(\vg^t\)</span> become a mini-batch estimator of the current gradient with a much larger batch size, thus more precise.</p>
+<p>Below we have a simple experiment to show the effectiveness of momentum mechanism.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute average distance for raw and EMA gradients</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_ema_vs_raw_distance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">full_grad</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">num_batches</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">raw_dists</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ema_dists</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ema_grad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">full_grad</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">num_batches</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">get_gradients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># EMA update</span>
+        <span class="n">ema_grad</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">ema_grad</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span>
+
+        <span class="c1"># Distances</span>
+        <span class="n">raw_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">g</span> <span class="o">-</span> <span class="n">full_grad</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">ema_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ema_grad</span> <span class="o">-</span> <span class="n">full_grad</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="n">raw_dists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw_dist</span><span class="p">)</span>
+        <span class="n">ema_dists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ema_dist</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">raw_dists</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ema_dists</span><span class="p">)</span>
+
+<span class="c1"># Main</span>
+<span class="n">batch_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">]</span>
+<span class="n">raw_dists_all</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ema_dists_all</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">0.9</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">get_mnist_binary</span><span class="p">()</span>
+
+<span class="c1"># Full gradient (large batch)</span>
+<span class="n">large_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model_for_full</span> <span class="o">=</span> <span class="n">TwoLayerNN</span><span class="p">()</span>
+<span class="n">full_grad</span> <span class="o">=</span> <span class="n">compute_full_gradient</span><span class="p">(</span><span class="n">model_for_full</span><span class="p">,</span> <span class="n">large_loader</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">batch_size</span> <span class="ow">in</span> <span class="n">batch_sizes</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">TwoLayerNN</span><span class="p">()</span>
+    <span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">raw_dist</span><span class="p">,</span> <span class="n">ema_dist</span> <span class="o">=</span> <span class="n">compute_ema_vs_raw_distance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">,</span> <span class="n">full_grad</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch size: </span><span class="si">{</span><span class="n">batch_size</span><span class="si">}</span><span class="s2">, Raw: </span><span class="si">{</span><span class="n">raw_dist</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, EMA: </span><span class="si">{</span><span class="n">ema_dist</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">raw_dists_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw_dist</span><span class="p">)</span>
+    <span class="n">ema_dists_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ema_dist</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">batch_sizes</span><span class="p">,</span> <span class="n">raw_dists_all</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Raw Gradient&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">batch_sizes</span><span class="p">,</span> <span class="n">ema_dists_all</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;EMA (β=</span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Batch Size (log scale)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Avg Distance to Full Gradient (log scale)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;EMA vs Raw Gradient Distance to True Gradient&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Batch size: 4, Raw: 2.282789, EMA: 0.859225
+Batch size: 8, Raw: 1.417440, EMA: 0.764601
+Batch size: 16, Raw: 1.000241, EMA: 0.626654
+Batch size: 32, Raw: 1.141169, EMA: 0.793779
+Batch size: 64, Raw: 0.767402, EMA: 0.597092
+Batch size: 128, Raw: 0.785263, EMA: 0.625763
+Batch size: 256, Raw: 0.992621, EMA: 0.734354
+Batch size: 512, Raw: 0.833885, EMA: 0.627168
+</pre></div>
+</div>
+<img alt="../../_images/e68ca262c884894a2e2a67f8896f3eba7e9d6d5fafca5ba09c3b3e61a3e1223d.png" src="../../_images/e68ca262c884894a2e2a67f8896f3eba7e9d6d5fafca5ba09c3b3e61a3e1223d.png" />
+</div>
+</div>
+<p>where we can see that with a much smaller batch size, EMA enjoys a much smaller the distance to the true gradient.</p>
+</section>
+<section id="adagrad">
+<h2>AdaGrad<a class="headerlink" href="#adagrad" title="Link to this heading">#</a></h2>
+</section>
+<section id="rmsprop-and-adam">
+<h2>RMSprop and Adam<a class="headerlink" href="#rmsprop-and-adam" title="Link to this heading">#</a></h2>
 <section id="possible-homeworks">
 <h3>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -557,7 +645,9 @@ Batch size: 512, Avg distance to full grad: 0.835109
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop-and-adam">RMSprop and Adam</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
 </ul>
 </li>
