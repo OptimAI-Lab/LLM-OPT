@@ -13,5 +13,5 @@ chapters:
         title: Gradient Methods
   - file: lectures/Chapter3/LLM
     title: Introduction to Large Language Models
-  - file: lectures/Chapter4/opt_for_LLM
+  - file: lectures/Chapter4/training_algorithms
     title: Optimization for Large Language Models
