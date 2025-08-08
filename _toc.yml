@@ -4,7 +4,9 @@ chapters:
   - file: syllabus
   - file: notations
     title: Notations and Conventions
+    title: Introduction to Optimization
   - file: lectures/Chapter1/intro
+  - file: lectures/Chapter1/course_outline
     title: Introduction to Optimization
   - file: lectures/Chapter2/optimization
     title: Classical Optimization Theory
