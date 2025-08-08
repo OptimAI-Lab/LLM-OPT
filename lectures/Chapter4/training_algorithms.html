@@ -339,7 +339,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop-and-adam">RMSprop and Adam</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop-and-adam">RMSProp and Adam</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
 </ul>
 </li>
@@ -581,9 +581,19 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 </section>
 <section id="adagrad">
 <h2>AdaGrad<a class="headerlink" href="#adagrad" title="Link to this heading">#</a></h2>
+<p>When sampling from a training data set <span class="math notranslate nohighlight">\(\mathcal{D}=\{\xi_i\}_{i=1,...,|\mathcal{D}|}\)</span>, the magnitude of each data <span class="math notranslate nohighlight">\(\xi_i\)</span> might be starkly different. For example, if we are solving the least square model <span class="math notranslate nohighlight">\(\ell(\theta;\xi=(x,y)):=\frac{1}{2}(\theta^\top x - y)^2\)</span>, if we sample two data <span class="math notranslate nohighlight">\(\xi_1=(x_1,y_1)\)</span> and <span class="math notranslate nohighlight">\(\xi_2=(x_2,y_2)\)</span>, the mini-batch gradient estimator is</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}(\theta^\top x_1 - y_1)x_1 + \frac{1}{2}(\theta^\top x_2 - y_2)x_2\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-adagrad-chap4">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-adagrad-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
+\vv^t &amp;\leftarrow \vv^{t-1} + \vg^t \odot \vg^t \\
+\vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\vg^t}{\sqrt{\vv^t}+\epsilon}
+\end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\odot\)</span> is entry-wise multiplication and the division of the last line is</p>
 </section>
 <section id="rmsprop-and-adam">
-<h2>RMSprop and Adam<a class="headerlink" href="#rmsprop-and-adam" title="Link to this heading">#</a></h2>
+<h2>RMSProp and Adam<a class="headerlink" href="#rmsprop-and-adam" title="Link to this heading">#</a></h2>
 <section id="possible-homeworks">
 <h3>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -651,7 +661,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop-and-adam">RMSprop and Adam</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop-and-adam">RMSProp and Adam</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
 </ul>
 </li>
