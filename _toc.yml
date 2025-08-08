@@ -14,6 +14,8 @@ chapters:
   - file: lectures/Chapter2/optimization
     title: Classical Optimization Theory
     sections:
+      - file: lectures/Chapter2/Unconstrained_Optimization
+        title: Unconstrained Optimization
       - file: lectures/Chapter2/gradient
         title: Gradient Methods
   - file: lectures/Chapter3/LLM
