@@ -112,10 +112,6 @@ sphinx:
           vTau: "\\boldsymbol{\\Tau}"
            
 
-
-           
-
-
     bibtex_reference_style: author_year  # or label
 execute:
   execute_notebooks: "off" # ["off", "auto"]
