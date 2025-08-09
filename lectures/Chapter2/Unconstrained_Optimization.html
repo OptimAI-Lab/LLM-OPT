@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/Unconstrained_Optimization';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -314,7 +316,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -330,6 +334,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unconstrained-optimization-definitions-and-first-principles">2.1 Unconstrained Optimization: Definitions and First Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">Problem Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimality-conditions">Optimality Conditions</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -341,6 +359,72 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="section-2-1-unconstrained-optimization">
 <h1>Section 2.1: Unconstrained Optimization<a class="headerlink" href="#section-2-1-unconstrained-optimization" title="Link to this heading">#</a></h1>
+<section id="unconstrained-optimization-definitions-and-first-principles">
+<h2>2.1 Unconstrained Optimization: Definitions and First Principles<a class="headerlink" href="#unconstrained-optimization-definitions-and-first-principles" title="Link to this heading">#</a></h2>
+<p>In this chapter, we begin our study of optimization algorithms by focusing on the unconstrained case, where the optimization variable can be chosen from the entire space  <span class="math notranslate nohighlight">\(\RR^d\)</span>.</p>
+<section id="problem-setup">
+<h3>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
+<p>The general form of an unconstrained optimization problem is:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\vw \in \RR^d} \quad f(\vw)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vw\)</span> is the optimization variable; <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> is the objective function; There are no explicit constraints on <span class="math notranslate nohighlight">\(\vw\)</span>.</p>
+</section>
+<section id="local-and-global-optimal-solutions">
+<h3>Local and Global Optimal Solutions<a class="headerlink" href="#local-and-global-optimal-solutions" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> be a continuous function.</p>
+<div class="tip admonition">
+<p class="admonition-title">Definition: Local and Global Optimal Solutions</p>
+<p>Let <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> be a continuous function.</p>
+<ul class="simple">
+<li><p><strong>Local Minimum</strong>: <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer if there exists <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span> such that:
+$<span class="math notranslate nohighlight">\(
+f(\vw) \ge f(\vw^*) \quad \forall \vw \in \RR^d \text{ with } \|\vw - \vw^*\| \le \epsilon
+\)</span>$</p></li>
+<li><p><strong>Global Minimum</strong>: <span class="math notranslate nohighlight">\(\hat{\vw}\)</span> is a global minimizer if:
+$<span class="math notranslate nohighlight">\(
+f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
+\)</span>$</p></li>
+</ul>
+</div>
+<p>Local optimality describes the function’s behavior in a neighborhood, while global optimality describes the best solution across the entire space.</p>
+</section>
+<section id="existence-of-minimizers">
+<h3>Existence of Minimizers<a class="headerlink" href="#existence-of-minimizers" title="Link to this heading">#</a></h3>
+<p>Now let us talk about whether global or local optimal solution exists. Interestingly, e```ven if the objective function is continuous, a minimum may not be attained unless we impose additional structure. For example:</p>
+<div class="math notranslate nohighlight">
+\[\inf_{x \in \RR} \exp(-|x|) = 0\]</div>
+<p>But the minimum is never achieved because <span class="math notranslate nohighlight">\(\exp(-|x|) \to 0\)</span> as <span class="math notranslate nohighlight">\(|x| \to \infty\)</span>.</p>
+<p>A standard result from real analysis helps clarify when minimizers exist:</p>
+<div class="tip admonition">
+<p class="admonition-title">Weierstrass Theorem</p>
+<p>If <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> is continuous and its level set, defined below:</p>
+<div class="math notranslate nohighlight">
+\[
+\{ \vw \in \RR^d : f(\vw) \le f(\vw_0) \}
+\]</div>
+<p>is compact (i.e., closed and bounded) for some point <span class="math notranslate nohighlight">\(\vw_0\)</span>, then <span class="math notranslate nohighlight">\(f\)</span> achieves its minimum on <span class="math notranslate nohighlight">\(\RR^d\)</span>.</p>
+</div>
+</section>
+<section id="optimality-conditions">
+<h3>Optimality Conditions<a class="headerlink" href="#optimality-conditions" title="Link to this heading">#</a></h3>
+<p>Now we know when the solutions exist, let’s discuss how to identify them. Towards this end, we will discuss both <em>sufficient</em> and <em>necessary</em> conditions for a point being a local optimal solution.</p>
+<div class="tip admonition">
+<p class="admonition-title">First-order and second-order necessary condition</p>
+<p>If <span class="math notranslate nohighlight">\(f\)</span> is continuously differentiable, and let <span class="math notranslate nohighlight">\(\vw^*\)</span> be a local minimizer. Then the following holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla f(\vw^*) = 0
+\]</div>
+<p>This first-order necessary condition defines a (first-order) stationary points. They are candidates for global/local minmum, maximum solutions, as well as saddle points.</p>
+<p>Further, suppose that <span class="math notranslate nohighlight">\(f\)</span> is twice continuously differentiabe. Suppose <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer, then:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla f(\vw^*) = 0, \quad \nabla^2 f(\vw^*) \succeq 0
+\]</div>
+<p>This second-order necessary condition defines a (second-order) stationary points. They are candidates for global and local minimum solutions.</p>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -397,6 +481,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unconstrained-optimization-definitions-and-first-principles">2.1 Unconstrained Optimization: Definitions and First Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">Problem Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimality-conditions">Optimality Conditions</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
