@@ -22,3 +22,5 @@ chapters:
     title: Introduction to Large Language Models
   - file: lectures/Chapter4/training_algorithms
     title: Optimization for Large Language Models
+  - file: references
+    title: References
