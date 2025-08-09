@@ -345,8 +345,18 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimality-conditions">Optimality Conditions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-scalar-case-example">A Scalar Case Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sufficient-optimality-conditions">Sufficient Optimality Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-using-optimality-conditions">Examples: Using Optimality Conditions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-scalar-quadratic-global-minimum">Example 1: Scalar quadratic (global minimum)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-scalar-quartic-flat-at-minimum">Example 2: Scalar quartic (flat at minimum)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-scalar-cubic-saddle-inflection-point">Example 3: Scalar cubic (saddle / inflection point)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-multivariate-quadratic-positive-definite-hessian">Example 4: Multivariate quadratic (positive definite Hessian)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-multivariate-saddle-point">Example 5: Multivariate saddle point</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-convex-function-first-order-sufficiency">Example 6: Convex function (first-order sufficiency)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-optimality-conditions-important">Why Are Optimality Conditions Important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-problems-applying-optimality-conditions">Practice Problems: Applying Optimality Conditions</a></li>
 </ul>
 </li>
 </ul>
@@ -398,7 +408,7 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 \[\inf_{x \in \RR} \exp(-|x|) = 0\]</div>
 <p>But the minimum is never achieved because <span class="math notranslate nohighlight">\(\exp(-|x|) \to 0\)</span> as <span class="math notranslate nohighlight">\(|x| \to \infty\)</span>.</p>
 <p>A standard result from real analysis helps clarify when minimizers exist:</p>
-<div class="tip admonition">
+<div class="important admonition">
 <p class="admonition-title">Weierstrass Theorem</p>
 <p>If <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> is continuous and its level set, defined below:</p>
 <div class="math notranslate nohighlight">
@@ -411,7 +421,7 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 <section id="optimality-conditions">
 <h3>Optimality Conditions<a class="headerlink" href="#optimality-conditions" title="Link to this heading">#</a></h3>
 <p>Now we know when the solutions exist, let’s discuss how to identify them. Towards this end, we will discuss both <em>sufficient</em> and <em>necessary</em> conditions for a point being a local optimal solution.</p>
-<div class="tip admonition">
+<div class="important admonition">
 <p class="admonition-title">First-order and second-order necessary condition</p>
 <p>If <span class="math notranslate nohighlight">\(f\)</span> is continuously differentiable, and let <span class="math notranslate nohighlight">\(\vw^*\)</span> be a local minimizer. Then the following holds:</p>
 <div class="math notranslate nohighlight">
@@ -427,34 +437,205 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 <p>This second-order necessary condition defines a (second-order) stationary points. They are candidates for global and local minimum solutions.</p>
 </div>
 <div class="dropdown admonition">
-<p class="admonition-title">Proof (directional-derivative argument)</p>
-<p>Let <span class="math notranslate nohighlight">\(d\in\RR^d\)</span> be any direction and define <span class="math notranslate nohighlight">\(g(\alpha)=f(\vw^*+\alpha d)\)</span>.<br />
-Since <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\alpha=0\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(g\)</span>.<br />
-Because <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(\mathcal C^1\)</span>, <span class="math notranslate nohighlight">\(g\)</span> is differentiable and</p>
+<p class="admonition-title">Proof (First-order <strong>Necessary</strong> Condition)</p>
+<p>First, consider the scalar case where <span class="math notranslate nohighlight">\(d=1\)</span>.</p>
+<p>By local minimality, there exists <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span> such that <span class="math notranslate nohighlight">\(f(x)\ge f(x^*)\)</span> whenever <span class="math notranslate nohighlight">\(|x-x^*|\le \epsilon\)</span>.</p>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(x\downarrow x^*\)</span> (i.e., <span class="math notranslate nohighlight">\(x&gt;x^*\)</span> and <span class="math notranslate nohighlight">\(x\to x^*\)</span>), we have <span class="math notranslate nohighlight">\(f(x)-f(x^*)\ge 0\)</span> and <span class="math notranslate nohighlight">\(x-x^*&gt;0\)</span>, hence</p></li>
+</ul>
 <div class="math notranslate nohighlight">
 \[
-g'(0)=\nabla f(\vw^*)^\top d.
+\lim_{x\downarrow x^*}\frac{f(x)-f(x^*)}{x-x^*}\;\ge\;0.
 \]</div>
-<p>Local minimality of <span class="math notranslate nohighlight">\(g\)</span> at <span class="math notranslate nohighlight">\(0\)</span> implies <span class="math notranslate nohighlight">\(g'(0)=0\)</span>. As <span class="math notranslate nohighlight">\(d\)</span> is arbitrary, we must have <span class="math notranslate nohighlight">\(\nabla f(\vw^*)=\vzero\)</span>.</p>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(x\uparrow x^*\)</span> (i.e., <span class="math notranslate nohighlight">\(x&lt;x^*\)</span> and <span class="math notranslate nohighlight">\(x\to x^*\)</span>), we have <span class="math notranslate nohighlight">\(f(x)-f(x^*)\ge 0\)</span> and <span class="math notranslate nohighlight">\(x-x^*&lt;0\)</span>, hence</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\lim_{x\uparrow x^*}\frac{f(x)-f(x^*)}{x-x^*}\;\le\;0.
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(f\)</span> is differentiable at <span class="math notranslate nohighlight">\(x^*\)</span>, the two one‑sided limits equal <span class="math notranslate nohighlight">\(f'(x^*)\)</span>. Therefore both inequalities imply that the following holds:</p>
+<div class="math notranslate nohighlight">
+\[
+f'(x^*)=0.
+\]</div>
+<p>Then let us consider the vector case where <span class="math notranslate nohighlight">\(d\ge 2\)</span>. Fix any direction <span class="math notranslate nohighlight">\(h\in\RR^d\)</span> and define the scalar function <span class="math notranslate nohighlight">\(g(\alpha)=f(\,\vw^*+\alpha h\,)\)</span>.  Because <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(f\)</span>, we have that <span class="math notranslate nohighlight">\(\alpha=0\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(g\)</span>.<br />
+Note that <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(\mathcal C^1\)</span>, <span class="math notranslate nohighlight">\(g\)</span> is differentiable and</p>
+<div class="math notranslate nohighlight">
+\[
+g'(0)=\nabla f(\vw^*)^\top h.
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\(g(\cdot)\)</span> is unconstrained and differentiable scalar function, then the fact that at <span class="math notranslate nohighlight">\(\alpha=0\)</span> it achieves local minimum implies <span class="math notranslate nohighlight">\(g'(0)=0\)</span> (see the first part of this proof), hence</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla f(\vw^*)^\top d=0\quad\text{for all } d\in\RR^d.
+\]</div>
+<p>The only vector orthogonal to every direction <span class="math notranslate nohighlight">\(d\)</span> is the zero vector, so <span class="math notranslate nohighlight">\(\nabla f(\vw^*)=\vzero\)</span>.</p>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">Proof (Second-Order <strong>Necessary</strong> Condition)</p>
-<p>If <span class="math notranslate nohighlight">\(\vw^*\)</span> is a <strong>local minimizer</strong> of a <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> function <span class="math notranslate nohighlight">\(f\)</span>, then
-$<span class="math notranslate nohighlight">\(
-\nabla f(\vw^*)=\vzero, \qquad \nabla^2 f(\vw^*) \succeq 0.
-\)</span>$</p>
+<p>Again, first consider the scalar case where <span class="math notranslate nohighlight">\(d=1\)</span>. From the first-order necessary condition, <span class="math notranslate nohighlight">\(f'(x^*)=0\)</span>.<br />
+Since <span class="math notranslate nohighlight">\(x^*\)</span> is a local minimum solution, for <span class="math notranslate nohighlight">\(x\)</span> sufficiently close to <span class="math notranslate nohighlight">\(x^*\)</span> we have <span class="math notranslate nohighlight">\(f(x)\ge f(x^*)\)</span>. Consider</p>
+<div class="math notranslate nohighlight">
+\[
+q(x)\;=\;\frac{\,f(x)-f(x^*)-f'(x^*)(x-x^*)\,}{(x-x^*)^2}.
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\(f'(x^*)=0\)</span> and <span class="math notranslate nohighlight">\(f(x)\ge f(x^*)\)</span>, we get <span class="math notranslate nohighlight">\(q(x)\ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\neq x^*\)</span> sufficiently close to <span class="math notranslate nohighlight">\(x^*\)</span>.<br />
+Because <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> at <span class="math notranslate nohighlight">\(x^*\)</span>, the limit exists and</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{x\to x^*} q(x)\;=\;\frac{1}{2}f''(x^*).
+\]</div>
+<p>Taking limits preserves the inequality, hence <span class="math notranslate nohighlight">\(\tfrac{1}{2}f''(x^*)\ge 0\)</span>, i.e., <span class="math notranslate nohighlight">\(f''(x^*)\ge 0\)</span>.</p>
+<p>Then consider the vector case where <span class="math notranslate nohighlight">\(d\ge 2\)</span>. Fix any direction <span class="math notranslate nohighlight">\(h\in\RR^d\)</span> and define <span class="math notranslate nohighlight">\(g(\alpha)=f(\vw^*+\alpha h)\)</span>.<br />
+Since <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\alpha=0\)</span> is a local minimizer of the scalar <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> function <span class="math notranslate nohighlight">\(g\)</span>.<br />
+From the first-order result, <span class="math notranslate nohighlight">\(g'(0)=\nabla f(\vw^*)^\top h=0\)</span>. By the chain rule,</p>
+<div class="math notranslate nohighlight">
+\[
+g''(0)= h^\top \nabla^2 f(\vw^*)\, h.
+\]</div>
+<p>From the first part of the proof, for scalar functions, if <span class="math notranslate nohighlight">\(\alpha^* =0\)</span> is a local min of a twice differentiable scalar function, then <span class="math notranslate nohighlight">\(g''(0)\ge 0\)</span>.
+Because <span class="math notranslate nohighlight">\(h\)</span> is arbitrary, <span class="math notranslate nohighlight">\(h^\top \nabla^2 f(\vw^*) h \ge 0\)</span> for all <span class="math notranslate nohighlight">\(h\)</span>, i.e., <span class="math notranslate nohighlight">\(\nabla^2 f(\vw^*)\succeq 0\)</span>.</p>
 </div>
 </section>
-<section id="a-scalar-case-example">
-<h3>A Scalar Case Example<a class="headerlink" href="#a-scalar-case-example" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(f: \RR \to \RR\)</span> be twice differentiable. Suppose <span class="math notranslate nohighlight">\(x^*\)</span> satisfies:</p>
+<section id="sufficient-optimality-conditions">
+<h3>Sufficient Optimality Conditions<a class="headerlink" href="#sufficient-optimality-conditions" title="Link to this heading">#</a></h3>
+<div class="important admonition">
+<p class="admonition-title">Second-Order <strong>Sufficient</strong> Condition</p>
+<p>Let <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> be <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> near <span class="math notranslate nohighlight">\(\vw^*\)</span>.<br />
+Supoose that <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is twice continuously differentiable, then if the following holds:</p>
 <div class="math notranslate nohighlight">
-\[f'(x^*) = 0, \quad f''(x^*) &gt; 0\]</div>
-<p>Then <span class="math notranslate nohighlight">\(x^*\)</span> is a local minimizer. This follows from:</p>
+\[
+\nabla f(\vw^*)=\vzero, \quad \nabla^2 f(\vw^*) \succ 0,
+\]</div>
+<p>then <span class="math notranslate nohighlight">\(\vw^*\)</span> is a <strong>strict local minimizer</strong> of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (Second-order Sufficient Conditions)</p>
+<p>If <span class="math notranslate nohighlight">\(d=1\)</span>, by Taylor expansion, for <span class="math notranslate nohighlight">\(x\)</span> close to <span class="math notranslate nohighlight">\(x^*\)</span> there exists some <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x^*\)</span> such that</p>
 <div class="math notranslate nohighlight">
-\[f(x) - f(x^*) \approx \frac{1}{2}(x - x^*)^2 f''(x^*), \quad \text{for } x \text{ near } x^*\]</div>
-<p>This reasoning generalizes to vector-valued optimization using the Hessian.</p>
+\[
+f(x) = f(x^*) + f'(x^*)(x-x^*) + \tfrac12 f''(\xi)\,(x-x^*)^2.
+\]</div>
+<p>This is also known as the (scalar version of) <strong>Mean Value Theorem (MVT)</strong>.</p>
+<p>From the first-order condition, <span class="math notranslate nohighlight">\(f'(x^*)=0\)</span>.  By continuity of <span class="math notranslate nohighlight">\(f''\)</span> and the fact that <span class="math notranslate nohighlight">\(f''(x^*)&gt;0\)</span>, there exists a neighborhood <span class="math notranslate nohighlight">\(U\)</span> of <span class="math notranslate nohighlight">\(x^*\)</span> such that <span class="math notranslate nohighlight">\(f''(\xi) \ge \mu &gt; 0\)</span> for all <span class="math notranslate nohighlight">\(\xi\in U\)</span>.<br />
+Thus, for <span class="math notranslate nohighlight">\(x \in U\setminus\{x^*\}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) - f(x^*) \;\ge\; \tfrac{\mu}{2}(x-x^*)^2 \;&gt;\; 0,
+\]</div>
+<p>which proves <span class="math notranslate nohighlight">\(x^*\)</span> is a <strong>strict local minimizer</strong>.</p>
+<p>If <span class="math notranslate nohighlight">\(d\ge 2\)</span>, by the multivariate Taylor’s theorem, for <span class="math notranslate nohighlight">\(\vh\)</span> sufficiently small there exists <span class="math notranslate nohighlight">\(\theta\in(0,1)\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vw^*+\vh) = f(\vw^*) + \nabla f(\vw^*)^\top \vh + \tfrac12 \vh^\top \nabla^2 f(\vw^*+\theta\vh)\, \vh.
+\]</div>
+<p>This is also known as the (vector version of) MVT.</p>
+<p>From the first-order condition, <span class="math notranslate nohighlight">\(\nabla f(\vw^*)=\vzero\)</span>.   Since <span class="math notranslate nohighlight">\(\nabla^2 f(\vw^*) \succ 0\)</span> and is continuous, there exists <span class="math notranslate nohighlight">\(\mu&gt;0\)</span> and a neighborhood <span class="math notranslate nohighlight">\(\mathcal N\)</span> of <span class="math notranslate nohighlight">\(\vw^*\)</span> such that <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) \succeq \mu I\)</span> for all <span class="math notranslate nohighlight">\(\vw\in\mathcal N\)</span>.  Therefore, for <span class="math notranslate nohighlight">\(\vh\)</span> small with <span class="math notranslate nohighlight">\(\vw^*+\vh\in\mathcal N\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vw^*+\vh) - f(\vw^*) \;\ge\; \tfrac{\mu}{2}\|\vh\|^2 \;&gt;\; 0 \quad (\vh \neq 0),
+\]</div>
+<p>which proves <span class="math notranslate nohighlight">\(\vw^*\)</span> is a strict local minimizer.</p>
+</div>
 </section>
+<section id="examples-using-optimality-conditions">
+<h3>Examples: Using Optimality Conditions<a class="headerlink" href="#examples-using-optimality-conditions" title="Link to this heading">#</a></h3>
+<section id="example-1-scalar-quadratic-global-minimum">
+<h4>Example 1: Scalar quadratic (global minimum)<a class="headerlink" href="#example-1-scalar-quadratic-global-minimum" title="Link to this heading">#</a></h4>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = (x-2)^2.
+\]</div>
+<ul class="simple">
+<li><p>First-order condition:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+f'(x) = 2(x-2) = 0 \quad\Rightarrow\quad x^* = 2.
+\]</div>
+<ul class="simple">
+<li><p>Second-order condition:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+f''(x) = 2 &gt; 0.
+\]</div>
+<p>Conclusion: <span class="math notranslate nohighlight">\(x^*=2\)</span> is a <strong>strict local (and global) minimizer</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="example-2-scalar-quartic-flat-at-minimum">
+<h4>Example 2: Scalar quartic (flat at minimum)<a class="headerlink" href="#example-2-scalar-quartic-flat-at-minimum" title="Link to this heading">#</a></h4>
+<p>Let
+$<span class="math notranslate nohighlight">\(
+f(x) = x^4.
+\)</span>$</p>
+<ul class="simple">
+<li><p>First-order condition: <span class="math notranslate nohighlight">\(f'(x) = 4x^3 = 0 \quad\Rightarrow\quad x^* = 0\)</span>.</p></li>
+<li><p>Second-order condition: <span class="math notranslate nohighlight">\(f''(x) = 12x^2 \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
+<li><p>Necessary conditions hold, but <strong>sufficient</strong> condition is inconclusive.
+Checking directly: <span class="math notranslate nohighlight">\(f(x) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>, so <span class="math notranslate nohighlight">\(x^* = 0\)</span> is indeed a <strong>global minimum</strong>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example-3-scalar-cubic-saddle-inflection-point">
+<h4>Example 3: Scalar cubic (saddle / inflection point)<a class="headerlink" href="#example-3-scalar-cubic-saddle-inflection-point" title="Link to this heading">#</a></h4>
+<p>Let
+$<span class="math notranslate nohighlight">\(
+f(x) = x^3.
+\)</span>$</p>
+<ul class="simple">
+<li><p>First-order: <span class="math notranslate nohighlight">\(f'(x) = 3x^2 = 0 \quad\Rightarrow\quad x^* = 0\)</span>.</p></li>
+<li><p>Second-order: <span class="math notranslate nohighlight">\(f''(x) = 6x \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
+<li><p>Test inconclusive. Checking: <span class="math notranslate nohighlight">\(f(x) &lt; 0\)</span> for <span class="math notranslate nohighlight">\(x &lt; 0\)</span> and <span class="math notranslate nohighlight">\(f(x) &gt; 0\)</span> for <span class="math notranslate nohighlight">\(x &gt; 0\)</span> — so <span class="math notranslate nohighlight">\(x^* = 0\)</span> is <strong>not</strong> a minimum.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example-4-multivariate-quadratic-positive-definite-hessian">
+<h4>Example 4: Multivariate quadratic (positive definite Hessian)<a class="headerlink" href="#example-4-multivariate-quadratic-positive-definite-hessian" title="Link to this heading">#</a></h4>
+<p>Let
+$<span class="math notranslate nohighlight">\(
+f(\vw) = \tfrac12 \vw^\top Q \vw - \vb^\top \vw,
+\)</span><span class="math notranslate nohighlight">\(
+where
+\)</span><span class="math notranslate nohighlight">\(
+Q = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 4 \end{bmatrix}, \quad \vb = \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
+\)</span>$</p>
+<ul class="simple">
+<li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f(\vw) = Q\vw - \vb = 0 \quad\Rightarrow\quad \vw^* = Q^{-1} \vb = (1, 1)^\top\)</span>.</p></li>
+<li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) = Q \succ 0\)</span> (positive definite).
+Conclusion: <span class="math notranslate nohighlight">\(\vw^* = (1,1)^\top\)</span> is a <strong>strict local (and global) minimizer</strong>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example-5-multivariate-saddle-point">
+<h4>Example 5: Multivariate saddle point<a class="headerlink" href="#example-5-multivariate-saddle-point" title="Link to this heading">#</a></h4>
+<p>Let
+$<span class="math notranslate nohighlight">\(
+f(x_1, x_2) = x_1^2 - x_2^2.
+\)</span>$</p>
+<ul class="simple">
+<li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f = (2x_1, -2x_2)^\top = 0 \quad\Rightarrow\quad (x_1, x_2) = (0,0)\)</span>.</p></li>
+<li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; -2 \end{bmatrix}\)</span> — <strong>indefinite</strong>.
+Conclusion: <span class="math notranslate nohighlight">\((0,0)\)</span> is a <strong>saddle point</strong>, not a minimum.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example-6-convex-function-first-order-sufficiency">
+<h4>Example 6: Convex function (first-order sufficiency)<a class="headerlink" href="#example-6-convex-function-first-order-sufficiency" title="Link to this heading">#</a></h4>
+<p>Let
+$<span class="math notranslate nohighlight">\(
+f(\vw) = \|\vw\|_2^2.
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex and differentiable.</p></li>
+<li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f(\vw) = 2\vw = 0 \quad\Rightarrow\quad \vw^* = \vzero\)</span>.
+Conclusion: In the convex case, first-order condition alone guarantees <strong>global optimality</strong>.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
 <section id="why-are-optimality-conditions-important">
 <h3>Why Are Optimality Conditions Important?<a class="headerlink" href="#why-are-optimality-conditions-important" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -463,6 +644,60 @@ $<span class="math notranslate nohighlight">\(
 <li><p>They guide algorithmic design: most algorithms search for points satisfying <span class="math notranslate nohighlight">\(\nabla f(\vw) = 0\)</span> (approximately).</p></li>
 <li><p>In convex problems, first-order conditions are sufficient, making them very powerful. More to come later in subsection <strong>[xxxx]</strong></p></li>
 </ul>
+</section>
+<section id="practice-problems-applying-optimality-conditions">
+<h3>Practice Problems: Applying Optimality Conditions<a class="headerlink" href="#practice-problems-applying-optimality-conditions" title="Link to this heading">#</a></h3>
+<p>Try the following problems. For each, <strong>(a)</strong> find all stationary points by solving the first-order condition, <strong>(b)</strong> apply the second-order condition to classify them, and <strong>(c)</strong> verify by direct inspection if needed.</p>
+<hr class="docutils" />
+<p><strong>Problem 1 (Scalar cubic-quadratic)</strong><br />
+$<span class="math notranslate nohighlight">\(
+f(x) = x^3 - 3x^2 + 4
+\)</span>$</p>
+<hr class="docutils" />
+<p><strong>Problem 2 (Scalar quartic with multiple minima)</strong><br />
+$<span class="math notranslate nohighlight">\(
+f(x) = x^4 - 4x^2
+\)</span>$</p>
+<hr class="docutils" />
+<p><strong>Problem 3 (Multivariate quadratic)</strong><br />
+$$
+f(\vw) = \tfrac12 \vw^\top
+\begin{bmatrix}
+4 &amp; 1 \
+1 &amp; 2
+\end{bmatrix} \vw</p>
+<ul class="simple">
+<li><p>\begin{bmatrix}
+4 \ 2
+\end{bmatrix}^\top \vw
+$$</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Problem 4 (Saddle point in <span class="math notranslate nohighlight">\(\RR^2\)</span>)</strong><br />
+$<span class="math notranslate nohighlight">\(
+f(x_1, x_2) = x_1^2 - 4x_2^2
+\)</span>$</p>
+<hr class="docutils" />
+<p><strong>Problem 5 (Convex norm function)</strong><br />
+$<span class="math notranslate nohighlight">\(
+f(\vw) = \|\vw - \vone\|_2^2
+\)</span>$</p>
+<hr class="docutils" />
+<p><strong>Problem 6 (Flat region)</strong><br />
+$<span class="math notranslate nohighlight">\(
+f(x) = \begin{cases}
+0 &amp; |x| \le 1 \\
+(x-1)^2 &amp; x &gt; 1 \\
+(x+1)^2 &amp; x &lt; -1
+\end{cases}
+\)</span><span class="math notranslate nohighlight">\(  
+_Note: Not differentiable at \)</span>x=\pm 1$._</p>
+<hr class="docutils" />
+<p><strong>Instructions:</strong><br />
+For each problem:</p>
+<ol class="arabic simple">
+<li><p><strong>First-order test:</strong> Solve <span class="math notranslate nohighlight">\(\nabla f(\vw) = 0\)</span> (or <span class="math notranslate nohighlight">\(f'(x)=0\)</span> in 1D)</p></li>
+</ol>
 </section>
 </section>
 </section>
@@ -536,8 +771,18 @@ $<span class="math notranslate nohighlight">\(
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimality-conditions">Optimality Conditions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-scalar-case-example">A Scalar Case Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sufficient-optimality-conditions">Sufficient Optimality Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-using-optimality-conditions">Examples: Using Optimality Conditions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-scalar-quadratic-global-minimum">Example 1: Scalar quadratic (global minimum)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-scalar-quartic-flat-at-minimum">Example 2: Scalar quartic (flat at minimum)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-scalar-cubic-saddle-inflection-point">Example 3: Scalar cubic (saddle / inflection point)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-multivariate-quadratic-positive-definite-hessian">Example 4: Multivariate quadratic (positive definite Hessian)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-multivariate-saddle-point">Example 5: Multivariate saddle point</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-convex-function-first-order-sufficiency">Example 6: Convex function (first-order sufficiency)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-optimality-conditions-important">Why Are Optimality Conditions Important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-problems-applying-optimality-conditions">Practice Problems: Applying Optimality Conditions</a></li>
 </ul>
 </li>
 </ul>
