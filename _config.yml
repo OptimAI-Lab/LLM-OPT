@@ -20,6 +20,7 @@ sphinx:
           CC: "\\mathbb{C}"
           ZZ: "\\mathbb{Z}"
           Var: "\\mathrm{Var}"
+          sign: "\\mathrm{sign}"
           KL: ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2]
           vA: "\\mathbf{A}"
           vB: "\\mathbf{B}"
