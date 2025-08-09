@@ -345,6 +345,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimality-conditions">Optimality Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-scalar-case-example">A Scalar Case Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-optimality-conditions-important">Why Are Optimality Conditions Important?</a></li>
 </ul>
 </li>
 </ul>
@@ -362,7 +364,7 @@ document.write(`
 <h1>Section 2.1: Unconstrained Optimization<a class="headerlink" href="#section-2-1-unconstrained-optimization" title="Link to this heading">#</a></h1>
 <section id="unconstrained-optimization-definitions-and-first-principles">
 <h2>2.1 Unconstrained Optimization: Definitions and First Principles<a class="headerlink" href="#unconstrained-optimization-definitions-and-first-principles" title="Link to this heading">#</a></h2>
-<p>In this chapter, we begin our study of optimization algorithms by focusing on the unconstrained case, where the optimization variable can be chosen from the entire space  <span class="math notranslate nohighlight">\(\RR^d\)</span>.</p>
+<p>In this chapter, we begin our study of optimization algorithms by focusing on the unconstrained case, where the optimization variable can be chosen from the entire space  <span class="math notranslate nohighlight">\(\RR^d\)</span>. That is, <span class="math notranslate nohighlight">\(\bw\)</span> can be chosen from the entire <span class="math notranslate nohighlight">\(\RR^d\)</span> space.</p>
 <section id="problem-setup">
 <h3>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
 <p>The general form of an unconstrained optimization problem is:</p>
@@ -424,6 +426,43 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 \]</div>
 <p>This second-order necessary condition defines a (second-order) stationary points. They are candidates for global and local minimum solutions.</p>
 </div>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (directional-derivative argument)</p>
+<p>Let <span class="math notranslate nohighlight">\(d\in\RR^d\)</span> be any direction and define <span class="math notranslate nohighlight">\(g(\alpha)=f(\vw^*+\alpha d)\)</span>.<br />
+Since <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\alpha=0\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(g\)</span>.<br />
+Because <span class="math notranslate nohighlight">\(f\)</span> is <span class="math notranslate nohighlight">\(\mathcal C^1\)</span>, <span class="math notranslate nohighlight">\(g\)</span> is differentiable and</p>
+<div class="math notranslate nohighlight">
+\[
+g'(0)=\nabla f(\vw^*)^\top d.
+\]</div>
+<p>Local minimality of <span class="math notranslate nohighlight">\(g\)</span> at <span class="math notranslate nohighlight">\(0\)</span> implies <span class="math notranslate nohighlight">\(g'(0)=0\)</span>. As <span class="math notranslate nohighlight">\(d\)</span> is arbitrary, we must have <span class="math notranslate nohighlight">\(\nabla f(\vw^*)=\vzero\)</span>.</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (Second-Order <strong>Necessary</strong> Condition)</p>
+<p>If <span class="math notranslate nohighlight">\(\vw^*\)</span> is a <strong>local minimizer</strong> of a <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> function <span class="math notranslate nohighlight">\(f\)</span>, then
+$<span class="math notranslate nohighlight">\(
+\nabla f(\vw^*)=\vzero, \qquad \nabla^2 f(\vw^*) \succeq 0.
+\)</span>$</p>
+</div>
+</section>
+<section id="a-scalar-case-example">
+<h3>A Scalar Case Example<a class="headerlink" href="#a-scalar-case-example" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(f: \RR \to \RR\)</span> be twice differentiable. Suppose <span class="math notranslate nohighlight">\(x^*\)</span> satisfies:</p>
+<div class="math notranslate nohighlight">
+\[f'(x^*) = 0, \quad f''(x^*) &gt; 0\]</div>
+<p>Then <span class="math notranslate nohighlight">\(x^*\)</span> is a local minimizer. This follows from:</p>
+<div class="math notranslate nohighlight">
+\[f(x) - f(x^*) \approx \frac{1}{2}(x - x^*)^2 f''(x^*), \quad \text{for } x \text{ near } x^*\]</div>
+<p>This reasoning generalizes to vector-valued optimization using the Hessian.</p>
+</section>
+<section id="why-are-optimality-conditions-important">
+<h3>Why Are Optimality Conditions Important?<a class="headerlink" href="#why-are-optimality-conditions-important" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>They provide verification tools — necessary conditions rule out non-optimal points; sufficient conditions certify local optima.</p></li>
+<li><p>They are used to design stopping criteria in algorithms: e.g., when <span class="math notranslate nohighlight">\(\|\nabla f(\vw)\| \le \text{tolerance}\)</span>.</p></li>
+<li><p>They guide algorithmic design: most algorithms search for points satisfying <span class="math notranslate nohighlight">\(\nabla f(\vw) = 0\)</span> (approximately).</p></li>
+<li><p>In convex problems, first-order conditions are sufficient, making them very powerful. More to come later in subsection <strong>[xxxx]</strong></p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -497,6 +536,8 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimality-conditions">Optimality Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-scalar-case-example">A Scalar Case Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-optimality-conditions-important">Why Are Optimality Conditions Important?</a></li>
 </ul>
 </li>
 </ul>
