@@ -116,3 +116,9 @@ sphinx:
     bibtex_reference_style: author_year  # or label
 execute:
   execute_notebooks: "off" # ["off", "auto"]
+
+latex:
+  latex_elements:
+    maketitle: ''
+html:
+  use_numbered_headings: true
