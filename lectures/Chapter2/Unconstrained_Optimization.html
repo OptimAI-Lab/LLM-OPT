@@ -340,7 +340,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unconstrained-optimization-definitions-and-first-principles">2.1 Unconstrained Optimization: Definitions and First Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unconstrained-optimization-definitions-and-first-principles">2.1.1 Unconstrained Optimization: Definitions and First Principles</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">Problem Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
@@ -352,10 +352,11 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-scalar-cubic-saddle-inflection-point">Example 3: Scalar cubic (saddle / inflection point)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-multivariate-quadratic-positive-definite-hessian">Example 4: Multivariate quadratic (positive definite Hessian)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-multivariate-saddle-point">Example 5: Multivariate saddle point</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-convex-function-first-order-sufficiency">Example 6: Convex function (first-order sufficiency)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-optimality-conditions-important">Why Are Optimality Conditions Important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-does-a-local-minimum-become-a-global-minimum">When Does a Local Minimum Become a Global Minimum?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convexity-concavity-and-related-concepts">2.2.2 Convexity, Concavity, and Related Concepts</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-problems-applying-optimality-conditions">Practice Problems: Applying Optimality Conditions</a></li>
 </ul>
 </li>
@@ -373,8 +374,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="section-2-1-unconstrained-optimization">
 <h1>Section 2.1: Unconstrained Optimization<a class="headerlink" href="#section-2-1-unconstrained-optimization" title="Link to this heading">#</a></h1>
 <section id="unconstrained-optimization-definitions-and-first-principles">
-<h2>2.1 Unconstrained Optimization: Definitions and First Principles<a class="headerlink" href="#unconstrained-optimization-definitions-and-first-principles" title="Link to this heading">#</a></h2>
-<p>In this chapter, we begin our study of optimization algorithms by focusing on the unconstrained case, where the optimization variable can be chosen from the entire space  <span class="math notranslate nohighlight">\(\RR^d\)</span>. That is, <span class="math notranslate nohighlight">\(\bw\)</span> can be chosen from the entire <span class="math notranslate nohighlight">\(\RR^d\)</span> space.</p>
+<h2>2.1.1 Unconstrained Optimization: Definitions and First Principles<a class="headerlink" href="#unconstrained-optimization-definitions-and-first-principles" title="Link to this heading">#</a></h2>
+<p>In this chapter, we begin our study of optimization algorithms by focusing on the unconstrained case, where the optimization variable can be chosen from the entire space  <span class="math notranslate nohighlight">\(\RR^d\)</span>. That is, <span class="math notranslate nohighlight">\(\vw\)</span> can be chosen from the entire <span class="math notranslate nohighlight">\(\RR^d\)</span> space.</p>
 <section id="problem-setup">
 <h3>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
 <p>The general form of an unconstrained optimization problem is:</p>
@@ -384,7 +385,6 @@ document.write(`
 </section>
 <section id="local-and-global-optimal-solutions">
 <h3>Local and Global Optimal Solutions<a class="headerlink" href="#local-and-global-optimal-solutions" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> be a continuous function.</p>
 <div class="tip admonition">
 <p class="admonition-title">Definition: Local and Global Optimal Solutions</p>
 <p>Let <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> be a continuous function.</p>
@@ -403,7 +403,7 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 </section>
 <section id="existence-of-minimizers">
 <h3>Existence of Minimizers<a class="headerlink" href="#existence-of-minimizers" title="Link to this heading">#</a></h3>
-<p>Now let us talk about whether global or local optimal solution exists. Interestingly, e```ven if the objective function is continuous, a minimum may not be attained unless we impose additional structure. For example:</p>
+<p>Now let us talk about whether global or local optimal solution exists. Interestingly, even if the objective function is continuous, a global minimum may not be attained unless we impose additional structure. For example:</p>
 <div class="math notranslate nohighlight">
 \[\inf_{x \in \RR} \exp(-|x|) = 0\]</div>
 <p>But the minimum is never achieved because <span class="math notranslate nohighlight">\(\exp(-|x|) \to 0\)</span> as <span class="math notranslate nohighlight">\(|x| \to \infty\)</span>.</p>
@@ -420,21 +420,21 @@ f(\vw) \ge f(\hat{\vw}) \quad \forall \vw \in \RR^d
 </section>
 <section id="optimality-conditions">
 <h3>Optimality Conditions<a class="headerlink" href="#optimality-conditions" title="Link to this heading">#</a></h3>
-<p>Now we know when the solutions exist, let’s discuss how to identify them. Towards this end, we will discuss both <em>sufficient</em> and <em>necessary</em> conditions for a point being a local optimal solution.</p>
+<p>Now we know when the solutions exist, let’s discuss how to identify them. Towards this end, we will discuss both <em>sufficient</em> and <em>necessary</em> conditions for a solution to be a local optimal solution.</p>
 <div class="important admonition">
 <p class="admonition-title">First-order and second-order necessary condition</p>
 <p>If <span class="math notranslate nohighlight">\(f\)</span> is continuously differentiable, and let <span class="math notranslate nohighlight">\(\vw^*\)</span> be a local minimizer. Then the following holds:</p>
 <div class="math notranslate nohighlight">
 \[
-\nabla f(\vw^*) = 0
+\nabla f(\vw^*) = 0.
 \]</div>
 <p>This first-order necessary condition defines a (first-order) stationary points. They are candidates for global/local minmum, maximum solutions, as well as saddle points.</p>
 <p>Further, suppose that <span class="math notranslate nohighlight">\(f\)</span> is twice continuously differentiabe. Suppose <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer, then:</p>
 <div class="math notranslate nohighlight">
 \[
-\nabla f(\vw^*) = 0, \quad \nabla^2 f(\vw^*) \succeq 0
+\nabla f(\vw^*) = 0, \quad \nabla^2 f(\vw^*) \succeq 0.
 \]</div>
-<p>This second-order necessary condition defines a (second-order) stationary points. They are candidates for global and local minimum solutions.</p>
+<p>This second-order necessary condition, together with the first-order condition, defines a (second-order) stationary points. They are candidates for global and local minimum solutions.</p>
 </div>
 <div class="dropdown admonition">
 <p class="admonition-title">Proof (First-order <strong>Necessary</strong> Condition)</p>
@@ -567,10 +567,11 @@ f''(x) = 2 &gt; 0.
 <hr class="docutils" />
 <section id="example-2-scalar-quartic-flat-at-minimum">
 <h4>Example 2: Scalar quartic (flat at minimum)<a class="headerlink" href="#example-2-scalar-quartic-flat-at-minimum" title="Link to this heading">#</a></h4>
-<p>Let
-$<span class="math notranslate nohighlight">\(
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[
 f(x) = x^4.
-\)</span>$</p>
+\]</div>
 <ul class="simple">
 <li><p>First-order condition: <span class="math notranslate nohighlight">\(f'(x) = 4x^3 = 0 \quad\Rightarrow\quad x^* = 0\)</span>.</p></li>
 <li><p>Second-order condition: <span class="math notranslate nohighlight">\(f''(x) = 12x^2 \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
@@ -581,61 +582,51 @@ Checking directly: <span class="math notranslate nohighlight">\(f(x) \ge 0\)</sp
 <hr class="docutils" />
 <section id="example-3-scalar-cubic-saddle-inflection-point">
 <h4>Example 3: Scalar cubic (saddle / inflection point)<a class="headerlink" href="#example-3-scalar-cubic-saddle-inflection-point" title="Link to this heading">#</a></h4>
-<p>Let
-$<span class="math notranslate nohighlight">\(
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[
 f(x) = x^3.
-\)</span>$</p>
+\]</div>
 <ul class="simple">
 <li><p>First-order: <span class="math notranslate nohighlight">\(f'(x) = 3x^2 = 0 \quad\Rightarrow\quad x^* = 0\)</span>.</p></li>
 <li><p>Second-order: <span class="math notranslate nohighlight">\(f''(x) = 6x \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
-<li><p>Test inconclusive. Checking: <span class="math notranslate nohighlight">\(f(x) &lt; 0\)</span> for <span class="math notranslate nohighlight">\(x &lt; 0\)</span> and <span class="math notranslate nohighlight">\(f(x) &gt; 0\)</span> for <span class="math notranslate nohighlight">\(x &gt; 0\)</span> — so <span class="math notranslate nohighlight">\(x^* = 0\)</span> is <strong>not</strong> a minimum.</p></li>
+<li><p>Test inconclusive. Checking: <span class="math notranslate nohighlight">\(f(x) &lt; 0\)</span> for <span class="math notranslate nohighlight">\(x &lt; 0\)</span> and <span class="math notranslate nohighlight">\(f(x) &gt; 0\)</span> for <span class="math notranslate nohighlight">\(x &gt; 0\)</span>. This implies that <span class="math notranslate nohighlight">\(x^* = 0\)</span> is <strong>not</strong> a (local)minimum.</p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="example-4-multivariate-quadratic-positive-definite-hessian">
 <h4>Example 4: Multivariate quadratic (positive definite Hessian)<a class="headerlink" href="#example-4-multivariate-quadratic-positive-definite-hessian" title="Link to this heading">#</a></h4>
-<p>Let
-$<span class="math notranslate nohighlight">\(
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[
 f(\vw) = \tfrac12 \vw^\top Q \vw - \vb^\top \vw,
-\)</span><span class="math notranslate nohighlight">\(
-where
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 Q = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 4 \end{bmatrix}, \quad \vb = \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
-\)</span>$</p>
+\end{split}\]</div>
 <ul class="simple">
 <li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f(\vw) = Q\vw - \vb = 0 \quad\Rightarrow\quad \vw^* = Q^{-1} \vb = (1, 1)^\top\)</span>.</p></li>
-<li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) = Q \succ 0\)</span> (positive definite).
-Conclusion: <span class="math notranslate nohighlight">\(\vw^* = (1,1)^\top\)</span> is a <strong>strict local (and global) minimizer</strong>.</p></li>
+<li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) = Q \succ 0\)</span> (positive definite).</p></li>
 </ul>
+<p>Conclusion: <span class="math notranslate nohighlight">\(\vw^* = (1,1)^\top\)</span> is a <strong>strict local (and global) minimizer</strong>.</p>
 </section>
 <hr class="docutils" />
 <section id="example-5-multivariate-saddle-point">
 <h4>Example 5: Multivariate saddle point<a class="headerlink" href="#example-5-multivariate-saddle-point" title="Link to this heading">#</a></h4>
-<p>Let
-$<span class="math notranslate nohighlight">\(
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[
 f(x_1, x_2) = x_1^2 - x_2^2.
-\)</span>$</p>
+\]</div>
 <ul class="simple">
 <li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f = (2x_1, -2x_2)^\top = 0 \quad\Rightarrow\quad (x_1, x_2) = (0,0)\)</span>.</p></li>
-<li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; -2 \end{bmatrix}\)</span> — <strong>indefinite</strong>.
-Conclusion: <span class="math notranslate nohighlight">\((0,0)\)</span> is a <strong>saddle point</strong>, not a minimum.</p></li>
+<li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; -2 \end{bmatrix}\)</span>. Noe that this matrix is neither a positive nor a negative definite matrix.</p></li>
 </ul>
-</section>
-<hr class="docutils" />
-<section id="example-6-convex-function-first-order-sufficiency">
-<h4>Example 6: Convex function (first-order sufficiency)<a class="headerlink" href="#example-6-convex-function-first-order-sufficiency" title="Link to this heading">#</a></h4>
-<p>Let
-$<span class="math notranslate nohighlight">\(
-f(\vw) = \|\vw\|_2^2.
-\)</span>$</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex and differentiable.</p></li>
-<li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f(\vw) = 2\vw = 0 \quad\Rightarrow\quad \vw^* = \vzero\)</span>.
-Conclusion: In the convex case, first-order condition alone guarantees <strong>global optimality</strong>.</p></li>
-</ul>
+<p>Conclusion: <span class="math notranslate nohighlight">\((0,0)\)</span> is a <strong>saddle point</strong>, not a minimum.</p>
 </section>
 </section>
-<hr class="docutils" />
 <section id="why-are-optimality-conditions-important">
 <h3>Why Are Optimality Conditions Important?<a class="headerlink" href="#why-are-optimality-conditions-important" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -645,59 +636,137 @@ Conclusion: In the convex case, first-order condition alone guarantees <strong>g
 <li><p>In convex problems, first-order conditions are sufficient, making them very powerful. More to come later in subsection <strong>[xxxx]</strong></p></li>
 </ul>
 </section>
+<section id="when-does-a-local-minimum-become-a-global-minimum">
+<h3>When Does a Local Minimum Become a Global Minimum?<a class="headerlink" href="#when-does-a-local-minimum-become-a-global-minimum" title="Link to this heading">#</a></h3>
+<p>In general, a <strong>local minimum</strong> solution needs not be a <strong>global minimum</strong>.   However, for some special classes of optimization problems, <em>every</em> local minimum is guaranteed to be global.   Knowing these cases is important because it means <strong>checking local optimality conditions is enough</strong> to guarantee global optimality.</p>
+<ol class="arabic simple">
+<li><p><strong>Convex Problems</strong></p></li>
+<li><p><strong>Unconstrained Quadratic Programs (UQPs)</strong></p></li>
+</ol>
+<hr class="docutils" />
+<div class="tip admonition">
+<p class="admonition-title">Definition: Convex Problem</p>
+<p>An <strong>optimization problem</strong> is called <strong>convex</strong> if:</p>
+<ol class="arabic">
+<li><p>The <strong>feasible set</strong> <span class="math notranslate nohighlight">\(\mathcal{W}\)</span> is a <strong>convex set</strong>, meaning<br />
+for any <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and any <span class="math notranslate nohighlight">\(\lambda \in [0,1]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+   \lambda \vw_1 + (1-\lambda)\vw_2 \in \mathcal{W}.
+   \]</div>
+</li>
+<li><p>The <strong>objective function</strong> <span class="math notranslate nohighlight">\(f:\mathcal{W}\to\RR\)</span> is <strong>convex</strong>, meaning<br />
+for all <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and all <span class="math notranslate nohighlight">\(\lambda\in[0,1]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+   f\big(\lambda\vw_1 + (1-\lambda)\vw_2\big)
+   \ \le\ \lambda f(\vw_1) + (1-\lambda) f(\vw_2).
+   \]</div>
+</li>
+</ol>
+</div>
+<hr class="docutils" />
+<p><strong>Special case (unconstrained):</strong><br />
+If <span class="math notranslate nohighlight">\(\mathcal{W}=\RR^d\)</span>, a convex problem reduces to minimizing a convex function over the entire space.</p>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>Intuitively, a convex function ‘holds water’.</p></li>
+<li><p>Further, if <span class="math notranslate nohighlight">\(f\)</span> is second-order differentiable, then convexity ⇔ <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) \succeq 0\)</span> for all <span class="math notranslate nohighlight">\(\vw\)</span> in the domain.</p></li>
+<li><p>Linear functions are both convex and concave.</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Convex Problems: Local ⇒ Global</p>
+<p>If <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is <strong>convex</strong>, then <strong>every local minimizer is a global minimizer</strong>.</p>
+<p>Clearly, if <span class="math notranslate nohighlight">\(\bar{\vw}\)</span> were local but not global, there exists <span class="math notranslate nohighlight">\(\vw\)</span> with <span class="math notranslate nohighlight">\(f(\vw)&lt;f(\bar{\vw})\)</span>. By convexity,</p>
+<div class="math notranslate nohighlight">
+\[
+f\big(c\,\bar{\vw}+(1-c)\vw\big)\le c\,f(\bar{\vw})+(1-c)f(\vw)&lt; f(\bar{\vw}),
+\]</div>
+<p>contradicting local optimality at <span class="math notranslate nohighlight">\(\bar{\vw}\)</span>.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">UQPs: Local ⇒ Global (and uniqueness when <span class="math notranslate nohighlight">\(Q\succ 0\)</span>)</p>
+<p>Consider the quadratic problem</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vw)=\tfrac12\,\vw^\top Q\,\vw+\vb^\top \vw + c,\quad Q=Q^\top.
+\]</div>
+<ul class="simple">
+<li><p><strong>First-Order Necessary Condition:</strong> <span class="math notranslate nohighlight">\(\nabla f(\vw)=Q\vw+\vb=0\)</span>.</p></li>
+<li><p><strong>Second-Order Necessary Condition</strong> <span class="math notranslate nohighlight">\(\nabla^2f(\vw) = Q\succeq 0\)</span>.</p></li>
+<li><p>So every local optimal solution has to satisfy the above two conditions.</p></li>
+<li><p>However, note that if <span class="math notranslate nohighlight">\(Q\succeq 0\)</span>, then the problem is convex, local min == global min.</p></li>
+<li><p>The above necessary condition is also sufficient.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(Q\succ 0\)</span> (PD), the minimizer is <strong>unique</strong> (strong convexity).</p></li>
+</ul>
+</div>
+</section>
+<section id="convexity-concavity-and-related-concepts">
+<h3>2.2.2 Convexity, Concavity, and Related Concepts<a class="headerlink" href="#convexity-concavity-and-related-concepts" title="Link to this heading">#</a></h3>
+<p>Convexity is a fundamental concept in optimization. Many powerful results — such as “local minima are global” — rely on it.</p>
+<hr class="docutils" />
+<div class="tip admonition">
+<p class="admonition-title">Definition: Convex Function</p>
+<p>A function <span class="math notranslate nohighlight">\(f:\mathcal{W} \to \RR\)</span> is <strong>convex</strong> if for all <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and all <span class="math notranslate nohighlight">\(\lambda \in [0,1]\)</span>,
+$<span class="math notranslate nohighlight">\(
+f\big(\lambda\vw_1 + (1-\lambda)\vw_2\big) 
+\ \le\ \lambda f(\vw_1) + (1-\lambda) f(\vw_2).
+\)</span><span class="math notranslate nohighlight">\(
+If the inequality is strict whenever \)</span>\vw_1\neq \vw_2<span class="math notranslate nohighlight">\( and \)</span>\lambda\in(0,1)<span class="math notranslate nohighlight">\(, \)</span>f$ is <strong>strictly convex</strong>.</p>
+<p>Intuition: The line segment between any two points on the graph of <span class="math notranslate nohighlight">\(f\)</span> lies <strong>above</strong> the graph.</p>
+</div>
+</section>
 <section id="practice-problems-applying-optimality-conditions">
 <h3>Practice Problems: Applying Optimality Conditions<a class="headerlink" href="#practice-problems-applying-optimality-conditions" title="Link to this heading">#</a></h3>
 <p>Try the following problems. For each, <strong>(a)</strong> find all stationary points by solving the first-order condition, <strong>(b)</strong> apply the second-order condition to classify them, and <strong>(c)</strong> verify by direct inspection if needed.</p>
 <hr class="docutils" />
-<p><strong>Problem 1 (Scalar cubic-quadratic)</strong><br />
-$<span class="math notranslate nohighlight">\(
+<p><strong>Problem 1 (Scalar cubic-quadratic)</strong></p>
+<div class="math notranslate nohighlight">
+\[
 f(x) = x^3 - 3x^2 + 4
-\)</span>$</p>
+\]</div>
 <hr class="docutils" />
-<p><strong>Problem 2 (Scalar quartic with multiple minima)</strong><br />
-$<span class="math notranslate nohighlight">\(
+<p><strong>Problem 2 (Scalar quartic with multiple minima)</strong></p>
+<div class="math notranslate nohighlight">
+\[
 f(x) = x^4 - 4x^2
-\)</span>$</p>
+\]</div>
 <hr class="docutils" />
-<p><strong>Problem 3 (Multivariate quadratic)</strong><br />
-$$
-f(\vw) = \tfrac12 \vw^\top
+<p><strong>Problem 3 (Multivariate quadratic)</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f(\vw) = \tfrac12 \vw^\top 
 \begin{bmatrix}
-4 &amp; 1 \
+4 &amp; 1 \\
 1 &amp; 2
-\end{bmatrix} \vw</p>
-<ul class="simple">
-<li><p>\begin{bmatrix}
-4 \ 2
+\end{bmatrix} \vw 
+- \begin{bmatrix}
+4 \\ 2
 \end{bmatrix}^\top \vw
-$$</p></li>
-</ul>
+\end{split}\]</div>
 <hr class="docutils" />
-<p><strong>Problem 4 (Saddle point in <span class="math notranslate nohighlight">\(\RR^2\)</span>)</strong><br />
-$<span class="math notranslate nohighlight">\(
+<p><strong>Problem 4 (Saddle point in <span class="math notranslate nohighlight">\(\RR^2\)</span>)</strong></p>
+<div class="math notranslate nohighlight">
+\[
 f(x_1, x_2) = x_1^2 - 4x_2^2
-\)</span>$</p>
+\]</div>
 <hr class="docutils" />
-<p><strong>Problem 5 (Convex norm function)</strong><br />
-$<span class="math notranslate nohighlight">\(
+<p><strong>Problem 5 (Convex norm function)</strong></p>
+<div class="math notranslate nohighlight">
+\[
 f(\vw) = \|\vw - \vone\|_2^2
-\)</span>$</p>
+\]</div>
 <hr class="docutils" />
-<p><strong>Problem 6 (Flat region)</strong><br />
-$<span class="math notranslate nohighlight">\(
+<p><strong>Problem 6 (Flat region)</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 f(x) = \begin{cases}
 0 &amp; |x| \le 1 \\
 (x-1)^2 &amp; x &gt; 1 \\
 (x+1)^2 &amp; x &lt; -1
 \end{cases}
-\)</span><span class="math notranslate nohighlight">\(  
-_Note: Not differentiable at \)</span>x=\pm 1$._</p>
-<hr class="docutils" />
-<p><strong>Instructions:</strong><br />
-For each problem:</p>
-<ol class="arabic simple">
-<li><p><strong>First-order test:</strong> Solve <span class="math notranslate nohighlight">\(\nabla f(\vw) = 0\)</span> (or <span class="math notranslate nohighlight">\(f'(x)=0\)</span> in 1D)</p></li>
-</ol>
+\end{split}\]</div>
+<p><em>Note: Not differentiable at <span class="math notranslate nohighlight">\(x=\pm 1\)</span>.</em></p>
 </section>
 </section>
 </section>
@@ -766,7 +835,7 @@ For each problem:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unconstrained-optimization-definitions-and-first-principles">2.1 Unconstrained Optimization: Definitions and First Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unconstrained-optimization-definitions-and-first-principles">2.1.1 Unconstrained Optimization: Definitions and First Principles</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">Problem Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-and-global-optimal-solutions">Local and Global Optimal Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-of-minimizers">Existence of Minimizers</a></li>
@@ -778,10 +847,11 @@ For each problem:</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-scalar-cubic-saddle-inflection-point">Example 3: Scalar cubic (saddle / inflection point)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-multivariate-quadratic-positive-definite-hessian">Example 4: Multivariate quadratic (positive definite Hessian)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-multivariate-saddle-point">Example 5: Multivariate saddle point</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-convex-function-first-order-sufficiency">Example 6: Convex function (first-order sufficiency)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-optimality-conditions-important">Why Are Optimality Conditions Important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-does-a-local-minimum-become-a-global-minimum">When Does a Local Minimum Become a Global Minimum?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convexity-concavity-and-related-concepts">2.2.2 Convexity, Concavity, and Related Concepts</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-problems-applying-optimality-conditions">Practice Problems: Applying Optimality Conditions</a></li>
 </ul>
 </li>
