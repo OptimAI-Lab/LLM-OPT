@@ -1,5 +1,8 @@
 format: jb-book
 root: index
+options:
+  numbered: true      # <-- THIS makes the sidebar show 1, 1.1, 1.2, ...
+  maxdepth: 3         # how deep the sidebar expands (H1–H3)
 chapters:
   - file: syllabus
   - file: notations
@@ -21,7 +24,7 @@ chapters:
   - file: lectures/Chapter3/LLM
     title: Introduction to Large Language Models
   - file: lectures/Chapter4/training_algorithms
-    title: Chapter 4 Optimization for Large Language Models
+    title: Optimization for Large Language Models
     # title: Adaptive algorithms
     sections:
       - file: lectures/Chapter4/variants

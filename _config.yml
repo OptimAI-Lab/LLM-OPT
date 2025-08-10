@@ -8,10 +8,25 @@ logo: ""
 #       depth: 2
 bibtex_bibfiles:
   - references.bib
+execute:
+  execute_notebooks: "off" # ["off", "auto"]
+math:
+   equation_numbering: by_section
 sphinx:
   config:
     html_theme: sphinx_book_theme
     copyright: "2025"
+    numfig: true                 # Number figures, tables, equations
+    html_theme_options:
+      use_numbered_headings: true  # Number sections like 1, 1.1, 1.1.1
+    extra_extensions:
+      - sphinx_multitoc_numbering
+    html_theme_options:
+      use_numbered_headings: true
+      numbered_headings_depth: 3       # 1=H1, 2=H1–H2, 3=H1–H3
+      # Make the LEFT SIDEBAR show those same levels (and their numbers)
+      show_nav_level: 3                # pydata-sphinx-theme option
+    bibtex_reference_style: author_year  # or label
     mathjax3_config:
       tex:
         macros:
@@ -111,21 +126,3 @@ sphinx:
           veta: "\\boldsymbol{\\eta}"
           vupsilon: "\\boldsymbol{\\upsilon}"
           vTau: "\\boldsymbol{\\Tau}"
-           
-
-    bibtex_reference_style: author_year  # or label
-execute:
-  execute_notebooks: "off" # ["off", "auto"]
-
-latex:
-  latex_elements:
-    maketitle: ''
-html:
-  use_numbered_headings: true
-
-# sphinx:
-#   config:
-#     numfig: true
-
-math:
-   equation_numbering: by_section
