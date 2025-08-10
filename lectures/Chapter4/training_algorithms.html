@@ -345,7 +345,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">RMSProp</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-and-adamw">Weight decay and AdamW</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-of-the-convergence-of-rmsprop-and-adam">Discussion of the convergence of RMSProp and Adam</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
 </ul>
@@ -667,6 +668,9 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\hat{\vm}^t}{\sqrt{\hat{\vv}^t}+\epsilon}
 \end{align}\end{split}\]</div>
 <p>Adam could be viewed as a double momentum version of sign SGD, where we replace both the numerator and denominator of <a class="reference internal" href="#equation-eq-sign-sgd-2-chap4">(10)</a> by the moving averages.</p>
+</section>
+<section id="weight-decay-and-adamw">
+<h2>Weight decay and AdamW<a class="headerlink" href="#weight-decay-and-adamw" title="Link to this heading">#</a></h2>
 <section id="discussion-of-the-convergence-of-rmsprop-and-adam">
 <h3>Discussion of the convergence of RMSProp and Adam<a class="headerlink" href="#discussion-of-the-convergence-of-rmsprop-and-adam" title="Link to this heading">#</a></h3>
 <p>Despite the great success of RMSProp and Adam, their theoretical behavior is still unclear. In particular, the two momentum hyperparameters (<span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span>) play important roles in the convergence. Intuitively, the larger <span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span> are, the smoother the corresponding <span class="math notranslate nohighlight">\(\vm^t\)</span> and <span class="math notranslate nohighlight">\(\vv^t\)</span> are (since they are closer to <span class="math notranslate nohighlight">\(\vm^{t-1}\)</span> and <span class="math notranslate nohighlight">\(\vv^{t-1}\)</span>). In practice, people usually take <span class="math notranslate nohighlight">\(\beta_1=0.9\)</span> and <span class="math notranslate nohighlight">\(\beta_2=0.999\)</span>, indicating the importance of smooth trajectories of <span class="math notranslate nohighlight">\(\vm^t\)</span> and <span class="math notranslate nohighlight">\(\vv^t\)</span>. In theory however, it is shown that Adam could diverge with the default hyperparameters <span class="math notranslate nohighlight">\(\beta_1=0.9\)</span> and <span class="math notranslate nohighlight">\(\beta_2=0.999\)</span>.</p>
@@ -762,7 +766,8 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">RMSProp</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-and-adamw">Weight decay and AdamW</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-of-the-convergence-of-rmsprop-and-adam">Discussion of the convergence of RMSProp and Adam</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
 </ul>
