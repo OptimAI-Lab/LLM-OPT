@@ -5,6 +5,8 @@ options:
   maxdepth: 3         # how deep the sidebar expands (H1–H3)
 chapters:
   - file: syllabus
+    options:
+      numbered: false
   - file: notations
     # title: Notations and Conventions
     title: Introduction 
