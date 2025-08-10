@@ -703,17 +703,70 @@ f(\vw)=\tfrac12\,\vw^\top Q\,\vw+\vb^\top \vw + c,\quad Q=Q^\top.
 </section>
 <section id="convexity-concavity-and-related-concepts">
 <h3>2.2.2 Convexity, Concavity, and Related Concepts<a class="headerlink" href="#convexity-concavity-and-related-concepts" title="Link to this heading">#</a></h3>
-<p>Convexity is a fundamental concept in optimization. Many powerful results — such as “local minima are global” — rely on it.</p>
+<p>we have briefly discussed the notion of convexity in the previous subsection. Convexity is a fundamental concept in optimization. Many powerful results, such as the “all local minimum solutions are global” discussed in the previous subsection rely on it.</p>
 <hr class="docutils" />
 <div class="tip admonition">
 <p class="admonition-title">Definition: Convex Function</p>
-<p>A function <span class="math notranslate nohighlight">\(f:\mathcal{W} \to \RR\)</span> is <strong>convex</strong> if for all <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and all <span class="math notranslate nohighlight">\(\lambda \in [0,1]\)</span>,
-$<span class="math notranslate nohighlight">\(
+<p>A function <span class="math notranslate nohighlight">\(f:\mathcal{W} \to \RR\)</span> is <strong>convex</strong> if for all <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and all <span class="math notranslate nohighlight">\(\lambda \in [0,1]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
 f\big(\lambda\vw_1 + (1-\lambda)\vw_2\big) 
 \ \le\ \lambda f(\vw_1) + (1-\lambda) f(\vw_2).
-\)</span><span class="math notranslate nohighlight">\(
-If the inequality is strict whenever \)</span>\vw_1\neq \vw_2<span class="math notranslate nohighlight">\( and \)</span>\lambda\in(0,1)<span class="math notranslate nohighlight">\(, \)</span>f$ is <strong>strictly convex</strong>.</p>
-<p>Intuition: The line segment between any two points on the graph of <span class="math notranslate nohighlight">\(f\)</span> lies <strong>above</strong> the graph.</p>
+\]</div>
+<p>If the inequality is strict whenever <span class="math notranslate nohighlight">\(\vw_1\neq \vw_2\)</span> and <span class="math notranslate nohighlight">\(\lambda\in(0,1)\)</span>, <span class="math notranslate nohighlight">\(f\)</span> is <strong>strictly convex</strong>.</p>
+<p>Intuitively, the line segment between any two points on the graph of <span class="math notranslate nohighlight">\(f\)</span> lies <strong>above</strong> the graph.</p>
+</div>
+<p>Some examples:</p>
+<ul class="simple">
+<li><p><strong>Convex:</strong> <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(x^2\)</span>, <span class="math notranslate nohighlight">\(x^4\)</span>, <span class="math notranslate nohighlight">\(\log(1+e^x)\)</span></p></li>
+<li><p><strong>Concave:</strong> <span class="math notranslate nohighlight">\(-x^2\)</span>, <span class="math notranslate nohighlight">\(\log(x)\)</span> (on <span class="math notranslate nohighlight">\(x&gt;0\)</span>)</p></li>
+<li><p><strong>Neither:</strong> <span class="math notranslate nohighlight">\(\sin(x)\)</span>, <span class="math notranslate nohighlight">\(x^3\)</span></p></li>
+<li><p><strong>Both convex and concave:</strong> linear functions</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Properties of the convex functions</p>
+<ul class="simple">
+<li><p>Nonnegative weighted sums of convex functions are convex:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+g(\vw) = a f_1(\vw) + b f_2(\vw), \quad a,b\ge 0
+\]</div>
+<p>is convex if <span class="math notranslate nohighlight">\(f_1, f_2\)</span> are convex.</p>
+<ul class="simple">
+<li><p>The pointwise maximum of convex functions is convex.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(f\)</span> is convex and nondecreasing, and <span class="math notranslate nohighlight">\(g\)</span> is convex, then <span class="math notranslate nohighlight">\(f\circ g\)</span> is convex, where  <span class="math notranslate nohighlight">\(\circ\)</span> indicates function composition.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(f:\RR\to\RR\)</span> is twice differentiable:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(f''(x) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> in its domain.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ <span class="math notranslate nohighlight">\(f''(x) \le 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is <span class="math notranslate nohighlight">\(\mathcal{C}^2\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) \succeq 0\)</span> for all <span class="math notranslate nohighlight">\(\vw\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) \preceq 0\)</span> for all <span class="math notranslate nohighlight">\(\vw\)</span>.</p></li>
+</ul>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Convex sets</p>
+<p>A set <span class="math notranslate nohighlight">\(\mathcal{S} \subseteq \RR^d\)</span> is <strong>convex</strong> if for any <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{S}\)</span> and <span class="math notranslate nohighlight">\(\lambda \in [0,1]\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda \vw_1 + (1-\lambda)\vw_2 \in \mathcal{S}.
+\]</div>
+<p>That is, the line segment between any two points in the set lies entirely within the set.</p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Epigraph amd convexity</p>
+<p>The <strong>epigraph</strong> of a function <span class="math notranslate nohighlight">\(f:\mathcal{W}\to\RR\)</span> is the set
+$<span class="math notranslate nohighlight">\(
+\mathrm{epi}(f) = \{ (\vw, t) \in \mathcal{W}\times\RR \mid f(\vw) \le t \}.
+\)</span>$</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(\mathrm{epi}(f)\)</span> is a convex set.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ its <strong>hypograph</strong> <span class="math notranslate nohighlight">\(\{(\vw,t) \mid f(\vw)\ge t\}\)</span> is convex.</p></li>
+</ul>
 </div>
 </section>
 <section id="practice-problems-applying-optimality-conditions">
