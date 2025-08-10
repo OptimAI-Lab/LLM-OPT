@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction to Optimization &#8212; ML Optimization (Grad)</title>
+    <title>2. Introduction to Optimization &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -62,8 +62,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notations';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction to Optimization" href="lectures/Chapter1/intro.html" />
-    <link rel="prev" title="Syllabus" href="syllabus.html" />
+    <link rel="next" title="2.1. Introduction to Optimization" href="lectures/Chapter1/intro.html" />
+    <link rel="prev" title="1. Syllabus" href="syllabus.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -102,8 +102,8 @@
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -167,31 +167,25 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="index.html">
-                    Welcome to Machine Learning Optimization
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Introduction to Optimization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter1/intro.html">Introduction to Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syllabus.html">1. Syllabus</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">2. Introduction to Optimization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter1/intro.html">2.1. Introduction to Optimization</a></li>
 
-<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter1/course_outline.html">Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter1/course_outline.html">2.3. Course Outline</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="lectures/Chapter2/optimization.html">Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter2/Unconstrained_Optimization.html">Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter2/gradient.html">Gradient Methods</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="lectures/Chapter2/optimization.html">3. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter2/Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter2/gradient.html">3.5. Gradient Methods</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="lectures/Chapter3/LLM.html">Introduction to Large Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lectures/Chapter4/training_algorithms.html">Chapter 4. LLM Training as Large-scale Optimization</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lectures/Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="lectures/Chapter4/training_algorithms.html">5. Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lectures/Chapter4/variants.html">5.2. Variants of adaptive methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">6. References</a></li>
 </ul>
 
     </div>
@@ -343,7 +337,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-optimization">
-<h1>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">2. </span>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
 <p>In this section we provide notations used throughout this book.</p>
 <ul class="simple">
 <li><p>Generic math related symbols</p>
@@ -386,14 +380,14 @@ document.write(`
 \nabla f(x) = \frac{\partial f}{\partial x}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-gradient">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp; = \frac{\partial f}{\partial x} \\
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-eq-gradient" title="Link to this equation">#</a></span>\[\begin{split}\nabla f(x) &amp; = \frac{\partial f}{\partial x} \\
 \nabla f(x) &amp; = \frac{\partial f}{\partial x} \\\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}\nabla f(x) &amp; = \frac{\partial f}{\partial x}  \\
 \nabla f(x) &amp; = \frac{\partial f}{\partial x} \\\end{split}\]</div>
 <p>see also <span class="math notranslate nohighlight">\(\RR^{d}\)</span> and <span class="math notranslate nohighlight">\(\KL{a}{b}\)</span>,</p>
 <div class="math notranslate nohighlight" id="equation-eq-tests">
-<span class="eqno">(2)<a class="headerlink" href="#equation-eq-tests" title="Link to this equation">#</a></span>\[\RR^{d},\ \KL{a}{b}\]</div>
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-eq-tests" title="Link to this equation">#</a></span>\[\RR^{d},\ \KL{a}{b}\]</div>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -434,7 +428,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Syllabus</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Syllabus</p>
       </div>
     </a>
     <a class="right-next"
@@ -442,7 +436,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction to Optimization</p>
+        <p class="prev-next-title"><span class="section-number">2.1. </span>Introduction to Optimization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

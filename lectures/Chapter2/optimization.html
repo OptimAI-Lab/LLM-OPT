@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Optimization Theory &#8212; ML Optimization (Grad)</title>
+    <title>3. Optimization Theory &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -62,8 +62,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/optimization';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Section 2.1: Unconstrained Optimization" href="Unconstrained_Optimization.html" />
-    <link rel="prev" title="Section 1.2: Ourline of the Course" href="../Chapter1/course_outline.html" />
+    <link rel="next" title="3.4. Section 2.1: Unconstrained Optimization" href="Unconstrained_Optimization.html" />
+    <link rel="prev" title="2.3. Section 1.2: Ourline of the Course" href="../Chapter1/course_outline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -102,8 +102,8 @@
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -167,31 +167,25 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
-                    Welcome to Machine Learning Optimization
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">Introduction to Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">1. Syllabus</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">2. Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">2.1. Introduction to Optimization</a></li>
 
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">2.3. Course Outline</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gradient.html">Gradient Methods</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">3. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gradient.html">3.5. Gradient Methods</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">Introduction to Large Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter4/training_algorithms.html">Chapter 4. LLM Training as Large-scale Optimization</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/training_algorithms.html">5. Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">5.2. Variants of adaptive methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">6. References</a></li>
 </ul>
 
     </div>
@@ -340,12 +334,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-analysis">Convergence Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#momentum">Momentum</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nesterov-acceleration">Nesterov Acceleration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-analysis">3.1. Convergence Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#momentum">3.2. Momentum</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nesterov-acceleration">3.2.1. Nesterov Acceleration</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covergence-analysis">covergence analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covergence-analysis">3.3. covergence analysis</a></li>
 </ul>
             </nav>
         </div>
@@ -358,15 +352,15 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="optimization-theory">
-<h1>Optimization Theory<a class="headerlink" href="#optimization-theory" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">3. </span>Optimization Theory<a class="headerlink" href="#optimization-theory" title="Link to this heading">#</a></h1>
 <section id="convergence-analysis">
-<h2>Convergence Analysis<a class="headerlink" href="#convergence-analysis" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.1. </span>Convergence Analysis<a class="headerlink" href="#convergence-analysis" title="Link to this heading">#</a></h2>
 <p><span class="math notranslate nohighlight">\(x \leftarrow x - \eta*\sum_{i}g_i\)</span></p>
 </section>
 <section id="momentum">
-<h2>Momentum<a class="headerlink" href="#momentum" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.2. </span>Momentum<a class="headerlink" href="#momentum" title="Link to this heading">#</a></h2>
 <section id="nesterov-acceleration">
-<h3>Nesterov Acceleration<a class="headerlink" href="#nesterov-acceleration" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.2.1. </span>Nesterov Acceleration<a class="headerlink" href="#nesterov-acceleration" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -385,8 +379,8 @@ document.write(`
 </section>
 </section>
 <section id="covergence-analysis">
-<h2>covergence analysis<a class="headerlink" href="#covergence-analysis" title="Link to this heading">#</a></h2>
-<p>How to show it converges? check equation <a class="reference internal" href="../../notations.html#equation-eq-gradient">(1)</a> also the references <span id="id1">[<a class="reference internal" href="../../references.html#id2" title="Diederik Kingma and Jimmy Ba. Adam: a method for stochastic optimization. ICLR, 2015.">Kingma and Ba, 2015</a>]</span> and <span id="id2">[<a class="reference internal" href="../../references.html#id3" title="Stephen Boyd and Lieven Vandenberghe. Convex Optimization. Cambridge University Press, 2004.">Boyd and Vandenberghe, 2004</a>]</span></p>
+<h2><span class="section-number">3.3. </span>covergence analysis<a class="headerlink" href="#covergence-analysis" title="Link to this heading">#</a></h2>
+<p>How to show it converges? check equation <a class="reference internal" href="../../notations.html#equation-eq-gradient">(2.1)</a> also the references <span id="id1">[<a class="reference internal" href="../../references.html#id2" title="Diederik Kingma and Jimmy Ba. Adam: a method for stochastic optimization. ICLR, 2015.">Kingma and Ba, 2015</a>]</span> and <span id="id2">[<a class="reference internal" href="../../references.html#id3" title="Stephen Boyd and Lieven Vandenberghe. Convex Optimization. Cambridge University Press, 2004.">Boyd and Vandenberghe, 2004</a>]</span></p>
 <p>Many optimization methods build on earlier work <span id="id3">[<a class="reference internal" href="../../references.html#id3" title="Stephen Boyd and Lieven Vandenberghe. Convex Optimization. Cambridge University Press, 2004.">Boyd and Vandenberghe, 2004</a>, <a class="reference internal" href="../../references.html#id2" title="Diederik Kingma and Jimmy Ba. Adam: a method for stochastic optimization. ICLR, 2015.">Kingma and Ba, 2015</a>]</span></p>
 </section>
 <div class="toctree-wrapper compound">
@@ -429,7 +423,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Section 1.2: Ourline of the Course</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>Section 1.2: Ourline of the Course</p>
       </div>
     </a>
     <a class="right-next"
@@ -437,7 +431,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Section 2.1: Unconstrained Optimization</p>
+        <p class="prev-next-title"><span class="section-number">3.4. </span>Section 2.1: Unconstrained Optimization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -457,12 +451,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-analysis">Convergence Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#momentum">Momentum</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nesterov-acceleration">Nesterov Acceleration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-analysis">3.1. Convergence Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#momentum">3.2. Momentum</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nesterov-acceleration">3.2.1. Nesterov Acceleration</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covergence-analysis">covergence analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covergence-analysis">3.3. covergence analysis</a></li>
 </ul>
   </nav></div>
 

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Chapter 4. LLM Training as Large-scale Optimization &#8212; ML Optimization (Grad)</title>
+    <title>5. LLM Training as Large-scale Optimization &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -62,8 +62,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter4/training_algorithms';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="4.2. Variants and discussions of modern optimizers" href="variants.html" />
-    <link rel="prev" title="Introduction to Large Language Models" href="../Chapter3/LLM.html" />
+    <link rel="next" title="5.2. 4.2. Variants and discussions of modern optimizers" href="variants.html" />
+    <link rel="prev" title="4. Introduction to Large Language Models" href="../Chapter3/LLM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -102,8 +102,8 @@
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -167,31 +167,25 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
-                    Welcome to Machine Learning Optimization
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">Introduction to Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">1. Syllabus</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">2. Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">2.1. Introduction to Optimization</a></li>
 
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">2.3. Course Outline</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">Gradient Methods</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">3. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">3.5. Gradient Methods</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">Introduction to Large Language Models</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Chapter 4. LLM Training as Large-scale Optimization</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">5. Optimization for Large Language Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="variants.html">5.2. Variants of adaptive methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">6. References</a></li>
 </ul>
 
     </div>
@@ -330,7 +324,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 4. LLM Training as Large-scale Optimization</h1>
+    <h1>LLM Training as Large-scale Optimization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -340,21 +334,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 4. LLM Training as Large-scale Optimization</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-algorithms">4.1 Adaptive Algorithms</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">RMSProp</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-and-adamw">Weight decay and AdamW</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-of-the-convergence-of-rmsprop-and-adam">Discussion of the convergence of RMSProp and Adam</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-algorithms">5.1. Adaptive Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">5.1.1. Mini-batch and momentums</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">5.1.2. AdaGrad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">5.1.3. RMSProp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">5.1.4. Adam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-and-adamw">5.1.5. Weight decay and AdamW</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-of-the-convergence-of-rmsprop-and-adam">5.1.6. Discussion of the convergence of RMSProp and Adam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">5.1.7. Possible homeworks:</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -365,27 +355,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-llm-training-as-large-scale-optimization">
-<h1>Chapter 4. LLM Training as Large-scale Optimization<a class="headerlink" href="#chapter-4-llm-training-as-large-scale-optimization" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="adaptive-algorithms">
-<h1>4.1 Adaptive Algorithms<a class="headerlink" href="#adaptive-algorithms" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="llm-training-as-large-scale-optimization">
+<h1><span class="section-number">5. </span>LLM Training as Large-scale Optimization<a class="headerlink" href="#llm-training-as-large-scale-optimization" title="Link to this heading">#</a></h1>
+<section id="adaptive-algorithms">
+<h2><span class="section-number">5.1. </span>Adaptive Algorithms<a class="headerlink" href="#adaptive-algorithms" title="Link to this heading">#</a></h2>
 <p>In this chapter we will discuss the training of LLMs as a large-scale optimization problem.</p>
 <p>We have already discussed stochastic optimization problem:</p>
 <div class="math notranslate nohighlight" id="equation-eq-stoc-opt-chap4">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)]\]</div>
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)]\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the data distribution. Note that for neural network training, we usually collect a set of training data <span class="math notranslate nohighlight">\(\{\xi_i\}_{i=1,2,...,n}\)</span> and optimize for the training loss</p>
 <div class="math notranslate nohighlight" id="equation-eq-stoc-opt-finite-sum-chap4">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eq-stoc-opt-finite-sum-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \frac{1}{n}\sum_{i=1}^{n}\ell(\vw, \xi_i)\]</div>
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-eq-stoc-opt-finite-sum-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \frac{1}{n}\sum_{i=1}^{n}\ell(\vw, \xi_i)\]</div>
 <p>which is also know as the finite sum setting of the stochastic optimization.</p>
 <section id="mini-batch-and-momentums">
-<h2>Mini-batch and momentums<a class="headerlink" href="#mini-batch-and-momentums" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">5.1.1. </span>Mini-batch and momentums<a class="headerlink" href="#mini-batch-and-momentums" title="Link to this heading">#</a></h3>
 <p>The basic stochastic gradient descent (SGD) scheme (see also <span style="color:red">[add ref here to chap 2]</span>) is to simply sample a random index <span class="math notranslate nohighlight">\(i_t\)</span> at iteration <span class="math notranslate nohighlight">\(t\)</span>, and update (for simplicity, we denote <span class="math notranslate nohighlight">\(\xi_{t}:=\xi_{i_t}\)</span>)</p>
 <div class="math notranslate nohighlight" id="equation-eq-sgd-chap4">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\nabla \ell(\vw^t, \xi_t).\]</div>
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-eq-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \eta_t\nabla \ell(\vw^t, \xi_t).\]</div>
 <p>As discussed in Chapter 2, stochastic methods such as SGD only has a noisy estimate of the true gradients, thus suffering from the inexactness of the noise. This motivates the mini-batch version of the SGD algorithm: at each iteration, we sample a mini-batch of the data samples <span class="math notranslate nohighlight">\(\{i_{1,t},i_{2,t},...,i_{B,t}\}\)</span> where <span class="math notranslate nohighlight">\(B\)</span> is the so-called batch size, and update</p>
 <div class="math notranslate nohighlight" id="equation-eq-minibatch-sgd-chap4">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-minibatch-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \frac{\eta_t}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}).\]</div>
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-eq-minibatch-sgd-chap4" title="Link to this equation">#</a></span>\[\vw^{t+1}\leftarrow \vw^{t} - \frac{\eta_t}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}).\]</div>
 <p>Intuitively, the larger the batch size <span class="math notranslate nohighlight">\(B\)</span> is, the closer the average of stochastic gradient is to the true gradient <span class="math notranslate nohighlight">\(\nabla \ell(\vw^t)\)</span>.</p>
 <p>Below we have a simple example on training a simple two layer neural network for classifying MNIST hand-written digits <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. We just test the effect of different batch sizes and record the distance of the stochastic gradient toward the true gradient.</p>
 <div class="cell docutils container">
@@ -507,12 +496,12 @@ Batch size: 512, Avg distance to full grad: 0.835109
 <p>We can see from the image above that in general, a larger batch size reuslt in better approximation toward the true gradient. However, for each of the sample one need to conduct one back-propagation step, consequently a large batch size will incur a very large memory overhead.</p>
 <p>As described in Section <span style="color:red">xxx</span>, numerous variance reduction techniques are proposed to mitigate the large variance of stochastic gradient descent, without extra memory overheads. The most popular technique is perhaps adding a momentum, resulting in the stochastic gradient descent with momentum (SGD-M) method:</p>
 <div class="math notranslate nohighlight" id="equation-eq-sgd-mmt-chap4">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-sgd-mmt-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-eq-sgd-mmt-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow (1-\beta)\vg^{t-1} + \beta\left(\frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}})\right)\\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \vg^t
 \end{align}\end{split}\]</div>
-<p>Note that here the batch size <span class="math notranslate nohighlight">\(B\)</span> can be significantly smaller than the batch size <span class="math notranslate nohighlight">\(B\)</span> in the mini-batch SGD <a class="reference internal" href="#equation-eq-minibatch-sgd-chap4">(6)</a>.</p>
-<p>The intuition behind SGD-M <a class="reference internal" href="#equation-eq-sgd-mmt-chap4">(7)</a> is that, as the iteration count <span class="math notranslate nohighlight">\(t\)</span> increases, the gradient tracker <span class="math notranslate nohighlight">\(g^t\)</span> becomes a more and more precise estimator of the true gradient. Imagine the situation where we take <span class="math notranslate nohighlight">\(\eta_t\)</span> reasonably small so that the neighboring iterations are not too far from each other, then <span class="math notranslate nohighlight">\(\vg^t\)</span> become a mini-batch estimator of the current gradient with a much larger batch size, thus more precise.</p>
+<p>Note that here the batch size <span class="math notranslate nohighlight">\(B\)</span> can be significantly smaller than the batch size <span class="math notranslate nohighlight">\(B\)</span> in the mini-batch SGD <a class="reference internal" href="#equation-eq-minibatch-sgd-chap4">(5.4)</a>.</p>
+<p>The intuition behind SGD-M <a class="reference internal" href="#equation-eq-sgd-mmt-chap4">(5.5)</a> is that, as the iteration count <span class="math notranslate nohighlight">\(t\)</span> increases, the gradient tracker <span class="math notranslate nohighlight">\(g^t\)</span> becomes a more and more precise estimator of the true gradient. Imagine the situation where we take <span class="math notranslate nohighlight">\(\eta_t\)</span> reasonably small so that the neighboring iterations are not too far from each other, then <span class="math notranslate nohighlight">\(\vg^t\)</span> become a mini-batch estimator of the current gradient with a much larger batch size, thus more precise.</p>
 <p>Below we have a simple experiment to show the effectiveness of momentum mechanism.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -595,11 +584,11 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p>where we can see that with a much smaller batch size, EMA enjoys a much smaller the distance to the true gradient.</p>
 </section>
 <section id="adagrad">
-<h2>AdaGrad<a class="headerlink" href="#adagrad" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">5.1.2. </span>AdaGrad<a class="headerlink" href="#adagrad" title="Link to this heading">#</a></h3>
 <p>So far we have introduced SGD and its momentum variants. In SGD, each parameter (the entries in the vector <span class="math notranslate nohighlight">\(\vw\)</span>) is updated with the same learning rate (step size) <span class="math notranslate nohighlight">\(\eta\)</span>. Imagine a situation where certain entries have large gradients and others have small gradients, then the entries with large gradients will always fluctuate while the entries with small gradients will barely change. Therefore, various adaptive gradient methods are proposed, aiming at mitigating the difference of entries in the parameter vecor <span class="math notranslate nohighlight">\(\vw\)</span>. Some famous adaptive methods include AdaGrad <span id="id1">[<a class="reference internal" href="../../references.html#id4" title="John Duchi, Elad Hazan, and Yoram Singer. Adaptive subgradient methods for online learning and stochastic optimization. Journal of machine learning research, 2011.">Duchi <em>et al.</em>, 2011</a>]</span>, RMSProp <span id="id2">[<a class="reference internal" href="../../references.html#id5" title="Geoffrey Hinton, Nitish Srivastava, and Kevin Swersky. Neural networks for machine learning lecture 6a overview of mini-batch gradient descent. Cited on, 14(8):2, 2012.">Hinton <em>et al.</em>, 2012</a>]</span> and Adam (and AdamW) <span id="id3">[<a class="reference internal" href="../../references.html#id2" title="Diederik Kingma and Jimmy Ba. Adam: a method for stochastic optimization. ICLR, 2015.">Kingma and Ba, 2015</a>]</span>.</p>
 <p>AdaGrad (Adaptive Gradient Algorithm) <span id="id4">[<a class="reference internal" href="../../references.html#id4" title="John Duchi, Elad Hazan, and Yoram Singer. Adaptive subgradient methods for online learning and stochastic optimization. Journal of machine learning research, 2011.">Duchi <em>et al.</em>, 2011</a>]</span> is perhaps the earliest work along this line. For each gradient entry, AdaGrad divide it by the root square sum of all historical gradients:</p>
 <div class="math notranslate nohighlight" id="equation-eq-adagrad-chap4">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eq-adagrad-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-eq-adagrad-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vv^t &amp;\leftarrow \vv^{t-1} + \vg^t \odot \vg^t \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\vg^t}{\sqrt{\vv^t}+\epsilon}
@@ -607,23 +596,23 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p>where <span class="math notranslate nohighlight">\(\odot\)</span> is entry-wise multiplication and the division of the last line is also entry-wise division. Intuitively, AdaGrad forces the entries with large gradients to update slower and the entries with small gradients to update faster.</p>
 </section>
 <section id="rmsprop">
-<h2>RMSProp<a class="headerlink" href="#rmsprop" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">5.1.3. </span>RMSProp<a class="headerlink" href="#rmsprop" title="Link to this heading">#</a></h3>
 <p>Yet another line of adaptive algorithms are more popular, including RMSProp <span id="id5">[<a class="reference internal" href="../../references.html#id5" title="Geoffrey Hinton, Nitish Srivastava, and Kevin Swersky. Neural networks for machine learning lecture 6a overview of mini-batch gradient descent. Cited on, 14(8):2, 2012.">Hinton <em>et al.</em>, 2012</a>]</span> and Adam (and AdamW) <span id="id6">[<a class="reference internal" href="../../references.html#id2" title="Diederik Kingma and Jimmy Ba. Adam: a method for stochastic optimization. ICLR, 2015.">Kingma and Ba, 2015</a>]</span>.</p>
 <p>RMSProp (Root Mean Square Propagation) was first proposed in Geoffrey Hinton’s lecture notes and quickly became very popular. It adopts a different idea than AdaGrad. Recall that our concern is that different entries/coordinates will have different derivatives with significant different magnitudes, one brutal remedy is to keep only the direction of them and remove the information of the magnitude. This directly leads to the sign-SGD method:</p>
 <div class="math notranslate nohighlight" id="equation-eq-sign-sgd-chap4">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eq-sign-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-eq-sign-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \sign(\vg^t)
 \end{align}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\sign\)</span> is taking the sign of each entries of <span class="math notranslate nohighlight">\(\vg^t\)</span>, i.e. <span class="math notranslate nohighlight">\(\sign(\vg^t)\)</span> will have entries only 1, -1 or 0. This will make the gradient contribution equally important among alll the coordinates.</p>
-<p>Mathematically, we can write the second line of Sign-SGD <a class="reference internal" href="#equation-eq-sign-sgd-chap4">(9)</a> as an entry-wise division:</p>
+<p>Mathematically, we can write the second line of Sign-SGD <a class="reference internal" href="#equation-eq-sign-sgd-chap4">(5.7)</a> as an entry-wise division:</p>
 <div class="math notranslate nohighlight" id="equation-eq-sign-sgd-2-chap4">
-<span class="eqno">(10)<a class="headerlink" href="#equation-eq-sign-sgd-2-chap4" title="Link to this equation">#</a></span>\[\begin{align}
+<span class="eqno">(5.8)<a class="headerlink" href="#equation-eq-sign-sgd-2-chap4" title="Link to this equation">#</a></span>\[\begin{align}
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\vg^t}{\sqrt{\vg^t\odot \vg^t}}
 \end{align}\]</div>
 <p>where we simpley ignore the entries which are zeros. Now that we lose all information regarding the gradient magnitudes and only utilize the gradient signs, which might be too extreme since we still want a relative larger step along the coordinates with larger gradient magnitudes. We can utilize the momentum/EMA idea to “smooth” the denominator <span class="math notranslate nohighlight">\(\sqrt{\vg^t\odot \vg^t}\)</span> to that it varies more smoothly a iteration <span class="math notranslate nohighlight">\(t\)</span> increases. This results in the following EMA version of signSGD, i.e. RMSProp:</p>
 <div class="math notranslate nohighlight" id="equation-eq-rmsprop-chap4">
-<span class="eqno">(11)<a class="headerlink" href="#equation-eq-rmsprop-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(5.9)<a class="headerlink" href="#equation-eq-rmsprop-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vv^t &amp;\leftarrow \beta\vv^{t-1} + (1-\beta)\vg^t\odot \vg^t \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\vg^t}{\sqrt{\vv^t}+\epsilon}
@@ -631,17 +620,17 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p>here <span class="math notranslate nohighlight">\(\epsilon\)</span> is usually a small cosntant just to keep the denominator non-zero. RMSProp inherits signSGD’s robustness to scale differences but keeps enough magnitude sensitivity for efficient convergence.</p>
 </section>
 <section id="adam">
-<h2>Adam<a class="headerlink" href="#adam" title="Link to this heading">#</a></h2>
-<p>Adam (Adaptive Moment Estimation) is the default optimizer that people use when training modern large models. It combines the momentum idea we mentioned in SGD-M <a class="reference internal" href="#equation-eq-sgd-mmt-chap4">(7)</a> and RMSProp <a class="reference internal" href="#equation-eq-rmsprop-chap4">(11)</a> by keeping two moving averages:</p>
+<h3><span class="section-number">5.1.4. </span>Adam<a class="headerlink" href="#adam" title="Link to this heading">#</a></h3>
+<p>Adam (Adaptive Moment Estimation) is the default optimizer that people use when training modern large models. It combines the momentum idea we mentioned in SGD-M <a class="reference internal" href="#equation-eq-sgd-mmt-chap4">(5.5)</a> and RMSProp <a class="reference internal" href="#equation-eq-rmsprop-chap4">(5.9)</a> by keeping two moving averages:</p>
 <div class="math notranslate nohighlight" id="equation-eq-adam-proto-chap4">
-<span class="eqno">(12)<a class="headerlink" href="#equation-eq-adam-proto-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(5.10)<a class="headerlink" href="#equation-eq-adam-proto-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vm^t &amp;\leftarrow \beta_1\vm^{t-1} + (1-\beta_1)\vg^t \\
 \vv^t &amp;\leftarrow \beta_2\vv^{t-1} + (1-\beta_2)\vg^t\odot \vg^t \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\vm^t}{\sqrt{\vv^t}+\epsilon}
 \end{align}\end{split}\]</div>
 <p>this is almost the Adam algorithm that people use in practice.</p>
-<p>The real Adam further improve <a class="reference internal" href="#equation-eq-adam-proto-chap4">(12)</a> via the so-called bias-correction technique. If we assume that each <span class="math notranslate nohighlight">\(\nabla \ell(\vw^t, \xi_{i_{j,t}})\)</span> is an unbiased estimator of a fix gradient vector <span class="math notranslate nohighlight">\(\vg\)</span> (which could be achieved if we sample each index <span class="math notranslate nohighlight">\(i_{j,t}\)</span> independently and with sample distribution), one could calculate</p>
+<p>The real Adam further improve <a class="reference internal" href="#equation-eq-adam-proto-chap4">(5.10)</a> via the so-called bias-correction technique. If we assume that each <span class="math notranslate nohighlight">\(\nabla \ell(\vw^t, \xi_{i_{j,t}})\)</span> is an unbiased estimator of a fix gradient vector <span class="math notranslate nohighlight">\(\vg\)</span> (which could be achieved if we sample each index <span class="math notranslate nohighlight">\(i_{j,t}\)</span> independently and with sample distribution), one could calculate</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \EE\vm^t &amp;=\beta_1\EE\vm^{t-1} + (1-\beta_1)\vg \\
@@ -660,19 +649,20 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 \end{align}\]</div>
 <p>Now we finally reach at the full version of Adam</p>
 <div class="math notranslate nohighlight" id="equation-eq-adam-chap4">
-<span class="eqno">(13)<a class="headerlink" href="#equation-eq-adam-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(5.11)<a class="headerlink" href="#equation-eq-adam-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vm^t &amp;\leftarrow \beta_1\vm^{t-1} + (1-\beta_1)\vg^t \\
 \vv^t &amp;\leftarrow \beta_2\vv^{t-1} + (1-\beta_2)\vg^t\odot \vg^t \\
 \hat{\vm}^t &amp;= \frac{\vm^t}{1-\beta_1^t},\ \hat{\vv}^t = \frac{\vm^t}{1-\beta_2^t} \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\hat{\vm}^t}{\sqrt{\hat{\vv}^t}+\epsilon}
 \end{align}\end{split}\]</div>
-<p>Adam could be viewed as a double momentum version of sign SGD, where we replace both the numerator and denominator of <a class="reference internal" href="#equation-eq-sign-sgd-2-chap4">(10)</a> by the moving averages.</p>
+<p>Adam could be viewed as a double momentum version of sign SGD, where we replace both the numerator and denominator of <a class="reference internal" href="#equation-eq-sign-sgd-2-chap4">(5.8)</a> by the moving averages.</p>
 </section>
 <section id="weight-decay-and-adamw">
-<h2>Weight decay and AdamW<a class="headerlink" href="#weight-decay-and-adamw" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">5.1.5. </span>Weight decay and AdamW<a class="headerlink" href="#weight-decay-and-adamw" title="Link to this heading">#</a></h3>
+</section>
 <section id="discussion-of-the-convergence-of-rmsprop-and-adam">
-<h3>Discussion of the convergence of RMSProp and Adam<a class="headerlink" href="#discussion-of-the-convergence-of-rmsprop-and-adam" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.1.6. </span>Discussion of the convergence of RMSProp and Adam<a class="headerlink" href="#discussion-of-the-convergence-of-rmsprop-and-adam" title="Link to this heading">#</a></h3>
 <p>Despite the great success of RMSProp and Adam, their theoretical behavior is still unclear. In particular, the two momentum hyperparameters (<span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span>) play important roles in the convergence. Intuitively, the larger <span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span> are, the smoother the corresponding <span class="math notranslate nohighlight">\(\vm^t\)</span> and <span class="math notranslate nohighlight">\(\vv^t\)</span> are (since they are closer to <span class="math notranslate nohighlight">\(\vm^{t-1}\)</span> and <span class="math notranslate nohighlight">\(\vv^{t-1}\)</span>). In practice, people usually take <span class="math notranslate nohighlight">\(\beta_1=0.9\)</span> and <span class="math notranslate nohighlight">\(\beta_2=0.999\)</span>, indicating the importance of smooth trajectories of <span class="math notranslate nohighlight">\(\vm^t\)</span> and <span class="math notranslate nohighlight">\(\vv^t\)</span>. In theory however, it is shown that Adam could diverge with the default hyperparameters <span class="math notranslate nohighlight">\(\beta_1=0.9\)</span> and <span class="math notranslate nohighlight">\(\beta_2=0.999\)</span>.</p>
 <p>Specifically, <span id="id7">[<a class="reference internal" href="../../references.html#id6" title="Sashank J. Reddi, Satyen Kale, and Sanjiv Kumar. On the convergence of adam and beyond. In International Conference on Learning Representations. 2018. URL: https://openreview.net/forum?id=ryQu7f-RZ.">Reddi <em>et al.</em>, 2018</a>]</span> shows the following result:</p>
 <div class="note admonition">
@@ -684,7 +674,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p>Since then, multiple convergence analysis are provided to cover the convergence of Adam under different hyperparameter settings. Related works include <span id="id9">[<a class="reference internal" href="../../references.html#id10" title="Xiangyi Chen, Sijia Liu, Ruoyu Sun, and Mingyi Hong. On the convergence of a class of adam-type algorithms for non-convex optimization. In International Conference on Learning Representations. 2019. URL: https://openreview.net/forum?id=H1x-x309tm.">Chen <em>et al.</em>, 2019</a>, <a class="reference internal" href="../../references.html#id9" title="Alexandre Défossez, Leon Bottou, Francis Bach, and Nicolas Usunier. A simple convergence proof of adam and adagrad. Transactions on Machine Learning Research, 2022. URL: https://openreview.net/forum?id=ZPQhzTSWA7.">Défossez <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../references.html#id8" title="Yushun Zhang, Congliang Chen, Naichen Shi, Ruoyu Sun, and Zhi-Quan Luo. Adam can converge without any modification on update rules. Advances in neural information processing systems, 35:28386–28399, 2022.">Zhang <em>et al.</em>, 2022</a>]</span>. See <span id="id10">[<a class="reference internal" href="../../references.html#id7" title="Yushun Zhang, Congliang Chen, and Zhi-Quan Luo. Does adam converge and when? In ICLR Blog Track. 2022. https://iclr-blog-track.github.io/2022/03/25/does-adam/. URL: https://iclr-blog-track.github.io/2022/03/25/does-adam/.">Zhang <em>et al.</em>, 2022</a>]</span>  for a detailed discussion on the convergence of Adam.</p>
 </section>
 <section id="possible-homeworks">
-<h3>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.1.7. </span>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>implement sgd and sgd-momentum by hand, compare it with torch’s implementation. Maybe easier: add momentum based on sgd implemented by torch.</p></li>
 <li><p>write code (could use gpt and torch implementation) to test the memory cost by sgd and sgd momentum with different batchsizes, and figure out the maximum batchsize required to training a 1b model</p></li>
@@ -733,7 +723,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to Large Language Models</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Introduction to Large Language Models</p>
       </div>
     </a>
     <a class="right-next"
@@ -741,7 +731,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">4.2. Variants and discussions of modern optimizers</p>
+        <p class="prev-next-title"><span class="section-number">5.2. </span>4.2. Variants and discussions of modern optimizers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -761,21 +751,17 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 4. LLM Training as Large-scale Optimization</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-algorithms">4.1 Adaptive Algorithms</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">Mini-batch and momentums</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">AdaGrad</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">RMSProp</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">Adam</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-and-adamw">Weight decay and AdamW</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-of-the-convergence-of-rmsprop-and-adam">Discussion of the convergence of RMSProp and Adam</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">Possible homeworks:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-algorithms">5.1. Adaptive Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-and-momentums">5.1.1. Mini-batch and momentums</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adagrad">5.1.2. AdaGrad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmsprop">5.1.3. RMSProp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">5.1.4. Adam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-and-adamw">5.1.5. Weight decay and AdamW</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-of-the-convergence-of-rmsprop-and-adam">5.1.6. Discussion of the convergence of RMSProp and Adam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">5.1.7. Possible homeworks:</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

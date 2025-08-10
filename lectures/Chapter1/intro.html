@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction to Optimization &#8212; ML Optimization (Grad)</title>
+    <title>2.1. Introduction to Optimization &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -62,8 +62,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter1/intro';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Section 1.2: Ourline of the Course" href="course_outline.html" />
-    <link rel="prev" title="Introduction to Optimization" href="../../notations.html" />
+    <link rel="next" title="2.3. Section 1.2: Ourline of the Course" href="course_outline.html" />
+    <link rel="prev" title="2. Introduction to Optimization" href="../../notations.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -102,8 +102,8 @@
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -167,31 +167,25 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
-                    Welcome to Machine Learning Optimization
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../notations.html">Introduction to Optimization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Introduction to Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">1. Syllabus</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../notations.html">2. Introduction to Optimization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1. Introduction to Optimization</a></li>
 
-<li class="toctree-l2"><a class="reference internal" href="course_outline.html">Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="course_outline.html">2.3. Course Outline</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">Gradient Methods</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">3. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">3.5. Gradient Methods</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">Introduction to Large Language Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter4/training_algorithms.html">Chapter 4. LLM Training as Large-scale Optimization</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/training_algorithms.html">5. Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">5.2. Variants of adaptive methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">6. References</a></li>
 </ul>
 
     </div>
@@ -340,39 +334,39 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Optimization</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#section-1-1-introduction-to-optimization">Section 1.1: Introduction to Optimization</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">Why Optimization?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-least-squares-regression">Example 1: Least Squares Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">Problem Setup</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-formulation">Vectorized Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#closed-form-solution">Closed-form Solution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-form-with-intercept">Augmented Form (with Intercept)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks">Remarks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2.1. Introduction to Optimization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#section-1-1-introduction-to-optimization">2.2. Section 1.1: Introduction to Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">2.2.1. Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-least-squares-regression">2.2.2. Example 1: Least Squares Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">2.2.2.1. Problem Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-formulation">2.2.2.2. Vectorized Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#closed-form-solution">2.2.2.3. Closed-form Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-form-with-intercept">2.2.2.4. Augmented Form (with Intercept)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks">2.2.2.5. Remarks</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-support-vector-machine-svm">Example 2: Support Vector Machine (SVM)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hard-margin-svm-formulation">Hard-Margin SVM Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-intuition">Geometric Intuition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-1-in-the-constraint">Why the “1” in the Constraint?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-structure">Optimization Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-theory-to-practice">From Theory to Practice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-support-vector-machine-svm">2.2.3. Example 2: Support Vector Machine (SVM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hard-margin-svm-formulation">2.2.3.1. Hard-Margin SVM Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-intuition">2.2.3.2. Geometric Intuition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-1-in-the-constraint">2.2.3.3. Why the “1” in the Constraint?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-structure">2.2.3.4. Optimization Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-theory-to-practice">2.2.3.5. From Theory to Practice</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-training-neural-networks">Example 3: Training Neural Networks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-typical-supervised-learning-setup">A Typical Supervised Learning Setup</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-a-2-layer-neural-network">Example: A 2-Layer Neural Network</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-challenges">Optimization Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-training-neural-networks">2.2.4. Example 3: Training Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-typical-supervised-learning-setup">2.2.4.1. A Typical Supervised Learning Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-a-2-layer-neural-network">2.2.4.2. Example: A 2-Layer Neural Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-challenges">2.2.4.3. Optimization Challenges</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-adversarial-attacks">Example 4: Adversarial Attacks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-attack-formulation">Adversarial Attack Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-robust-optimization-viewpoint">A Robust Optimization Viewpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-adversarial-attacks">2.2.5. Example 4: Adversarial Attacks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-attack-formulation">2.2.5.1. Adversarial Attack Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-robust-optimization-viewpoint">2.2.5.2. A Robust Optimization Viewpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">2.2.5.3. Interpretation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">Elements of an Optimization Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-learn">What We Will Learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">2.2.6. Elements of an Optimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-learn">2.2.7. What We Will Learn</a></li>
 </ul>
 </li>
 </ul>
@@ -388,7 +382,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-optimization">
-<h1>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">2.1. </span>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
@@ -423,7 +417,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 \RR^{d},\ \KL{a}{b}
 ``` --></section>
 <section class="tex2jax_ignore mathjax_ignore" id="section-1-1-introduction-to-optimization">
-<h1>Section 1.1: Introduction to Optimization<a class="headerlink" href="#section-1-1-introduction-to-optimization" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">2.2. </span>Section 1.1: Introduction to Optimization<a class="headerlink" href="#section-1-1-introduction-to-optimization" title="Link to this heading">#</a></h1>
 <p>Optimization is the science of making the best possible decision from a set of available options. It arises naturally in everyday life:</p>
 <ul class="simple">
 <li><p>A company wants to maximize profit while minimizing costs.</p></li>
@@ -441,7 +435,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p><span class="math notranslate nohighlight">\(\mathcal{X}\)</span>: feasible set, describing constraints on <span class="math notranslate nohighlight">\(x\)</span></p>
 <p>This general framework encompasses a vast array of real-world problems in machine learning, signal processing, control, and beyond.</p>
 <section id="why-optimization">
-<h2>Why Optimization?<a class="headerlink" href="#why-optimization" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.1. </span>Why Optimization?<a class="headerlink" href="#why-optimization" title="Link to this heading">#</a></h2>
 <p>Optimization appears everywhere in machine learning and artificial intelligence:</p>
 <p>Training a linear regression model: minimizing squared error</p>
 <p>Training neural networks: minimizing a cross-entropy loss</p>
@@ -450,10 +444,10 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p>These problems differ in their structure, but they all boil down to choosing parameters to minimize a loss (or maximize a reward), possibly under various constraints.</p>
 </section>
 <section id="example-1-least-squares-regression">
-<h2>Example 1: Least Squares Regression<a class="headerlink" href="#example-1-least-squares-regression" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.2. </span>Example 1: Least Squares Regression<a class="headerlink" href="#example-1-least-squares-regression" title="Link to this heading">#</a></h2>
 <p>One of the most fundamental optimization problems in machine learning is linear regression, where the goal is to fit a linear model to observed data.</p>
 <section id="problem-setup">
-<h3>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.2.1. </span>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
 <p>We are given a dataset <span class="math notranslate nohighlight">\({(\va_i, b_i)}_{i=1}^n\)</span> where:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\va_i \in \RR^d\)</span> is the feature vector for the <span class="math notranslate nohighlight">\(i\)</span>-th data point;</p></li>
@@ -465,7 +459,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p>This is an unconstrained, smooth, convex optimization problem. That is, it is an “easy” problem where both theory and algorithms are well-understood.</p>
 </section>
 <section id="vectorized-formulation">
-<h3>Vectorized Formulation<a class="headerlink" href="#vectorized-formulation" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.2.2. </span>Vectorized Formulation<a class="headerlink" href="#vectorized-formulation" title="Link to this heading">#</a></h3>
 <p>Let us define the matrix and vector notation:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A \in \RR^{n \times d}\)</span>: the data matrix whose <span class="math notranslate nohighlight">\(i\)</span>-th row is <span class="math notranslate nohighlight">\(\va_i^\top\)</span>;</p></li>
@@ -477,7 +471,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p>This compact form makes derivation and implementation more efficient.</p>
 </section>
 <section id="closed-form-solution">
-<h3>Closed-form Solution<a class="headerlink" href="#closed-form-solution" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.2.3. </span>Closed-form Solution<a class="headerlink" href="#closed-form-solution" title="Link to this heading">#</a></h3>
 <p>To find the optimal <span class="math notranslate nohighlight">\(\vw^*\)</span>, we take the gradient of the objective and set it to zero:</p>
 <div class="math notranslate nohighlight">
 \[\nabla_{\vw} \left( \frac{1}{2n} \|A\vw - \vb\|^2 \right)
@@ -492,7 +486,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p>This closed-form solution is efficient when <span class="math notranslate nohighlight">\(d\)</span> is small and <span class="math notranslate nohighlight">\(A^\top A\)</span> is well-conditioned. In large-scale or ill-conditioned settings, iterative methods like gradient descent or conjugate gradient are preferred (to be discussed in <strong>Section XXXX</strong>).</p>
 </section>
 <section id="augmented-form-with-intercept">
-<h3>Augmented Form (with Intercept)<a class="headerlink" href="#augmented-form-with-intercept" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.2.4. </span>Augmented Form (with Intercept)<a class="headerlink" href="#augmented-form-with-intercept" title="Link to this heading">#</a></h3>
 <p>If we wish to fit an intercept term <span class="math notranslate nohighlight">\(w_0\)</span> (bias), we can augment the input:</p>
 <p>Define <span class="math notranslate nohighlight">\(\tilde{\va}_i := [\va_i^\top, 1]^\top \in \RR^{d+1}\)</span></p>
 <p>Let <span class="math notranslate nohighlight">\(\tilde{\vw} := [\vw^\top, w_0]^\top \in \RR^{d+1}\)</span></p>
@@ -504,7 +498,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 \[\tilde{\vw}^* = (\tilde{A}^\top \tilde{A})^{-1} \tilde{A}^\top \vb\]</div>
 </section>
 <section id="remarks">
-<h3>Remarks<a class="headerlink" href="#remarks" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.2.5. </span>Remarks<a class="headerlink" href="#remarks" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Least squares regression is a <em>convex</em>, <em>quadratic</em> problem, and its solution is <em>globally optimal</em>.</p></li>
 <li><p>It provides a clean entry point to gradient-based optimization and regularization techniques (e.g., ridge regression).</p></li>
@@ -513,7 +507,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 </section>
 </section>
 <section id="example-2-support-vector-machine-svm">
-<h2>Example 2: Support Vector Machine (SVM)<a class="headerlink" href="#example-2-support-vector-machine-svm" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.3. </span>Example 2: Support Vector Machine (SVM)<a class="headerlink" href="#example-2-support-vector-machine-svm" title="Link to this heading">#</a></h2>
 <p>Consider a binary classification task, where each data point is labeled with <span class="math notranslate nohighlight">\(b_i \in \{-1, +1\}\)</span> and described by a feature vector <span class="math notranslate nohighlight">\(\va_i \in \RR^d\)</span>.</p>
 <p>Our goal is to learn a linear classifier of the form:</p>
 <div class="math notranslate nohighlight">
@@ -525,7 +519,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <li><p><span class="math notranslate nohighlight">\(\sign(\cdot)\)</span> is the sign function that maps outputs to <span class="math notranslate nohighlight">\(\pm 1\)</span>.</p></li>
 </ul>
 <section id="hard-margin-svm-formulation">
-<h3>Hard-Margin SVM Formulation<a class="headerlink" href="#hard-margin-svm-formulation" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.3.1. </span>Hard-Margin SVM Formulation<a class="headerlink" href="#hard-margin-svm-formulation" title="Link to this heading">#</a></h3>
 <p>Suppose the data is linearly separable, that is, there exists a hyperplane that separates the two classes without error. If there are many hyperplanes that can separate the data, which one should we prefer? We prefer the one that maximizes the “margin”, defined as the <em>distance</em> between the decision boundary and the closest data points.</p>
 <p>This leads to the following hard-margin SVM problem:</p>
 <div class="math notranslate nohighlight">
@@ -537,7 +531,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p>The constraints ensure that all data points are classified correctly with a margin of at least 1.</p>
 </section>
 <section id="geometric-intuition">
-<h3>Geometric Intuition<a class="headerlink" href="#geometric-intuition" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.3.2. </span>Geometric Intuition<a class="headerlink" href="#geometric-intuition" title="Link to this heading">#</a></h3>
 <p>The inequality constraint <span class="math notranslate nohighlight">\(b_i(\vw^\top \va_i + w_0) \ge 1\)</span> enforces:</p>
 <p><span class="math notranslate nohighlight">\(b_i = +1 \Rightarrow \vw^\top \va_i + w_0 \ge 1\)</span></p>
 <p><span class="math notranslate nohighlight">\(b_i = -1 \Rightarrow \vw^\top \va_i + w_0 \le -1\)</span></p>
@@ -550,7 +544,7 @@ see also $\RR^{d}$ and $\KL{a}{b}$,
 <p>The margin is therefore <span class="math notranslate nohighlight">\(2 / \|\vw\|\)</span>, so minimizing <span class="math notranslate nohighlight">\(\|\vw\|^2\)</span> corresponds to maximizing the margin.</p>
 </section>
 <section id="why-the-1-in-the-constraint">
-<h3>Why the “1” in the Constraint?<a class="headerlink" href="#why-the-1-in-the-constraint" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.3.3. </span>Why the “1” in the Constraint?<a class="headerlink" href="#why-the-1-in-the-constraint" title="Link to this heading">#</a></h3>
 <p>In the hard-margin SVM formulation, the constraint for each data point is:</p>
 <div class="math notranslate nohighlight">
 \[b_i(\vw^\top \va_i + w_0) \ge 1\]</div>
@@ -568,18 +562,18 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 </ul>
 </section>
 <section id="optimization-structure">
-<h3>Optimization Structure<a class="headerlink" href="#optimization-structure" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.3.4. </span>Optimization Structure<a class="headerlink" href="#optimization-structure" title="Link to this heading">#</a></h3>
 <p>This is a quadratic program (QP): a convex quadratic objective with linear inequality constraints.</p>
 <p>It has a unique global minimum when the data is linearly separable.</p>
 <p>Solving it efficiently often involves Lagrangian duality — the dual SVM problem has attractive computational and theoretical properties.</p>
 </section>
 <section id="from-theory-to-practice">
-<h3>From Theory to Practice<a class="headerlink" href="#from-theory-to-practice" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.3.5. </span>From Theory to Practice<a class="headerlink" href="#from-theory-to-practice" title="Link to this heading">#</a></h3>
 <p>Real-world data is often not linearly separable, and we must extend this formulation to allow misclassifications using slack variables, which leads to the soft-margin SVM. We will talk about some of its variants in subsequent lectures <strong>[reference]</strong>.</p>
 </section>
 </section>
 <section id="example-3-training-neural-networks">
-<h2>Example 3: Training Neural Networks<a class="headerlink" href="#example-3-training-neural-networks" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.4. </span>Example 3: Training Neural Networks<a class="headerlink" href="#example-3-training-neural-networks" title="Link to this heading">#</a></h2>
 <p>One of the most important applications of optimization in modern machine learning is the training of neural networks — especially deep neural networks used in large-scale models like transformers and LLMs.</p>
 <p>At the core of this task is the optimization problem:</p>
 <div class="math notranslate nohighlight">
@@ -593,7 +587,7 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 <li><p><span class="math notranslate nohighlight">\(\mathcal{W}\)</span> is the feasible set — it may encode constraints such as: parameter bounds, sparsity structure, architectural constraints (e.g., weight sharing, normalization).</p></li>
 </ul>
 <section id="a-typical-supervised-learning-setup">
-<h3>A Typical Supervised Learning Setup<a class="headerlink" href="#a-typical-supervised-learning-setup" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.4.1. </span>A Typical Supervised Learning Setup<a class="headerlink" href="#a-typical-supervised-learning-setup" title="Link to this heading">#</a></h3>
 <p>Let us consider a simple form of neural network optimization problem, Let <span class="math notranslate nohighlight">\({(\va_i, b_i)}_{i=1}^n\)</span> be a training dataset:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\va_i \in \RR^d\)</span>: input feature vector (e.g., tokens, pixels)</p></li>
@@ -606,7 +600,7 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 <p>At this point, it is not clear what the <span class="math notranslate nohighlight">\(g\)</span> function look like. This is ok, but the key point we need to note here is that, as compared with the previous two examples, here the optimization variable <span class="math notranslate nohighlight">\(\vw\)</span> no longer linearly combines the feature <span class="math notranslate nohighlight">\(\va_i\)</span>’s. Therefore, the learning problem becomes “nonlinear”. In addition, the loss function is a highly complicated function w.r.t. the optimization variable <span class="math notranslate nohighlight">\(\vw\)</span>.</p>
 </section>
 <section id="example-a-2-layer-neural-network">
-<h3>Example: A 2-Layer Neural Network<a class="headerlink" href="#example-a-2-layer-neural-network" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.4.2. </span>Example: A 2-Layer Neural Network<a class="headerlink" href="#example-a-2-layer-neural-network" title="Link to this heading">#</a></h3>
 <p>Let’s consider a simple fully connected network with one hidden layer:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
@@ -626,7 +620,7 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 \]</div>
 </section>
 <section id="optimization-challenges">
-<h3>Optimization Challenges<a class="headerlink" href="#optimization-challenges" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.4.3. </span>Optimization Challenges<a class="headerlink" href="#optimization-challenges" title="Link to this heading">#</a></h3>
 <p>Neural network training raises several fundamental questions in optimization:</p>
 <ul class="simple">
 <li><p>Existence: Does a minimizer <span class="math notranslate nohighlight">\(\vw^*\)</span> exist?</p></li>
@@ -638,10 +632,10 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 </section>
 </section>
 <section id="example-4-adversarial-attacks">
-<h2>Example 4: Adversarial Attacks<a class="headerlink" href="#example-4-adversarial-attacks" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.5. </span>Example 4: Adversarial Attacks<a class="headerlink" href="#example-4-adversarial-attacks" title="Link to this heading">#</a></h2>
 <p>Modern machine learning models — including deep neural networks — can be surprisingly fragile. Small, imperceptible perturbations to the input can cause a model to misclassify with high confidence. This phenomenon has motivated the study of adversarial attacks and the corresponding field of robust optimization.</p>
 <section id="adversarial-attack-formulation">
-<h3>Adversarial Attack Formulation<a class="headerlink" href="#adversarial-attack-formulation" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.5.1. </span>Adversarial Attack Formulation<a class="headerlink" href="#adversarial-attack-formulation" title="Link to this heading">#</a></h3>
 <p>Suppose we have a trained model with parameters <span class="math notranslate nohighlight">\(\vw\)</span>, and a loss function <span class="math notranslate nohighlight">\(\ell(\vw; \va, b)\)</span> defined over input <span class="math notranslate nohighlight">\(\va\)</span> and label <span class="math notranslate nohighlight">\(b\)</span>.</p>
 <p>An adversarial example is a perturbed version of the input:</p>
 <div class="math notranslate nohighlight">
@@ -661,19 +655,19 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 <p>This problem seeks a perturbation within a ball of radius <span class="math notranslate nohighlight">\(\epsilon\)</span> that maximizes model error; it represents a <em>worst-case</em> perturbation.</p>
 </section>
 <section id="a-robust-optimization-viewpoint">
-<h3>A Robust Optimization Viewpoint<a class="headerlink" href="#a-robust-optimization-viewpoint" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.5.2. </span>A Robust Optimization Viewpoint<a class="headerlink" href="#a-robust-optimization-viewpoint" title="Link to this heading">#</a></h3>
 <p>From a robust learning perspective, we are interested in training models that perform well under worst-case perturbations. This motivates a minimax formulation:</p>
 <div class="math notranslate nohighlight">
 \[\min_{\vw} \; \max_{\|\vdelta\| \le \epsilon} \; \ell(\vw; \va + \vdelta, b)\]</div>
 <p>This nested optimization problem describes adversarial training, where the inner maximization finds harmful perturbations, and the outer minimization adapts the model to defend against them.</p>
 </section>
 <section id="interpretation">
-<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">2.2.5.3. </span>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
 <p>The adversarial attack is a local search in input space for points that lie near the input data (often times images) <span class="math notranslate nohighlight">\(\va\)</span> but cause the model to fail (by maximizing the loss). The constraint <span class="math notranslate nohighlight">\(\|\vdelta\| \le \epsilon\)</span> ensures imperceptibility — the perturbed input looks similar to the original one. The magnitude <span class="math notranslate nohighlight">\(\epsilon\)</span> controls the strength of the attack.</p>
 </section>
 </section>
 <section id="elements-of-an-optimization-problem">
-<h2>Elements of an Optimization Problem<a class="headerlink" href="#elements-of-an-optimization-problem" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.6. </span>Elements of an Optimization Problem<a class="headerlink" href="#elements-of-an-optimization-problem" title="Link to this heading">#</a></h2>
 <p>Every optimization problem is characterized by:</p>
 <ul class="simple">
 <li><p>The type of variables: continuous, discrete, mixed</p></li>
@@ -685,7 +679,7 @@ In fact, we can multiply both sides of the inequality by any positive constant <
 <p>Understanding these factors helps guide both the modeling and the algorithm selection process.</p>
 </section>
 <section id="what-we-will-learn">
-<h2>What We Will Learn<a class="headerlink" href="#what-we-will-learn" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2.7. </span>What We Will Learn<a class="headerlink" href="#what-we-will-learn" title="Link to this heading">#</a></h2>
 <p>In the rest of this book, we will explore:</p>
 <ul class="simple">
 <li><p>Core theoretical tools: optimality conditions, convexity, duality</p></li>
@@ -733,7 +727,7 @@ In fact, we can multiply both sides of the inequality by any positive constant <
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to Optimization</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Introduction to Optimization</p>
       </div>
     </a>
     <a class="right-next"
@@ -741,7 +735,7 @@ In fact, we can multiply both sides of the inequality by any positive constant <
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Section 1.2: Ourline of the Course</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>Section 1.2: Ourline of the Course</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -761,39 +755,39 @@ In fact, we can multiply both sides of the inequality by any positive constant <
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Optimization</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#section-1-1-introduction-to-optimization">Section 1.1: Introduction to Optimization</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">Why Optimization?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-least-squares-regression">Example 1: Least Squares Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">Problem Setup</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-formulation">Vectorized Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#closed-form-solution">Closed-form Solution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-form-with-intercept">Augmented Form (with Intercept)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks">Remarks</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2.1. Introduction to Optimization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#section-1-1-introduction-to-optimization">2.2. Section 1.1: Introduction to Optimization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">2.2.1. Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-least-squares-regression">2.2.2. Example 1: Least Squares Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">2.2.2.1. Problem Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorized-formulation">2.2.2.2. Vectorized Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#closed-form-solution">2.2.2.3. Closed-form Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmented-form-with-intercept">2.2.2.4. Augmented Form (with Intercept)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks">2.2.2.5. Remarks</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-support-vector-machine-svm">Example 2: Support Vector Machine (SVM)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hard-margin-svm-formulation">Hard-Margin SVM Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-intuition">Geometric Intuition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-1-in-the-constraint">Why the “1” in the Constraint?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-structure">Optimization Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-theory-to-practice">From Theory to Practice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-support-vector-machine-svm">2.2.3. Example 2: Support Vector Machine (SVM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hard-margin-svm-formulation">2.2.3.1. Hard-Margin SVM Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-intuition">2.2.3.2. Geometric Intuition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-1-in-the-constraint">2.2.3.3. Why the “1” in the Constraint?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-structure">2.2.3.4. Optimization Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-theory-to-practice">2.2.3.5. From Theory to Practice</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-training-neural-networks">Example 3: Training Neural Networks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-typical-supervised-learning-setup">A Typical Supervised Learning Setup</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-a-2-layer-neural-network">Example: A 2-Layer Neural Network</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-challenges">Optimization Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-training-neural-networks">2.2.4. Example 3: Training Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-typical-supervised-learning-setup">2.2.4.1. A Typical Supervised Learning Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-a-2-layer-neural-network">2.2.4.2. Example: A 2-Layer Neural Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-challenges">2.2.4.3. Optimization Challenges</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-adversarial-attacks">Example 4: Adversarial Attacks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-attack-formulation">Adversarial Attack Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-robust-optimization-viewpoint">A Robust Optimization Viewpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-adversarial-attacks">2.2.5. Example 4: Adversarial Attacks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-attack-formulation">2.2.5.1. Adversarial Attack Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-robust-optimization-viewpoint">2.2.5.2. A Robust Optimization Viewpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">2.2.5.3. Interpretation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">Elements of an Optimization Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-learn">What We Will Learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">2.2.6. Elements of an Optimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-learn">2.2.7. What We Will Learn</a></li>
 </ul>
 </li>
 </ul>
