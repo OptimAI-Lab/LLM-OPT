@@ -15,3 +15,29 @@ to check the website on your local machine.
 Google doc link:
 
 [https://docs.google.com/document/d/1T_nDZsOlqntZ09aozTEBGTQuEmG40ZCxdZDnK5GNkRA/edit?tab=t.0]
+
+
+Use different boxes for different purposes
+
+Properties
+
+````{admonition} Epigraph amd convexity
+:class: note
+
+````
+
+
+Theorem/Key Results
+
+````{admonition} Epigraph amd convexity
+:class: important
+
+````
+
+
+Prooof
+
+````{admonition} Proof of .... 
+:class: dropdown
+
+````

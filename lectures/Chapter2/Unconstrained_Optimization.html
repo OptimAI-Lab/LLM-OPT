@@ -640,50 +640,9 @@ f(x_1, x_2) = x_1^2 - x_2^2.
 <h3>When Does a Local Minimum Become a Global Minimum?<a class="headerlink" href="#when-does-a-local-minimum-become-a-global-minimum" title="Link to this heading">#</a></h3>
 <p>In general, a <strong>local minimum</strong> solution needs not be a <strong>global minimum</strong>.   However, for some special classes of optimization problems, <em>every</em> local minimum is guaranteed to be global.   Knowing these cases is important because it means <strong>checking local optimality conditions is enough</strong> to guarantee global optimality.</p>
 <ol class="arabic simple">
-<li><p><strong>Convex Problems</strong></p></li>
 <li><p><strong>Unconstrained Quadratic Programs (UQPs)</strong></p></li>
+<li><p><strong>Convex Problems</strong></p></li>
 </ol>
-<hr class="docutils" />
-<div class="tip admonition">
-<p class="admonition-title">Definition: Convex Problem</p>
-<p>An <strong>optimization problem</strong> is called <strong>convex</strong> if:</p>
-<ol class="arabic">
-<li><p>The <strong>feasible set</strong> <span class="math notranslate nohighlight">\(\mathcal{W}\)</span> is a <strong>convex set</strong>, meaning<br />
-for any <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and any <span class="math notranslate nohighlight">\(\lambda \in [0,1]\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[
-   \lambda \vw_1 + (1-\lambda)\vw_2 \in \mathcal{W}.
-   \]</div>
-</li>
-<li><p>The <strong>objective function</strong> <span class="math notranslate nohighlight">\(f:\mathcal{W}\to\RR\)</span> is <strong>convex</strong>, meaning<br />
-for all <span class="math notranslate nohighlight">\(\vw_1, \vw_2 \in \mathcal{W}\)</span> and all <span class="math notranslate nohighlight">\(\lambda\in[0,1]\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[
-   f\big(\lambda\vw_1 + (1-\lambda)\vw_2\big)
-   \ \le\ \lambda f(\vw_1) + (1-\lambda) f(\vw_2).
-   \]</div>
-</li>
-</ol>
-</div>
-<hr class="docutils" />
-<p><strong>Special case (unconstrained):</strong><br />
-If <span class="math notranslate nohighlight">\(\mathcal{W}=\RR^d\)</span>, a convex problem reduces to minimizing a convex function over the entire space.</p>
-<hr class="docutils" />
-<ul class="simple">
-<li><p>Intuitively, a convex function ‘holds water’.</p></li>
-<li><p>Further, if <span class="math notranslate nohighlight">\(f\)</span> is second-order differentiable, then convexity ⇔ <span class="math notranslate nohighlight">\(\nabla^2 f(\vw) \succeq 0\)</span> for all <span class="math notranslate nohighlight">\(\vw\)</span> in the domain.</p></li>
-<li><p>Linear functions are both convex and concave.</p></li>
-</ul>
-<div class="tip admonition">
-<p class="admonition-title">Convex Problems: Local ⇒ Global</p>
-<p>If <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is <strong>convex</strong>, then <strong>every local minimizer is a global minimizer</strong>.</p>
-<p>Clearly, if <span class="math notranslate nohighlight">\(\bar{\vw}\)</span> were local but not global, there exists <span class="math notranslate nohighlight">\(\vw\)</span> with <span class="math notranslate nohighlight">\(f(\vw)&lt;f(\bar{\vw})\)</span>. By convexity,</p>
-<div class="math notranslate nohighlight">
-\[
-f\big(c\,\bar{\vw}+(1-c)\vw\big)\le c\,f(\bar{\vw})+(1-c)f(\vw)&lt; f(\bar{\vw}),
-\]</div>
-<p>contradicting local optimality at <span class="math notranslate nohighlight">\(\bar{\vw}\)</span>.</p>
-</div>
 <div class="tip admonition">
 <p class="admonition-title">UQPs: Local ⇒ Global (and uniqueness when <span class="math notranslate nohighlight">\(Q\succ 0\)</span>)</p>
 <p>Consider the quadratic problem</p>
@@ -700,10 +659,11 @@ f(\vw)=\tfrac12\,\vw^\top Q\,\vw+\vb^\top \vw + c,\quad Q=Q^\top.
 <li><p>If <span class="math notranslate nohighlight">\(Q\succ 0\)</span> (PD), the minimizer is <strong>unique</strong> (strong convexity).</p></li>
 </ul>
 </div>
+<p>We will talk about convex problems in the next subsection.</p>
 </section>
 <section id="convexity-concavity-and-related-concepts">
 <h3>2.2.2 Convexity, Concavity, and Related Concepts<a class="headerlink" href="#convexity-concavity-and-related-concepts" title="Link to this heading">#</a></h3>
-<p>we have briefly discussed the notion of convexity in the previous subsection. Convexity is a fundamental concept in optimization. Many powerful results, such as the “all local minimum solutions are global” discussed in the previous subsection rely on it.</p>
+<p>We have briefly discussed the notion of convexity in the previous subsection. Convexity is a fundamental concept in optimization. Many powerful results, such as the “all local minimum solutions are global” discussed in the previous subsection rely on it.</p>
 <hr class="docutils" />
 <div class="tip admonition">
 <p class="admonition-title">Definition: Convex Function</p>
@@ -767,6 +727,16 @@ $<span class="math notranslate nohighlight">\(
 <li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(\mathrm{epi}(f)\)</span> is a convex set.</p></li>
 <li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ its <strong>hypograph</strong> <span class="math notranslate nohighlight">\(\{(\vw,t) \mid f(\vw)\ge t\}\)</span> is convex.</p></li>
 </ul>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Convex Problems: Local ⇒ Global</p>
+<p>If <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is <strong>convex</strong>, then <strong>every local minimizer is a global minimizer</strong>.</p>
+<p>Clearly, if <span class="math notranslate nohighlight">\(\bar{\vw}\)</span> were local but not global, there exists <span class="math notranslate nohighlight">\(\vw\)</span> with <span class="math notranslate nohighlight">\(f(\vw)&lt;f(\bar{\vw})\)</span>. By convexity,</p>
+<div class="math notranslate nohighlight">
+\[
+f\big(c\,\bar{\vw}+(1-c)\vw\big)\le c\,f(\bar{\vw})+(1-c)f(\vw)&lt; f(\bar{\vw}),
+\]</div>
+<p>contradicting local optimality at <span class="math notranslate nohighlight">\(\bar{\vw}\)</span>.</p>
 </div>
 </section>
 <section id="practice-problems-applying-optimality-conditions">
