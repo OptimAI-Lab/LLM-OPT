@@ -122,3 +122,10 @@ latex:
     maketitle: ''
 html:
   use_numbered_headings: true
+
+# sphinx:
+#   config:
+#     numfig: true
+
+math:
+   equation_numbering: by_section
