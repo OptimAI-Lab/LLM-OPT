@@ -3,7 +3,7 @@ root: index
 chapters:
   - file: syllabus
   - file: notations
-    title: Notations and Conventions
+    # title: Notations and Conventions
     title: Introduction 
     sections:
       - file: lectures/Chapter1/intro
@@ -21,6 +21,10 @@ chapters:
   - file: lectures/Chapter3/LLM
     title: Introduction to Large Language Models
   - file: lectures/Chapter4/training_algorithms
-    title: Optimization for Large Language Models
+    title: Chapter 4. Optimization for Large Language Models
+    title: Adaptive algorithms
+    sections:
+      - file: lectures/Chapter4/variants
+        title: Variants of adaptive methods
   - file: references
     title: References
