@@ -26,6 +26,7 @@ sphinx:
       - example
       - remark
       - property
+      - proof
   config:
     html_theme: sphinx_book_theme
     copyright: "2025"

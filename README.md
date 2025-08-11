@@ -17,27 +17,15 @@ Google doc link:
 [https://docs.google.com/document/d/1T_nDZsOlqntZ09aozTEBGTQuEmG40ZCxdZDnK5GNkRA/edit?tab=t.0]
 
 
-Use different boxes for different purposes
+Use different boxes for different purposes:
 
-Properties
+first, install
+ pip install sphinx-proof
+then you can try
+```{prf:definition} Convex function
+:label: def:convex
+A function $f$ is convex if $f(\theta x+(1-\theta)y) \le \theta f(x) + (1-\theta)f(y)$.
+```
 
-````{admonition} Epigraph amd convexity
-:class: note
-
-````
-
-
-Theorem/Key Results
-
-````{admonition} Epigraph amd convexity
-:class: important
-
-````
-
-
-Prooof
-
-````{admonition} Proof of .... 
-:class: dropdown
-
-````
+See {prf:ref}`def:convex`.
+in a markdown block
