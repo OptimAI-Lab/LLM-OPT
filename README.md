@@ -22,10 +22,12 @@ Use different boxes for different purposes:
 first, install
  pip install sphinx-proof
 then you can try
+
 ```{prf:definition} Convex function
 :label: def:convex
 A function $f$ is convex if $f(\theta x+(1-\theta)y) \le \theta f(x) + (1-\theta)f(y)$.
 ```
 
 See {prf:ref}`def:convex`.
+
 in a markdown block
