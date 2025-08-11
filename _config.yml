@@ -13,15 +13,24 @@ execute:
 math:
    equation_numbering: by_section
 sphinx:
+  extra_extensions:
+    - sphinx_proof
+    - sphinx_multitoc_numbering
+  config:
+    proof_theorem_types:
+      - theorem
+      - lemma
+      - proposition
+      - corollary
+      - definition
+      - example
+      - remark
   config:
     html_theme: sphinx_book_theme
     copyright: "2025"
     numfig: true                 # Number figures, tables, equations
     html_theme_options:
       use_numbered_headings: true  # Number sections like 1, 1.1, 1.1.1
-    extra_extensions:
-      - sphinx_multitoc_numbering
-      - sphinx_proof  
     html_theme_options:
       use_numbered_headings: true
       numbered_headings_depth: 3       # 1=H1, 2=H1–H2, 3=H1–H3
