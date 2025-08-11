@@ -339,8 +339,25 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="constrained-optimization">
 <h1><span class="section-number">3.6. </span>Constrained Optimization<a class="headerlink" href="#constrained-optimization" title="Link to this heading">#</a></h1>
-<p>So far, we have focused on <strong>unconstrained</strong> problems, where the optimization variable can take any value in <span class="math notranslate nohighlight">\(\RR^d\)</span>.<br />
-In <strong>constrained optimization</strong>, the variable must satisfy certain restrictions.</p>
+<p>So far, we have focused on <strong>unconstrained</strong> problems, where the optimization variable can take any value in <span class="math notranslate nohighlight">\(\RR^d\)</span>.  In <strong>constrained optimization</strong>, the variable must satisfy certain restrictions. Constrained optimization is arguably more widely used in classical applications of optimization, such as resource allocation problems, economics, transportation, signal processing etc. However, it appears that s far,  in machine learning and deep learning, and especially in training foundation models, it is not often used (at least not used directly). However, many concepts here are still critical for our subsequent studies for algorithms for training foundation models.</p>
+<div class="tip admonition">
+<p class="admonition-title">Definition: Constrained Optimization Problem</p>
+<p>A general constrained optimization problem can be written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\min_{\vw \in \RR^d} \quad &amp; f(\vw) \\
+\text{s.t.} \quad &amp; g_i(\vw) \le 0, \quad i = 1,\dots,m, \\
+&amp; h_j(\vw) = 0, \quad j = 1,\dots,p,
+\end{aligned}
+\end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f:\RR^d \to \RR\)</span> is the <strong>objective function</strong>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(g_i:\RR^d \to \RR\)</span> are <strong>inequality constraint functions</strong>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_j:\RR^d \to \RR\)</span> are <strong>equality constraint functions</strong>.</p></li>
+</ul>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
