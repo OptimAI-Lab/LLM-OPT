@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter3/LLM';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -310,7 +312,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -326,6 +330,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">4.1. Scaled Dot-Product Attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-or-causal-self-attention">4.2. Masked (or causal) self-attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">4.3. Multi-Head Attention:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only-transformer">4.4. Decoder-only transformer</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -337,7 +352,408 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-large-language-models">
 <h1><span class="section-number">4. </span>Introduction to Large Language Models<a class="headerlink" href="#introduction-to-large-language-models" title="Link to this heading">#</a></h1>
-<p>hello</p>
+<p>TODO: introduce/explain self-attention</p>
+<section id="scaled-dot-product-attention">
+<h2><span class="section-number">4.1. </span>Scaled Dot-Product Attention<a class="headerlink" href="#scaled-dot-product-attention" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>X is the embedding matrix</p></li>
+<li><p>Assume single attention layer after the embedding layer</p></li>
+<li><p>sequence_length=3</p></li>
+</ul>
+<p>Input matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X  = 
+\begin{bmatrix}
+x_1   \\
+x_2   \\
+x_3  
+\end{bmatrix}
+ \in \mathbb{R}^{3 \times \textrm{embed\_dim}} \end{split}\]</div>
+<p>Learned attention matricies:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+Q  = 
+\begin{bmatrix}
+q_1   \\
+q_2   \\
+q_3  
+\end{bmatrix}
+ \in \mathbb{R}^{3 \times d_q }, \ 
+K  = 
+\begin{bmatrix}
+k_1   \\
+k_2   \\
+k_3  
+\end{bmatrix}
+ \in \mathbb{R}^{3 \times d_k }, \ 
+V  = 
+\begin{bmatrix}
+v_1   \\
+v_2   \\
+v_3  
+\end{bmatrix}
+ \in \mathbb{R}^{3 \times d_v }\  
+\end{split}\]</div>
+<p>Attention logits matrix <span class="math notranslate nohighlight">\(QK^T\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned} 
+QK^T \in \mathbb{R}^{3 \times 3 }  = \\\begin{split}\begin{bmatrix}
+q_1   \\
+q_2   \\
+q_3  
+\end{bmatrix}\end{split}\\\cdot \\\begin{bmatrix}
+k_1^T &amp; k_2^T &amp; k_3^T 
+\end{bmatrix}\\\begin{split}= 
+ 
+\begin{bmatrix}
+q_1 k_1^T &amp; q_1 k_2^T &amp; q_1 k_3^T \\
+q_2 k_1^T &amp; q_2 k_2^T &amp; q_2 k_3^T \\
+q_3 k_1^T &amp; q_3 k_2^T &amp; q_3 k_3^T
+\end{bmatrix}\end{split}\end{aligned}\end{align} \]</div>
+<p>Attention weight matrix <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}A \in \mathbb{R}^{3 \times 3 }  =\\\begin{split}\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23} \\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{bmatrix} =\end{split}\\\textrm{Softmax} \left( \frac{Q K^T}{\sqrt{d_k}} \right) =  \\\begin{split}\begin{bmatrix}
+\frac{\exp \left( \frac{q_1 k_1^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_1 k_j^T}{\sqrt{d_k}} \right)} &amp; \frac{\exp \left( \frac{q_1 k_2^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_1 k_j^T}{\sqrt{d_k}} \right)} &amp; \frac{\exp \left( \frac{q_1 k_3^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_1 k_j^T}{\sqrt{d_k}} \right)} \\
+\frac{\exp \left( \frac{q_2 k_1^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_2 k_j^T}{\sqrt{d_k}} \right)} &amp; \frac{\exp \left( \frac{q_2 k_2^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_2 k_j^T}{\sqrt{d_k}} \right)} &amp; \frac{\exp \left( \frac{q_2 k_3^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_2 k_j^T}{\sqrt{d_k}} \right)} \\
+\frac{\exp \left( \frac{q_3 k_1^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_3 k_j^T}{\sqrt{d_k}} \right)} &amp; \frac{\exp \left( \frac{q_3 k_2^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_3 k_j^T}{\sqrt{d_k}} \right)} &amp; \frac{\exp \left( \frac{q_3 k_3^T}{\sqrt{d_k}} \right)}{\sum_{j=1}^{3} \exp \left( \frac{q_3 k_j^T}{\sqrt{d_k}} \right)}
+\end{bmatrix}\end{split}\end{aligned}\end{align} \]</div>
+<p>Note that <span class="math notranslate nohighlight">\(a_{ij}\)</span> is the attention weight of query <span class="math notranslate nohighlight">\(q_i\)</span> wrt key <span class="math notranslate nohighlight">\(k_j\)</span> and indicates the level of attention that token <span class="math notranslate nohighlight">\(i\)</span> pays on token <span class="math notranslate nohighlight">\(j\)</span>. TODO: explain why we scale by sqrt(dk) !!!</p>
+<p>Attention output <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}Z \in \mathbb{R}^{3 \times d_v } = \textrm{Softmax} \left( \frac{Q K^T}{\sqrt{d_k}} \right) \cdot V  = \\\begin{split}\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23} \\
+a_{31} &amp; a_{32} &amp; a_{33}
+\end{bmatrix}\end{split}\\\cdot \\\begin{split}\begin{bmatrix}
+v_1   \\
+v_2   \\
+v_3  
+\end{bmatrix}\end{split}\\\begin{split}= 
+\begin{bmatrix}
+a_{11}v_1 + a_{12}v_2 + a_{13}v_3 \\
+a_{21}v_1 + a_{22}v_2 + a_{23}v_3 \\
+a_{31}v_1 + a_{32}v_2 + a_{33}v_3
+\end{bmatrix}\end{split}\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\(Z\)</span> is the output of the attention layer, which weights the value vectors <span class="math notranslate nohighlight">\(v_i\)</span> based on the computed attention weights. Each <span class="math notranslate nohighlight">\(z_i\)</span> combines information from different value vectors (corresponding to different tokens) according to the attention given to each key by each query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Define embedding vectors for tokens (3 tokens/sq_len, 4-dimensional embeddings)</span>
+<span class="n">embedding_dim</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span>   <span class="c1"># Embedding for token 1</span>
+              <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>   <span class="c1"># Embedding for token 2</span>
+              <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]])</span>  <span class="c1"># Embedding for token 3</span>
+
+<span class="c1"># Define weight matrices for the transformations (W_Q, W_K, W_V)</span>
+<span class="n">W_Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>  <span class="c1"># Query weight matrix</span>
+<span class="n">W_K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>  <span class="c1"># Key weight matrix</span>
+<span class="n">W_V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>  <span class="c1"># Value weight matrix</span>
+
+<span class="c1"># Compute the Q, K, V matrices by applying the transformations to the embeddings</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_Q</span><span class="p">)</span>  <span class="c1"># Query matrix (Q)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_K</span><span class="p">)</span>  <span class="c1"># Key matrix (K)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_V</span><span class="p">)</span>  <span class="c1"># Value matrix (V)</span>
+
+<span class="c1"># Define the scaling factor (sqrt of key dimension)</span>
+<span class="n">d_k</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_k</span><span class="p">)</span>
+
+<span class="c1"># Compute the attention logits (Q K^T / sqrt(d_k))</span>
+<span class="n">logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">scaling_factor</span>
+
+<span class="c1"># Apply softmax to the logits to get attention weights</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">attention_weights</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+
+<span class="c1"># Compute the output Z (weighted sum of values)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">attention_weights</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embeddings:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Query Matrix (Q):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Key Matrix (K):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Value Matrix (V):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Attention Logits (Q K^T / sqrt(d_k)):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Attention Weights (Softmax of Logits):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">attention_weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Output Z (Weighted Sum of Values):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Embeddings:
+ [[0.1 0.2 0.3 0.4]
+ [0.5 0.6 0.7 0.8]
+ [0.9 1.  1.1 1.2]]
+
+Query Matrix (Q):
+ [[0.3420103  0.62233974 0.53697047 0.29698896]
+ [1.00365668 1.44684093 1.56965646 0.84233679]
+ [1.66530306 2.27134213 2.60234245 1.38768462]]
+
+Key Matrix (K):
+ [[0.74303219 0.49267585 0.4881666  0.49281519]
+ [1.72094183 1.15209432 1.41343988 1.28417434]
+ [2.69885148 1.81151279 2.33871316 2.07553349]]
+
+Value Matrix (V):
+ [[0.73211049 0.74873158 0.5537382  0.43762437]
+ [1.85844946 2.04667365 1.33752168 1.03255935]
+ [2.98478842 3.34461572 2.12130517 1.62749433]]
+
+Attention Logits (Q K^T / sqrt(d_k)):
+ [[0.48461407 1.2229675  1.96132093]
+ [1.31997151 3.34722716 5.37448281]
+ [2.15532895 5.47148682 8.78764469]]
+
+Attention Weights (Softmax of Logits):
+ [[0.13385107 0.28008165 0.58606728]
+ [0.01509429 0.11461429 0.87029142]
+ [0.00126937 0.03497657 0.96375407]]
+
+Output Z (Weighted Sum of Values):
+ [[2.3677982  2.6336241  1.69196128 1.3015986 ]
+ [2.8216913  3.15666997 2.00781106 1.54134604]
+ [2.94253348 3.29592303 2.09190129 1.60517517]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pytorch code ???</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="masked-or-causal-self-attention">
+<h2><span class="section-number">4.2. </span>Masked (or causal) self-attention<a class="headerlink" href="#masked-or-causal-self-attention" title="Link to this heading">#</a></h2>
+<p>In practice, transformers use a version of self-attention called masked or causal self-attention. In contrast to (bidirectional) self-attention that computes attentions scores for all tokens in the sequence, masked self-attention uses a <em>causal mask</em> that hides future tokens, so each token can attend to itself and earlier tokens.</p>
+<p>Example of a casual mask:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|cccccc}
+    &amp; \text{The} &amp; \text{cat} &amp; \text{sat} &amp; \text{on} &amp; \text{the} &amp; \text{mat} \\
+\hline
+\text{The} &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\text{cat} &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\text{sat} &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+\text{on}  &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+\text{the} &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 \\
+\text{mat}&amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1
+\end{array}
+\end{split}\]</div>
+<p>Where 1 means the token can attend, 0 means it’s masked out. Note that for simplicity each word represents a token. So,</p>
+<ul class="simple">
+<li><p>“The” can attend only to itself.</p></li>
+<li><p>“cat” can attend only to “The” and “cat”.</p></li>
+<li><p>“mat” can attend to everything in this sentence.</p></li>
+</ul>
+<p>Usually this masking is done by setting the <span class="math notranslate nohighlight">\(q_i k_j^T\)</span> with <span class="math notranslate nohighlight">\(i &lt; j\)</span> to <span class="math notranslate nohighlight">\(-\infty\)</span> in the <span class="math notranslate nohighlight">\(QK^T\)</span> attention logits matrix so that the application of the softmax will give zero attention weights to those positions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Define embedding vectors for tokens (3 tokens/sq_len, 4-dimensional embeddings)</span>
+<span class="n">embedding_dim</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span>   <span class="c1"># Embedding for token 1</span>
+              <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>   <span class="c1"># Embedding for token 2</span>
+              <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]])</span>  <span class="c1"># Embedding for token 3</span>
+
+<span class="c1"># Define weight matrices for the transformations (W_Q, W_K, W_V)</span>
+<span class="n">W_Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>  <span class="c1"># Query weight matrix</span>
+<span class="n">W_K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>  <span class="c1"># Key weight matrix</span>
+<span class="n">W_V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>  <span class="c1"># Value weight matrix</span>
+
+<span class="c1"># Compute the Q, K, V matrices by applying the transformations to the embeddings</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_Q</span><span class="p">)</span>  <span class="c1"># Query matrix (Q)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_K</span><span class="p">)</span>  <span class="c1"># Key matrix (K)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_V</span><span class="p">)</span>  <span class="c1"># Value matrix (V)</span>
+
+<span class="c1"># Define the scaling factor (sqrt of key dimension)</span>
+<span class="n">d_k</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_k</span><span class="p">)</span>
+
+<span class="c1"># Compute the attention logits (Q K^T / sqrt(d_k))</span>
+<span class="n">logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">scaling_factor</span>
+
+<span class="c1"># Create causal mask: shape (seq_len, seq_len)</span>
+<span class="n">seq_len</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tril</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)))</span>  <span class="c1"># Lower triangular matrix including diagonal</span>
+
+<span class="c1"># Apply mask: set logits where mask==0 to very large negative value (simulate -inf)</span>
+<span class="n">logits_masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e9</span><span class="p">)</span>
+
+<span class="c1"># Apply softmax to the masked logits to get attention weights</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">softmax</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">e_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>  <span class="c1"># for numerical stability</span>
+    <span class="k">return</span> <span class="n">e_x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">attention_weights</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">logits_masked</span><span class="p">)</span>
+
+<span class="c1"># Compute the output Z (weighted sum of values)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">attention_weights</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embeddings:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Query Matrix (Q):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Key Matrix (K):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Value Matrix (V):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Attention Logits (Q K^T / sqrt(d_k)):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mask (1=keep, 0=mask):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Masked Attention Logits:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">logits_masked</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Attention Weights (Softmax of Masked Logits):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">attention_weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Output Z (Weighted Sum of Values):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Embeddings:
+ [[0.1 0.2 0.3 0.4]
+ [0.5 0.6 0.7 0.8]
+ [0.9 1.  1.1 1.2]]
+
+Query Matrix (Q):
+ [[0.37445206 0.63808738 0.53527762 0.42639362]
+ [1.14268039 1.49126915 1.42375564 1.17547253]
+ [1.91090873 2.34445093 2.31223366 1.92455144]]
+
+Key Matrix (K):
+ [[0.50926387 0.28276339 0.26819811 0.54880954]
+ [1.13143172 0.68208795 0.66311917 1.50720176]
+ [1.75359957 1.08141252 1.05804023 2.46559398]]
+
+Value Matrix (V):
+ [[0.27664098 0.61460246 0.8316572  0.46256693]
+ [0.64791141 1.62860363 2.19496265 1.18161921]
+ [1.01918184 2.6426048  3.55826809 1.9006715 ]]
+
+Attention Logits (Q K^T / sqrt(d_k)):
+ [[0.37434599 0.92825636 1.48216673]
+ [1.01528063 2.51291775 4.01055486]
+ [1.65621527 4.09757913 6.538943  ]]
+
+Mask (1=keep, 0=mask):
+ [[1. 0. 0.]
+ [1. 1. 0.]
+ [1. 1. 1.]]
+
+Masked Attention Logits:
+ [[ 3.74345993e-01 -1.00000000e+09 -1.00000000e+09]
+ [ 1.01528063e+00  2.51291775e+00 -1.00000000e+09]
+ [ 1.65621527e+00  4.09757913e+00  6.53894300e+00]]
+
+Attention Weights (Softmax of Masked Logits):
+ [[1.         0.         0.        ]
+ [0.1827782  0.8172218  0.        ]
+ [0.00692143 0.07951818 0.9135604 ]]
+
+Output Z (Weighted Sum of Values):
+ [[0.27664098 0.61460246 0.8316572  0.46256693]
+ [0.58005127 1.44326632 1.94578012 1.05019213]
+ [0.98451965 2.54793661 3.43098849 1.83354004]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multi-head-attention">
+<h2><span class="section-number">4.3. </span>Multi-Head Attention:<a class="headerlink" href="#multi-head-attention" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O
+\quad \text{where} \quad \\
+\text{head}_i = \text{Attention}(Q W_i^Q, \; K W_i^K, \; V W_i^V)
+\end{split}\]</div>
+<p>where the projection matrices are:
+<span class="math notranslate nohighlight">\(
+\quad
+W_i^Q \in \mathbb{R}^{d_{\text{model}} \times d_k}, \quad
+W_i^K \in \mathbb{R}^{d_{\text{model}} \times d_k}, \quad
+W_i^V \in \mathbb{R}^{d_{\text{model}} \times d_v}, \quad
+\text{and} \quad
+W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
+\)</span></p>
+<p>TODO: Explain more ….</p>
+</section>
+<section id="decoder-only-transformer">
+<h2><span class="section-number">4.4. </span>Decoder-only transformer<a class="headerlink" href="#decoder-only-transformer" title="Link to this heading">#</a></h2>
+<p>Example diagram:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c}
+\text{Input Tokens (one-hot)} \quad (T \times |V|) \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Embedding Layer}
+\end{array}
+} \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Positional Encoding Layer}
+\end{array}
+} \\
+\downarrow \\
+\text{Token Embeddings + Positional Encoding} \quad (T \times d_{\text{model}}) \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Decoder Block 1:} \\
+\text{Masked Self-Attention} \\
+\text{Feed-Forward Network} \\
+\text{Layer Norm \&amp; Residuals}
+\end{array}
+} \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Decoder Block 2:} \\
+\text{Masked Self-Attention} \\
+\text{Feed-Forward Network} \\
+\text{Layer Norm \&amp; Residuals}
+\end{array}
+} \\
+\downarrow \\
+\vdots \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Decoder Block N:} \\
+\text{Masked Self-Attention} \\
+\text{Feed-Forward Network} \\
+\text{Layer Norm \&amp; Residuals}
+\end{array}
+} \\
+\downarrow \\
+\text{Final hidden states} \quad (T \times d_{\text{model}}) \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Linear Layer (vocab projection)}
+\end{array}
+} \\
+\downarrow \\
+\text{Linear Layer Output} \quad (T \times |V|) \\
+\downarrow \\
+\boxed{
+\begin{array}{c}
+\text{Softmax (next token probabilities)}
+\end{array}
+} \\
+\downarrow \\
+\text{Output Probabilities} \quad (T \times |V|)
+\end{array}
+\end{split}\]</div>
+<p>TODO: Explain layernorm, batchnorm, residuals, positional encodings …</p>
+<p>TODO: Explain how is the output probabilities matrix used, e.g., for training or inference …</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -394,6 +810,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">4.1. Scaled Dot-Product Attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-or-causal-self-attention">4.2. Masked (or causal) self-attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">4.3. Multi-Head Attention:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only-transformer">4.4. Decoder-only transformer</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
