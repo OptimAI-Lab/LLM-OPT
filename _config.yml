@@ -25,6 +25,7 @@ sphinx:
       - definition
       - example
       - remark
+      - property
   config:
     html_theme: sphinx_book_theme
     copyright: "2025"
