@@ -18,3 +18,5 @@ Google doc link:
 
 
 Use different boxes for different purposes
+
+Reference: for theorem/assumption, {prf:ref}`xxx`; for equations {eq}`xxx`
