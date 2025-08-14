@@ -50,6 +50,7 @@ sphinx:
           ZZ: "\\mathbb{Z}"
           Var: "\\mathrm{Var}"
           sign: "\\mathrm{sign}"
+          argmin: "\\mathrm{argmin}"
           KL: ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2]
           vA: "\\mathbf{A}"
           vB: "\\mathbf{B}"
