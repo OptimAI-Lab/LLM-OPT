@@ -29,6 +29,7 @@ sphinx:
       - proof
       - algorithm
       - assumption
+      - exercise
   config:
     html_theme: sphinx_book_theme
     copyright: "2025"
