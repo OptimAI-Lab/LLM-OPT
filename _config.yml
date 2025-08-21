@@ -28,7 +28,7 @@ sphinx:
       - property
       - proof
       - algorithm
-      - assumption
+      - assumption    
       - exercise
   config:
     html_theme: sphinx_book_theme
