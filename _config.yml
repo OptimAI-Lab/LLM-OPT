@@ -27,8 +27,9 @@ sphinx:
       - remark
       - property
       - algorithm
-      - assumption    
+      - assumption
       - exercise
+      
     proof_title_template: "{name} {number} ({title})"
     copyright: "2025"
     numfig: true                 # Number figures, tables, equations
