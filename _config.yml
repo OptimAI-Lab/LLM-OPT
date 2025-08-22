@@ -26,16 +26,13 @@ sphinx:
       - example
       - remark
       - property
-      - proof
       - algorithm
       - assumption    
       - exercise
-  config:
-    html_theme: sphinx_book_theme
+    proof_title_template: "{name} {number} ({title})"
     copyright: "2025"
     numfig: true                 # Number figures, tables, equations
-    html_theme_options:
-      use_numbered_headings: true  # Number sections like 1, 1.1, 1.1.1
+    html_theme: sphinx_book_theme
     html_theme_options:
       use_numbered_headings: true
       numbered_headings_depth: 3       # 1=H1, 2=H1–H2, 3=H1–H3
