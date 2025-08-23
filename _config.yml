@@ -140,4 +140,5 @@ sphinx:
           veta: "\\boldsymbol{\\eta}"
           vupsilon: "\\boldsymbol{\\upsilon}"
           vTau: "\\boldsymbol{\\Tau}"
+          Proj: "\\mathrm{Proj}"
 
