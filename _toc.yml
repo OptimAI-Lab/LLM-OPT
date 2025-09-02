@@ -29,12 +29,13 @@ chapters:
     title: Introduction to Large Language Models
   - file: lectures/Chapter4/stochastic_opt
     title: Stochastic Optimization for Large Language Models
-    # title: Adaptive algorithms
     sections:
       - file: lectures/Chapter4/training_algorithms
         title: Adaptive algorithms
       - file: lectures/Chapter4/variants
-        title: Variants of adaptive methods
+        title: Discussions on modern adaptive methods
+      - file: lectures/Chapter4/lr_mup
+        title: Learning rate scheduler and muP
   - file: references
     title: References
 
