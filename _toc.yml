@@ -4,17 +4,13 @@ options:
   numbered: true      # <-- THIS makes the sidebar show 1, 1.1, 1.2, ...
   maxdepth: 3         # how deep the sidebar expands (H1–H3)
 chapters:
-  - file: syllabus
-    options:
-      numbered: false
-  - file: notations
-    # title: Notations and Conventions
+  - file: lectures/Chapter1/intro  
     title: Introduction 
     sections:
-      - file: lectures/Chapter1/intro
-        title: Introduction to Optimization
       - file: lectures/Chapter1/course_outline
         title: Course Outline
+      - file: notations
+        title: Notations
     title: Introduction to Optimization
   - file: lectures/Chapter2/optimization
     title: Classical Optimization Theory
