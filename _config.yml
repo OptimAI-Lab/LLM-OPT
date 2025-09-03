@@ -14,6 +14,7 @@ math:
    equation_numbering: by_section
 sphinx:
   extra_extensions:
+    - sphinx_proof
     - sphinx_multitoc_numbering
   config:
     proof_theorem_types:
