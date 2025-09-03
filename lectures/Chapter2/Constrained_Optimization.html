@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -356,7 +357,18 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="constrained-optimization">
 <span id="sec-constrained"></span><h1><span class="section-number">2.3. </span>Constrained Optimization<a class="headerlink" href="#constrained-optimization" title="Link to this heading">#</a></h1>
 <p>So far, we have focused on <strong>unconstrained</strong> problems, where the optimization variable can take any value in <span class="math notranslate nohighlight">\(\RR^d\)</span>.  In <strong>constrained optimization</strong>, the variable must satisfy certain restrictions. Constrained optimization is arguably more widely used in classical applications of optimization, such as resource allocation problems, economics, transportation, signal processing etc. However, it appears that, in machine learning and deep learning, and especially in training foundation models, it is not often used (at least not used directly). This is due to many factors, for example constrained optimization problems are typically much harder to solve than unconstrained ones, therefore one tends to reformulate them as certain types of unconstrained but regularized problems. Nevertheless, many concepts in constrained optimization are still critical for our subsequent studies for algorithms for training foundation models.</p>
-<p>where:</p>
+<div class="proof definition admonition" id="def:constrained">
+<p class="admonition-title"><span class="caption-number">Definition 2.5 </span> (Constrained Optimization Problem)</p>
+<section class="definition-content" id="proof-content">
+<p>A general constrained optimization problem can be written as:</p>
+<div class="math notranslate nohighlight" id="equation-eq-constrained-problem">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-eq-constrained-problem" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned} 
+\min_{\vw \in \RR^d} \quad &amp; f(\vw) \\
+\text{s.t.} \quad &amp; g_i(\vw) \le 0, \quad i = 1,\dots,m, \\
+&amp; h_j(\vw) = 0, \quad j = 1,\dots,p,
+\end{aligned}\end{split}\]</div>
+</section>
+</div><p>where:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(f:\RR^d \to \RR\)</span> is the <strong>objective function</strong>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(g_i:\RR^d \to \RR\)</span> are <strong>inequality constraint functions</strong>.</p></li>
@@ -370,18 +382,196 @@ The optimization problem seeks the feasible point with the smallest objective va
 <section id="first-order-necessary-condition">
 <h2><span class="section-number">2.3.1. </span>First-Order Necessary Condition<a class="headerlink" href="#first-order-necessary-condition" title="Link to this heading">#</a></h2>
 <p>Clearly, a key difference between the unconstrained and constrained problem is that, for the former, the optimal solution always satisfies <span class="math notranslate nohighlight">\(\nabla f(\vw) =0\)</span> (i.e., first-order necessary condition); however for the latter, the optimal solution may occur at the boundary of the feasible set <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, in which case the gradient is not necessarily zero. Clealry, we now need a different set of conditions to characterize (global/local) optimal solutions. Towards this end, let us first define the notation of a feasible direction.</p>
-<p>f <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of a constrained problem and the feasible set is smooth near <span class="math notranslate nohighlight">\(\vw^*\)</span>, then:</p>
+<div class="proof definition admonition" id="def:feasible_direction">
+<p class="admonition-title"><span class="caption-number">Definition 2.6 </span> (Feasible Direction)</p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\vw \in \mathcal{F}\)</span>. A vector <span class="math notranslate nohighlight">\(\vd\)</span> is a <strong>feasible direction</strong> at <span class="math notranslate nohighlight">\(\vw\)</span> if there exists <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span> such that <span class="math notranslate nohighlight">\(\vw + \alpha \vd \in \mathcal{F}\)</span> for all <span class="math notranslate nohighlight">\(\alpha \in [0,\epsilon]\)</span>.</p>
+</section>
+</div><p>f <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of a constrained problem and the feasible set is smooth near <span class="math notranslate nohighlight">\(\vw^*\)</span>, then:</p>
 <p><span class="math notranslate nohighlight">\(\nabla f(\vw^*)^\top \vd \ge 0\)</span> for all feasible directions <span class="math notranslate nohighlight">\(\vd\)</span> at <span class="math notranslate nohighlight">\(\vw^*\)</span>.</p>
 <p>This is the first-order necessary condition in constrained optimization — it generalizes the unconstrained condition <span class="math notranslate nohighlight">\(\nabla f(\vw^*)=0\)</span> to account for constraints.</p>
-<p>At this point, the optimality condition stated in Theorem <span class="xref std std-ref">thm-fon-geom</span> may still be abstract. Let us go over a few examples and see how this condition can be used in practice.</p>
+<div class="proof theorem admonition" id="thm-fon-geom">
+<p class="admonition-title"><span class="caption-number">Theorem 2.9 </span> (First-Order Necessary Condition for Constrained Optimization problem Problem)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> be continuously differentiable and let <span class="math notranslate nohighlight">\(\mathcal F\subseteq\RR^d\)</span> be a <strong>convex</strong> feasible set.  If <span class="math notranslate nohighlight">\(\vw^*\in\mathcal F\)</span> is a <em>local minimizer</em> of</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\vw\in\mathcal F} f(\vw).
+\]</div>
+<p>(a) For every <span class="math notranslate nohighlight">\(\vv\in\mathcal F\)</span>, the following holds:</p>
+<div class="math notranslate nohighlight" id="equation-eq-constrained-opt-condition">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-eq-constrained-opt-condition" title="Link to this equation">#</a></span>\[\begin{align}
+\langle \nabla f(\vw^*),\, \vv-\vw^* \rangle \ \ge\ 0.
+\end{align}\]</div>
+<p>That is, <span class="math notranslate nohighlight">\(\nabla f(\vw^*)\)</span> has <strong>no negative component</strong> along any feasible direction at <span class="math notranslate nohighlight">\(\vw^*\)</span>.</p>
+<p>(b) Further, if <span class="math notranslate nohighlight">\(f\)</span> is <strong>convex</strong>, then <a class="reference internal" href="#equation-eq-constrained-opt-condition">(2.3)</a> is also *<em>suffient</em> *for global optimality.</p>
 </section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. <strong>(a) Necessity.</strong> Since <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer, there exists <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vw) \ \ge\ f(\vw^*) \quad \forall\, \vw\in\mathcal F \ \text{with} \ \|\vw-\vw^*\| \le \epsilon.
+\]</div>
+<p>Take any <span class="math notranslate nohighlight">\(\vv\in\mathcal F\)</span> and define the direction</p>
+<div class="math notranslate nohighlight">
+\[
+\vd = \vv - \vw^*.
+\]</div>
+<p>Because <span class="math notranslate nohighlight">\(\mathcal F\)</span> is convex, for any <span class="math notranslate nohighlight">\(\alpha\in[0,1]\)</span> the point <span class="math notranslate nohighlight">\(\vw^*+\alpha\vd\)</span> is also in <span class="math notranslate nohighlight">\(\mathcal F\)</span>.<br />
+For <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> small enough, <span class="math notranslate nohighlight">\(\vw^*+\alpha\vd\)</span> is feasible and within the <span class="math notranslate nohighlight">\(\epsilon\)</span>-ball, so</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vw^*+\alpha\vd) \ \ge\ f(\vw^*).
+\]</div>
+<p>Dividing both sides by <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> and subtracting <span class="math notranslate nohighlight">\(f(\vw^*)\)</span>, we get</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{f(\vw^*+\alpha\vd)-f(\vw^*)}{\alpha} \ \ge\ 0.
+\]</div>
+<p>Taking the limit as <span class="math notranslate nohighlight">\(\alpha\to 0^+\)</span> and using differentiability,</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \nabla f(\vw^*), \ \vd \rangle \ \ge\ 0.
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\vd = \vv - \vw^*\)</span> was arbitrary (for <span class="math notranslate nohighlight">\(\vv\in\mathcal F\)</span>), the result follows.</p>
+<p><strong>(b) Sufficiency (when <span class="math notranslate nohighlight">\(f\)</span> is convex).</strong> For convex and differentiable <span class="math notranslate nohighlight">\(f\)</span>, the <strong>first-order convexity inequality</strong> holds (cf. <a class="reference internal" href="Unconstrained_Optimization.html#equation-eq-convex-first-order">(2.1)</a>):</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vv)\ \ge\ f(\vw^*)\ +\ \langle \nabla f(\vw^*),\, \vv-\vw^*\rangle \quad \forall\, \vv\in\mathcal F.
+\]</div>
+<p>By the assumed inequality <span class="math notranslate nohighlight">\(\langle \nabla f(\vw^*),\, \vv-\vw^*\rangle \ge 0\)</span> for all <span class="math notranslate nohighlight">\(\vv\in\mathcal F\)</span>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vv)\ \ge\ f(\vw^*) \quad \forall\, \vv\in\mathcal F,
+\]</div>
+<p>so <span class="math notranslate nohighlight">\(\vw^*\)</span> minimizes <span class="math notranslate nohighlight">\(f\)</span> over <span class="math notranslate nohighlight">\(\mathcal F\)</span>.</p>
+</div>
+<p>At this point, the optimality condition stated in Theorem <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> may still be abstract. Let us go over a few examples and see how this condition can be used in practice.</p>
+<div class="proof example admonition" id="ex-fon-suff">
+<p class="admonition-title"><span class="caption-number">Example 2.6 </span> (Convex problem with Nonnegative Constraints)</p>
+<section class="example-content" id="proof-content">
+<p>Consider the following porblem:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\vw\in\RR^2} \quad f(\vw) = e^{w_1} + w_2^2
+\quad\text{s.t.}\quad w_1 \ge 0,\ \ w_2 \ge 0.
+\]</div>
+<p>Note that the gradient can be calculated as <span class="math notranslate nohighlight">\(\nabla f(\vw) = (e^{w_1},\ 2w_2)^\top\)</span>. Let us ‘guess’ that <span class="math notranslate nohighlight">\(\vw^*=(0,0)^\top\)</span> and we can check if  <span class="math notranslate nohighlight">\(\langle \nabla f(\vw^*),\ \vv-\vw^*\rangle \ge 0\)</span> for all <span class="math notranslate nohighlight">\(\vv\ge 0\)</span>. Indeed, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle (1,0),\ (w_1,w_2) \rangle = w_1 \ \ge\ 0.
+\]</div>
+<p>Therefore, by Theorem <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm-fon-convex-both</span></code> (b) and convexity of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\vw^*\)</span> is the <strong>global minimizer</strong>.</p>
+</section>
+</div><div class="proof example admonition" id="ex-box-constraint">
+<p class="admonition-title"><span class="caption-number">Example 2.7 </span> (Simple Box-Constrained Minimization)</p>
+<section class="example-content" id="proof-content">
+<p>Consider the following problem</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w \in [0,1]} \quad f(w) = (w - 0.3)^2.
+\]</div>
+<p>Note that the feasible set is <span class="math notranslate nohighlight">\(\mathcal{F} = [0,1]\)</span>, which is convex.  Also <span class="math notranslate nohighlight">\(f'(w) = 2(w - 0.3)\)</span>.</p>
+<p>From Theorem <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm-fon-convex-both</span></code> (a), if <span class="math notranslate nohighlight">\(w^*\)</span> is optimal:</p>
+<div class="math notranslate nohighlight">
+\[
+f'(w^*) \cdot (v - w^*) \ \ge\ 0 \quad \forall v \in [0,1].
+\]</div>
+<p>Let’s condition the following two cases:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(0 &lt; w^* &lt; 1\)</span>, we can choose <span class="math notranslate nohighlight">\(v\)</span> slightly above and below <span class="math notranslate nohighlight">\(x^*\)</span>, which forces <span class="math notranslate nohighlight">\(f'(w^*)=0\)</span>.  This gives <span class="math notranslate nohighlight">\(w^* = 0.3\)</span>, and this is a feasible solution.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(w^* = 0\)</span>, the condition requires <span class="math notranslate nohighlight">\(f'(0) \cdot (v - 0) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(v\in[0,1]\)</span>. Here <span class="math notranslate nohighlight">\(f'(0) = -0.6\)</span>, so for <span class="math notranslate nohighlight">\(v &gt; 0\)</span> the product is negative — so <span class="math notranslate nohighlight">\(w^* = 0\)</span> cannot be optimal.<br />
+If <span class="math notranslate nohighlight">\(w^* = 1\)</span>, <span class="math notranslate nohighlight">\(f'(1) = 1.4 &gt; 0\)</span> and <span class="math notranslate nohighlight">\((v - 1) \le 0\)</span>, so the product is <span class="math notranslate nohighlight">\(\le 0\)</span> — also violates the <span class="math notranslate nohighlight">\(\ge 0\)</span> condition for some <span class="math notranslate nohighlight">\(v\)</span>.</p></li>
+</ul>
+<p>The only point satisfying the first-order condition is <span class="math notranslate nohighlight">\(x^* = 0.3\)</span>.
+In addition, since <span class="math notranslate nohighlight">\(f\)</span> is convex, this is the global minimizer.</p>
+</section>
+</div><div class="proof example admonition" id="ex-equality-quadratic">
+<p class="admonition-title"><span class="caption-number">Example 2.8 </span> (Equality-Constrained Quadratic Problem)</p>
+<section class="example-content" id="proof-content">
+<p>Consider the problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\vw\in\RR^2} \quad f(\vw) = \tfrac12\|\vw\|^2
+\quad \text{s.t.} \quad \mathbf{1}^\top \vw = 1.
+\]</div>
+<p>First let us know that the feasible set is given by <span class="math notranslate nohighlight">\(\mathcal{F} = \{\vw\in\RR^2 \mid w_1+w_2=1\}\)</span>, which is a straight line in <span class="math notranslate nohighlight">\(\RR^2\)</span>. Further, the gradient of <span class="math notranslate nohighlight">\(f\)</span> is given by  <span class="math notranslate nohighlight">\(\nabla f(\vw) = \vw\)</span>.</p>
+<p>From Theorem <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm-fon-convex-both</span></code> (a), if <span class="math notranslate nohighlight">\(\vw^*\)</span> is optimal then the following holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \nabla f(\vw^*),\ \vv - \vw^* \rangle \ \ge\ 0 \quad \forall \vv \in \mathcal{F}.
+\]</div>
+<p>Substituting <span class="math notranslate nohighlight">\(\nabla f(\vw^*) = \vw^*\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \vw^*,\ \vx - \vw^* \rangle \ \ge\ 0 \quad \forall \vx \in \mathcal{F}.
+\]</div>
+<p>Then let’s understand how this condition will help us find out the optimal solution. Towards this end, we need to be able to describe how we can graduatelly change <span class="math notranslate nohighlight">\(\vx\)</span> in the feasible region and understand what the optimality condition will imply.</p>
+<p>Let us define the tangent space to the constraint at <span class="math notranslate nohighlight">\(\vw^*\)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[
+T = \{\vd \in \RR^2 \mid \mathbf{1}^\top \vd = 0\}.
+\]</div>
+<p>If we choose <span class="math notranslate nohighlight">\(\vx = \vw^* + \alpha \vd\)</span> with <span class="math notranslate nohighlight">\(\vd \in T\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> small, <span class="math notranslate nohighlight">\(\vx\)</span> remains feasible in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</p>
+<p>Then for such a choice of <span class="math notranslate nohighlight">\(\vx\)</span>, the optimalaity condition becomes condition becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \vw^*,\ \alpha \vd \rangle \ge 0 \quad\text{and}\quad \langle \vw^*,\ -\alpha \vd \rangle \ge 0.
+\]</div>
+<p>These can only hold for small <span class="math notranslate nohighlight">\(\alpha\)</span> if:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \vw^*,\ \vd \rangle = 0 \quad \forall \vd \in T.
+\]</div>
+<p>The only vectors orthogonal to <strong>all</strong> tangent directions <span class="math notranslate nohighlight">\(\vd \in T\)</span> are those parallel to the normal vector <span class="math notranslate nohighlight">\(\mathbf{1}=(1,1)^\top\)</span>.<br />
+Thus:</p>
+<div class="math notranslate nohighlight">
+\[
+\vw^* = \lambda (1,1)^\top
+\]</div>
+<p>for some scalar <span class="math notranslate nohighlight">\(\lambda\)</span>. To determine <span class="math notranslate nohighlight">\(\lambda\)</span>, use the feasibility condition <span class="math notranslate nohighlight">\(\mathbf{1}^\top \vw^* = 1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+2\lambda = 1 \quad\Rightarrow\quad \lambda = \tfrac12.
+\]</div>
+<p>Therefore we obtain <span class="math notranslate nohighlight">\(\vw^* = \tfrac12(1,1)^\top\)</span></p>
+</section>
+</div></section>
 <section id="projection-onto-convex-sets">
 <h2><span class="section-number">2.3.2. </span>Projection onto Convex Sets<a class="headerlink" href="#projection-onto-convex-sets" title="Link to this heading">#</a></h2>
 <p>When solving constrained optimization problems, many algorithms take a step that may leave the feasible set.  To restore feasibility, a natural operation is to <strong>project</strong> the current iterate back onto the feasible set.</p>
 <p>Intuitively, the `projection’ is the point in the feasible set that is <strong>closest</strong> (in Euclidean distance) to a given external point. Formally, the projection operation can be defined as follows:</p>
-<p>Geometrically, the projection operator <span class="math notranslate nohighlight">\({\rm Proj}_{\mathcal{F}}(z)\)</span> is the unique point in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> such that the vector <span class="math notranslate nohighlight">\(z - {\rm Proj}_{\mathcal{F}}(z)\)</span> is orthogonal to the feasible set at the projection point.
+<div class="proof definition admonition" id="def-projection">
+<p class="admonition-title"><span class="caption-number">Definition 2.7 </span> (Euclidean Projection)</p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{F} \subseteq \RR^d\)</span> be a nonempty, closed, convex set.<br />
+The <strong>Euclidean projection</strong> of a point <span class="math notranslate nohighlight">\(z\in\RR^d\)</span> onto <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[{\rm Proj}_{\mathcal{F}}(z) \ :=\ \arg\min_{x \in \mathcal{F}} \ \frac12 \|x - z\|^2.\]</div>
+<p>For convex <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, the minimizer exists and is <strong>unique</strong>.</p>
+</section>
+</div><p>Geometrically, the projection operator <span class="math notranslate nohighlight">\({\rm Proj}_{\mathcal{F}}(z)\)</span> is the unique point in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> such that the vector <span class="math notranslate nohighlight">\(z - {\rm Proj}_{\mathcal{F}}(z)\)</span> is orthogonal to the feasible set at the projection point.
 In other words, the error vector points directly outward from <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> along the shortest path to <span class="math notranslate nohighlight">\(z\)</span>. Please see Fig. xxxx for an illustration.</p>
 <p>Below we provide an important theorem describing the property of the projection operator.</p>
+<div class="proof theorem admonition" id="thm-proj-opt">
+<p class="admonition-title"><span class="caption-number">Theorem 2.10 </span> (Optimality of the Projection Operator)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> be nonempty, closed, and convex, and let <span class="math notranslate nohighlight">\(p = {\rm Proj}_{\mathcal{F}}(z)\)</span>.  Then the following holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle z - p,\ x - p \rangle \ \le\ 0, \quad \forall\, x \in \mathcal{F}.
+\]</div>
+<p>Conversely, if <span class="math notranslate nohighlight">\(p \in \mathcal{F}\)</span> satisfies the above inequality, then <span class="math notranslate nohighlight">\(p = {\rm Proj}_{\mathcal{F}}(z)\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. This is simply the first-order optimality condition for minimizing the convex differentiable function <span class="math notranslate nohighlight">\(\frac12\|x-z\|^2\)</span> over the convex set <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.<br />
+Its gradient is <span class="math notranslate nohighlight">\(x-z\)</span>, so the constrained first-order condition (Theorem <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> (a)) reads:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle p - z,\ x - p \rangle \ \ge\ 0 \quad \forall x\in\mathcal{F}.
+\]</div>
+<p>Multiplying by <span class="math notranslate nohighlight">\(-1\)</span> gives the stated inequality.</p>
+</div>
 <p>Please see the following figure for an illustration of the idea of projection</p>
 <figure class="align-default" id="id1">
 <img alt="../../_images/projection.png" src="../../_images/projection.png" />
@@ -391,7 +581,60 @@ The projection points <span class="math notranslate nohighlight">\(\Pi(z_1)\)</s
 </figcaption>
 </figure>
 <p>A key property of the projection operator is its non-expansiveness.</p>
-<p>This result is easy to pove, simply by utilizing the optimality condition of the projection operator, as well as the optimality condition for a constrained optimization problem <code class="xref eq docutils literal notranslate"><span class="pre">eq:constrained:opt:condition</span></code>. Moreover, consider the special case where <span class="math notranslate nohighlight">\(\mathcal{F} \equiv \mathbb{R}^d\)</span> is the entire space. Then the problem becomes unconstrained, and we obtain</p>
+<div class="proof property admonition" id="property-proj-nonexp">
+<p class="admonition-title"><span class="caption-number">Property 2.2 </span> (Nonexpansiveness of the gradient operator)</p>
+<section class="property-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\({\rm Proj}(\cdot)\)</span> be the projection operator defined in Definition <a class="reference internal" href="#def-projection">Definition 2.7</a>.
+Then for all <span class="math notranslate nohighlight">\(z,y\in\RR^d\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\|{\rm Proj}_{\mathcal{F}}(z) - {\rm Proj}_{\mathcal{F}}(y)\| \le \|z-y\|.
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Let <span class="math notranslate nohighlight">\(p={\rm Proj}_{\mathcal{F}}(z)\)</span> and <span class="math notranslate nohighlight">\(q={\rm Proj}_{\mathcal{F}}(y)\)</span>.<br />
+By the projection optimality condition (Theorem <a class="reference internal" href="#thm-proj-opt">Theorem 2.10</a>),</p>
+<div class="math notranslate nohighlight">
+\[
+\langle z-p,\ x-p\rangle \le 0 \quad \forall x\in\mathcal{F},\qquad
+\langle y-q,\ x-q\rangle \le 0 \quad \forall x\in\mathcal{F}.
+\]</div>
+<p>Apply the first with <span class="math notranslate nohighlight">\(x=q\)</span> and the second with <span class="math notranslate nohighlight">\(x=p\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle z-p,\ q-p\rangle \le 0, \qquad \langle y-q,\ p-q\rangle \le 0.
+\]</div>
+<p>Add the two inequalities and use <span class="math notranslate nohighlight">\(p-q=-(q-p)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle (z-p)-(y-q),\ q-p\rangle \le 0
+\ \Longleftrightarrow\
+\langle (z-y)-(p-q),\ p-q\rangle \le 0.
+\]</div>
+<p>Rearrange:</p>
+<div class="math notranslate nohighlight">
+\[
+\|p-q\|^2 \ \le\ \langle z-y,\ p-q\rangle \ \le\ \|z-y\|\,\|p-q\|
+\]</div>
+<p>where the last inequality is due to Cauchy–Schwarz. If <span class="math notranslate nohighlight">\(p\ne q\)</span> then we can divide both sides by <span class="math notranslate nohighlight">\(\|p-q\|\)</span> to get</p>
+<div class="math notranslate nohighlight">
+\[
+\|p-q\| \ \le\ \|z-y\|.
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(p = q\)</span> the result is trivial.</p>
+<p>This proves <span class="math notranslate nohighlight">\({\rm Proj}_{\mathcal{F}}\)</span> is <span class="math notranslate nohighlight">\(1\)</span>‑Lipschitz (nonexpansive).</p>
+</div>
+<div class="proof property admonition" id="property-proj-fixed-point">
+<p class="admonition-title"><span class="caption-number">Property 2.3 </span> (Fixed point solutions)</p>
+<section class="property-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\({\rm Proj}(\cdot)\)</span> be the projection operator defined in Definition <a class="reference internal" href="#def-projection">Definition 2.7</a>. Let <span class="math notranslate nohighlight">\(w^*\)</span> denote the global optimal solution of the constrained problem <a class="reference internal" href="#equation-eq-constrained-opt-condition">(2.3)</a>.
+Then the following holds:</p>
+<div class="math notranslate nohighlight">
+\[
+w^* = {\rm Proj}_{\mathcal{F}}(w^*-\alpha \nabla f(w^*)), \quad \forall~\alpha &gt;0
+\]</div>
+</section>
+</div><p>This result is easy to pove, simply by utilizing the optimality condition of the projection operator, as well as the optimality condition for a constrained optimization problem <a class="reference internal" href="#equation-eq-constrained-opt-condition">(2.3)</a>. Moreover, consider the special case where <span class="math notranslate nohighlight">\(\mathcal{F} \equiv \mathbb{R}^d\)</span> is the entire space. Then the problem becomes unconstrained, and we obtain</p>
 <div class="math notranslate nohighlight">
 \[\alpha \nabla f(w^*) = 0, \quad \forall~\alpha&gt;0.
 \]</div>
@@ -411,7 +654,7 @@ The projection points <span class="math notranslate nohighlight">\(\Pi(z_1)\)</s
    \]</div>
 <p>and assume <span class="math notranslate nohighlight">\(f\)</span> is differentiable and convex. Use the result from (a) to show that:</p>
 <div class="math notranslate nohighlight" id="equation-eq-pg-descent">
-<span class="eqno">(2.1)<a class="headerlink" href="#equation-eq-pg-descent" title="Link to this equation">#</a></span>\[\langle \nabla f(\vw^k),\ \vw^{k+1} - \vw^k \rangle \le -\frac{1}{\alpha} \| \vw^{k+1} - \vw^k \|^2.\]</div>
+<span class="eqno">(2.4)<a class="headerlink" href="#equation-eq-pg-descent" title="Link to this equation">#</a></span>\[\langle \nabla f(\vw^k),\ \vw^{k+1} - \vw^k \rangle \le -\frac{1}{\alpha} \| \vw^{k+1} - \vw^k \|^2.\]</div>
 </div>
 </section>
 <section id="feasible-descent-method">
@@ -423,7 +666,22 @@ The projection points <span class="math notranslate nohighlight">\(\Pi(z_1)\)</s
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{F}\subseteq \RR^d \)</span> is a closed, convex set and <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is continuously differentiable, we are no longer free to move in arbitrary directions.  Instead, we must ensure that each update step stays <strong>within the feasible set</strong>. This motivates the use of <strong>feasible direction methods</strong>.</p>
 <p>First, let us define the notion of a feasible direction.</p>
-<p>Note that for convex sets <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, the feasible directions at the point <span class="math notranslate nohighlight">\(\vw \in \mathcal{F}\)</span> are simply the vectors <span class="math notranslate nohighlight">\(\vd = \vz - \vw, \; \forall~\vz\in\mathcal{F}\)</span>. It is important to emphasize that, having a direction that is feasible is the minimum requirement to develop a working algorithm for constrained optimization, and typically the ``descent” property is needed to reduce the objective function. Later in the text, we will identify a few different ways to find such a feasible descent directions.</p>
+<div class="proof definition admonition" id="def:feasible-direction">
+<p class="admonition-title"><span class="caption-number">Definition 2.8 </span> (Feasible Descent Direction)</p>
+<section class="definition-content" id="proof-content">
+<p>A vector <span class="math notranslate nohighlight">\(\vd \in \RR^d \setminus \{0\} \)</span> is a <strong>feasible direction at point</strong> <span class="math notranslate nohighlight">\( \vw \in \mathcal{F} \)</span> if there exists <span class="math notranslate nohighlight">\( \alpha &gt; 0 \)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+\vw + \alpha \vd \in \mathcal{F} \quad \text{for all sufficiently small } \alpha &gt; 0.
+\]</div>
+<p>If, in addition, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla f(\mathbf{w})^{\top} \mathbf{d} &lt; 0,
+\]</div>
+<p>then <span class="math notranslate nohighlight">\(\mathbf{d}\)</span> is called a <strong>feasible descent direction</strong>, as it maintains feasibility and decreases the objective locally at the same time.</p>
+</section>
+</div><p>Note that for convex sets <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, the feasible directions at the point <span class="math notranslate nohighlight">\(\vw \in \mathcal{F}\)</span> are simply the vectors <span class="math notranslate nohighlight">\(\vd = \vz - \vw, \; \forall~\vz\in\mathcal{F}\)</span>. It is important to emphasize that, having a direction that is feasible is the minimum requirement to develop a working algorithm for constrained optimization, and typically the ``descent” property is needed to reduce the objective function. Later in the text, we will identify a few different ways to find such a feasible descent directions.</p>
 <p>For now, let us ssume that we have a feasible descent direction <span class="math notranslate nohighlight">\(\vd\)</span> to work with, then an inuitive algorithm is the following Feasible Direction Algorithm.</p>
 <div class="math notranslate nohighlight">
 \[\vw^{r+1} = \vw^{r} + \alpha_r \vd^r\]</div>
@@ -464,8 +722,8 @@ Step <span class="math notranslate nohighlight">\(\alpha_r = 1,\; \forall~r\)</s
 \[
 \vw^{r+1} = {\rm Proj}_{\mathcal{F}}\!\big(\vw^r - s_r \nabla f(\vw^r)\big) = \vw^r - \underbrace{\left(\vw^r - {\rm Proj}_{\mathcal{F}}\!\big(\vw^r - \alpha \nabla f(\vw^r)\big)\right)}_{\rm feasible~direction~d^r.}.
 \]</div>
-<p>The convergence behavior of the gradient projection algorithm is relatively straightforward. It can be readily adapted from the results from Section <a class="reference internal" href="gradient.html#sec-gradient"><span class="std std-ref">Gradient Methods</span></a>.  In particular, we have the following corollary to  <span class="xref std std-ref">thm:gd-smooth</span>. One key difference is that the gradient size <span class="math notranslate nohighlight">\(\|\nabla f(\vw)\|^2\)</span> no longer goes to zero, therefore it cannot serve as the optimality condition. Towards this end, we need to design an alternative quanity to measure (first-order) optimality.</p>
-<p>Towards this end, recall from <span class="xref std std-ref">property-proj-fixed-point</span> that an optimal solution <span class="math notranslate nohighlight">\(\vw^*\)</span> of <code class="xref eq docutils literal notranslate"><span class="pre">eq:constrained:problem</span></code> should satisfy</p>
+<p>The convergence behavior of the gradient projection algorithm is relatively straightforward. It can be readily adapted from the results from Section <a class="reference internal" href="gradient.html#sec-gradient"><span class="std std-ref">Gradient Methods</span></a>.  In particular, we have the following corollary to  <a class="reference internal" href="gradient.html#thm:gd-smooth">Theorem 2.6</a>. One key difference is that the gradient size <span class="math notranslate nohighlight">\(\|\nabla f(\vw)\|^2\)</span> no longer goes to zero, therefore it cannot serve as the optimality condition. Towards this end, we need to design an alternative quanity to measure (first-order) optimality.</p>
+<p>Towards this end, recall from <a class="reference internal" href="#property-proj-fixed-point">Property 2.3</a> that an optimal solution <span class="math notranslate nohighlight">\(\vw^*\)</span> of <a class="reference internal" href="#equation-eq-constrained-problem">(2.2)</a> should satisfy</p>
 <div class="math notranslate nohighlight">
 \[
 w^* = {\rm Proj}_{\mathcal{F}}(w^*- \alpha \nabla f(w^*)), \quad \forall~\alpha &gt;0.
@@ -479,13 +737,20 @@ w^* = {\rm Proj}_{\mathcal{F}}(w^*- \alpha \nabla f(w^*)), \quad \forall~\alpha 
 <div class="math notranslate nohighlight">
 \[{\rm Gap}(\vw, \alpha): = \|w - {\rm Proj}_{\mathcal{F}}(w- \alpha \nabla f(w)\|\]</div>
 <p>as a measure of (first-order) stationarity, for any fixed <span class="math notranslate nohighlight">\(\alpha &gt;0\)</span>.</p>
-<div class="dropdown admonition">
+<div class="proof corollary admonition" id="cor:gd-smooth">
+<p class="admonition-title"><span class="caption-number">Corollary 2.1 </span> (Convergence of Projected Gradient Method (Smooth Case))</p>
+<section class="corollary-content" id="proof-content">
+<p>Under the Lipschitz smoothness assumption  <a class="reference internal" href="gradient.html#assm:smooth">Assumption 2.1</a> and suppose that the step size satisfies <span class="math notranslate nohighlight">\(s_k \leq 1/L\)</span>. For any <span class="math notranslate nohighlight">\(K \geq 1\)</span>, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[\min_{ k=0, ..., K-1 } {\rm Gap}(\vw^k,\alpha) \leq \frac{ 2 \left( f (\vw^0) - f(\vw^K) \right) }{ K \times \alpha }\]</div>
+</section>
+</div><div class="dropdown admonition">
 <p class="admonition-title">Proof (Projected Gradient Method for Smooth Objective Function)</p>
-<p>The proof the similar steps as <span class="xref std std-ref">thm:gd-smooth</span>. We will highlight the key difference in the arguments below.</p>
-<p>First, we again begin by observing that under <span class="xref std std-ref">assm:smooth</span>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
+<p>The proof the similar steps as <a class="reference internal" href="gradient.html#thm:gd-smooth">Theorem 2.6</a>. We will highlight the key difference in the arguments below.</p>
+<p>First, we again begin by observing that under <a class="reference internal" href="gradient.html#assm:smooth">Assumption 2.1</a>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
 <div class="math notranslate nohighlight">
 \[f( \vw^{k+1} ) \leq f( \vw^k ) + \langle \nabla f( \vw^k ) , \vw^{k+1} - \vw^k \rangle + \frac{L}{2} \| \vw^{k+1} - \vw^k \|^2\]</div>
-<p>Now recall from <a class="reference internal" href="#equation-eq-pg-descent">(2.1)</a> that the folloiwng holds</p>
+<p>Now recall from <a class="reference internal" href="#equation-eq-pg-descent">(2.4)</a> that the folloiwng holds</p>
 <div class="math notranslate nohighlight">
 \[
 \langle \nabla f(\vw^k), \vw^{k+1}-\vw^k\rangle \le -\frac{1}{\alpha_k}\|\vw^{k+1}-\vw^k\|^2.
@@ -494,7 +759,7 @@ w^* = {\rm Proj}_{\mathcal{F}}(w^*- \alpha \nabla f(w^*)), \quad \forall~\alpha 
 <p>Note that from the update of the gradient descent, we observe</p>
 <div class="math notranslate nohighlight">
 \[\|\vw^{k+1}-\vw^k\|^2  = \|\Proj_{\mathcal{F}}(\vw^{k}-\alpha \nabla f(\vw^k)) - \vw^k\|^2 = {\rm Gap}(\vw^k,\alpha)\]</div>
-<p>Then the rest is the same as the proof in <span class="xref std std-ref">thm:gd-smooth</span>. By noting that and <span class="math notranslate nohighlight">\(\alpha \leq 1/L\)</span>, we have</p>
+<p>Then the rest is the same as the proof in <a class="reference internal" href="gradient.html#thm:gd-smooth">Theorem 2.6</a>. By noting that and <span class="math notranslate nohighlight">\(\alpha \leq 1/L\)</span>, we have</p>
 <div class="math notranslate nohighlight">
 \[f( \vw^{k+1} ) \leq f( \vw^k ) - \alpha \left( 1 - \alpha \frac{L}{2} \right) {\rm Gap(\vw^k,\alpha)}\leq f( \vw^k ) - \frac{\alpha}{2} {\rm Gap(\vw^k,\alpha)}\]</div>
 <p>This implies</p>

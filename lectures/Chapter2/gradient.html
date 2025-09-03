@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -363,7 +364,20 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\nabla f(\vw^*) = 0.\]</div>
 <p>The <strong>gradient (a.k.a. first-order) method</strong> is an efficient numerical scheme for achieving the above goals. In its simplest form, the gradient method can be described as:</p>
-<div class="admonition-insight-gradient-method admonition">
+<div class="proof algorithm admonition" id="alg:gradient">
+<p class="admonition-title"><span class="caption-number">Algorithm 2.1 </span> (Gradient Method)</p>
+<section class="algorithm-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \gamma_k \}_{k \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(K\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(k=0,1,2,..., K-1\)</span>,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\vw^{k+1} = \vw^k - \gamma_k \nabla f( \vw^k).\]</div>
+<ul class="simple">
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^K\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^k \}_{k=1}^K\)</span>.</p></li>
+</ul>
+</section>
+</div><div class="admonition-insight-gradient-method admonition">
 <p class="admonition-title">Insight (Gradient Method)</p>
 <p>The update recursion of gradient method is inspired by the 2nd order Taylor expansion of <span class="math notranslate nohighlight">\(f\)</span>. Consider the current iterate at <span class="math notranslate nohighlight">\(\vw\)</span> and our goal is to search for a new iterate <span class="math notranslate nohighlight">\(\vw' = \vw + \gamma \Delta\)</span> such that <span class="math notranslate nohighlight">\(f(\vw')\)</span> is minimized, where <span class="math notranslate nohighlight">\(\Delta\)</span> is the search direction. We observe</p>
 <div class="math notranslate nohighlight">
@@ -377,9 +391,23 @@ document.write(`
 <p>In the remainder of this chapter, we will analyze the convergence of gradient methods to give ourselves a taste of how well they will perform under different settings in theory, followed by a simple numerical example.</p>
 <section id="convergence-for-smooth-objective-function">
 <h2><span class="section-number">2.2.1. </span>Convergence for Smooth Objective Function<a class="headerlink" href="#convergence-for-smooth-objective-function" title="Link to this heading">#</a></h2>
-<div class="dropdown admonition">
+<div class="proof assumption admonition" id="assm:smooth">
+<p class="admonition-title"><span class="caption-number">Assumption 2.1 </span> (Smooth Objective Function)</p>
+<section class="assumption-content" id="proof-content">
+<p>There exists <span class="math notranslate nohighlight">\(L \geq 0\)</span> such that for any <span class="math notranslate nohighlight">\(\vw, \vw' \in \mathbb{R}^d\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\| \nabla f( \vw ) - \nabla f( \vw' ) \| \leq L \| \vw - \vw' \|.\]</div>
+</section>
+</div><div class="proof theorem admonition" id="thm:gd-smooth">
+<p class="admonition-title"><span class="caption-number">Theorem 2.6 </span> (Convergence of Gradient Method (Smooth Case))</p>
+<section class="theorem-content" id="proof-content">
+<p>Under <a class="reference internal" href="#assm:smooth">Assumption 2.1</a> and suppose that the step size satisfies <span class="math notranslate nohighlight">\(\gamma_k \leq 1/L\)</span>. For any <span class="math notranslate nohighlight">\(K \geq 1\)</span>, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[\min_{ k=0, ..., K-1 } \| \nabla f( \vw^k ) \|^2 \leq \frac{ 2 \left( f (\vw^0) - f(\vw^K) \right) }{ \sum_{k=0}^{K-1} \gamma_k }\]</div>
+</section>
+</div><div class="dropdown admonition">
 <p class="admonition-title">Proof (Gradient Method for Smooth Objective Function)</p>
-<p>We begin by observing that under <span class="xref std std-ref">assm:smooth</span>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
+<p>We begin by observing that under <a class="reference internal" href="#assm:smooth">Assumption 2.1</a>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
 <div class="math notranslate nohighlight">
 \[f( \vw^{k+1} ) \leq f( \vw^k ) + \langle \nabla f( \vw^k ) , \vw^{k+1} - \vw^k \rangle + \frac{L}{2} \| \vw^{k+1} - \vw^k \|^2\]</div>
 <p>By noting that <span class="math notranslate nohighlight">\(\vw^{k+1} - \vw^k = - \gamma_k \nabla f(\vw^k)\)</span> and <span class="math notranslate nohighlight">\(\gamma_k \leq 1/L\)</span>, we have</p>
@@ -397,9 +425,21 @@ document.write(`
 </section>
 <section id="convergence-for-convex-and-smooth-objective-function">
 <h2><span class="section-number">2.2.2. </span>Convergence for Convex and Smooth Objective Function<a class="headerlink" href="#convergence-for-convex-and-smooth-objective-function" title="Link to this heading">#</a></h2>
-<div class="dropdown admonition">
+<div class="proof assumption admonition" id="assm:convex">
+<p class="admonition-title"><span class="caption-number">Assumption 2.2 </span> (Convex Objective Function)</p>
+<section class="assumption-content" id="proof-content">
+<p>The objective function <span class="math notranslate nohighlight">\(f(\vw)\)</span> is convex and is lower bounded.</p>
+</section>
+</div><div class="proof theorem admonition" id="thm:gd-convex">
+<p class="admonition-title"><span class="caption-number">Theorem 2.7 </span> (Convergence of Gradient Method (Convex and Smooth Case))</p>
+<section class="theorem-content" id="proof-content">
+<p>Under <a class="reference internal" href="#assm:smooth">Assumption 2.1</a>, <a class="reference internal" href="#assm:convex">Assumption 2.2</a>, and suppose that the selected step size is constant satisfying <span class="math notranslate nohighlight">\(\gamma_k = \gamma \leq 1/L\)</span> for any <span class="math notranslate nohighlight">\(k\)</span>. Then, for any <span class="math notranslate nohighlight">\(K \geq 1\)</span>, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^K ) - f(\vw^\star) \leq \frac{\| \vw^0 - \vw^\star \|^2 }{2 \gamma K}\]</div>
+</section>
+</div><div class="dropdown admonition">
 <p class="admonition-title">Proof (Gradient Method for Convex &amp; Smooth Objective Function)</p>
-<p>We begin the proof by continuing from the proof of <span class="xref std std-ref">thm:gd-smooth</span> and observe that</p>
+<p>We begin the proof by continuing from the proof of <a class="reference internal" href="#thm:gd-smooth">Theorem 2.6</a> and observe that</p>
 <div class="math notranslate nohighlight">
 \[f( \vw^{k+1} ) \leq f( \vw^k ) - \frac{\gamma}{2} \| \nabla f( \vw^k ) \|^2\]</div>
 <p>Furthermore, from the convexity of <span class="math notranslate nohighlight">\(f\)</span>, we notice that</p>
@@ -434,8 +474,22 @@ document.write(`
 </section>
 <section id="convergence-for-strongly-convex-and-smooth-objective-function">
 <h2><span class="section-number">2.2.3. </span>Convergence for Strongly Convex and Smooth Objective Function<a class="headerlink" href="#convergence-for-strongly-convex-and-smooth-objective-function" title="Link to this heading">#</a></h2>
-<p>Notice that an immediate consequence of the above assumption is that the optimal solution <span class="math notranslate nohighlight">\(\vw^\star\)</span> to the optimization problem is now unique.</p>
-<div class="dropdown admonition">
+<div class="proof assumption admonition" id="assm:strconvex">
+<p class="admonition-title"><span class="caption-number">Assumption 2.3 </span> (Strongly Convex Objective Function)</p>
+<section class="assumption-content" id="proof-content">
+<p>The objective function <span class="math notranslate nohighlight">\(f(\vw)\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span>-strongly convex, with <span class="math notranslate nohighlight">\(\mu &gt; 0\)</span>. In particular, for any <span class="math notranslate nohighlight">\(\vw', \vw \in \mathbb{R}^d\)</span>, it holds</p>
+<div class="math notranslate nohighlight">
+\[f( \vw' ) \geq f( \vw ) + \langle \nabla f(\vw) , \vw' - \vw \rangle + \frac{\mu}{2} \| \vw' - \vw \|^2.\]</div>
+</section>
+</div><p>Notice that an immediate consequence of the above assumption is that the optimal solution <span class="math notranslate nohighlight">\(\vw^\star\)</span> to the optimization problem is now unique.</p>
+<div class="proof theorem admonition" id="thm:gd-strconvex">
+<p class="admonition-title"><span class="caption-number">Theorem 2.8 </span> (Convergence of Gradient Method (Strongly Convex and Smooth Case))</p>
+<section class="theorem-content" id="proof-content">
+<p>Under <a class="reference internal" href="#assm:smooth">Assumption 2.1</a>, <a class="reference internal" href="#assm:strconvex">Assumption 2.3</a>, and suppose that the selected step size is constant satisfying <span class="math notranslate nohighlight">\(\gamma_k = \gamma \leq 1/L\)</span> for any <span class="math notranslate nohighlight">\(k\)</span>. Then, for any <span class="math notranslate nohighlight">\(k \geq 1\)</span>, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[\| \vw^{k+1} - \vw^\star \|^2 \leq ( 1 - \mu \gamma ) \| \vw^k - \vw^\star \|^2.\]</div>
+</section>
+</div><div class="dropdown admonition">
 <p class="admonition-title">Proof (Gradient Method for Strongly Convex &amp; Smooth Objective Function)</p>
 <p>We begin the proof by observing that</p>
 <div class="math notranslate nohighlight">

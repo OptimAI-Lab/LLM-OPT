@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -380,10 +381,19 @@ document.write(`
 \vW_{l}^{t+1}&amp;\leftarrow \vW_{l}^{t}+\vDelta_{l}^{t}
 \end{align}\end{split}\]</div>
 <p>Now we do a quick recap of possible choices of matrix norms.</p>
-<p>Matrix induced norm allows use to do similar things as <a class="reference internal" href="#equation-eq-steepest-descent-signsgd-chap4">(4.18)</a>, i.e. replacing different norms and derive different form of descent methods, but for attention-based LLMs (which consists mostly of matrix attention weight matrices). The question is: How do we determine which norm is good for LLM training?</p>
+<div class="proof definition admonition" id="def:matrix-induced-norm">
+<p class="admonition-title"><span class="caption-number">Definition 4.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>For a matrix <span class="math notranslate nohighlight">\(A\in\RR^{m\times n}\)</span>, also two norms <span class="math notranslate nohighlight">\(\|\cdot\|_{\alpha}\)</span> in <span class="math notranslate nohighlight">\(\RR^{n}\)</span> and <span class="math notranslate nohighlight">\(\|\cdot\|_{\beta}\)</span> in <span class="math notranslate nohighlight">\(\RR^{m}\)</span>, the induced <span class="math notranslate nohighlight">\(\alpha\)</span>-to-<span class="math notranslate nohighlight">\(\beta\)</span> norm is given by (where <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> could be <span class="math notranslate nohighlight">\([1,\infty]\)</span>.)</p>
+<div class="math notranslate nohighlight" id="equation-matrix-induced-norm-chap4">
+<span class="eqno">(4.21)<a class="headerlink" href="#equation-matrix-induced-norm-chap4" title="Link to this equation">#</a></span>\[\begin{align}
+    \|A\|_{\alpha\rightarrow\beta}:=\max_{x\in\RR^{n}}\frac{\|A x\|_{\beta}}{\|x\|_{\alpha}}
+\end{align}\]</div>
+</section>
+</div><p>Matrix induced norm allows use to do similar things as <a class="reference internal" href="#equation-eq-steepest-descent-signsgd-chap4">(4.18)</a>, i.e. replacing different norms and derive different form of descent methods, but for attention-based LLMs (which consists mostly of matrix attention weight matrices). The question is: How do we determine which norm is good for LLM training?</p>
 <p>First, let’s see how we can reconstruct sign SGD, which is the fundamental building block of Adam. It turned out that the induced <span class="math notranslate nohighlight">\(1\)</span>-to-<span class="math notranslate nohighlight">\(\infty\)</span> norm is the correct choice to recover sign SGD for matrix variable, namely we have</p>
 <div class="math notranslate nohighlight" id="equation-eq-steepest-descent-matrix-sign-sgd-chap4">
-<span class="eqno">(4.21)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-sign-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(4.22)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-sign-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vDelta_{l}^{t}&amp;\gets \argmin_{\vDelta_{l}} \{\langle\vDelta_{l}, \nabla\ell(\vW^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vDelta_{l}\|_{1\rightarrow\infty}^2\}=-\eta_t \|\nabla\ell(\vW^t,\xi_t)\|_{1\rightarrow\infty}^{\dagger} \sign(\nabla\ell(\vW^t,\xi_t)) \\
 \vW_{l}^{t+1}&amp;\gets \vW_{l}^{t}+\vDelta_{l}^{t}
 \end{align}\end{split}\]</div>
@@ -391,13 +401,31 @@ document.write(`
 <p>Next, the question is: What if we just use the simplest matrix induced norm, namely the <span class="math notranslate nohighlight">\(\ell_2\rightarrow\ell_2\)</span> norm? Note that <span class="math notranslate nohighlight">\(\ell_2\rightarrow\ell_2\)</span> is also called the spectral norm since it can be shown that its value equals to the largest singular value of a matrix. It is one of the most commonly used matrix norm, largely since it is easy to compute (just need a singular value decomposition or power iteration).</p>
 <p>It turned out that normalizing by the spectral norm will result in the orthogonalization of the matrix</p>
 <div class="math notranslate nohighlight" id="equation-eq-steepest-descent-matrix-ortho-sgd-chap4">
-<span class="eqno">(4.22)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+<span class="eqno">(4.23)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
 \vDelta_{l}^{t}&amp;\gets \argmin_{\vDelta_{l}} \{\langle\vDelta_{l}, \nabla\ell(\vW^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vDelta_{l}\|_{2\rightarrow2}^2\}=-\eta_t \|\nabla\ell(\vW^t,\xi_t)\|_{*} UV^\top \\
 \vW_{l}^{t+1}&amp;\gets \vW_{l}^{t}+\vDelta_{l}^{t}
 \end{align}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(U\Sigma V^\top = \nabla\ell(\vW^t,\xi_t)\)</span> is the singular value decoposition, and <span class="math notranslate nohighlight">\(*\)</span> stands for the dual norm of spectral norm, namely the nuclear norm (sum of all the singular values, or <span class="math notranslate nohighlight">\(\mathrm{tr}(\Sigma)\)</span>).</p>
-<p>This motivates us to develop a matrix version Adam by just considering the EMA for <a class="reference internal" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4">(4.22)</a>. The resulting algorithm appears to be one of the strongest candidate to replace Adam for modern LLM training, name the Muon algorithm <span style="color:red">[cite muon here]</span></p>
-<p>Muon performs surprisingly well for pre-training of LLMs with faster speed. For details see this blog <span style="color:red">[cite muon blog here]</span> or this technical report <span style="color:red">[cite kimi muon paper here]</span>.</p>
+<p>This motivates us to develop a matrix version Adam by just considering the EMA for <a class="reference internal" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4">(4.23)</a>. The resulting algorithm appears to be one of the strongest candidate to replace Adam for modern LLM training, name the Muon algorithm <span style="color:red">[cite muon here]</span></p>
+<div class="proof algorithm admonition" id="alg:muon">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.2 </span> (Muon for matrix variable optimization)</p>
+<section class="algorithm-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vW_{l}^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_{t} \}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(k=0,1,2,..., T-1\)</span>,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+\vM_{l}^{t}&amp;\gets \beta \vM_{l}^{t-1} + (1-\beta) \nabla\ell(\vW^t,\xi_t) \\
+\vDelta_{l}^{t}&amp;\gets \argmin_{\vDelta_{l}} \{\langle\vDelta_{l}, \vM_{l}^{t}\rangle + \frac{1}{2\eta_t}\|\vDelta_{l}\|_{2\rightarrow2}^2\}=-\eta_t \|\vM_{l}^{t}\|_{*} UV^\top \\
+\vW_{l}^{t+1}&amp;\gets \vW_{l}^{t}+\vDelta_{l}^{t}
+\end{split}\end{split}\]</div>
+<p>note that here the SVD is also conducted to <span class="math notranslate nohighlight">\(\vM_{l}^{t}\)</span>.</p>
+<ul class="simple">
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vW^T\)</span>, or the solution sequence (checkpoints) <span class="math notranslate nohighlight">\(\{ \vW^t \}_{t=1}^T\)</span>.</p></li>
+</ul>
+</section>
+</div><p>Muon performs surprisingly well for pre-training of LLMs with faster speed. For details see this blog <span style="color:red">[cite muon blog here]</span> or this technical report <span style="color:red">[cite kimi muon paper here]</span>.</p>
 </section>
 <section id="approximate-hessian-point-of-view-for-shampoo-and-muon">
 <h2><span class="section-number">4.4.2. </span>Approximate Hessian point of view for Shampoo and Muon<a class="headerlink" href="#approximate-hessian-point-of-view-for-shampoo-and-muon" title="Link to this heading">#</a></h2>
