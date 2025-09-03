@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.5. First-order Methods &#8212; ML Optimization (Grad)</title>
+    <title>2.2. Gradient Methods &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -57,11 +57,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/gradient';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3.6. Constrained Optimization" href="Constrained_Optimization.html" />
-    <link rel="prev" title="3.4. Unconstrained Optimization" href="Unconstrained_Optimization.html" />
+    <link rel="next" title="2.3. Constrained Optimization" href="Constrained_Optimization.html" />
+    <link rel="prev" title="2.1. Unconstrained Optimization" href="Unconstrained_Optimization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -166,25 +168,25 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">1. Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">2. Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">2.1. Introduction to Optimization</a></li>
-
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">2.3. Course Outline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter1/course_intro.html">1. Introduction to the Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro_to_optimization.html">1.1. Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/notations.html">1.2. Notations</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization.html">3. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.5. Gradient Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Constrained_Optimization.html">3.6. Constrained Optimization</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization.html">2. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.2. Gradient Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/training_algorithms.html">5. Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">5.2. Variants of adaptive methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/stochastic_opt.html">4. Stochastic Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/training_algorithms.html">4.3. Adaptive algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">4.4. Discussions on modern adaptive methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/lr_mup.html">4.5. Learning rate scheduler and muP</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">6. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">5. References</a></li>
 </ul>
 
     </div>
@@ -310,7 +312,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -321,11 +325,25 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>First-order Methods</h1>
+    <h1>Gradient Methods</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-smooth-objective-function">2.2.1. Convergence for Smooth Objective Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-convex-and-smooth-objective-function">2.2.2. Convergence for Convex and Smooth Objective Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-strongly-convex-and-smooth-objective-function">2.2.3. Convergence for Strongly Convex and Smooth Objective Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks-on-convergence">2.2.3.1. Remarks on Convergence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-examples">2.2.4. Numerical Examples</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -335,8 +353,248 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="first-order-methods">
-<h1><span class="section-number">3.5. </span>First-order Methods<a class="headerlink" href="#first-order-methods" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="gradient-methods">
+<span id="sec-gradient"></span><h1><span class="section-number">2.2. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Link to this heading">#</a></h1>
+<p>Recall that our aim is to solve/tackle the following unconstrained optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\vw \in \RR^d} \quad f(\vw)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vw\)</span> is the optimization variable; <span class="math notranslate nohighlight">\(f: \RR^d \to \RR\)</span> is the objective function which is assumed to be lower bounded. There are no explicit constraints on <span class="math notranslate nohighlight">\(\vw\)</span>.</p>
+<p>To make our life easier, we assume that <span class="math notranslate nohighlight">\(f\)</span> is (continuously) differentiable everywhere. As discussed in the last subsection, the task of tackling the optimization problem can be cast as searching for <span class="math notranslate nohighlight">\(\vw^*\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\nabla f(\vw^*) = 0.\]</div>
+<p>The <strong>gradient (a.k.a. first-order) method</strong> is an efficient numerical scheme for achieving the above goals. In its simplest form, the gradient method can be described as:</p>
+<div class="admonition-insight-gradient-method admonition">
+<p class="admonition-title">Insight (Gradient Method)</p>
+<p>The update recursion of gradient method is inspired by the 2nd order Taylor expansion of <span class="math notranslate nohighlight">\(f\)</span>. Consider the current iterate at <span class="math notranslate nohighlight">\(\vw\)</span> and our goal is to search for a new iterate <span class="math notranslate nohighlight">\(\vw' = \vw + \gamma \Delta\)</span> such that <span class="math notranslate nohighlight">\(f(\vw')\)</span> is minimized, where <span class="math notranslate nohighlight">\(\Delta\)</span> is the search direction. We observe</p>
+<div class="math notranslate nohighlight">
+\[f( \vw' ) = f( \vw ) + \gamma (\nabla f( \vw ))^\top \Delta + {\cal O}( \gamma^2 )\]</div>
+<p>For small step size with <span class="math notranslate nohighlight">\(\gamma \approx 0\)</span>, the search direction <span class="math notranslate nohighlight">\(\Delta\)</span> which minimizes <span class="math notranslate nohighlight">\(f(\vw')\)</span> is to pick</p>
+<div class="math notranslate nohighlight">
+\[\Delta = - \nabla f(\vw)\]</div>
+<p>This hence inspires the gradient method recursion <span class="math notranslate nohighlight">\(\vw' = \vw - \gamma \nabla f(\vw)\)</span>.</p>
+</div>
+<p>The gradient method (and more importantly, its stochastic version) has become the backbone for modern large scale optimization software packages that includes LLM optimization. Part of the reason is that there exists efficient functions (e.g., <code class="docutils literal notranslate"><span class="pre">autograd</span></code> in Pytorch) for calculating the gradient of complicated objective functions which greatly simplify the implementation of the algorithm.</p>
+<p>In the remainder of this chapter, we will analyze the convergence of gradient methods to give ourselves a taste of how well they will perform under different settings in theory, followed by a simple numerical example.</p>
+<section id="convergence-for-smooth-objective-function">
+<h2><span class="section-number">2.2.1. </span>Convergence for Smooth Objective Function<a class="headerlink" href="#convergence-for-smooth-objective-function" title="Link to this heading">#</a></h2>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (Gradient Method for Smooth Objective Function)</p>
+<p>We begin by observing that under <span class="xref std std-ref">assm:smooth</span>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^k ) + \langle \nabla f( \vw^k ) , \vw^{k+1} - \vw^k \rangle + \frac{L}{2} \| \vw^{k+1} - \vw^k \|^2\]</div>
+<p>By noting that <span class="math notranslate nohighlight">\(\vw^{k+1} - \vw^k = - \gamma_k \nabla f(\vw^k)\)</span> and <span class="math notranslate nohighlight">\(\gamma_k \leq 1/L\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^k ) - \gamma_k \left( 1 - \gamma_k \frac{L}{2} \right) \| \nabla f( \vw^k ) \|^2 \leq f( \vw^k ) - \frac{\gamma_k}{2} \| \nabla f( \vw^k ) \|^2\]</div>
+<p>This implies</p>
+<div class="math notranslate nohighlight">
+\[\frac{\gamma_k}{2} \| \nabla f( \vw^k ) \|^2 \leq f( \vw^k ) - f( \vw^{k+1} )\]</div>
+<p>Summing both sides from <span class="math notranslate nohighlight">\(k=0\)</span> to <span class="math notranslate nohighlight">\(k=K-1\)</span> yields the desired result.</p>
+</div>
+<p>Particularly, we notice that by picking <span class="math notranslate nohighlight">\(\gamma_k = 1/L\)</span> for all <span class="math notranslate nohighlight">\(k\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\min_{ k=0, ..., K-1 } \| \nabla f( \vw^k ) \|^2 \leq \frac{ 2L ( f(\vw^0) - \min_{\vw} f(\vw) )}{ K } = {\cal O} \left( \frac{1}{K} \right)\]</div>
+<p>In other words, in less than or equal to <span class="math notranslate nohighlight">\(K\)</span> iterations, the gradient method finds an <span class="math notranslate nohighlight">\({\cal O}(1/K)\)</span> stationary solution.</p>
+</section>
+<section id="convergence-for-convex-and-smooth-objective-function">
+<h2><span class="section-number">2.2.2. </span>Convergence for Convex and Smooth Objective Function<a class="headerlink" href="#convergence-for-convex-and-smooth-objective-function" title="Link to this heading">#</a></h2>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (Gradient Method for Convex &amp; Smooth Objective Function)</p>
+<p>We begin the proof by continuing from the proof of <span class="xref std std-ref">thm:gd-smooth</span> and observe that</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^k ) - \frac{\gamma}{2} \| \nabla f( \vw^k ) \|^2\]</div>
+<p>Furthermore, from the convexity of <span class="math notranslate nohighlight">\(f\)</span>, we notice that</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^\star ) \geq f( \vw^k ) + \langle \nabla f( \vw^k ), \vw^\star - \vw^k \rangle \]</div>
+<p>Thus</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^\star ) +  \langle \nabla f( \vw^k ),  \vw^k - \vw^\star \rangle - \frac{\gamma}{2} \| \nabla f( \vw^k ) \|^2\]</div>
+<p>We observe that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+&amp; \langle \nabla f( \vw^k ),  \vw^k - \vw^\star \rangle - \frac{\gamma}{2} \| \nabla f( \vw^k ) \|^2 \\
+&amp; = \frac{1}{2 \gamma } \left( \| \vw^k - \vw^\star \|^2 - \| \vw^k - \vw^\star \|^2 + 2 \gamma \langle \nabla f( \vw^k ),  \vw^k - \vw^\star \rangle - \frac{1}{\gamma^2} \| \nabla f( \vw^k ) \|^2 \right) \\
+&amp; = \frac{1}{2 \gamma } \left( \| \vw^k - \vw^\star \|^2 - \| \vw^{k+1} - \vw^\star \|^2 \right)
+\end{align}\end{split}\]</div>
+<p>This implies</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) - f(\vw^\star) \leq \frac{1}{2 \gamma} \left( \| \vw^k - \vw^\star \|^2 - \| \vw^{k+1} - \vw^\star \|^2 \right)\]</div>
+<p>Now, we notice that</p>
+<div class="math notranslate nohighlight">
+\[\begin{align}
+\sum_{k=1}^{K} f( \vw^k ) - f(\vw^\star) &amp; \leq \sum_{k=0}^{K-1} \frac{1}{2 \gamma} \left( \| \vw^k - \vw^\star \|^2 - \| \vw^{k+1} - \vw^\star \|^2 \right) \leq \frac{1}{2\gamma} \| \vw^0 - \vw^\star \|^2
+\end{align}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(f( \vw^{K} ) \leq f( \vw^{K-1} ) \leq \cdots \leq f(\vw^1 )\)</span>, the above implies that</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^K ) - f(\vw^\star) \leq \frac{\| \vw^0 - \vw^\star \|^2 }{2 \gamma K}\]</div>
+<p>This concludes the proof.</p>
+</div>
+<p>In particular, setting <span class="math notranslate nohighlight">\(\gamma = 1/L\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^K ) - f(\vw^\star) \leq \frac{ 2L \| \vw^0 - \vw^\star \|^2 }{ K } = {\cal O} \left( \frac{1}{K} \right)\]</div>
+</section>
+<section id="convergence-for-strongly-convex-and-smooth-objective-function">
+<h2><span class="section-number">2.2.3. </span>Convergence for Strongly Convex and Smooth Objective Function<a class="headerlink" href="#convergence-for-strongly-convex-and-smooth-objective-function" title="Link to this heading">#</a></h2>
+<p>Notice that an immediate consequence of the above assumption is that the optimal solution <span class="math notranslate nohighlight">\(\vw^\star\)</span> to the optimization problem is now unique.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (Gradient Method for Strongly Convex &amp; Smooth Objective Function)</p>
+<p>We begin the proof by observing that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align} 
+\| \vw^{k+1} - \vw^\star \|^2 &amp; = \| \vw^k - \gamma \nabla f( \vw^k ) - \vw^\star \|^2 \\
+&amp; = \| \vw^k - \vw^\star \|^2 - 2\gamma \langle \nabla f(\vw^k ), \vw^k - \vw^\star \rangle + \gamma^2 \| \nabla f( \vw^k ) \|^2
+\end{align}\end{split}\]</div>
+<p>Notice that by strong convexity, we have</p>
+<div class="math notranslate nohighlight">
+\[\langle \nabla f(\vw^k ), \vw^\star - \vw^k \rangle \leq f( \vw^\star ) - f( \vw^k ) - \frac{\mu}{2} \| \vw^\star - \vw^k \|^2\]</div>
+<p>This yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{align} 
+\| \vw^{k+1} - \vw^\star \|^2 &amp; \leq (1 - \gamma \mu ) \| \vw^k - \vw^\star \|^2 + 2\gamma \left( f( \vw^\star) - f( \vw^k ) + \frac{\gamma}{2} \| \nabla f( \vw^k ) \|^2 \right) 
+\end{align}\]</div>
+<p>Notice that</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^\star) - f( \vw^k ) \leq f( \vw^{k+1} ) - f(\vw^k ) \leq - \frac{\gamma}{2} \| \nabla f( \vw^k ) \|^2 \]</div>
+<p>and thus the last term inside the bracket is upper bounded by <span class="math notranslate nohighlight">\(0\)</span>. This concludes the proof for the theorem.</p>
+</div>
+<p>Particularly, if we take <span class="math notranslate nohighlight">\(\gamma = 1/L\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\| \vw^{k} - \vw^\star \|^2 \leq (1 - \mu/L) \| \vw^{k-1} - \vw^\star \|^2 \leq \cdots \leq (1 - \mu/L)^k \| \vw^0 - \vw^\star \|^2 = {\cal O} ( (1-\mu/L)^k )\]</div>
+<p>Thus the gradient method converges <strong>linearly</strong> towards the optimal solution.</p>
+<section id="remarks-on-convergence">
+<h3><span class="section-number">2.2.3.1. </span>Remarks on Convergence<a class="headerlink" href="#remarks-on-convergence" title="Link to this heading">#</a></h3>
+<p>The above theorems present the <strong>finite-time</strong> convergence of the gradient method under various cases. For further readings,</p>
+<p>(George Lan’s book)</p>
+<p>(Bertsekas’s book)</p>
+</section>
+</section>
+<section id="numerical-examples">
+<h2><span class="section-number">2.2.4. </span>Numerical Examples<a class="headerlink" href="#numerical-examples" title="Link to this heading">#</a></h2>
+<p><strong>Example 1</strong>: The following code demonstrates the application of gradient descent method on minimizing <span class="math notranslate nohighlight">\(f(x) = x^4 - 4x^2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">df</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">8</span><span class="o">*</span><span class="n">x</span>
+
+<span class="n">start_x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span> <span class="n">n_iterations</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">trajectory_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_x</span><span class="p">];</span> <span class="n">trajectory_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">start_x</span><span class="p">)]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">start_x</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="c1"># Gradient descent step!</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+    
+    <span class="c1"># Store the new position to plot later</span>
+    <span class="n">trajectory_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="n">trajectory_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: x = </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, f(x) = </span><span class="si">{</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, gradient = </span><span class="si">{</span><span class="n">gradient</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the function and trajectory</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span> <span class="n">y_range</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-whitegrid&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;f(x) = $x^4 - 4x^2$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trajectory_x</span><span class="p">,</span> <span class="n">trajectory_y</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tomato&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Descent Trajectory&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Start and end points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trajectory_x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trajectory_y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Start&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trajectory_x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">trajectory_y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;End (Minimum)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Title &amp; labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Display the final plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 1: x = 2.1600, f(x) = 3.1054, gradient = 84.0000
+Iteration 6: x = 1.5990, f(x) = -3.6899, gradient = 4.6609
+Iteration 11: x = 1.4818, f(x) = -3.9617, gradient = 1.4243
+Iteration 16: x = 1.4411, f(x) = -3.9941, gradient = 0.5332
+Iteration 21: x = 1.4252, f(x) = -3.9990, gradient = 0.2135
+Iteration 26: x = 1.4188, f(x) = -3.9998, gradient = 0.0877
+Iteration 31: x = 1.4161, f(x) = -4.0000, gradient = 0.0364
+Iteration 36: x = 1.4150, f(x) = -4.0000, gradient = 0.0152
+Iteration 41: x = 1.4145, f(x) = -4.0000, gradient = 0.0063
+Iteration 46: x = 1.4144, f(x) = -4.0000, gradient = 0.0027
+</pre></div>
+</div>
+<img alt="../../_images/13e9269db2ad4097e48e71bc78c7fe15eb861160827147725e6420ab26f8056b.png" src="../../_images/13e9269db2ad4097e48e71bc78c7fe15eb861160827147725e6420ab26f8056b.png" />
+</div>
+</div>
+<p><strong>Example 2</strong>: The following code demonstrates the application of gradient descent method on minimizing <span class="math notranslate nohighlight">\(f(x) = x_1^2 + 4x_2^2 + 2x_1 x_2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="o">*</span><span class="n">x2</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grad_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">8</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">start_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]);</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span> <span class="n">n_iterations</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="n">trajectory</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_point</span><span class="p">];</span> <span class="n">x</span> <span class="o">=</span> <span class="n">start_point</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">grad_f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># Gradient Descent</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+    
+    <span class="c1"># Store the new position to plot later</span>
+    <span class="n">trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: x = (</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">), f(x) = </span><span class="si">{</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, gradient = (</span><span class="si">{</span><span class="n">gradient</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">gradient</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Convert trajectory to a numpy array for easier slicing</span>
+<span class="n">trajectory</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">trajectory</span><span class="p">)</span>
+
+<span class="c1"># --- Plot the Function&#39;s Contours and the Trajectory ---</span>
+<span class="n">x1_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">x2_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1_range</span><span class="p">,</span> <span class="n">x2_range</span><span class="p">);</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-v0_8-whitegrid&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;f($x_1, x_2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trajectory</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">trajectory</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tomato&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Descent Trajectory&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trajectory</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">trajectory</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Start&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trajectory</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">trajectory</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;End&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">final_x</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">final_f_val</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">final_x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">final_x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 1: x = (2.8000, -0.4000), f(x) = 6.2400, gradient = (12.0000, 24.0000)
+Iteration 6: x = (1.2628, -0.3823), f(x) = 1.2138, gradient = (2.0467, -0.6182)
+Iteration 11: x = (0.5960, -0.1805), f(x) = 0.2704, gradient = (0.9658, -0.2924)
+Iteration 16: x = (0.2813, -0.0852), f(x) = 0.0602, gradient = (0.4558, -0.1380)
+Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
+</pre></div>
+</div>
+<img alt="../../_images/bbfee6150581d785544602040e2327bfe968011ac5c1a8b86660322e61579238.png" src="../../_images/bbfee6150581d785544602040e2327bfe968011ac5c1a8b86660322e61579238.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -375,7 +633,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3.4. </span>Unconstrained Optimization</p>
+        <p class="prev-next-title"><span class="section-number">2.1. </span>Unconstrained Optimization</p>
       </div>
     </a>
     <a class="right-next"
@@ -383,7 +641,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3.6. </span>Constrained Optimization</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>Constrained Optimization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -393,6 +651,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-smooth-objective-function">2.2.1. Convergence for Smooth Objective Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-convex-and-smooth-objective-function">2.2.2. Convergence for Convex and Smooth Objective Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-strongly-convex-and-smooth-objective-function">2.2.3. Convergence for Strongly Convex and Smooth Objective Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks-on-convergence">2.2.3.1. Remarks on Convergence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-examples">2.2.4. Numerical Examples</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

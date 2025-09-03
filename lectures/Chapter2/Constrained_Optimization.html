@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.6. Constrained Optimization &#8212; ML Optimization (Grad)</title>
+    <title>2.3. Constrained Optimization &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -57,13 +57,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/Constrained_Optimization';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="4. Introduction to Large Language Models" href="../Chapter3/LLM.html" />
-    <link rel="prev" title="3.5. First-order Methods" href="gradient.html" />
+    <link rel="next" title="3. Introduction to Large Language Models" href="../Chapter3/LLM.html" />
+    <link rel="prev" title="2.2. Gradient Methods" href="gradient.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -168,25 +168,25 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">1. Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">2. Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">2.1. Introduction to Optimization</a></li>
-
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">2.3. Course Outline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter1/course_intro.html">1. Introduction to the Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro_to_optimization.html">1.1. Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/notations.html">1.2. Notations</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization.html">3. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gradient.html">3.5. Gradient Methods</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.6. Constrained Optimization</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization.html">2. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gradient.html">2.2. Gradient Methods</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.3. Constrained Optimization</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/training_algorithms.html">5. Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">5.2. Variants of adaptive methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/stochastic_opt.html">4. Stochastic Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/training_algorithms.html">4.3. Adaptive algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">4.4. Discussions on modern adaptive methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/lr_mup.html">4.5. Learning rate scheduler and muP</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">6. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">5. References</a></li>
 </ul>
 
     </div>
@@ -312,7 +312,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -328,6 +330,20 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-necessary-condition">2.3.1. First-Order Necessary Condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-onto-convex-sets">2.3.2. Projection onto Convex Sets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feasible-descent-method">2.3.3. Feasible Descent Method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-size-strategies">2.3.3.1. Step Size Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projected-gradient-method">2.3.4. Projected Gradient Method</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -338,34 +354,160 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="constrained-optimization">
-<h1><span class="section-number">3.6. </span>Constrained Optimization<a class="headerlink" href="#constrained-optimization" title="Link to this heading">#</a></h1>
-<p>So far, we have focused on <strong>unconstrained</strong> problems, where the optimization variable can take any value in <span class="math notranslate nohighlight">\(\RR^d\)</span>.  In <strong>constrained optimization</strong>, the variable must satisfy certain restrictions. Constrained optimization is arguably more widely used in classical applications of optimization, such as resource allocation problems, economics, transportation, signal processing etc. However, it appears that s far,  in machine learning and deep learning, and especially in training foundation models, it is not often used (at least not used directly). However, many concepts here are still critical for our subsequent studies for algorithms for training foundation models.</p>
-<p>adf</p>
-<div class="tip admonition">
-<p class="admonition-title">Definition: Constrained Optimization Problem</p>
-<p>A general constrained optimization problem can be written as:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-\min_{\vw \in \RR^d} \quad &amp; f(\vw) \\
-\text{s.t.} \quad &amp; g_i(\vw) \le 0, \quad i = 1,\dots,m, \\
-&amp; h_j(\vw) = 0, \quad j = 1,\dots,p,
-\end{aligned}
-\end{split}\]</div>
+<span id="sec-constrained"></span><h1><span class="section-number">2.3. </span>Constrained Optimization<a class="headerlink" href="#constrained-optimization" title="Link to this heading">#</a></h1>
+<p>So far, we have focused on <strong>unconstrained</strong> problems, where the optimization variable can take any value in <span class="math notranslate nohighlight">\(\RR^d\)</span>.  In <strong>constrained optimization</strong>, the variable must satisfy certain restrictions. Constrained optimization is arguably more widely used in classical applications of optimization, such as resource allocation problems, economics, transportation, signal processing etc. However, it appears that, in machine learning and deep learning, and especially in training foundation models, it is not often used (at least not used directly). This is due to many factors, for example constrained optimization problems are typically much harder to solve than unconstrained ones, therefore one tends to reformulate them as certain types of unconstrained but regularized problems. Nevertheless, many concepts in constrained optimization are still critical for our subsequent studies for algorithms for training foundation models.</p>
 <p>where:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(f:\RR^d \to \RR\)</span> is the <strong>objective function</strong>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(g_i:\RR^d \to \RR\)</span> are <strong>inequality constraint functions</strong>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(h_j:\RR^d \to \RR\)</span> are <strong>equality constraint functions</strong>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_j: \RR^d \to \RR\)</span> are <strong>equality constraint functions</strong>.</p></li>
 </ul>
+<p>For a constrained problem, we call the feasible set as the set of solutions that satisfies all the constraints:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{F} = \left\{ \vw \in \RR^d \ \middle| \ g_i(\vw) \le 0, \ \forall i=1,\dots,m; \ h_j(\vw) = 0, \ \forall j=1,\dots,p \right\}.\]</div>
+<p>A point <span class="math notranslate nohighlight">\(\vw\)</span> is feasible if <span class="math notranslate nohighlight">\(\vw \in \mathcal{F}\)</span>.
+The optimization problem seeks the feasible point with the smallest objective value.</p>
+<section id="first-order-necessary-condition">
+<h2><span class="section-number">2.3.1. </span>First-Order Necessary Condition<a class="headerlink" href="#first-order-necessary-condition" title="Link to this heading">#</a></h2>
+<p>Clearly, a key difference between the unconstrained and constrained problem is that, for the former, the optimal solution always satisfies <span class="math notranslate nohighlight">\(\nabla f(\vw) =0\)</span> (i.e., first-order necessary condition); however for the latter, the optimal solution may occur at the boundary of the feasible set <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, in which case the gradient is not necessarily zero. Clealry, we now need a different set of conditions to characterize (global/local) optimal solutions. Towards this end, let us first define the notation of a feasible direction.</p>
+<p>f <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of a constrained problem and the feasible set is smooth near <span class="math notranslate nohighlight">\(\vw^*\)</span>, then:</p>
+<p><span class="math notranslate nohighlight">\(\nabla f(\vw^*)^\top \vd \ge 0\)</span> for all feasible directions <span class="math notranslate nohighlight">\(\vd\)</span> at <span class="math notranslate nohighlight">\(\vw^*\)</span>.</p>
+<p>This is the first-order necessary condition in constrained optimization — it generalizes the unconstrained condition <span class="math notranslate nohighlight">\(\nabla f(\vw^*)=0\)</span> to account for constraints.</p>
+<p>At this point, the optimality condition stated in Theorem <span class="xref std std-ref">thm-fon-geom</span> may still be abstract. Let us go over a few examples and see how this condition can be used in practice.</p>
+</section>
+<section id="projection-onto-convex-sets">
+<h2><span class="section-number">2.3.2. </span>Projection onto Convex Sets<a class="headerlink" href="#projection-onto-convex-sets" title="Link to this heading">#</a></h2>
+<p>When solving constrained optimization problems, many algorithms take a step that may leave the feasible set.  To restore feasibility, a natural operation is to <strong>project</strong> the current iterate back onto the feasible set.</p>
+<p>Intuitively, the `projection’ is the point in the feasible set that is <strong>closest</strong> (in Euclidean distance) to a given external point. Formally, the projection operation can be defined as follows:</p>
+<p>Geometrically, the projection operator <span class="math notranslate nohighlight">\({\rm Proj}_{\mathcal{F}}(z)\)</span> is the unique point in <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> such that the vector <span class="math notranslate nohighlight">\(z - {\rm Proj}_{\mathcal{F}}(z)\)</span> is orthogonal to the feasible set at the projection point.
+In other words, the error vector points directly outward from <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> along the shortest path to <span class="math notranslate nohighlight">\(z\)</span>. Please see Fig. xxxx for an illustration.</p>
+<p>Below we provide an important theorem describing the property of the projection operator.</p>
+<p>Please see the following figure for an illustration of the idea of projection</p>
+<figure class="align-default" id="id1">
+<img alt="../../_images/projection.png" src="../../_images/projection.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Projection of two points <span class="math notranslate nohighlight">\(z_1, z_2\)</span> onto the convex unit ball.<br />
+The projection points <span class="math notranslate nohighlight">\(\Pi(z_1)\)</span> and <span class="math notranslate nohighlight">\(\Pi(z_2)\)</span> lie on the boundary along the shortest paths.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A key property of the projection operator is its non-expansiveness.</p>
+<p>This result is easy to pove, simply by utilizing the optimality condition of the projection operator, as well as the optimality condition for a constrained optimization problem <code class="xref eq docutils literal notranslate"><span class="pre">eq:constrained:opt:condition</span></code>. Moreover, consider the special case where <span class="math notranslate nohighlight">\(\mathcal{F} \equiv \mathbb{R}^d\)</span> is the entire space. Then the problem becomes unconstrained, and we obtain</p>
+<div class="math notranslate nohighlight">
+\[\alpha \nabla f(w^*) = 0, \quad \forall~\alpha&gt;0.
+\]</div>
+<p>This is the first-order necessary condition for an unconstrained optimization problem.</p>
+<div class="admonition-exercises-on-the-properties-of-projection admonition">
+<p class="admonition-title">Exercises on the Properties of Projection</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> be a closed convex set in <span class="math notranslate nohighlight">\(\RR^d\)</span> and <span class="math notranslate nohighlight">\(\Proj_{\mathcal{F}}(\vz)\)</span> be the projection of <span class="math notranslate nohighlight">\(\vz\)</span> onto <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>.</p>
+<p><strong>(a)</strong> Show the following <strong>optimality condition</strong> for projection holds:</p>
+<div class="math notranslate nohighlight">
+\[
+   \langle \vz - {\rm Proj}_{\mathcal{F}}(\vz),\ \vw - \Proj_{\mathcal{F}}(\vz) \rangle \le 0, \quad \forall \vw \in \mathcal{F}.
+   \]</div>
+<p><strong>(b)</strong> Consider the projected gradient update</p>
+<div class="math notranslate nohighlight">
+\[
+   \vw^{k+1} = \Proj_{\mathcal{F}}\left(\vw^k - \alpha \nabla f(\vw^k) \right),
+   \]</div>
+<p>and assume <span class="math notranslate nohighlight">\(f\)</span> is differentiable and convex. Use the result from (a) to show that:</p>
+<div class="math notranslate nohighlight" id="equation-eq-pg-descent">
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-eq-pg-descent" title="Link to this equation">#</a></span>\[\langle \nabla f(\vw^k),\ \vw^{k+1} - \vw^k \rangle \le -\frac{1}{\alpha} \| \vw^{k+1} - \vw^k \|^2.\]</div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">abc</span> <span class="n">abc</span> <span class="n">abc</span>
-</pre></div>
+</section>
+<section id="feasible-descent-method">
+<h2><span class="section-number">2.3.3. </span>Feasible Descent Method<a class="headerlink" href="#feasible-descent-method" title="Link to this heading">#</a></h2>
+<p>When solving constrained optimization problems of the form:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\vw \in \mathcal{F}} \quad f(\vw),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{F}\subseteq \RR^d \)</span> is a closed, convex set and <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is continuously differentiable, we are no longer free to move in arbitrary directions.  Instead, we must ensure that each update step stays <strong>within the feasible set</strong>. This motivates the use of <strong>feasible direction methods</strong>.</p>
+<p>First, let us define the notion of a feasible direction.</p>
+<p>Note that for convex sets <span class="math notranslate nohighlight">\(\mathcal{F}\)</span>, the feasible directions at the point <span class="math notranslate nohighlight">\(\vw \in \mathcal{F}\)</span> are simply the vectors <span class="math notranslate nohighlight">\(\vd = \vz - \vw, \; \forall~\vz\in\mathcal{F}\)</span>. It is important to emphasize that, having a direction that is feasible is the minimum requirement to develop a working algorithm for constrained optimization, and typically the ``descent” property is needed to reduce the objective function. Later in the text, we will identify a few different ways to find such a feasible descent directions.</p>
+<p>For now, let us ssume that we have a feasible descent direction <span class="math notranslate nohighlight">\(\vd\)</span> to work with, then an inuitive algorithm is the following Feasible Direction Algorithm.</p>
+<div class="math notranslate nohighlight">
+\[\vw^{r+1} = \vw^{r} + \alpha_r \vd^r\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vw^{r}, \vw^{r+1}\)</span> are the iterates, <span class="math notranslate nohighlight">\(\vd^r\)</span> is the feasible direction defined above, and <span class="math notranslate nohighlight">\(\{\alpha_r\}_{r=0}^{\infty}\)</span> is a sequence of stepsizes, which ensures feasiblility, that is  <span class="math notranslate nohighlight">\(\vw^{r+1} := \vw^r + \alpha_r\vd^r \in \mathcal{F}\)</span></p>
+<section id="step-size-strategies">
+<h3><span class="section-number">2.3.3.1. </span>Step Size Strategies<a class="headerlink" href="#step-size-strategies" title="Link to this heading">#</a></h3>
+<p>To guarantee convergence and sufficient decrease, we choose <span class="math notranslate nohighlight">\(\alpha_k\)</span> using one of the following strategies:</p>
+<ul>
+<li><p><strong>Exact line search</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+  \alpha_k = \arg\min_{\alpha \in [0, 1]} f(\mathbf{w}^r + \alpha \mathbf{d}^r)
+  \]</div>
+</li>
+<li><p><strong>Backtracking line search (Armijo rule)</strong>:<br />
+Start with  <span class="math notranslate nohighlight">\(\alpha = 1\)</span> and decrease by <span class="math notranslate nohighlight">\(\alpha \leftarrow \beta \alpha\)</span> (with <span class="math notranslate nohighlight">\(\beta \in (0, 1)\)</span>) until:</p>
+<div class="math notranslate nohighlight">
+\[
+  f(\mathbf{w}^r + \alpha \mathbf{d}^r) \le f(\mathbf{w}^r) + \sigma \alpha \nabla f(\mathbf{w}^r)^\top \mathbf{d}^r,
+  \]</div>
+<p>for some <span class="math notranslate nohighlight">\(\sigma \in (0, 0.5)\)</span>.</p>
+</li>
+<li><p><strong>Constant Stepsize</strong>:
+Step <span class="math notranslate nohighlight">\(\alpha_r = 1,\; \forall~r\)</span>, a bit special, will discuss more shortly.</p></li>
+</ul>
+</section>
+</section>
+<section id="projected-gradient-method">
+<h2><span class="section-number">2.3.4. </span>Projected Gradient Method<a class="headerlink" href="#projected-gradient-method" title="Link to this heading">#</a></h2>
+<p>Recall that we want to solve the following problem</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{x\in\mathcal F} f(\vw),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is differentiable and <span class="math notranslate nohighlight">\(\mathcal F\subseteq\RR^d\)</span> is nonempty, closed, and convex.</p>
+<p>One special case of the feasible descent algorithm is the following projected gradient algorithm, which combines  <strong>gradient descent</strong> with the projection operator.  The simplest version of such combination is as follows:  take a gradient step as if there were no constraints, and then project the resulting point back onto the feasible set. For specifically, given stepsize <span class="math notranslate nohighlight">\(s_r &gt; 0\)</span>, the <strong>projected gradient (PG) method</strong>  can be written below:</p>
+<div class="math notranslate nohighlight">
+\[
+\vw^{r+1} = {\rm Proj}_{\mathcal{F}}\!\big(\vw^r - s_r \nabla f(\vw^r)\big) = \vw^r - \underbrace{\left(\vw^r - {\rm Proj}_{\mathcal{F}}\!\big(\vw^r - \alpha \nabla f(\vw^r)\big)\right)}_{\rm feasible~direction~d^r.}.
+\]</div>
+<p>The convergence behavior of the gradient projection algorithm is relatively straightforward. It can be readily adapted from the results from Section <a class="reference internal" href="gradient.html#sec-gradient"><span class="std std-ref">Gradient Methods</span></a>.  In particular, we have the following corollary to  <span class="xref std std-ref">thm:gd-smooth</span>. One key difference is that the gradient size <span class="math notranslate nohighlight">\(\|\nabla f(\vw)\|^2\)</span> no longer goes to zero, therefore it cannot serve as the optimality condition. Towards this end, we need to design an alternative quanity to measure (first-order) optimality.</p>
+<p>Towards this end, recall from <span class="xref std std-ref">property-proj-fixed-point</span> that an optimal solution <span class="math notranslate nohighlight">\(\vw^*\)</span> of <code class="xref eq docutils literal notranslate"><span class="pre">eq:constrained:problem</span></code> should satisfy</p>
+<div class="math notranslate nohighlight">
+\[
+w^* = {\rm Proj}_{\mathcal{F}}(w^*- \alpha \nabla f(w^*)), \quad \forall~\alpha &gt;0.
+\]</div>
+<p>This above relation is equivalent to:</p>
+<div class="math notranslate nohighlight">
+\[
+\| w^* - {\rm Proj}_{\mathcal{F}}(w^*- \alpha \nabla f(w^*)) \| =0, \quad \forall~\alpha&gt;0
+\]</div>
+<p>Therefore, we can use the size of the gap function, defined as</p>
+<div class="math notranslate nohighlight">
+\[{\rm Gap}(\vw, \alpha): = \|w - {\rm Proj}_{\mathcal{F}}(w- \alpha \nabla f(w)\|\]</div>
+<p>as a measure of (first-order) stationarity, for any fixed <span class="math notranslate nohighlight">\(\alpha &gt;0\)</span>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (Projected Gradient Method for Smooth Objective Function)</p>
+<p>The proof the similar steps as <span class="xref std std-ref">thm:gd-smooth</span>. We will highlight the key difference in the arguments below.</p>
+<p>First, we again begin by observing that under <span class="xref std std-ref">assm:smooth</span>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^k ) + \langle \nabla f( \vw^k ) , \vw^{k+1} - \vw^k \rangle + \frac{L}{2} \| \vw^{k+1} - \vw^k \|^2\]</div>
+<p>Now recall from <a class="reference internal" href="#equation-eq-pg-descent">(2.1)</a> that the folloiwng holds</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \nabla f(\vw^k), \vw^{k+1}-\vw^k\rangle \le -\frac{1}{\alpha_k}\|\vw^{k+1}-\vw^k\|^2.
+\]</div>
+<p>Next, we need to relate <span class="math notranslate nohighlight">\(\|\vw^{k+1}-\vw^k\|^2\)</span> with the size of gap function.</p>
+<p>Note that from the update of the gradient descent, we observe</p>
+<div class="math notranslate nohighlight">
+\[\|\vw^{k+1}-\vw^k\|^2  = \|\Proj_{\mathcal{F}}(\vw^{k}-\alpha \nabla f(\vw^k)) - \vw^k\|^2 = {\rm Gap}(\vw^k,\alpha)\]</div>
+<p>Then the rest is the same as the proof in <span class="xref std std-ref">thm:gd-smooth</span>. By noting that and <span class="math notranslate nohighlight">\(\alpha \leq 1/L\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^k ) - \alpha \left( 1 - \alpha \frac{L}{2} \right) {\rm Gap(\vw^k,\alpha)}\leq f( \vw^k ) - \frac{\alpha}{2} {\rm Gap(\vw^k,\alpha)}\]</div>
+<p>This implies</p>
+<div class="math notranslate nohighlight">
+\[\frac{\alpha}{2} \| \nabla f( \vw^k ) \|^2 \leq f( \vw^k ) - f( \vw^{k+1} )\]</div>
+<p>Summing both sides from <span class="math notranslate nohighlight">\(k=0\)</span> to <span class="math notranslate nohighlight">\(k=K-1\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\frac{\alpha}{2} \sum_{k=0}^{K-1}\| {\rm Gap}(\vw^k,\alpha)\|^2 \leq f( \vw^{0} ) - f( \vw^{K} )\]</div>
+<p>This simplies that</p>
+<div class="math notranslate nohighlight">
+\[\min_{k=0,\cdots, K-1}\| {\rm Gap}(\vw^k,\alpha) \|^2 \le  \sum_{k=0}^{K-1}\| {\rm Gap}(\vw^k,\alpha) \|^2 \leq \frac{f( \vw^{0} ) - f( \vw^{K} )}{\alpha\times K}\]</div>
 </div>
-</div>
-</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -404,7 +546,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3.5. </span>First-order Methods</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>Gradient Methods</p>
       </div>
     </a>
     <a class="right-next"
@@ -412,7 +554,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>Introduction to Large Language Models</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Introduction to Large Language Models</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -422,6 +564,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-necessary-condition">2.3.1. First-Order Necessary Condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-onto-convex-sets">2.3.2. Projection onto Convex Sets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feasible-descent-method">2.3.3. Feasible Descent Method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-size-strategies">2.3.3.1. Step Size Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projected-gradient-method">2.3.4. Projected Gradient Method</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

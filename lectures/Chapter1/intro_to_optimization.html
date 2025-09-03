@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2. Optimization Theory &#8212; ML Optimization (Grad)</title>
+    <title>1.1. Introduction to Optimization &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -59,11 +59,11 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/optimization';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter1/intro_to_optimization';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.1. Unconstrained Optimization" href="Unconstrained_Optimization.html" />
-    <link rel="prev" title="1.2. Notations" href="../Chapter1/notations.html" />
+    <link rel="next" title="1.2. Notations" href="notations.html" />
+    <link rel="prev" title="1. Introduction to Optimization" href="course_intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -168,15 +168,15 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter1/course_intro.html">1. Introduction to the Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro_to_optimization.html">1.1. Course Outline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/notations.html">1.2. Notations</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="course_intro.html">1. Introduction to the Course</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1. Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notations.html">1.2. Notations</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">2. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gradient.html">2.2. Gradient Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">2. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">2.2. Gradient Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
@@ -241,7 +241,7 @@
       
       
       
-      <li><a href="../../_sources/lectures/Chapter2/optimization.ipynb" target="_blank"
+      <li><a href="../../_sources/lectures/Chapter1/intro_to_optimization.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -312,7 +312,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -323,11 +325,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Optimization Theory</h1>
+    <h1>Introduction to Optimization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">1.1.1. Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">1.1.2. Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">1.1.3. Elements of an Optimization Problem</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -337,35 +349,61 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="optimization-theory">
-<h1><span class="section-number">2. </span>Optimization Theory<a class="headerlink" href="#optimization-theory" title="Link to this heading">#</a></h1>
-<!-- ## Convergence Analysis
-
-$x \leftarrow x - \eta*\sum_{i}g_i$
-
-## Momentum
-
-### Nesterov Acceleration --> --><div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import numpy as np</span>
-<span class="c1"># import matplotlib.pyplot as plt</span>
-
-<span class="c1"># f = lambda x: x**2</span>
-<span class="c1"># x = np.linspace(-3, 3, 100)</span>
-<span class="c1"># plt.plot(x, f(x))</span>
-<span class="c1"># plt.title(&quot;$f(x) = x^2$&quot;)</span>
-<span class="c1"># plt.grid(True)</span>
-<span class="c1"># plt.show()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<!-- ## covergence analysis
-
-How to show it converges? check equation {eq}`eq-gradient` also the references {cite}`kingma2015adam` and {cite}`boyd2004convex`
-
-Many optimization methods build on earlier work {cite}`kingma2015adam,boyd2004convex` --><div class="toctree-wrapper compound">
-</div>
+  <section id="introduction-to-optimization">
+<h1><span class="section-number">1.1. </span>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
+<section id="why-optimization">
+<h2><span class="section-number">1.1.1. </span>Why Optimization?<a class="headerlink" href="#why-optimization" title="Link to this heading">#</a></h2>
+<p>Optimization appears everywhere in almost all Science and Engineering disciplines such as Electrical/Mechanical/Aerospace/Systems/Mechanical… Engineering, Computer/Physical/Data… Science. In particular, in machine learning/ artificial intelligence, which are the main application area of this course, optimization theory and algorithms are used in many different problems:</p>
+<ul class="simple">
+<li><p>Training a linear regression model: minimizing squared error</p></li>
+<li><p>Training neural networks: minimizing a cross-entropy loss</p></li>
+<li><p>Aligning LLMs: optimizing reward functions under preference constraints</p></li>
+<li><p>Adversarial robustness: maximizing model loss with respect to small input perturbations</p></li>
+</ul>
+<p>These problems differ in their structure, but they all boil down to choosing parameters to minimize a loss (or maximize a reward), possibly under various constraints.</p>
+<p>We start the lecture with a couple of concrete examples of problem <a class="reference internal" href="course_intro.html#equation-eq-general-optimization">(1.1)</a>.</p>
+</section>
+<section id="examples">
+<h2><span class="section-number">1.1.2. </span>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>Some remarks about the above examples are ready:</p>
+<ul class="simple">
+<li><p>Least squares regression is a <em>convex</em>, <em>quadratic</em> problem, and its solution is <em>globally optimal</em> (the notion of convexity will be introduced in Section <a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html#sec-unconstrained"><span class="std std-ref">Unconstrained Optimization</span></a>).</p></li>
+<li><p>It provides a clean entry point to gradient-based optimization and regularization techniques (e.g., ridge regression).</p></li>
+<li><p>It forms the foundation for more advanced models like logistic regression, support vector machines, and neural networks.</p></li>
+</ul>
+<p>Next, we consider a classical formulation of the <em>classification</em> problem, where the</p>
+<p>Some remarks about the above example is now ready. First, about the optimization structure of the problem. This is a quadratic program (QP): a convex quadratic objective with linear inequality constraints. It has a unique global minimum when the data is linearly separable. Solving it efficiently often involves Lagrangian duality — the dual SVM problem has attractive computational and theoretical properties. We will discuss the issue about duality later in the class.</p>
+<p>Second, real-world data is often not linearly separable, and we must extend the formulation <code class="xref eq docutils literal notranslate"><span class="pre">eq:svm:constrained</span></code> to allow misclassifications using slack variables, which leads to the soft-margin SVM. We will talk about some of its variants in subsequent lectures.</p>
+<p>Next, we provide an example about LLM training.</p>
+<p><strong>Optimization Challenges.</strong> Neural network training raises several fundamental questions in optimization:</p>
+<ul class="simple">
+<li><p>Existence: Does a minimizer <span class="math notranslate nohighlight">\(\vw^*\)</span> exist?</p></li>
+<li><p>Computation: How do we find a good solution efficiently?</p></li>
+<li><p>Convergence: Will gradient-based methods converge to a global or local minimum?</p></li>
+<li><p>Robustness: How sensitive is the solution to noise, overfitting, and adversarial perturbations?</p></li>
+</ul>
+<p>These, and many more related questions, are particularly challenging in large-scale settings such as LLM pretraining, where we may have trillions of tokens and billions of parameters. We will explore many topics related to neural network optimization in the subsequent Chapter <a class="reference internal" href="../Chapter4/stochastic_opt.html#sec-llm-train"><span class="std std-ref">LLM Training as Large-scale Optimization</span></a>.</p>
+</section>
+<section id="elements-of-an-optimization-problem">
+<h2><span class="section-number">1.1.3. </span>Elements of an Optimization Problem<a class="headerlink" href="#elements-of-an-optimization-problem" title="Link to this heading">#</a></h2>
+<p>Every optimization problem is characterized by:</p>
+<ul class="simple">
+<li><p>The type of variables: continuous, discrete, mixed</p></li>
+<li><p>The objective function: smooth/nonsmooth, convex/nonconvex, deterministic/stochastic</p></li>
+<li><p>The constraints: equalities, inequalities, box, norm, combinatorial</p></li>
+<li><p>The scale: number of variables and data points (relevant to LLMs!)</p></li>
+<li><p>The desired accuracy and computation budget</p></li>
+</ul>
+<p>Understanding these factors helps guide both the modeling and the algorithm selection process.</p>
+<p>In the rest of this course, we will explore:</p>
+<ul class="simple">
+<li><p>Core theoretical tools: optimality conditions, convexity, duality</p></li>
+<li><p>Algorithms: gradient descent, Newton methods, proximal methods, ADMM</p></li>
+<li><p>Modern extensions: stochastic optimization, large-scale methods, distributed training</p></li>
+<li><p>Applications to LLM training: pretraining, fine-tuning, RLHF, unlearning, and personalization</p></li>
+</ul>
+<p>Optimization is the common thread that binds these concepts; mastering it is essential for building scalable, robust, and aligned AI systems.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -381,7 +419,7 @@ Many optimization methods build on earlier work {cite}`kingma2015adam,boyd2004co
         },
         kernelOptions: {
             name: "python3",
-            path: "./lectures/Chapter2"
+            path: "./lectures/Chapter1"
         },
         predefinedOutput: true
     }
@@ -399,20 +437,20 @@ Many optimization methods build on earlier work {cite}`kingma2015adam,boyd2004co
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Chapter1/notations.html"
+       href="course_intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">1.2. </span>Notations</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Introduction to Optimization</p>
       </div>
     </a>
     <a class="right-next"
-       href="Unconstrained_Optimization.html"
+       href="notations.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.1. </span>Unconstrained Optimization</p>
+        <p class="prev-next-title"><span class="section-number">1.2. </span>Notations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -422,6 +460,23 @@ Many optimization methods build on earlier work {cite}`kingma2015adam,boyd2004co
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">1.1.1. Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">1.1.2. Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">1.1.3. Elements of an Optimization Problem</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

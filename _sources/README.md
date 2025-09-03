@@ -19,25 +19,4 @@ Google doc link:
 
 Use different boxes for different purposes
 
-Properties
-
-````{admonition} Epigraph amd convexity
-:class: note
-
-````
-
-
-Theorem/Key Results
-
-````{admonition} Epigraph amd convexity
-:class: important
-
-````
-
-
-Prooof
-
-````{admonition} Proof of .... 
-:class: dropdown
-
-````
+Reference: for theorem/assumption, {prf:ref}`xxx`; for equations {eq}`xxx`

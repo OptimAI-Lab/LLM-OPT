@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5.2. Variants and discussions of modern optimizers &#8212; ML Optimization (Grad)</title>
+    <title>4.4. Variants and discussions of modern optimizers &#8212; ML Optimization (Grad)</title>
   
   
   
@@ -57,11 +57,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter4/variants';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="6. References" href="../../references.html" />
-    <link rel="prev" title="5. LLM Training as Large-scale Optimization" href="training_algorithms.html" />
+    <link rel="next" title="4.5. How to stabilize training?" href="lr_mup.html" />
+    <link rel="prev" title="4.3. Adaptive Algorithms" href="training_algorithms.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -166,25 +168,25 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">1. Syllabus</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../notations.html">2. Introduction to Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro.html">2.1. Introduction to Optimization</a></li>
-
-<li class="toctree-l2"><a class="reference internal" href="../Chapter1/course_outline.html">2.3. Course Outline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter1/course_intro.html">1. Introduction to the Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro_to_optimization.html">1.1. Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/notations.html">1.2. Notations</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">3. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">3.4. Unconstrained Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">3.5. Gradient Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Constrained_Optimization.html">3.6. Constrained Optimization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">2. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">2.2. Gradient Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">4. Introduction to Large Language Models</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="training_algorithms.html">5. Optimization for Large Language Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.2. Variants of adaptive methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="stochastic_opt.html">4. Stochastic Optimization for Large Language Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="training_algorithms.html">4.3. Adaptive algorithms</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.4. Discussions on modern adaptive methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lr_mup.html">4.5. Learning rate scheduler and muP</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">6. References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">5. References</a></li>
 </ul>
 
     </div>
@@ -333,8 +335,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-design-as-steepest-descent-with-different-norms">5.2.1. Optimizer design as steepest descent with different norms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-stabilize-training">5.2.2. How to stabilize training?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-design-as-steepest-descent-with-different-norms">4.4.1. Optimizer design as steepest descent with different norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximate-hessian-point-of-view-for-shampoo-and-muon">4.4.2. Approximate Hessian point of view for Shampoo and Muon</a></li>
 </ul>
             </nav>
         </div>
@@ -347,12 +349,60 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="variants-and-discussions-of-modern-optimizers">
-<h1><span class="section-number">5.2. </span>Variants and discussions of modern optimizers<a class="headerlink" href="#variants-and-discussions-of-modern-optimizers" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">4.4. </span>Variants and discussions of modern optimizers<a class="headerlink" href="#variants-and-discussions-of-modern-optimizers" title="Link to this heading">#</a></h1>
+<p>In this section we discuss some modern optimizers that have strong potentials of replacing Adam/AdamW as the future default optimizer.</p>
 <section id="optimizer-design-as-steepest-descent-with-different-norms">
-<h2><span class="section-number">5.2.1. </span>Optimizer design as steepest descent with different norms<a class="headerlink" href="#optimizer-design-as-steepest-descent-with-different-norms" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">4.4.1. </span>Optimizer design as steepest descent with different norms<a class="headerlink" href="#optimizer-design-as-steepest-descent-with-different-norms" title="Link to this heading">#</a></h2>
+<p>Recall that SGD can be formulated as minimizing local quadratic approximations of</p>
+<div class="math notranslate nohighlight" id="equation-eq-steepest-descent-proto-chap4">
+<span class="eqno">(4.17)<a class="headerlink" href="#equation-eq-steepest-descent-proto-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vdelta^{t}&amp;\leftarrow \argmin_{\vdelta} \{\langle\vdelta, \nabla\ell(\vw^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vdelta\|_{2}^2\} \\
+\vw^{t+1}&amp;\leftarrow \vw^{t}+\vdelta^{t}
+\end{align}\end{split}\]</div>
+<p>It is easy to verify that this is exactly equivalent to <span class="math notranslate nohighlight">\(\vw^{t+1}\leftarrow \vw^t - \eta_t \nabla\ell(\vw^t,\xi_t)\)</span>. Now what if we are considering different norms in the right hand side of <a class="reference internal" href="#equation-eq-steepest-descent-proto-chap4">(4.17)</a>?</p>
+<p>As we discussed in the previous section, SGD suffer from the imbalance of the magnitude of different dimensions/entries, and Adam is essentially derived from sign SGD. In fact, one just need to change the vector <span class="math notranslate nohighlight">\(\ell_2\)</span> norm in <a class="reference internal" href="#equation-eq-steepest-descent-proto-chap4">(4.17)</a> into <span class="math notranslate nohighlight">\(\ell_\infty\)</span> norm and recover sign SGD:</p>
+<div class="math notranslate nohighlight" id="equation-eq-steepest-descent-signsgd-chap4">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-eq-steepest-descent-signsgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vdelta^{t}&amp;\leftarrow \argmin_{\vdelta} \{\langle\vdelta, \nabla\ell(\vw^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vdelta\|_{\infty}^2\} = -\eta_t \|\nabla\ell(\vw^t,\xi_t)\| \sign(\nabla\ell(\vw^t,\xi_t)) \\
+\vw^{t+1}&amp;\leftarrow \vw^{t}+\vdelta^{t}
+\end{align}\end{split}\]</div>
+<p>Now let’s specify the variables into matrices, since in attention based neural networks are consists mostly of matrix variables. Denote the matrix weight matrices as <span class="math notranslate nohighlight">\(\vW\)</span>, then the update in <a class="reference internal" href="#equation-eq-steepest-descent-proto-chap4">(4.17)</a> can be re-written</p>
+<div class="math notranslate nohighlight" id="equation-eq-steepest-descent-matrix-chap4">
+<span class="eqno">(4.19)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vDelta^{t}&amp;\leftarrow \argmin_{\vDelta} \{\langle\vDelta, \nabla\ell(\vW^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vDelta\|_{F}^2\} \\
+\vW^{t+1}&amp;\leftarrow \vW^{t}+\vDelta^{t}
+\end{align}\end{split}\]</div>
+<p>where the inner product is just common matrix multiplication and <span class="math notranslate nohighlight">\(\|\cdot\|_{F}\)</span> is the Frobenius norm of a matrix (<span class="math notranslate nohighlight">\(\|A\|_{F}^2:=\sum_{i,j}A_{i,j}^2\)</span>). It is also easy to verify that this is exactly equivalent to <span class="math notranslate nohighlight">\(\vW^{t+1}\leftarrow \vW^t - \eta_t \nabla\ell(\vW^t,\xi_t)\)</span>.</p>
+<p>Now you might ask what would happen if we have multiple layers of weight matrices, rather than just one matrix above. Suppose we have <span class="math notranslate nohighlight">\(L\)</span> layers in total and the weight matrices are <span class="math notranslate nohighlight">\(\vW_{1}, \vW_{2},..., \vW_{L}\)</span>. Then <a class="reference internal" href="#equation-eq-steepest-descent-matrix-chap4">(4.19)</a> can be updated to (for all <span class="math notranslate nohighlight">\(l=1,2,...,L\)</span>)</p>
+<div class="math notranslate nohighlight" id="equation-eq-steepest-descent-matrix-multi-block-chap4">
+<span class="eqno">(4.20)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-multi-block-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vDelta_{l}^{t}&amp;\leftarrow \argmin_{\vDelta_{l}} \{\langle\vDelta_{l}, \nabla\ell(\vW^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vDelta_{l}\|_{F}^2\} \\
+\vW_{l}^{t+1}&amp;\leftarrow \vW_{l}^{t}+\vDelta_{l}^{t}
+\end{align}\end{split}\]</div>
+<p>Now we do a quick recap of possible choices of matrix norms.</p>
+<p>Matrix induced norm allows use to do similar things as <a class="reference internal" href="#equation-eq-steepest-descent-signsgd-chap4">(4.18)</a>, i.e. replacing different norms and derive different form of descent methods, but for attention-based LLMs (which consists mostly of matrix attention weight matrices). The question is: How do we determine which norm is good for LLM training?</p>
+<p>First, let’s see how we can reconstruct sign SGD, which is the fundamental building block of Adam. It turned out that the induced <span class="math notranslate nohighlight">\(1\)</span>-to-<span class="math notranslate nohighlight">\(\infty\)</span> norm is the correct choice to recover sign SGD for matrix variable, namely we have</p>
+<div class="math notranslate nohighlight" id="equation-eq-steepest-descent-matrix-sign-sgd-chap4">
+<span class="eqno">(4.21)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-sign-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vDelta_{l}^{t}&amp;\gets \argmin_{\vDelta_{l}} \{\langle\vDelta_{l}, \nabla\ell(\vW^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vDelta_{l}\|_{1\rightarrow\infty}^2\}=-\eta_t \|\nabla\ell(\vW^t,\xi_t)\|_{1\rightarrow\infty}^{\dagger} \sign(\nabla\ell(\vW^t,\xi_t)) \\
+\vW_{l}^{t+1}&amp;\gets \vW_{l}^{t}+\vDelta_{l}^{t}
+\end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\dagger\)</span> represents the dual norm.</p>
+<p>Next, the question is: What if we just use the simplest matrix induced norm, namely the <span class="math notranslate nohighlight">\(\ell_2\rightarrow\ell_2\)</span> norm? Note that <span class="math notranslate nohighlight">\(\ell_2\rightarrow\ell_2\)</span> is also called the spectral norm since it can be shown that its value equals to the largest singular value of a matrix. It is one of the most commonly used matrix norm, largely since it is easy to compute (just need a singular value decomposition or power iteration).</p>
+<p>It turned out that normalizing by the spectral norm will result in the orthogonalization of the matrix</p>
+<div class="math notranslate nohighlight" id="equation-eq-steepest-descent-matrix-ortho-sgd-chap4">
+<span class="eqno">(4.22)<a class="headerlink" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
+\vDelta_{l}^{t}&amp;\gets \argmin_{\vDelta_{l}} \{\langle\vDelta_{l}, \nabla\ell(\vW^t,\xi_t)\rangle + \frac{1}{2\eta_t}\|\vDelta_{l}\|_{2\rightarrow2}^2\}=-\eta_t \|\nabla\ell(\vW^t,\xi_t)\|_{*} UV^\top \\
+\vW_{l}^{t+1}&amp;\gets \vW_{l}^{t}+\vDelta_{l}^{t}
+\end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(U\Sigma V^\top = \nabla\ell(\vW^t,\xi_t)\)</span> is the singular value decoposition, and <span class="math notranslate nohighlight">\(*\)</span> stands for the dual norm of spectral norm, namely the nuclear norm (sum of all the singular values, or <span class="math notranslate nohighlight">\(\mathrm{tr}(\Sigma)\)</span>).</p>
+<p>This motivates us to develop a matrix version Adam by just considering the EMA for <a class="reference internal" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4">(4.22)</a>. The resulting algorithm appears to be one of the strongest candidate to replace Adam for modern LLM training, name the Muon algorithm <span style="color:red">[cite muon here]</span></p>
+<p>Muon performs surprisingly well for pre-training of LLMs with faster speed. For details see this blog <span style="color:red">[cite muon blog here]</span> or this technical report <span style="color:red">[cite kimi muon paper here]</span>.</p>
 </section>
-<section id="how-to-stabilize-training">
-<h2><span class="section-number">5.2.2. </span>How to stabilize training?<a class="headerlink" href="#how-to-stabilize-training" title="Link to this heading">#</a></h2>
+<section id="approximate-hessian-point-of-view-for-shampoo-and-muon">
+<h2><span class="section-number">4.4.2. </span>Approximate Hessian point of view for Shampoo and Muon<a class="headerlink" href="#approximate-hessian-point-of-view-for-shampoo-and-muon" title="Link to this heading">#</a></h2>
+<p>Yet another line of work inspect the choice of optimizers in a different way. Consider the situation where we are trying to solve a binary classification problem using cross entropy loss:</p>
+<p>(todo: write down the cross-entropy loss, discuss how the Hessian is related to the Fisher information and discuss how Shampoo is approximating it. Sham Kakade’s paper may be reference here)</p>
 </section>
 </section>
 
@@ -392,15 +442,15 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>LLM Training as Large-scale Optimization</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>Adaptive Algorithms</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../references.html"
+       href="lr_mup.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>References</p>
+        <p class="prev-next-title"><span class="section-number">4.5. </span>How to stabilize training?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -420,8 +470,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-design-as-steepest-descent-with-different-norms">5.2.1. Optimizer design as steepest descent with different norms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-stabilize-training">5.2.2. How to stabilize training?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-design-as-steepest-descent-with-different-norms">4.4.1. Optimizer design as steepest descent with different norms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximate-hessian-point-of-view-for-shampoo-and-muon">4.4.2. Approximate Hessian point of view for Shampoo and Muon</a></li>
 </ul>
   </nav></div>
 
