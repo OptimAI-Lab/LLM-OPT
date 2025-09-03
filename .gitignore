@@ -1,3 +1,4 @@
 _build
 data/
 */.ipynb_checkpoints
+lectures/Chapter3/__pycache__/code.cpython-39.pyc
