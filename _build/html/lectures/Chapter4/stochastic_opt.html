@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. LLM Training as Large-scale Optimization &#8212; ML Optimization (Grad)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter4/stochastic_opt';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.3. Adaptive Algorithms" href="training_algorithms.html" />
+    <link rel="prev" title="3. Introduction to Large Language Models" href="../Chapter3/LLM.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ML Optimization (Grad)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter1/course_intro.html">1. Introduction to the Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro_to_optimization.html">1.1. Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter1/notations.html">1.2. Notations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">2. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">2.2. Gradient Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">4. Stochastic Optimization for Large Language Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="training_algorithms.html">4.3. Adaptive algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variants.html">4.4. Discussions on modern adaptive methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lr_mup.html">4.5. Learning rate scheduler and muP</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">5. References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/lectures/Chapter4/stochastic_opt.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LLM Training as Large-scale Optimization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-optimization-settings">4.1. Stochastic Optimization settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sgd-and-its-convergence">4.2. SGD and its convergence</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="llm-training-as-large-scale-optimization">
+<span id="sec-llm-train"></span><h1><span class="section-number">4. </span>LLM Training as Large-scale Optimization<a class="headerlink" href="#llm-training-as-large-scale-optimization" title="Link to this heading">#</a></h1>
+<section id="stochastic-optimization-settings">
+<h2><span class="section-number">4.1. </span>Stochastic Optimization settings<a class="headerlink" href="#stochastic-optimization-settings" title="Link to this heading">#</a></h2>
+<p>In this chapter we will discuss the training of LLMs as a large-scale optimization problem.</p>
+<p>We have already discussed stochastic optimization problem:</p>
+<div class="math notranslate nohighlight" id="equation-eq-stoc-opt-chap4">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-eq-stoc-opt-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ f(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)]\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the data distribution. Note that for neural network training, we usually collect a set of training data <span class="math notranslate nohighlight">\(\{\xi_i\}_{i=1,2,...,n}\)</span> and optimize for the training loss</p>
+<div class="math notranslate nohighlight" id="equation-eq-stoc-opt-finite-sum-chap4">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-eq-stoc-opt-finite-sum-chap4" title="Link to this equation">#</a></span>\[\min_{\vw}\ f(\vw) := \frac{1}{n}\sum_{i=1}^{n}\ell(\vw, \xi_i)\]</div>
+<p>which is also know as the finite sum setting of the stochastic optimization.</p>
+</section>
+<section id="sgd-and-its-convergence">
+<h2><span class="section-number">4.2. </span>SGD and its convergence<a class="headerlink" href="#sgd-and-its-convergence" title="Link to this heading">#</a></h2>
+<p>The SGD method aims to tackle <a class="reference internal" href="#equation-eq-stoc-opt-chap4">(4.1)</a> by mimicking the gradient descent method applied on the stochastic optimization problem. In particular, observe that if we have <span class="math notranslate nohighlight">\(\xi \sim {\cal D}\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\nabla f( \vw ) \approx \nabla \ell( \vw, \xi ) \]</div>
+<p>Particularly, when conditioned on <span class="math notranslate nohighlight">\(\vw\)</span>, the expected value of the right hand side equals the left hand side. The above insight motivates the SGD method as follows:</p>
+<div class="proof algorithm admonition" id="alg:SGD">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.1 </span> (Stochastic Gradient (SGD) Method)</p>
+<section class="algorithm-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \gamma_k \}_{k \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(K\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(k=0,1,2,..., K-1\)</span>,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+&amp; \text{draw sample}~\xi^{k+1} \sim {\cal D} \\
+&amp; \text{update}~\vw^{k+1} = \vw^k - \gamma_k \nabla \ell( \vw^k, \xi^{k+1} ).
+\end{split}\end{split}\]</div>
+<ul class="simple">
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^K\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^k \}_{k=1}^K\)</span>.</p></li>
+</ul>
+</section>
+</div><p>Unlike the deterministic gradient method, the sequence <span class="math notranslate nohighlight">\(\{ \vw^k \}_{k=1}^K\)</span> generated by the SGD method is a <strong>random process</strong> itself (in fact, a Markov chain). As such, there are several subtleties in analyzing the convergence properties of the solution sequence. Here, the common forms of convergence are <em>almost-sure convergence</em>, <em>convergence in expectation</em>, etc. We will demonstrate the <strong>convergence in expectation</strong> of SGD under the simplest setting, i.e., with smooth (but possibly non-convex) objective function. Interested readers may refer to (ref.) for further discussions.</p>
+<p>In addition to <a class="reference internal" href="../Chapter2/gradient.html#assm:smooth">Assumption 2.1</a> on the expected objective function <span class="math notranslate nohighlight">\(f(\vw)\)</span>, we need the following condition on the stochastic gradient:</p>
+<div class="proof assumption admonition" id="assm:stochastic">
+<p class="admonition-title"><span class="caption-number">Assumption 4.1 </span> (Stochastic Oracle)</p>
+<section class="assumption-content" id="proof-content">
+<p>There exists <span class="math notranslate nohighlight">\(\sigma \geq 0\)</span> such that for any <span class="math notranslate nohighlight">\(\vw \in \mathbb{R}^d\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+&amp; \EE_{ \xi \sim {\cal D} } [ \nabla \ell( \vw, \xi ) ] = \nabla f( \vw ) \\
+&amp; \EE_{ \xi \sim {\cal D} } [ \| \nabla \ell( \vw, \xi ) - \nabla f( \vw ) \|^2 ] \leq \sigma^2
+\end{split}\end{split}\]</div>
+</section>
+</div><p>In other words, the stochastic oracle used in the SGD method is both <strong>unbiased</strong> and has <strong>bounded variance</strong>.</p>
+<p>We observe the following <em>convergence in expecatation</em> result:</p>
+<div class="proof theorem admonition" id="thm:sgd-smooth">
+<p class="admonition-title"><span class="caption-number">Theorem 4.1 </span> (Convergence of SGD Method (Smooth Case))</p>
+<section class="theorem-content" id="proof-content">
+<p>Under <a class="reference internal" href="../Chapter2/gradient.html#assm:smooth">Assumption 2.1</a>, <a class="reference internal" href="#assm:stochastic">Assumption 4.1</a> and suppose that the step size satisfies <span class="math notranslate nohighlight">\(\gamma_k \leq 1/L\)</span>. For any <span class="math notranslate nohighlight">\(K \geq 1\)</span>, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[\min_{ k=0, ..., K-1 } \EE[ \| \nabla f( \vw^k ) \|^2 ] \leq \frac{ 2 \left( f (\vw^0) - f(\vw^K) + \frac{ \sigma^2 L }{2} \sum_{k=0}^{K-1} \gamma_k^2 \right) }{ \sum_{k=0}^{K-1} \gamma_k }\]</div>
+</section>
+</div><div class="dropdown admonition">
+<p class="admonition-title">Proof (SGD for Smooth Objective Function)</p>
+<p>The proof is very similar to that of <a class="reference internal" href="../Chapter2/gradient.html#thm:gd-smooth">Theorem 2.6</a>. Observing that under <a class="reference internal" href="../Chapter2/gradient.html#assm:smooth">Assumption 2.1</a>, it holds for any <span class="math notranslate nohighlight">\(k \geq 0\)</span> that,</p>
+<div class="math notranslate nohighlight">
+\[f( \vw^{k+1} ) \leq f( \vw^k ) + \langle \nabla f( \vw^k ) , \vw^{k+1} - \vw^k \rangle + \frac{L}{2} \| \vw^{k+1} - \vw^k \|^2\]</div>
+<p>By noting that <span class="math notranslate nohighlight">\(\vw^{k+1} - \vw^k = - \gamma_k \nabla \ell (\vw^k; \xi^{k+1})\)</span>, we have</p>
+<div class="math notranslate nohighlight" id="equation-eq-sgd-analyze-step1">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-eq-sgd-analyze-step1" title="Link to this equation">#</a></span>\[f( \vw^{k+1} ) \leq f( \vw^k ) - \gamma_k \langle \nabla f( \vw^k ), \nabla \ell (\vw^k; \xi^{k+1}) \rangle + \frac{ \gamma_k^2 L }{2} \| \nabla \ell (\vw^k; \xi^{k+1}) \|^2 \]</div>
+<p>We denote <span class="math notranslate nohighlight">\({\cal F}_k\)</span> as the filtration of the random variables <span class="math notranslate nohighlight">\(\{ \vw^0, \xi^1, \ldots, \xi^k, \vw^k \}\)</span>.
+Under <a class="reference internal" href="#assm:stochastic">Assumption 4.1</a>, we have the following conditional expectations:</p>
+<div class="math notranslate nohighlight">
+\[\EE[ \langle \nabla f( \vw^k ), \nabla \ell (\vw^k; \xi^{k+1}) \rangle | {\cal F}_k ] = \| \nabla f( \vw^k ) \|^2\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+&amp; \EE[ \| \nabla \ell (\vw^k; \xi^{k+1}) \|^2 | {\cal F}_k ] \\
+&amp; = \EE[ \| \nabla \ell (\vw^k; \xi^{k+1}) - \nabla f( \vw^k ) \|^2 | {\cal F}_k ] + \| \nabla f( \vw^k ) \|^2 \\
+&amp; \leq \sigma^2 + \| \nabla f( \vw^k ) \|^2.
+\end{split}\end{split}\]</div>
+<p>Taking the full expectation on both sides of <a class="reference internal" href="#equation-eq-sgd-analyze-step1">(4.3)</a> yields</p>
+<div class="math notranslate nohighlight">
+\[\EE[ f( \vw^{k+1} ) ] \leq \EE[ f(\vw^k) ] - \gamma_k \left( 1 - \frac{\gamma_k L}{2} \right) \EE[ \| \nabla f( \vw^k ) \|^2 ] + \frac{ \gamma_k^2 \sigma^2 L }{2}\]</div>
+<p>Using <span class="math notranslate nohighlight">\(\gamma_k \leq 1/L\)</span> simplifies the above to</p>
+<div class="math notranslate nohighlight">
+\[\EE[ f( \vw^{k+1} ) ] \leq \EE[ f(\vw^k) ] - \frac{\gamma_k}{2} \EE[ \| \nabla f( \vw^k ) \|^2 ] + \frac{ \gamma_k^2 \sigma^2 L }{2}\]</div>
+<p>This implies</p>
+<div class="math notranslate nohighlight">
+\[\frac{\gamma_k}{2} \EE[ \| \nabla f( \vw^k ) \|^2 ] \leq \EE[ f( \vw^k ) - f( \vw^{k+1} ) ] + \frac{ \gamma_k^2 \sigma^2 L }{2}.\]</div>
+<p>Summing both sides from <span class="math notranslate nohighlight">\(k=0\)</span> to <span class="math notranslate nohighlight">\(k=K-1\)</span> yields the desired result.</p>
+</div>
+<p>From the results in <a class="reference internal" href="#thm:sgd-smooth">Theorem 4.1</a>, we notice that if we set <span class="math notranslate nohighlight">\(\gamma_k = 1 / \sqrt{K}\)</span> for all <span class="math notranslate nohighlight">\(k=0,...,K-1\)</span>, then for sufficiently large <span class="math notranslate nohighlight">\(K\)</span>, one has</p>
+<div class="math notranslate nohighlight">
+\[\min_{ k=0, ..., K-1 } \EE[ \| \nabla f( \vw^k ) \|^2 ] = {\cal O} \left( \frac{1 + \log K}{ \sqrt{K} } \right),\]</div>
+<p>showing the convergence (in expectation) for the SGD method.</p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures/Chapter4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Chapter3/LLM.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Introduction to Large Language Models</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="training_algorithms.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>Adaptive Algorithms</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-optimization-settings">4.1. Stochastic Optimization settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sgd-and-its-convergence">4.2. SGD and its convergence</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By OptimAI-Lab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
