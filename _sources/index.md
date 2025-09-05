@@ -1,4 +1,4 @@
-# Welcome to Machine Learning Optimization
+# Welcome to Optimization for Machine Learning and Large Language Models
 
 This is a graduate-level course exploring optimization in machine learning and Large Language Models. You will find all lectures notes, assignments, and resources here. 
 
