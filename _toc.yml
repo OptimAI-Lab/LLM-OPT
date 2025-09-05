@@ -26,6 +26,8 @@ chapters:
   - file: lectures/Chapter4/stochastic_opt
     title: Stochastic Optimization for Large Language Models
     sections:
+      - file: lectures/Chapter4/sgd
+        title: Stochastic Gradient Descent
       - file: lectures/Chapter4/training_algorithms
         title: Adaptive algorithms
       - file: lectures/Chapter4/variants
