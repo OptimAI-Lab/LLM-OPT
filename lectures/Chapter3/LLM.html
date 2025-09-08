@@ -337,22 +337,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-llm-training">3.1. Example: LLM training</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">3.2. Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizer">3.3. Tokenizer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-layer">3.4. Embedding Layer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">3.5. Self-attention</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">3.6. Scaled Dot-Product Attention</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-or-causal-self-attention">3.7. Masked (or causal) self-attention</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">3.8. Multi-Head Attention:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layernorm">3.9. LayerNorm</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-layer">3.10. MLP Layer</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-diagram">3.10.1. MLP diagram:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#block-layer-diagram">3.10.2. Block Layer diagram:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">3.1. Intro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-architecture">3.2. Transformer Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizer">3.2.1. Tokenizer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-layer">3.2.2. Embedding Layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">3.2.3. Self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">3.2.4. Scaled Dot-Product Attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-or-causal-self-attention">3.2.5. Masked (or causal) self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">3.2.6. Multi-Head Attention:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layernorm">3.2.7. LayerNorm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-layer">3.2.8. MLP Layer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-diagram">3.2.8.1. MLP diagram:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#block-layer-diagram">3.2.8.2. Block Layer diagram:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only-transformer-nanogpt">3.11. Decoder-only transformer (nanoGPT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-pre-training">3.12. LLM Pre-training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only-transformer-nanogpt">3.2.9. Decoder-only transformer (nanoGPT)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-training">3.3. LLM Training</a></li>
 </ul>
             </nav>
         </div>
@@ -367,47 +369,12 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-large-language-models">
 <h1><span class="section-number">3. </span>Introduction to Large Language Models<a class="headerlink" href="#introduction-to-large-language-models" title="Link to this heading">#</a></h1>
 <p>(Pytorch nanoGPT code is from: <a class="github reference external" href="https://github.com/karpathy/nanoGPT/blob/master/model.py">karpathy/nanoGPT</a>)</p>
-<section id="example-llm-training">
-<h2><span class="section-number">3.1. </span>Example: LLM training<a class="headerlink" href="#example-llm-training" title="Link to this heading">#</a></h2>
-<p>When training an LLM (e.g. GPT or LLaMA decoder-only transformer models), the objective is typically causal next-token prediction using the cross-entropy (CE) loss. More specifically,</p>
-<p>Given an input sequence of tokens:</p>
-<div class="math notranslate nohighlight">
-\[ x = [x_1, x_2, \dots, x_L] \]</div>
-<p>The model is trained to predict the probability distribution over the next token <span class="math notranslate nohighlight">\(x_{t+1}\)</span>, conditioned on the tokens before it (hence causal):</p>
-<div class="math notranslate nohighlight">
-\[P_{\theta}( \cdot \mid x_{\leq t})   = \text{softmax}(f_\theta(x_{\leq t})) \in \mathbb{R}^{|V|}, \textrm{ for } t=1,...,L-1 \]</div>
-<p>where:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x_{\leq t} = [x_1, x_2, \dots, x_t]\)</span> are the previous tokens,</p></li>
-<li><p><span class="math notranslate nohighlight">\(f_\theta(x_{\leq t})\)</span> represents the output logits from the transformer (having trainable weights <span class="math notranslate nohighlight">\(\theta\)</span>),</p></li>
-<li><p>softmax() converts the logits into a probability distribution over the vocabulary of size <span class="math notranslate nohighlight">\(|V|\)</span>.</p></li>
-</ul>
-<p>From this vector, the scalar probability of the correct next token is therefore:</p>
-<div class="math notranslate nohighlight">
-\[P_{\theta}( x_{t+1} \mid x_{\leq t}).\]</div>
-<p>During training, the loss is computed using cross-entropy between the predicted distribution and the ground truth distribution, i.e. a one-hot vector for the correct token.</p>
-<p>Note that the typical cross-entropy definition is:</p>
-<div class="math notranslate nohighlight">
-\[ H(q, p) = - \sum_{x \in \textrm{ classes}} q(x) \log p(x) \]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> the number of classes, <span class="math notranslate nohighlight">\(q\)</span> is the true probability distribution and <span class="math notranslate nohighlight">\(p\)</span> the predicted probability distribution.</p>
-<p>In our case we have:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x \in \{0,1,2, \dots, |V|-1\}\)</span> the token indices,</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(i) = P_\theta(x = i \mid x_{\leq t})\)</span> is the predicted probability of token <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(q(i)\)</span> is the true probability of token <span class="math notranslate nohighlight">\(i\)</span>:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[\begin{split} 
-q(i) = 
-  \begin{cases}
-  1 &amp; \text{if } i = x_{t+1} \\
-  0 &amp; \text{otherwise}
-  \end{cases}
-\end{split}\]</div>
-<p>Therefore we can write the loss as:</p>
-<div class="math notranslate nohighlight">
-\[ L_t(\theta) = - \sum_{i=0}^{|V|-1} q(i) \log p(i) = - \log p_{x_{t+1}} = -\log P_\theta(x_{t+1} \mid x_{\leq t}) \]</div>
-<p>This loss then is optimized by adjusting the model’s weights using gradient-based optimizers, such as Adam.</p>
+<section id="intro">
+<h2><span class="section-number">3.1. </span>Intro<a class="headerlink" href="#intro" title="Link to this heading">#</a></h2>
+<p>This chapter serves as an introduction to the basic concepts in Large Language Model (LLM) architectures and training. In the first section we will introduce the basic blocks and mechanisms of the transformer architecture, which most LLMs are based on. Next, we will introduce the basic ideas involved in the training of the LLMs. In addition, this notebook is intended to provide a runnable code implementation of the nanoGPT model and a basic training pipeline.</p>
+</section>
+<section id="transformer-architecture">
+<h2><span class="section-number">3.2. </span>Transformer Architecture<a class="headerlink" href="#transformer-architecture" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
@@ -416,26 +383,20 @@ q(i) =
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
-
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> <span class="c1"># !</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="data">
-<h2><span class="section-number">3.2. </span>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
-</section>
 <section id="tokenizer">
-<h2><span class="section-number">3.3. </span>Tokenizer<a class="headerlink" href="#tokenizer" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.1. </span>Tokenizer<a class="headerlink" href="#tokenizer" title="Link to this heading">#</a></h3>
 <p>Neural Networks such as the transformer work with numbers, not text. Therefore the input texts need to be converted to sequences of numbers before the transformer can process them. Those numbers are called the input <em>tokens</em>.</p>
-<p>The module that performs the conversion is called the <em>tokenizer</em>. There are a number of different approaches to tokenization with one of the most popular being <em>Byte Pair Encoding (BPE)</em> which perfomrs subword tokenization by iteratively merging the most frequent pairs of symbols in the text. An important parameter of the tokenizer is the vocabulary size <span class="math notranslate nohighlight">\(V\)</span>, which is the total number of unique tokens it can produce or the model can recognize.</p>
+<p>The module that performs the conversion is called the <em>tokenizer</em>. There are a number of different approaches to tokenization with one of the most popular being <em>Byte Pair Encoding (BPE)</em> which performs subword tokenization by iteratively merging the most frequent pairs of symbols in the text. An important parameter of the tokenizer is the vocabulary size <span class="math notranslate nohighlight">\(V\)</span>, which is the total number of unique tokens it can produce or the model can recognize.</p>
 <p>The transformer model then expects as input a batch of token sequences, which normally has a shape <span class="math notranslate nohighlight">\([B, L]\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the <em>batch size</em> that determines the number of sequences (or samples) the transformer will process in parallel and <span class="math notranslate nohighlight">\(L\)</span> is the number of tokens per sequence.</p>
 <p>The batch of token sequences will then be converted to a batch of <em>embeddings vectors</em> (one embedding per token) by the <em>embedding layer</em>.</p>
 </section>
 <section id="embedding-layer">
-<h2><span class="section-number">3.4. </span>Embedding Layer<a class="headerlink" href="#embedding-layer" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.2. </span>Embedding Layer<a class="headerlink" href="#embedding-layer" title="Link to this heading">#</a></h3>
 <p>The input tokens are discrete and therefore not directly optimizable by gradient-based methods. Thus they need to be converted to continuous, dense vectors that capture semantic meanings and can be learned and optimized by the transformer. This is done by the <em>embedding layer</em>.</p>
 <p>The embedding layer is essentially a trainable look-up table. It takes as input the token indices and outputs the corresponding rows - which are the <em>embedding vectors</em> for the specified tokens. It has shape (<span class="math notranslate nohighlight">\(|V|\)</span>, <span class="math notranslate nohighlight">\(d_{\text{model}}\)</span>), where <span class="math notranslate nohighlight">\(d_{\text{model}}\)</span> is the dimension of the embedding vectors. Bellow is an example of how it looks in code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="p">[</span>
@@ -447,7 +408,7 @@ q(i) =
 <span class="c1"># where n = |V| and d = d_model</span>
 </pre></div>
 </div>
-<p>Therefore, the embedding layer for an input tensor of shape <span class="math notranslate nohighlight">\([B, L]\)</span> it will ouput a tensor of shape <span class="math notranslate nohighlight">\([B, L, d_{\text{model}}]\)</span>.</p>
+<p>Therefore, the embedding layer for an input tensor of shape <span class="math notranslate nohighlight">\([B, L]\)</span> it will output a tensor of shape <span class="math notranslate nohighlight">\([B, L, d_{\text{model}}]\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="mi">10</span>
@@ -484,7 +445,7 @@ torch.Size([2, 4, 3])
 </div>
 </section>
 <section id="self-attention">
-<h2><span class="section-number">3.5. </span>Self-attention<a class="headerlink" href="#self-attention" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.3. </span>Self-attention<a class="headerlink" href="#self-attention" title="Link to this heading">#</a></h3>
 <p>Self-attention is a mechanism that transforms the representation of each token in a sequence by relating it to different tokens of the sequence. This new representation can then be used by the model to e.g., predict the next word of the sequence.</p>
 <p>For example, lets say we have the sentence “The cat sat on the mat”. We can assume a simple word tokenizer and an embedding layer which results in one embedding vector for each word:</p>
 <div align="center">
@@ -541,14 +502,14 @@ torch.Size([2, 4, 3])
 \text{Output Probabilities} \quad [B, L, |V|] 
 \end{array}
 \end{split}\]</div>
-<p>However, currently each embedding <span class="math notranslate nohighlight">\(e_i\)</span> contains information only for the particular word it embedds, regardless of the rests of the sequence. So for example given <span class="math notranslate nohighlight">\(e_5\)</span> the model would just predict the most probable word after a “the”, which is certainly not “mat”. Instead, with a self-attention layer <span class="math notranslate nohighlight">\(e_5\)</span> will be transformed into <span class="math notranslate nohighlight">\(e_5' = f(e_1, e_2, e_3, e_4, e_5)\)</span>, now containing the context.</p>
+<p>However, currently each embedding <span class="math notranslate nohighlight">\(e_i\)</span> contains information only for the particular word it embeds, regardless of the rests of the sequence. So for example given <span class="math notranslate nohighlight">\(e_5\)</span> the model would just predict the most probable word after a “the”, which is certainly not “mat”. Instead, with a self-attention layer <span class="math notranslate nohighlight">\(e_5\)</span> will be transformed into <span class="math notranslate nohighlight">\(e_5' = f(e_1, e_2, e_3, e_4, e_5)\)</span>, now containing the context.</p>
 <p>Bellow we will describe how self-attention is computed.</p>
 </section>
 <section id="scaled-dot-product-attention">
-<h2><span class="section-number">3.6. </span>Scaled Dot-Product Attention<a class="headerlink" href="#scaled-dot-product-attention" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.4. </span>Scaled Dot-Product Attention<a class="headerlink" href="#scaled-dot-product-attention" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Assume batch size B=1</p></li>
-<li><p>X is the embedding matrix (contatins the embedding vectors of <span class="math notranslate nohighlight">\(L\)</span> tokens)</p></li>
+<li><p>X is the embedding matrix (contains the embedding vectors of <span class="math notranslate nohighlight">\(L\)</span> tokens)</p></li>
 <li><p>Assume single attention layer after the embedding layer</p></li>
 </ul>
 <p>Input matrix:</p>
@@ -747,7 +708,7 @@ Output Z (Weighted Sum of Values):
 </div>
 </section>
 <section id="masked-or-causal-self-attention">
-<h2><span class="section-number">3.7. </span>Masked (or causal) self-attention<a class="headerlink" href="#masked-or-causal-self-attention" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.5. </span>Masked (or causal) self-attention<a class="headerlink" href="#masked-or-causal-self-attention" title="Link to this heading">#</a></h3>
 <p>In practice, transformers use a version of self-attention called masked or causal self-attention. In contrast to (bidirectional) self-attention that computes attentions scores for all tokens in the sequence, masked self-attention uses a <em>causal mask</em> that hides future tokens, so each token can attend to itself and earlier tokens.</p>
 <p>Example of a casual mask:</p>
 <div class="math notranslate nohighlight">
@@ -877,7 +838,7 @@ Output Z (Weighted Sum of Values):
 </div>
 </section>
 <section id="multi-head-attention">
-<h2><span class="section-number">3.8. </span>Multi-Head Attention:<a class="headerlink" href="#multi-head-attention" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.6. </span>Multi-Head Attention:<a class="headerlink" href="#multi-head-attention" title="Link to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O
@@ -953,7 +914,7 @@ W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
 </div>
 </section>
 <section id="layernorm">
-<h2><span class="section-number">3.9. </span>LayerNorm<a class="headerlink" href="#layernorm" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.7. </span>LayerNorm<a class="headerlink" href="#layernorm" title="Link to this heading">#</a></h3>
 <p><em>Layer Normalization</em> (LayerNorm) is used to stabilize and accelerate training by normalizing the input across features.</p>
 <p>Given input vector <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span> (e.g., the hidden state of one token), compute:</p>
 <div class="math notranslate nohighlight">
@@ -987,10 +948,10 @@ W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
 </div>
 </section>
 <section id="mlp-layer">
-<h2><span class="section-number">3.10. </span>MLP Layer<a class="headerlink" href="#mlp-layer" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.8. </span>MLP Layer<a class="headerlink" href="#mlp-layer" title="Link to this heading">#</a></h3>
 <p>TODO: Explain why we need an MLP layer, also expain residual connections, GELU</p>
 <section id="mlp-diagram">
-<h3><span class="section-number">3.10.1. </span>MLP diagram:<a class="headerlink" href="#mlp-diagram" title="Link to this heading">#</a></h3>
+<h4><span class="section-number">3.2.8.1. </span>MLP diagram:<a class="headerlink" href="#mlp-diagram" title="Link to this heading">#</a></h4>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{array}{c}
@@ -1027,7 +988,7 @@ W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
 \end{split}\]</div>
 </section>
 <section id="block-layer-diagram">
-<h3><span class="section-number">3.10.2. </span>Block Layer diagram:<a class="headerlink" href="#block-layer-diagram" title="Link to this heading">#</a></h3>
+<h4><span class="section-number">3.2.8.2. </span>Block Layer diagram:<a class="headerlink" href="#block-layer-diagram" title="Link to this heading">#</a></h4>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{array}{c}
@@ -1105,7 +1066,7 @@ W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
 </section>
 </section>
 <section id="decoder-only-transformer-nanogpt">
-<h2><span class="section-number">3.11. </span>Decoder-only transformer (nanoGPT)<a class="headerlink" href="#decoder-only-transformer-nanogpt" title="Link to this heading">#</a></h2>
+<h3><span class="section-number">3.2.9. </span>Decoder-only transformer (nanoGPT)<a class="headerlink" href="#decoder-only-transformer-nanogpt" title="Link to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{array}{c}
@@ -1296,8 +1257,9 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 <p>TODO: explain positional embeddings</p>
 <p>TODO: explain training and generation</p>
 </section>
-<section id="llm-pre-training">
-<h2><span class="section-number">3.12. </span>LLM Pre-training<a class="headerlink" href="#llm-pre-training" title="Link to this heading">#</a></h2>
+</section>
+<section id="llm-training">
+<h2><span class="section-number">3.3. </span>LLM Training<a class="headerlink" href="#llm-training" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
@@ -1730,22 +1692,24 @@ torch.Size([64, 256, 50257])
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-llm-training">3.1. Example: LLM training</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">3.2. Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizer">3.3. Tokenizer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-layer">3.4. Embedding Layer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">3.5. Self-attention</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">3.6. Scaled Dot-Product Attention</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-or-causal-self-attention">3.7. Masked (or causal) self-attention</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">3.8. Multi-Head Attention:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layernorm">3.9. LayerNorm</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-layer">3.10. MLP Layer</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-diagram">3.10.1. MLP diagram:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#block-layer-diagram">3.10.2. Block Layer diagram:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">3.1. Intro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-architecture">3.2. Transformer Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizer">3.2.1. Tokenizer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-layer">3.2.2. Embedding Layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">3.2.3. Self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scaled-dot-product-attention">3.2.4. Scaled Dot-Product Attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-or-causal-self-attention">3.2.5. Masked (or causal) self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">3.2.6. Multi-Head Attention:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layernorm">3.2.7. LayerNorm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-layer">3.2.8. MLP Layer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-diagram">3.2.8.1. MLP diagram:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#block-layer-diagram">3.2.8.2. Block Layer diagram:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only-transformer-nanogpt">3.11. Decoder-only transformer (nanoGPT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-pre-training">3.12. LLM Pre-training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only-transformer-nanogpt">3.2.9. Decoder-only transformer (nanoGPT)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-training">3.3. LLM Training</a></li>
 </ul>
   </nav></div>
 
