@@ -408,8 +408,8 @@ document.write(`
 <p>If <span class="math notranslate nohighlight">\(f\)</span> is continuously differentiable, and let <span class="math notranslate nohighlight">\(\vw^*\)</span> be a local minimizer. Then the following holds:</p>
 <div class="math notranslate nohighlight">
 \[\nabla f(\vw^*) = 0.\]</div>
-<p>This first-order necessary condition defines a (first-order) stationary points. They are candidates for global/local minmum, maximum solutions, as well as saddle points.</p>
-<p>Further, suppose that <span class="math notranslate nohighlight">\(f\)</span> is twice continuously differentiabe. Suppose <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer, then:</p>
+<p>This first-order necessary condition defines a (first-order) stationary points. They are candidates for global/local minimum, maximum solutions, as well as saddle points.</p>
+<p>Further, suppose that <span class="math notranslate nohighlight">\(f\)</span> is twice continuously differentiable. Suppose <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer, then:</p>
 <div class="math notranslate nohighlight">
 \[
 \nabla f(\vw^*) = 0, \quad \nabla^2 f(\vw^*) \succeq 0.
@@ -467,41 +467,41 @@ Because <span class="math notranslate nohighlight">\(f\)</span> is <span class="
 \lim_{x\to x^*} q(x)\;=\;\frac{1}{2}f''(x^*).
 \]</div>
 <p>Taking limits preserves the inequality, hence <span class="math notranslate nohighlight">\(\tfrac{1}{2}f''(x^*)\ge 0\)</span>, i.e., <span class="math notranslate nohighlight">\(f''(x^*)\ge 0\)</span>.</p>
-<p>Then consider the vector case where <span class="math notranslate nohighlight">\(d\ge 2\)</span>. Fix any direction <span class="math notranslate nohighlight">\(h\in\RR^d\)</span> and define <span class="math notranslate nohighlight">\(g(\alpha)=f(\vw^*+\alpha h)\)</span>.<br />
+<p>Then consider the vector case where <span class="math notranslate nohighlight">\(d\ge 2\)</span>. Fix any direction <span class="math notranslate nohighlight">\(h\in\RR^d\)</span> and define <span class="math notranslate nohighlight">\(g(\alpha)=f(\vw^*+\alpha \vh)\)</span>.<br />
 Since <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\alpha=0\)</span> is a local minimizer of the scalar <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> function <span class="math notranslate nohighlight">\(g\)</span>.<br />
-From the first-order result, <span class="math notranslate nohighlight">\(g'(0)=\nabla f(\vw^*)^\top h=0\)</span>. By the chain rule,</p>
+From the first-order result, <span class="math notranslate nohighlight">\(g'(0)=\nabla f(\vw^*)^\top \vh=0\)</span>. By the chain rule,</p>
 <div class="math notranslate nohighlight">
 \[
-g''(0)= h^\top \nabla^2 f(\vw^*)\, h.
+g''(0)= h^\top \nabla^2 f(\vw^*)\, \vh.
 \]</div>
 <p>From the first part of the proof, for scalar functions, if <span class="math notranslate nohighlight">\(\alpha^* =0\)</span> is a local min of a twice differentiable scalar function, then <span class="math notranslate nohighlight">\(g''(0)\ge 0\)</span>.
-Because <span class="math notranslate nohighlight">\(h\)</span> is arbitrary, <span class="math notranslate nohighlight">\(h^\top \nabla^2 f(\vw^*) h \ge 0\)</span> for all <span class="math notranslate nohighlight">\(h\)</span>, i.e., <span class="math notranslate nohighlight">\(\nabla^2 f(\vw^*)\succeq 0\)</span>.</p>
+Because <span class="math notranslate nohighlight">\(h\)</span> is arbitrary, <span class="math notranslate nohighlight">\(h^\top \nabla^2 f(\vw^*) \vh \ge 0\)</span> for all <span class="math notranslate nohighlight">\(\vh\)</span>, i.e., <span class="math notranslate nohighlight">\(\nabla^2 f(\vw^*)\succeq 0\)</span>.</p>
 </div>
-<p>Next, we discuss sufficient optimality conditions. It is important to note thata sufficient conditions are always <em>more strict</em> compared to necessary conditions.</p>
+<p>Next, we discuss sufficient optimality conditions. It is important to note that sufficient conditions are always <em>more strict</em> compared to necessary conditions.</p>
 <div class="proof theorem admonition" id="unconstrained_SC">
 <p class="admonition-title"><span class="caption-number">Theorem 2.3 </span> (Second-Order <strong>Sufficient</strong> Condition)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> be <span class="math notranslate nohighlight">\(\mathcal C^2\)</span> near <span class="math notranslate nohighlight">\(\vw^*\)</span>.<br />
-Supoose that <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is twice continuously differentiable, then if the following holds:</p>
+Suppose that <span class="math notranslate nohighlight">\(f(\cdot)\)</span> is twice continuously differentiable, then if the following two relations hold:</p>
 <div class="math notranslate nohighlight">
 \[\nabla f(\vw^*)=\vzero, \quad \nabla^2 f(\vw^*) \succ 0,\]</div>
 <p>then <span class="math notranslate nohighlight">\(\vw^*\)</span> is a <strong>strict local minimizer</strong> of <span class="math notranslate nohighlight">\(f\)</span>.</p>
 </section>
 </div><div class="dropdown admonition">
 <p class="admonition-title">Proof (Second-order Sufficient Conditions)</p>
-<p>If <span class="math notranslate nohighlight">\(d=1\)</span>, by Taylor expansion, for <span class="math notranslate nohighlight">\(x\)</span> close to <span class="math notranslate nohighlight">\(x^*\)</span> there exists some <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x^*\)</span> such that</p>
+<p>If <span class="math notranslate nohighlight">\(d=1\)</span>, by Taylor expansion, for <span class="math notranslate nohighlight">\(x\)</span> close to <span class="math notranslate nohighlight">\(w^*\)</span> there exists some <span class="math notranslate nohighlight">\(\xi\)</span> between <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(w^*\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = f(x^*) + f'(x^*)(x-x^*) + \tfrac12 f''(\xi)\,(x-x^*)^2.
+f(w) = f(w^*) + f'(w^*)(w-w^*) + \tfrac12 f''(\xi)\,(w-w^*)^2.
 \]</div>
 <p>This is also known as the (scalar version of) <strong>Mean Value Theorem (MVT)</strong>.</p>
-<p>From the first-order condition, <span class="math notranslate nohighlight">\(f'(x^*)=0\)</span>.  By continuity of <span class="math notranslate nohighlight">\(f''\)</span> and the fact that <span class="math notranslate nohighlight">\(f''(x^*)&gt;0\)</span>, there exists a neighborhood <span class="math notranslate nohighlight">\(U\)</span> of <span class="math notranslate nohighlight">\(x^*\)</span> such that <span class="math notranslate nohighlight">\(f''(\xi) \ge \mu &gt; 0\)</span> for all <span class="math notranslate nohighlight">\(\xi\in U\)</span>.<br />
-Thus, for <span class="math notranslate nohighlight">\(x \in U\setminus\{x^*\}\)</span>,</p>
+<p>From the first-order condition, <span class="math notranslate nohighlight">\(f'(w^*)=0\)</span>.  By continuity of <span class="math notranslate nohighlight">\(f''\)</span> and the fact that <span class="math notranslate nohighlight">\(f''(w^*)&gt;0\)</span>, there exists a neighborhood <span class="math notranslate nohighlight">\(U\)</span> of <span class="math notranslate nohighlight">\(w^*\)</span> such that <span class="math notranslate nohighlight">\(f''(\xi) \ge \mu &gt; 0\)</span> for all <span class="math notranslate nohighlight">\(\xi\in U\)</span>.<br />
+Thus, for <span class="math notranslate nohighlight">\(w \in U\setminus\{w^*\}\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) - f(x^*) \;\ge\; \tfrac{\mu}{2}(x-x^*)^2 \;&gt;\; 0,
+f(w) - f(w^*) \;\ge\; \tfrac{\mu}{2}(w-w^*)^2 \;&gt;\; 0,
 \]</div>
-<p>which proves <span class="math notranslate nohighlight">\(x^*\)</span> is a <strong>strict local minimizer</strong>.</p>
+<p>which proves <span class="math notranslate nohighlight">\(w^*\)</span> is a <strong>strict local minimizer</strong>.</p>
 <p>If <span class="math notranslate nohighlight">\(d\ge 2\)</span>, by the multivariate Taylor’s theorem, for <span class="math notranslate nohighlight">\(\vh\)</span> sufficiently small there exists <span class="math notranslate nohighlight">\(\theta\in(0,1)\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -523,23 +523,23 @@ f(\vw^*+\vh) - f(\vw^*) \;\ge\; \tfrac{\mu}{2}\|\vh\|^2 \;&gt;\; 0 \quad (\vh \n
 <p>Let</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = (x-2)^2.
+f(w) = (w-2)^2.
 \]</div>
 <ul class="simple">
 <li><p>First-order condition:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
-f'(x) = 2(x-2) = 0 \quad\Rightarrow\quad x^* = 2.
+f'(w) = 2(w-2) = 0 \quad\Rightarrow\quad w^* = 2.
 \]</div>
 <ul class="simple">
 <li><p>Second-order condition:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
-f''(x) = 2 &gt; 0.
+f''(w) = 2 &gt; 0.
 \]</div>
-<p>Therefore, our conclusion is that <span class="math notranslate nohighlight">\(x^*=2\)</span> is a <strong>strict local (and global) minimizer</strong>.</p>
+<p>Therefore, our conclusion is that <span class="math notranslate nohighlight">\(w^*=2\)</span> is a <strong>strict local (and global) minimizer</strong>.</p>
 </section>
 </div><div class="proof example admonition" id="example-5">
 <p class="admonition-title"><span class="caption-number">Example 2.2 </span> (Scalar quartic (flat at minimum))</p>
@@ -547,13 +547,13 @@ f''(x) = 2 &gt; 0.
 <p>Let</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = x^4.
+f(w) = w^4.
 \]</div>
 <ul class="simple">
-<li><p>First-order condition: <span class="math notranslate nohighlight">\(f'(x) = 4x^3 = 0 \quad\Rightarrow\quad x^* = 0\)</span>.</p></li>
-<li><p>Second-order condition: <span class="math notranslate nohighlight">\(f''(x) = 12x^2 \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
+<li><p>First-order condition: <span class="math notranslate nohighlight">\(f'(w) = 4w^3 = 0 \quad\Rightarrow\quad w^* = 0\)</span>.</p></li>
+<li><p>Second-order condition: <span class="math notranslate nohighlight">\(f''(w) = 12w^2 \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
 <li><p>Necessary conditions hold, but <strong>sufficient</strong> condition is inconclusive.
-Checking directly: <span class="math notranslate nohighlight">\(f(x) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>, so <span class="math notranslate nohighlight">\(x^* = 0\)</span> is indeed a <strong>global minimum</strong>.</p></li>
+Checking directly: <span class="math notranslate nohighlight">\(f(w) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>, so <span class="math notranslate nohighlight">\(w^* = 0\)</span> is indeed a <strong>global minimum</strong>.</p></li>
 </ul>
 </section>
 </div><div class="proof example admonition" id="example-6">
@@ -562,12 +562,12 @@ Checking directly: <span class="math notranslate nohighlight">\(f(x) \ge 0\)</sp
 <p>Let</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = x^3.
+f(w) = w^3.
 \]</div>
 <ul class="simple">
-<li><p>First-order: <span class="math notranslate nohighlight">\(f'(x) = 3x^2 = 0 \quad\Rightarrow\quad x^* = 0\)</span>.</p></li>
-<li><p>Second-order: <span class="math notranslate nohighlight">\(f''(x) = 6x \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
-<li><p>Test inconclusive. Checking: <span class="math notranslate nohighlight">\(f(x) &lt; 0\)</span> for <span class="math notranslate nohighlight">\(x &lt; 0\)</span> and <span class="math notranslate nohighlight">\(f(x) &gt; 0\)</span> for <span class="math notranslate nohighlight">\(x &gt; 0\)</span>. This implies that <span class="math notranslate nohighlight">\(x^* = 0\)</span> is <strong>not</strong> a (local)minimum.</p></li>
+<li><p>First-order: <span class="math notranslate nohighlight">\(f'(w) = 3w^2 = 0 \quad\Rightarrow\quad w^* = 0\)</span>.</p></li>
+<li><p>Second-order: <span class="math notranslate nohighlight">\(f''(w) = 6x \quad\Rightarrow\quad f''(0) = 0\)</span>.</p></li>
+<li><p>Test inconclusive. Checking: <span class="math notranslate nohighlight">\(f(w) &lt; 0\)</span> for <span class="math notranslate nohighlight">\(w &lt; 0\)</span> and <span class="math notranslate nohighlight">\(f(w) &gt; 0\)</span> for <span class="math notranslate nohighlight">\(w &gt; 0\)</span>. This implies that <span class="math notranslate nohighlight">\(w^* = 0\)</span> is <strong>not</strong> a (local)minimum.</p></li>
 </ul>
 </section>
 </div><div class="proof example admonition" id="example-7">
@@ -595,10 +595,10 @@ Q = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 4 \end{bmatrix}, \quad \vb = \begin{bma
 <p>Let</p>
 <div class="math notranslate nohighlight">
 \[
-f(x_1, x_2) = x_1^2 - x_2^2.
+f(w_1, w_2) = w_1^2 - w_2^2.
 \]</div>
 <ul class="simple">
-<li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f = (2x_1, -2x_2)^\top = 0 \quad\Rightarrow\quad (x_1, x_2) = (0,0)\)</span>.</p></li>
+<li><p>First-order: <span class="math notranslate nohighlight">\(\nabla f = (2w_1, -2w_2)^\top = 0 \quad\Rightarrow\quad (w_1, w_2) = (0,0)\)</span>.</p></li>
 <li><p>Second-order: <span class="math notranslate nohighlight">\(\nabla^2 f = \begin{bmatrix} 2 &amp; 0 \\ 0 &amp; -2 \end{bmatrix}\)</span>. Noe that this matrix is neither a positive nor a negative definite matrix.</p></li>
 </ul>
 <p>Then the conclusion is that, <span class="math notranslate nohighlight">\((0,0)\)</span> is a <strong>saddle point</strong>, not a minimum.</p>
@@ -608,11 +608,11 @@ f(x_1, x_2) = x_1^2 - x_2^2.
 <li><p>They provide verification tools — necessary conditions rule out non-optimal points; sufficient conditions certify local optima.</p></li>
 <li><p>They are used to design stopping criteria in algorithms: e.g., when <span class="math notranslate nohighlight">\(\|\nabla f(\vw)\| \le \text{tolerance}\)</span>.</p></li>
 <li><p>They guide algorithmic design: most algorithms search for points satisfying <span class="math notranslate nohighlight">\(\nabla f(\vw) = 0\)</span> (approximately).</p></li>
-<li><p>In convex problems, first-order conditions are sufficient, making them very powerful. More to come later in subsection <strong>[xxxx]</strong></p></li>
+<li><p>In convex problems, first-order conditions are sufficient, making them very powerful. More to come later in Subsection <a class="reference internal" href="#sub-convex"><span class="std std-ref">Convexity, Concavity, and Related Concepts</span></a></p></li>
 </ul>
-<p>At this point, one might ask the following question: our discussion so far are only about conditions characterizing the local optimal solutions; how to characterize the global optimal ones?</p>
-<p>It turns out that this question is not that easy to answer, as in general, a <strong>local minimum</strong> solution needs not be a <strong>global minimum</strong>. The simplest answer is that, one can just use  the definition of the global optimal solution in <a class="reference internal" href="#def:local_global_uncsonstrained">Definition 2.1</a>, however this is not practical since this requires to check all the solutions in <span class="math notranslate nohighlight">\(\RR^d\)</span>. In practice, one has to further study the type of problems in order to characterize the global optimal solutions.</p>
-<p>Fortunately, for some special classes of optimization problems, <em>every</em> local minimum is guaranteed to be global.   Knowing these cases is important because it means <strong>checking local optimality conditions is enough</strong> to guarantee global optimality.</p>
+<p>At this point, one might ask the following question: our discussion so far are only about conditions characterizing the local optimal solutions; how to characterize the <strong>globally optimal</strong> ones?</p>
+<p>It turns out that this question is not that easy to answer, as in general, a <strong>locally optimaly</strong> solution needs not be a <strong>globally optimal</strong>. The simplest answer is that, one can just use  the definition of the global optimal solution in <a class="reference internal" href="#def:local_global_uncsonstrained">Definition 2.1</a>, however this is not practical since this requires to check all the solutions in <span class="math notranslate nohighlight">\(\RR^d\)</span>. In practice, one has to further study the type of problems in order to characterize the global optimal solutions.</p>
+<p>Fortunately, for some special classes of optimization problems, <strong>every</strong> local optimal solution is guaranteed to be global.   Knowing these cases is important because it means <strong>checking local optimality conditions is enough</strong> to guarantee global optimality.</p>
 <ol class="arabic simple">
 <li><p><strong>Unconstrained Quadratic Programs (UQPs)</strong></p></li>
 <li><p><strong>Convex Problems</strong></p></li>
@@ -631,12 +631,12 @@ f(\vw)=\tfrac12\,\vw^\top Q\,\vw+\vb^\top \vw + c,\quad Q=Q^\top.
 the first- and second-order necessary conditions are</p>
 <div class="math notranslate nohighlight">
 \[\nabla f(\vw)=Q\vw+\vb=0, \quad \nabla^2f(\vw) = Q\succeq 0.\]</div>
-<p>So every local optimal solution has to satisfy the above two conditions.  However, note that if <span class="math notranslate nohighlight">\(Q\succeq 0\)</span>, then the problem is convex (see <a class="reference internal" href="#property:convex">Property 2.1</a>), therefore local min is also global min (see <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm:convex_global_local</span></code>}). The above necessary condition is also sufficient.  If <span class="math notranslate nohighlight">\(Q\succ 0\)</span>, the minimizer is <strong>unique</strong> (strong convexity).</p>
+<p>So every local optimal solution has to satisfy the above two conditions.  However, note that if <span class="math notranslate nohighlight">\(Q\succeq 0\)</span>, then the problem is convex (see <a class="reference internal" href="#property:convex">Property 2.1</a>), therefore local min is also global min (see <a class="reference internal" href="#thm:convex_global_local">Theorem 2.5</a>). The above necessary condition is also sufficient.  If <span class="math notranslate nohighlight">\(Q\succ 0\)</span>, the minimizer is <strong>unique</strong> (strong convexity).</p>
 <p>We will talk about convex problems in the next subsection.</p>
 </section>
 </section>
 <section id="convexity-concavity-and-related-concepts">
-<h2><span class="section-number">2.1.3. </span>Convexity, Concavity, and Related Concepts<a class="headerlink" href="#convexity-concavity-and-related-concepts" title="Link to this heading">#</a></h2>
+<span id="sub-convex"></span><h2><span class="section-number">2.1.3. </span>Convexity, Concavity, and Related Concepts<a class="headerlink" href="#convexity-concavity-and-related-concepts" title="Link to this heading">#</a></h2>
 <p>We have briefly discussed the notion of convexity in the previous subsection. Convexity is a fundamental concept in optimization. Many powerful results, such as the “all local minimum solutions are global” discussed in the previous subsection rely on it.</p>
 <hr class="docutils" />
 <div class="proof definition admonition" id="def:convex">
@@ -654,7 +654,7 @@ f\big(\lambda\vw_1 + (1-\lambda)\vw_2\big)
 </div><p>Some examples:</p>
 <ul class="simple">
 <li><p><strong>Convex:</strong> <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(x^2\)</span>, <span class="math notranslate nohighlight">\(x^4\)</span>, <span class="math notranslate nohighlight">\(\log(1+e^x)\)</span></p></li>
-<li><p><strong>Concave:</strong> <span class="math notranslate nohighlight">\(-x^2\)</span>, <span class="math notranslate nohighlight">\(\log(x)\)</span> (on <span class="math notranslate nohighlight">\(x&gt;0\)</span>)</p></li>
+<li><p><strong>Concave:</strong> <span class="math notranslate nohighlight">\(-x^2\)</span>, <span class="math notranslate nohighlight">\(\log(x)\)</span>, when <span class="math notranslate nohighlight">\(x&gt;0\)</span></p></li>
 <li><p><strong>Neither:</strong> <span class="math notranslate nohighlight">\(\sin(x)\)</span>, <span class="math notranslate nohighlight">\(x^3\)</span></p></li>
 <li><p><strong>Both convex and concave:</strong> linear functions</p></li>
 </ul>
@@ -670,8 +670,8 @@ g(\vw) = a f_1(\vw) + b f_2(\vw), \quad a,b\ge 0
 \]</div>
 <p>is convex if <span class="math notranslate nohighlight">\(f_1, f_2\)</span> are convex.</p>
 <ul class="simple">
-<li><p>The pointwise maximum of convex functions is convex.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(f\)</span> is convex and nondecreasing, and <span class="math notranslate nohighlight">\(g\)</span> is convex, then <span class="math notranslate nohighlight">\(f\circ g\)</span> is convex, where  <span class="math notranslate nohighlight">\(\circ\)</span> indicates function composition.</p></li>
+<li><p>The point-wise maximum of convex functions is convex.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(f\)</span> is convex and non-decreasing, and <span class="math notranslate nohighlight">\(g\)</span> is convex, then <span class="math notranslate nohighlight">\(f\circ g\)</span> is convex, where  <span class="math notranslate nohighlight">\(\circ\)</span> indicates function composition.</p></li>
 </ul>
 <p>If <span class="math notranslate nohighlight">\(f:\RR\to\RR\)</span> is twice differentiable:</p>
 <ul class="simple">
@@ -741,7 +741,7 @@ f(\vz) \ \le\ \alpha f(\vy) + (1-\alpha) f(\vx).
 <li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(\mathrm{epi}(f)\)</span> is a convex set.</p></li>
 <li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ its <strong>hypograph</strong> <span class="math notranslate nohighlight">\(\{(\vw,t) \mid f(\vw)\ge t\}\)</span> is convex.</p></li>
 </ul>
-<div class="proof theorem thm-convex-global-local admonition" id="theorem-14">
+<div class="proof theorem admonition" id="thm:convex_global_local">
 <p class="admonition-title"><span class="caption-number">Theorem 2.5 </span> (Convex Problems: Local ⇒ Global)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is <strong>convex</strong>, then <strong>every local minimizer is a global minimizer</strong>.</p>
