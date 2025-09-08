@@ -375,6 +375,9 @@ document.write(`
 </section>
 <section id="transformer-architecture">
 <h2><span class="section-number">3.2. </span>Transformer Architecture<a class="headerlink" href="#transformer-architecture" title="Link to this heading">#</a></h2>
+<p>Most modern LLMs are based on the <em>decoder-only transformer</em> model architecture. Essentially, the decoder-only transformer (we will refer to it simply as transformer) is a deep learning model built from multiple <em>transformer layers</em> as well as an <em>embedding</em> and a <em>Language Model (LM) Head</em> layer in the input and output, respectively.</p>
+<p>The transformer model takes as input sequences of text, numerically encoded in the form of <em>tokens</em> and outputs a probability distribution over possible next tokens for each input position. Those probability distributions are then used to generate the output text of the model.</p>
+<p>Next we will describe in detail its components and provide the corresponding codes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
@@ -391,9 +394,31 @@ document.write(`
 <section id="tokenizer">
 <h3><span class="section-number">3.2.1. </span>Tokenizer<a class="headerlink" href="#tokenizer" title="Link to this heading">#</a></h3>
 <p>Neural Networks such as the transformer work with numbers, not text. Therefore the input texts need to be converted to sequences of numbers before the transformer can process them. Those numbers are called the input <em>tokens</em>.</p>
-<p>The module that performs the conversion is called the <em>tokenizer</em>. There are a number of different approaches to tokenization with one of the most popular being <em>Byte Pair Encoding (BPE)</em> which performs subword tokenization by iteratively merging the most frequent pairs of symbols in the text. An important parameter of the tokenizer is the vocabulary size <span class="math notranslate nohighlight">\(V\)</span>, which is the total number of unique tokens it can produce or the model can recognize.</p>
-<p>The transformer model then expects as input a batch of token sequences, which normally has a shape <span class="math notranslate nohighlight">\([B, L]\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the <em>batch size</em> that determines the number of sequences (or samples) the transformer will process in parallel and <span class="math notranslate nohighlight">\(L\)</span> is the number of tokens per sequence.</p>
-<p>The batch of token sequences will then be converted to a batch of <em>embeddings vectors</em> (one embedding per token) by the <em>embedding layer</em>.</p>
+<p>The module that performs the conversion is called the <em>tokenizer</em>. It is technically considered a preprocessing module, separate from the transformer architecture. There are a number of different approaches to tokenization with one of the most popular being <em>Byte Pair Encoding (BPE)</em> which performs subword tokenization by iteratively merging the most frequent pairs of symbols in the text. An important parameter of the tokenizer is the vocabulary size <span class="math notranslate nohighlight">\(V\)</span>, which is the total number of unique tokens it can produce or the model can recognize.</p>
+<p>In short, the tokenizer, given as input raw text sequences, outputs a batch of token sequences, which normally has a shape <span class="math notranslate nohighlight">\([B, L]\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the <em>batch size</em> that determines the number of sequences (or samples) the transformer will process in parallel and <span class="math notranslate nohighlight">\(L\)</span> is the number of tokens per sequence.</p>
+<p>The batch of token sequences will then be converted to a batch of <em>embeddings vectors</em> (one embedding per token) by the <em>embedding layer</em> of the transformer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span>
+
+<span class="c1"># Load the GPT-2 tokenizer</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example batch of texts</span>
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;The cat sat on the mat&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A quick brown fox jumps over the lazy dog!&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># Tokenize the batch with padding</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input IDs:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attention Mask:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="embedding-layer">
 <h3><span class="section-number">3.2.2. </span>Embedding Layer<a class="headerlink" href="#embedding-layer" title="Link to this heading">#</a></h3>
