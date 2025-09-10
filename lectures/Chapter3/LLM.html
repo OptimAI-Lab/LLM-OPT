@@ -376,7 +376,7 @@ document.write(`
 <section id="transformer-architecture">
 <h2><span class="section-number">3.2. </span>Transformer Architecture<a class="headerlink" href="#transformer-architecture" title="Link to this heading">#</a></h2>
 <p>Most modern LLMs are based on the <em>decoder-only transformer</em> model architecture. Essentially, the decoder-only transformer (we will refer to it simply as transformer) is a deep learning model built from multiple <em>transformer layers</em> as well as an <em>embedding</em> and a <em>Language Model (LM) Head</em> layer in the input and output, respectively.</p>
-<p>The transformer model takes as input sequences of text, numerically encoded in the form of <em>tokens</em> and outputs a probability distribution over possible next tokens for each input position. Those probability distributions are then used to generate the output text of the model.</p>
+<p>The transformer model takes as input sequences of <em>tokens</em> and outputs a probability distribution over possible next tokens for each input position. Those probability distributions are then used to generate the output text of the model.</p>
 <p>Next we will describe in detail its components and provide the corresponding codes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -393,10 +393,10 @@ document.write(`
 </div>
 <section id="tokenizer">
 <h3><span class="section-number">3.2.1. </span>Tokenizer<a class="headerlink" href="#tokenizer" title="Link to this heading">#</a></h3>
-<p>Neural Networks such as the transformer work with numbers, not text. Therefore the input texts need to be converted to sequences of numbers before the transformer can process them. Those numbers are called the input <em>tokens</em>.</p>
-<p>The module that performs the conversion is called the <em>tokenizer</em>. It is technically considered a preprocessing module, separate from the transformer architecture. There are a number of different approaches to tokenization with one of the most popular being <em>Byte Pair Encoding (BPE)</em> which performs subword tokenization by iteratively merging the most frequent pairs of symbols in the text. An important parameter of the tokenizer is the vocabulary size <span class="math notranslate nohighlight">\(V\)</span>, which is the total number of unique tokens it can produce or the model can recognize.</p>
-<p>In short, the tokenizer, given as input raw text sequences, outputs a batch of token sequences, which normally has a shape <span class="math notranslate nohighlight">\([B, L]\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the <em>batch size</em> that determines the number of sequences (or samples) the transformer will process in parallel and <span class="math notranslate nohighlight">\(L\)</span> is the number of tokens per sequence.</p>
-<p>The batch of token sequences will then be converted to a batch of <em>embeddings vectors</em> (one embedding per token) by the <em>embedding layer</em> of the transformer.</p>
+<p>Neural Networks such as the transformer work with numbers, not text. Therefore the input texts need to be converted to sequences of numbers before the transformer can process them. Thus, the text is first converted into discrete components known as <em>tokens</em>, which constitute the model’s vocabulary <span class="math notranslate nohighlight">\(V\)</span>. Each of the tokens corresponds to a unique number, the <em>token ID</em>.</p>
+<p>The module that performs the conversion is called the <em>tokenizer</em>. It is technically considered a preprocessing module, separate from the transformer architecture. There are a number of different approaches to tokenization with one of the most popular being <em>Byte Pair Encoding (BPE)</em>, which performs subword tokenization by iteratively merging the most frequent pairs of symbols in the text. An important parameter of the tokenizer is the vocabulary size <span class="math notranslate nohighlight">\(V\)</span>, which is the total number of unique tokens it can produce and the model can recognize.</p>
+<p>In short, the tokenizer, given as input raw text sequences, outputs a batch of token sequences and their corresponding IDs, which normally have a shape <span class="math notranslate nohighlight">\([B, L]\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the <em>batch size</em> that determines the number of sequences (or samples) the transformer will process in parallel and <span class="math notranslate nohighlight">\(L\)</span> is the number of tokens per sequence.</p>
+<p>The batch of token ID sequences will then be converted to a batch of <em>embeddings vectors</em> (one embedding per token) by the <em>embedding layer</em> of the transformer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span>
@@ -404,6 +404,8 @@ document.write(`
 <span class="c1"># Load the GPT-2 tokenizer</span>
 <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">)</span>
 <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pad token/ID:&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span><span class="p">,</span>  <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span><span class="p">))</span>
 
 <span class="c1"># Example batch of texts</span>
 <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
@@ -414,13 +416,16 @@ document.write(`
 <span class="c1"># Tokenize the batch with padding</span>
 <span class="n">encoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tokens:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input IDs:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attention Mask:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Input IDs: tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pad token/ID: &lt;|endoftext|&gt; 50256
+Tokens: [[&#39;The&#39;, &#39;Ġcat&#39;, &#39;Ġsat&#39;, &#39;Ġon&#39;, &#39;Ġthe&#39;, &#39;Ġmat&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;], [&#39;A&#39;, &#39;Ġquick&#39;, &#39;Ġbrown&#39;, &#39;Ġfox&#39;, &#39;Ġjumps&#39;, &#39;Ġover&#39;, &#39;Ġthe&#39;, &#39;Ġlazy&#39;, &#39;Ġdog&#39;, &#39;!&#39;]]
+Input IDs: tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
         [   32,  2068,  7586, 21831, 18045,   625,   262, 16931,  3290,     0]])
 Attention Mask: tensor([[1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
