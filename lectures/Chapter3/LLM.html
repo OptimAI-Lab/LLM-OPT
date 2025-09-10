@@ -406,6 +406,7 @@ document.write(`
 <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pad token/ID:&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span><span class="p">,</span>  <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vocabulary size |V|:&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">)</span>
 
 <span class="c1"># Example batch of texts</span>
 <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
@@ -413,21 +414,27 @@ document.write(`
     <span class="s2">&quot;A quick brown fox jumps over the lazy dog!&quot;</span>
 <span class="p">]</span>
 
-<span class="c1"># Tokenize the batch with padding</span>
-<span class="n">encoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+<span class="c1"># Tokenize the batch with padding, L=12</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span> <span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;max_length&quot;</span> <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tokens:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input IDs:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attention Mask:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">])</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tokens:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">tokens</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input IDs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attention Mask:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pad token/ID: &lt;|endoftext|&gt; 50256
-Tokens: [[&#39;The&#39;, &#39;Ġcat&#39;, &#39;Ġsat&#39;, &#39;Ġon&#39;, &#39;Ġthe&#39;, &#39;Ġmat&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;], [&#39;A&#39;, &#39;Ġquick&#39;, &#39;Ġbrown&#39;, &#39;Ġfox&#39;, &#39;Ġjumps&#39;, &#39;Ġover&#39;, &#39;Ġthe&#39;, &#39;Ġlazy&#39;, &#39;Ġdog&#39;, &#39;!&#39;]]
-Input IDs: tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
+Vocabulary size |V|: 50257
+Tokens:
+[&#39;The&#39;, &#39;Ġcat&#39;, &#39;Ġsat&#39;, &#39;Ġon&#39;, &#39;Ġthe&#39;, &#39;Ġmat&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;, &#39;&lt;|endoftext|&gt;&#39;]
+[&#39;A&#39;, &#39;Ġquick&#39;, &#39;Ġbrown&#39;, &#39;Ġfox&#39;, &#39;Ġjumps&#39;, &#39;Ġover&#39;, &#39;Ġthe&#39;, &#39;Ġlazy&#39;, &#39;Ġdog&#39;, &#39;!&#39;]
+Input IDs:
+ tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
         [   32,  2068,  7586, 21831, 18045,   625,   262, 16931,  3290,     0]])
-Attention Mask: tensor([[1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+Attention Mask:
+ tensor([[1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
 </pre></div>
 </div>
@@ -437,7 +444,7 @@ Attention Mask: tensor([[1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
 <section id="embedding-layer">
 <h3><span class="section-number">3.2.2. </span>Embedding Layer<a class="headerlink" href="#embedding-layer" title="Link to this heading">#</a></h3>
 <p>The input tokens are discrete and therefore not directly optimizable by gradient-based methods. Thus they need to be converted to continuous, dense vectors that capture semantic meanings and can be learned and optimized by the transformer. This is done by the <em>embedding layer</em>.</p>
-<p>The embedding layer is essentially a trainable look-up table. It takes as input the token indices and outputs the corresponding rows - which are the <em>embedding vectors</em> for the specified tokens. It has shape (<span class="math notranslate nohighlight">\(|V|\)</span>, <span class="math notranslate nohighlight">\(d_{\text{model}}\)</span>), where <span class="math notranslate nohighlight">\(d_{\text{model}}\)</span> is the dimension of the embedding vectors. Bellow is an example of how it looks in code:</p>
+<p>The embedding layer is essentially a trainable look-up table. It takes as input the token IDs and outputs the corresponding rows - which are the <em>embedding vectors</em> for the specified token IDs. It has shape (<span class="math notranslate nohighlight">\(|V|\)</span>, <span class="math notranslate nohighlight">\(d_{\text{model}}\)</span>), where <span class="math notranslate nohighlight">\(d_{\text{model}}\)</span> is the dimension of the embedding vectors. Bellow is an example of how it looks in code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span><span class="n">e1_1</span><span class="p">,</span> <span class="n">e1_2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">e1_d</span><span class="p">],</span>   <span class="c1"># embedding for token 1</span>
     <span class="p">[</span><span class="n">e2_1</span><span class="p">,</span> <span class="n">e2_2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">e2_d</span><span class="p">],</span>   <span class="c1"># embedding for token 2</span>
@@ -450,34 +457,51 @@ Attention Mask: tensor([[1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
 <p>Therefore, the embedding layer for an input tensor of shape <span class="math notranslate nohighlight">\([B, L]\)</span> it will output a tensor of shape <span class="math notranslate nohighlight">\([B, L, d_{\text{model}}]\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">d_model</span> <span class="o">=</span> <span class="mi">3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">vocab_size</span> <span class="c1">#|V| = 50256</span>
+<span class="n">d_model</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># Small value for illustration purposes. E.g., nanoGPT uses d_model=768</span>
 
 <span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">num_embeddings</span><span class="o">=</span><span class="n">V</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="o">=</span><span class="n">d_model</span><span class="p">)</span>
 
-<span class="c1"># Suppose batch size B=2, sequence length L=4</span>
-<span class="c1"># Input shape: [B=2, L=4]</span>
-<span class="n">input_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                          <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>  
+<span class="c1"># Token IDs from previous example. </span>
+<span class="n">input_ids</span> <span class="o">=</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token IDs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">input_ids</span><span class="p">)</span>
 
 <span class="n">embedded_vectors</span> <span class="o">=</span> <span class="n">embedding</span><span class="p">(</span><span class="n">input_ids</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">embedded_vectors</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">embedded_vectors</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Output shape [B=2, L=4, d_model=3]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embedding vectors:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">embedded_vectors</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embedding Layer output shape:&quot;</span><span class="p">,</span> <span class="n">embedded_vectors</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Output shape [B=2, L=10, d_model=3]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[[-1.2029,  1.4555,  0.1606],
-         [ 1.5423, -0.2204, -1.1210],
-         [-0.5498,  0.7120,  1.1192],
-         [-1.2757,  0.4167, -0.2821]],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token IDs:
+ tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
+        [   32,  2068,  7586, 21831, 18045,   625,   262, 16931,  3290,     0]])
+Embedding vectors:
+ tensor([[[ 1.4466e+00, -6.2028e-01,  1.5941e+00],
+         [-6.0530e-01, -1.3651e-01,  1.8417e+00],
+         [-5.5886e-01,  4.4475e-01,  1.1693e+00],
+         [-1.0221e+00, -1.5275e+00,  1.0596e+00],
+         [-1.4098e-01,  4.8020e-01,  1.0143e+00],
+         [-1.1285e+00, -6.4855e-01,  2.0758e-01],
+         [ 2.7207e-01, -8.5640e-01, -1.1811e+00],
+         [ 2.7207e-01, -8.5640e-01, -1.1811e+00],
+         [ 2.7207e-01, -8.5640e-01, -1.1811e+00],
+         [ 2.7207e-01, -8.5640e-01, -1.1811e+00]],
 
-        [[-0.3240,  0.0133,  1.2438],
-         [ 1.1586,  0.0139,  0.5484],
-         [ 1.6036,  1.5081, -0.5370],
-         [-1.2687, -1.2675,  1.3125]]], grad_fn=&lt;EmbeddingBackward0&gt;)
-torch.Size([2, 4, 3])
+        [[-1.0824e-04, -3.3857e-01,  8.3713e-02],
+         [ 5.3167e-01,  2.1249e-01,  1.9939e+00],
+         [-1.2466e+00, -7.0938e-01, -4.7685e-01],
+         [-6.9967e-01, -1.2469e+00,  6.3768e-01],
+         [-5.4820e-01, -4.6216e-01,  2.3139e-01],
+         [-9.9105e-01,  9.9384e-01, -4.1378e-01],
+         [-1.4098e-01,  4.8020e-01,  1.0143e+00],
+         [ 1.0743e+00,  5.0753e-01,  8.4159e-02],
+         [-1.1365e-01,  1.3078e-01, -4.7219e-01],
+         [ 7.4202e-01, -6.7998e-01, -6.0465e-01]]],
+       grad_fn=&lt;EmbeddingBackward0&gt;)
+Embedding Layer output shape: torch.Size([2, 10, 3])
 </pre></div>
 </div>
 </div>
