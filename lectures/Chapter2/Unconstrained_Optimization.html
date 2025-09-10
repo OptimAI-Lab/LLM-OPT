@@ -653,9 +653,9 @@ f\big(\lambda\vw_1 + (1-\lambda)\vw_2\big)
 </section>
 </div><p>Some examples:</p>
 <ul class="simple">
-<li><p><strong>Convex:</strong> <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(x^2\)</span>, <span class="math notranslate nohighlight">\(x^4\)</span>, <span class="math notranslate nohighlight">\(\log(1+e^x)\)</span></p></li>
-<li><p><strong>Concave:</strong> <span class="math notranslate nohighlight">\(-x^2\)</span>, <span class="math notranslate nohighlight">\(\log(x)\)</span>, when <span class="math notranslate nohighlight">\(x&gt;0\)</span></p></li>
-<li><p><strong>Neither:</strong> <span class="math notranslate nohighlight">\(\sin(x)\)</span>, <span class="math notranslate nohighlight">\(x^3\)</span></p></li>
+<li><p><strong>Convex:</strong> <span class="math notranslate nohighlight">\(w\)</span>, <span class="math notranslate nohighlight">\(w^2\)</span>, <span class="math notranslate nohighlight">\(w^4\)</span>, <span class="math notranslate nohighlight">\(\log(1+e^w)\)</span></p></li>
+<li><p><strong>Concave:</strong> <span class="math notranslate nohighlight">\(-w^2\)</span>, <span class="math notranslate nohighlight">\(\log(w)\)</span>, when <span class="math notranslate nohighlight">\(w&gt;0\)</span></p></li>
+<li><p><strong>Neither:</strong> <span class="math notranslate nohighlight">\(\sin(w)\)</span>, <span class="math notranslate nohighlight">\(w^3\)</span></p></li>
 <li><p><strong>Both convex and concave:</strong> linear functions</p></li>
 </ul>
 <div class="proof property admonition" id="property:convex">
@@ -670,13 +670,13 @@ g(\vw) = a f_1(\vw) + b f_2(\vw), \quad a,b\ge 0
 \]</div>
 <p>is convex if <span class="math notranslate nohighlight">\(f_1, f_2\)</span> are convex.</p>
 <ul class="simple">
-<li><p>The point-wise maximum of convex functions is convex.</p></li>
+<li><p>The point-wise maximum of convex functions is convex, that is, <span class="math notranslate nohighlight">\(f (\vw) := \max \{f_1(\vw), f_2(\vw)\}\)</span> is convex if <span class="math notranslate nohighlight">\(f_1\)</span> and <span class="math notranslate nohighlight">\(f_2\)</span> are convex.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\(f\)</span> is convex and non-decreasing, and <span class="math notranslate nohighlight">\(g\)</span> is convex, then <span class="math notranslate nohighlight">\(f\circ g\)</span> is convex, where  <span class="math notranslate nohighlight">\(\circ\)</span> indicates function composition.</p></li>
 </ul>
 <p>If <span class="math notranslate nohighlight">\(f:\RR\to\RR\)</span> is twice differentiable:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(f''(x) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> in its domain.</p></li>
-<li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ <span class="math notranslate nohighlight">\(f''(x) \le 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is convex ⇔ <span class="math notranslate nohighlight">\(f''(w) \ge 0\)</span> for all <span class="math notranslate nohighlight">\(w\)</span> in its domain.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is concave ⇔ <span class="math notranslate nohighlight">\(f''(w) \le 0\)</span> for all <span class="math notranslate nohighlight">\(w\)</span>.</p></li>
 </ul>
 <p>If <span class="math notranslate nohighlight">\(f:\RR^d\to\RR\)</span> is <span class="math notranslate nohighlight">\(\mathcal{C}^2\)</span>:</p>
 <ul class="simple">
@@ -685,35 +685,45 @@ g(\vw) = a f_1(\vw) + b f_2(\vw), \quad a,b\ge 0
 </ul>
 <p>If <span class="math notranslate nohighlight">\(f: \RR^d\to\RR\)</span> is <span class="math notranslate nohighlight">\(\mathcal{C}^1\)</span>. Then <span class="math notranslate nohighlight">\(f\)</span> is <strong>convex</strong> if and only if</p>
 <div class="math notranslate nohighlight" id="equation-eq-convex-first-order">
-<span class="eqno">(2.1)<a class="headerlink" href="#equation-eq-convex-first-order" title="Link to this equation">#</a></span>\[f(\vy) \ \ge\ f(\vx) + \langle \nabla f(\vx),\ \vy - \vx \rangle
-\quad \forall\, \vx,\vy \in \RR^d.\]</div>
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-eq-convex-first-order" title="Link to this equation">#</a></span>\[f(\vv) \ \ge\ f(\vw) + \langle \nabla f(\vw),\ \vv - \vw \rangle
+\quad \forall\, \vw,\vv \in \RR^d.\]</div>
 </section>
 </div><p>Note that  <a class="reference internal" href="#equation-eq-convex-first-order">(2.1)</a> is a very useful characterization of a convex function. It essentially says that if we approximate a convex function <span class="math notranslate nohighlight">\(f(\cdot)\)</span> at a given point <span class="math notranslate nohighlight">\(vx\)</span>, then the entire function will stays above such a linear approximation. Please see the proof below.</p>
 <div class="proof admonition" id="proof">
-<p>Proof. <strong>(Only if).</strong> Suppose <span class="math notranslate nohighlight">\(f\)</span> is convex. For any <span class="math notranslate nohighlight">\(\vx,\vy\in\RR^d\)</span> and <span class="math notranslate nohighlight">\(\alpha\in(0,1)\)</span>,</p>
+<p>Proof. <strong>(Only if).</strong> Suppose <span class="math notranslate nohighlight">\(f\)</span> is convex. For any <span class="math notranslate nohighlight">\(\vw,\vv\in\RR^d\)</span> and <span class="math notranslate nohighlight">\(\alpha\in(0,1)\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
-f(\alpha\vy + (1-\alpha)\vx) \ \le\ \alpha f(\vy) + (1-\alpha)f(\vx).
+f(\alpha\vv + (1-\alpha)\vw) \ \le\ \alpha f(\vv) + (1-\alpha)f(\vw).
 \]</div>
-<p>Define <span class="math notranslate nohighlight">\(\vz(\alpha) = \alpha\vy + (1-\alpha)\vx\)</span> and <span class="math notranslate nohighlight">\(\phi(\alpha) = f(\vz(\alpha))\)</span>.<br />
+<p>Define <span class="math notranslate nohighlight">\(\vz(\alpha) = \alpha\vv + (1-\alpha)\vw\)</span> and <span class="math notranslate nohighlight">\(\phi(\alpha) = f(\vz(\alpha))\)</span>.<br />
 By the chain rule,</p>
 <div class="math notranslate nohighlight">
 \[
-\phi'(0) = \langle \nabla f(\vx),\ \vy - \vx \rangle.
+\phi'(0) = \langle \nabla f(\vw),\ \vv - \vw \rangle.
 \]</div>
-<p>From convexity, <span class="math notranslate nohighlight">\(\phi(\alpha) - \phi(0) \le \alpha\big( f(\vy) - f(\vx) \big)\)</span>.<br />
+<p>From convexity, <span class="math notranslate nohighlight">\(\phi(\alpha) - \phi(0) \le \alpha\big( f(\vv) - f(\vw) \big)\)</span>.<br />
 Divide by <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> and take <span class="math notranslate nohighlight">\(\alpha \to 0^+\)</span> to get</p>
 <div class="math notranslate nohighlight">
 \[
-\langle \nabla f(\vx),\ \vy - \vx \rangle \ \le\ f(\vy) - f(\vx),
+\langle \nabla f(\vw),\ \vv - \vw \rangle \ \le\ f(\vv) - f(\vw),
 \]</div>
 <p>which rearranges to the stated inequality.</p>
-<p><strong>(If).</strong> Conversely, suppose the first-order inequality holds for all <span class="math notranslate nohighlight">\(\vx,\vy\in\RR^d\)</span>.<br />
-For any <span class="math notranslate nohighlight">\(\alpha\in[0,1]\)</span> and <span class="math notranslate nohighlight">\(\vx,\vy\in\mathcal{W}\)</span>, let <span class="math notranslate nohighlight">\(\vz = \alpha\vy + (1-\alpha)\vx\)</span>.<br />
-Applying the inequality with <span class="math notranslate nohighlight">\((\vx,\vy)\)</span> and <span class="math notranslate nohighlight">\((\vy,\vx)\)</span>, one can show:</p>
+<p><strong>(If).</strong> Conversely, suppose the first-order inequality holds for all <span class="math notranslate nohighlight">\(\vw,\vv\in\RR^d\)</span>.<br />
+For any <span class="math notranslate nohighlight">\(\alpha\in[0,1]\)</span> and <span class="math notranslate nohighlight">\(\vw,\vv\in\mathcal{W}\)</span>, let <span class="math notranslate nohighlight">\(\vz = \alpha\vv + (1-\alpha)\vw = \vw + \alpha (\vv-\vw)\)</span>.<br />
+Applying the inequality at <span class="math notranslate nohighlight">\(\vw\)</span>, with direction <span class="math notranslate nohighlight">\(\vv-\vw\)</span></p>
 <div class="math notranslate nohighlight">
 \[
-f(\vz) \ \le\ \alpha f(\vy) + (1-\alpha) f(\vx).
+f(\vw) \ge f(\vz) + \langle \nabla f(\vz), \vw-\vz \rangle 
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vv) \ge f(\vz) + \langle \nabla f(\vz), \vv-\vz \rangle 
+\]</div>
+<p>multiply the first relation by <span class="math notranslate nohighlight">\(\alpha\)</span> and second relation by <span class="math notranslate nohighlight">\((1-\alpha)\)</span>, and add them together, we obtain</p>
+<div class="math notranslate nohighlight">
+\[
+f(\vz) \ \le\ \alpha f(\vv) + (1-\alpha) f(\vw).
 \]</div>
 <p>Thus <span class="math notranslate nohighlight">\(f\)</span> is convex.</p>
 </div>
