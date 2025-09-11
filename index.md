@@ -9,4 +9,4 @@ The contributors of this website are:
 - Mingyi Hong, Associate Professor at ECE Department, University of Minnesota
 - Athanasios Glentis, Research Assistent at ECE Department, University of Minnesota
 - Jiaxiang Li, Research Scientist, Meta
-- Hoi-To Wai, Associate Professor at The Department of Systems Engineering and Engineering Management, Chinese University of Hong Kong 
+- Hoi-To Wai, Associate Professor at SEEM Department, Chinese University of Hong Kong 
