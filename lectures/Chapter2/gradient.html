@@ -651,6 +651,18 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 </section>
 <section id="accelerated-variants-of-gradient-methods">
 <h2><span class="section-number">2.2.5. </span>Accelerated Variants of Gradient Methods<a class="headerlink" href="#accelerated-variants-of-gradient-methods" title="Link to this heading">#</a></h2>
+<p>Besides the plain gradient methods, there exist several accelerated variants that aim to improve convergence rates. These methods are particularly useful for ill-conditioned problems where the landscape of the objective function varies significantly in different directions.</p>
+<p>One of the most well-known accelerated methods is <strong>Nesterov’s Accelerated Gradient (NAG)</strong> method <span id="id3">[<a class="reference internal" href="../../references.html#id4" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, which incorporates momentum into the gradient update. The key idea is to use a combination of the current gradient and the previous update direction to inform the next step. As summarized below:</p>
+<ol class="arabic simple">
+<li><p>Compute the lookahead point:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\tilde{\vw}^{k} = \vw^{k} - \gamma_k \nabla f( \vw^{k} )\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Update the current point using the lookahead point:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\vw^{k+1} = \tilde{\vw}^{k} - \gamma_k \nabla f( \tilde{\vw}^{k} )\]</div>
 </section>
 </section>
 
