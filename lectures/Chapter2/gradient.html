@@ -340,10 +340,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-smooth-objective-function">2.2.1. Convergence for Smooth Objective Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-convex-and-smooth-objective-function">2.2.2. Convergence for Convex and Smooth Objective Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-strongly-convex-and-smooth-objective-function">2.2.3. Convergence for Strongly Convex and Smooth Objective Function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks-on-convergence">2.2.3.1. Remarks on Convergence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks-and-further-readings">2.2.3.1. Remarks and Further Readings</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-examples">2.2.4. Numerical Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accelerated-variants-of-gradient-methods">2.2.5. Accelerated Variants of Gradient Methods</a></li>
 </ul>
             </nav>
         </div>
@@ -515,13 +516,9 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\| \vw^{k} - \vw^\star \|^2 \leq (1 - \mu/L) \| \vw^{k-1} - \vw^\star \|^2 \leq \cdots \leq (1 - \mu/L)^k \| \vw^0 - \vw^\star \|^2 = {\cal O} ( (1-\mu/L)^k )\]</div>
 <p>Thus the gradient method converges <strong>linearly</strong> towards the optimal solution.</p>
-<section id="remarks-on-convergence">
-<h3><span class="section-number">2.2.3.1. </span>Remarks on Convergence<a class="headerlink" href="#remarks-on-convergence" title="Link to this heading">#</a></h3>
-<p>The above theorems present the <strong>finite-time</strong> convergence of the gradient method under various cases. For further readings,</p>
-<p>(George Lan’s book)</p>
-<p>(Bertsekas’s book)</p>
-<p><span id="id1">[<a class="reference internal" href="../../references.html#id6" title="Guanghui Lan. First-order and stochastic optimization methods for machine learning. Volume 1. Springer, 2020.">Lan, 2020</a>]</span></p>
-<p><span id="id2">[<a class="reference internal" href="../../references.html#id4" title="Dimitri P Bertsekas. Nonlinear programming. Journal of the Operational Research Society, 48(3):334–334, 1997.">Bertsekas, 1997</a>]</span></p>
+<section id="remarks-and-further-readings">
+<h3><span class="section-number">2.2.3.1. </span>Remarks and Further Readings<a class="headerlink" href="#remarks-and-further-readings" title="Link to this heading">#</a></h3>
+<p>The above theorems present the <strong>finite-time</strong> convergence of the gradient method under various cases. For additional information, readers are referred to Chapter 1 &amp; 2 of <span id="id1">[<a class="reference internal" href="../../references.html#id6" title="Dimitri P Bertsekas. Nonlinear programming. Journal of the Operational Research Society, 48(3):334–334, 1997.">Bertsekas, 1997</a>]</span> for a more comprehensive treatment on unconstrained optimization. For recent developments, readers are referred to <span id="id2">[<a class="reference internal" href="../../references.html#id8" title="Guanghui Lan. First-order and stochastic optimization methods for machine learning. Volume 1. Springer, 2020.">Lan, 2020</a>]</span>.</p>
 </section>
 </section>
 <section id="numerical-examples">
@@ -652,6 +649,9 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 </div>
 </div>
 </section>
+<section id="accelerated-variants-of-gradient-methods">
+<h2><span class="section-number">2.2.5. </span>Accelerated Variants of Gradient Methods<a class="headerlink" href="#accelerated-variants-of-gradient-methods" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -721,10 +721,11 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-smooth-objective-function">2.2.1. Convergence for Smooth Objective Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-convex-and-smooth-objective-function">2.2.2. Convergence for Convex and Smooth Objective Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-for-strongly-convex-and-smooth-objective-function">2.2.3. Convergence for Strongly Convex and Smooth Objective Function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks-on-convergence">2.2.3.1. Remarks on Convergence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remarks-and-further-readings">2.2.3.1. Remarks and Further Readings</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-examples">2.2.4. Numerical Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accelerated-variants-of-gradient-methods">2.2.5. Accelerated Variants of Gradient Methods</a></li>
 </ul>
   </nav></div>
 
