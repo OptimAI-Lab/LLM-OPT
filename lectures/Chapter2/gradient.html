@@ -653,6 +653,28 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 <h2><span class="section-number">2.2.5. </span>Accelerated Variants of Gradient Methods<a class="headerlink" href="#accelerated-variants-of-gradient-methods" title="Link to this heading">#</a></h2>
 <p>Besides the plain gradient methods, there exist several accelerated variants that aim to improve convergence rates. These methods are particularly useful for ill-conditioned problems where the landscape of the objective function varies significantly in different directions.</p>
 <p>One of the most well-known accelerated methods is <strong>Nesterov’s Accelerated Gradient (NAG)</strong> method <span id="id3">[<a class="reference internal" href="../../references.html#id4" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, which incorporates momentum into the gradient update. The key idea is to use a combination of the current gradient and the previous update direction to inform the next step. As summarized below:</p>
+<div class="proof algorithm admonition" id="alg:agd">
+<p class="admonition-title"><span class="caption-number">Algorithm 2.2 </span> (Accelerated Gradient Method)</p>
+<section class="algorithm-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \gamma_k \}_{k \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(K\)</span>, momentum sequence <span class="math notranslate nohighlight">\(\{ \beta_k \}_{k \geq 0}\)</span>.</p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(\vw^{-1} = \vw^0\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(k=0,1,2,..., K-1\)</span>,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[{\bf y}^k = \vw^k + \beta_k ( \vw^k - \vw^{k-1} ).\]</div>
+<div class="math notranslate nohighlight">
+\[\vw^{k+1} = {\bf y}^k - \gamma_k \nabla f( {\bf y}^k).\]</div>
+<ul class="simple">
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^K\)</span>.</p></li>
+</ul>
+</section>
+</div><p>An important property of Nesterov’s method is its ability to achieve a faster convergence rate than standard GD, particularly for convex functions. For instance, in the case of strongly convex <span class="math notranslate nohighlight">\(f(\vw)\)</span> [cf. under the same setting as <a class="reference internal" href="#thm:gd-strconvex">Theorem 2.8</a>], with an appropriate choice of <span class="math notranslate nohighlight">\(\gamma, \beta\)</span>, it can be shown that</p>
+<div class="math notranslate nohighlight">
+\[\| \vw^k - \vw^\star \|^2 = {\cal O} \left( \left(1 - \sqrt{\frac{\mu}{L}}
+ \right)^k \right)\]</div>
+<p>which is faster compared to <a class="reference internal" href="#thm:gd-strconvex">Theorem 2.8</a> which only achieves <span class="math notranslate nohighlight">\({\cal O}( (1-\mu/L)^k )\)</span>.</p>
+<p>In fact, as proven in <span id="id4">[<a class="reference internal" href="../../references.html#id4" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, the accelerated gradient method achieves the <em>optimal convergence rate</em> for both convex and strongly convex functions.</p>
 </section>
 </section>
 
