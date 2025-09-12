@@ -674,7 +674,7 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 <div class="math notranslate nohighlight">
 \[\| \vw^k - \vw^\star \|^2 = {\cal O} \left( \left(1 - \sqrt{\frac{\mu}{L}}
  \right)^k \right)\]</div>
-<p>which is faster compared to <a class="reference internal" href="#thm:gd-strconvex">Theorem 2.8</a> which only achieves <span class="math notranslate nohighlight">\({\cal O}( (1-\mu/L)^k )\)</span>.</p>
+<p>which is faster compared to <a class="reference internal" href="#thm:gd-strconvex">Theorem 2.8</a> which only achieves <span class="math notranslate nohighlight">\({\cal O}( (1-\mu/L)^k )\)</span>. For other settings such as with convex and smooth <span class="math notranslate nohighlight">\(f(\vw)\)</span>, NAG also achieves an improved convergence rate of <span class="math notranslate nohighlight">\({\cal O}(1/k^2)\)</span> compared to the <span class="math notranslate nohighlight">\({\cal O}(1/k)\)</span> rate in <a class="reference internal" href="#thm:gd-convex">Theorem 2.7</a>.</p>
 <p>In fact, as proven in <span id="id4">[<a class="reference internal" href="../../references.html#id4" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, the NAG method achieves the <em>optimal convergence rate</em> for both convex and strongly convex functions.</p>
 </section>
 <section id="exercises">
