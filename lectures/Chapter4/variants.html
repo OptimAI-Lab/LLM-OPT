@@ -430,7 +430,8 @@ document.write(`
 </section>
 <section id="approximate-hessian-point-of-view-for-shampoo-and-muon">
 <h2><span class="section-number">4.3.2. </span>Approximate Hessian point of view for Shampoo and Muon<a class="headerlink" href="#approximate-hessian-point-of-view-for-shampoo-and-muon" title="Link to this heading">#</a></h2>
-<p>Yet another line of work inspect the choice of optimizers in a different way, via approximating second order information. Consider the situation where we are trying to solve a binary classification problem using cross entropy loss (i.e. a logistic regression. In fact, the following derivation also works for multi-class classification such as LLM pre-training):</p>
+<p>Yet another line of work inspect the choice of optimizers in a different way, via approximating second order information.</p>
+<p>Consider the situation where we are trying to solve a binary classification problem using cross entropy loss (i.e. a logistic regression. In fact, the following derivation also works for multi-class classification such as LLM pre-training):</p>
 <div class="math notranslate nohighlight" id="equation-eq-cross-entropy-chap4">
 <span class="eqno">(4.24)<a class="headerlink" href="#equation-eq-cross-entropy-chap4" title="Link to this equation">#</a></span>\[\min_{\theta} \ell(\theta):= \EE_{(x,y)\sim\mathcal{D}} [-\log(\pi(y|x;\theta))]\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the data distribution. We know that it would benefit the convergence if we can access the Hessian information. The hessian of <a class="reference internal" href="#equation-eq-cross-entropy-chap4">(4.24)</a> is</p>
@@ -440,6 +441,10 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\nabla^2\log\pi = \frac{\nabla^2\pi}{\pi} - \nabla\log\pi (\nabla\log\pi)^\top,\]</div>
 <p>therefore we get</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{\theta}^2\ell(\theta) = \EE_{(x,y)\sim\mathcal{D}} [\nabla\log\pi(y|x;\theta) (\nabla\log\pi(y|x;\theta))^\top] - \EE_{(x,y)\sim\mathcal{D}} [\frac{\nabla^2\pi(y|x;\theta)}{\pi(y|x;\theta)}].\]</div>
+<p>Note that the first term <span class="math notranslate nohighlight">\(I(\theta):=\EE_{(x,y)\sim\mathcal{D}} [\nabla\log\pi(y|x;\theta) (\nabla\log\pi(y|x;\theta))^\top]\)</span> is also called the Fisher information matrix. Also, if the data distribution is identical to the model distribution, i.e. <span class="math notranslate nohighlight">\((x,y)\sim\mathcal{D}\)</span> is the same distribution as <span class="math notranslate nohighlight">\((x,y)\sim\mu\times\pi(\cdot|\cdot;\theta)\)</span>, then the second term will vanish (<span style="color:red">[should be a simple homework]</span>).</p>
+<p>Therefore we can legitimately approximate the second-order information via the Fisher information matrix <span class="math notranslate nohighlight">\(I(\theta)\)</span>. We can even apply the Newton’s method approximately as follows!</p>
 <p>(todo: write down the cross-entropy loss, discuss how the Hessian is related to the Fisher information and discuss how Shampoo is approximating it. Sham Kakade’s paper may be reference here)</p>
 </section>
 </section>
