@@ -711,7 +711,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vm^t &amp;\leftarrow \beta_1\vm^{t-1} + (1-\beta_1)\vg^t \\
 \vv^t &amp;\leftarrow \beta_2\vv^{t-1} + (1-\beta_2)\vg^t\odot \vg^t \\
-\hat{\vm}^t &amp;= \frac{\vm^t}{1-\beta_1^t},\ \hat{\vv}^t = \frac{\vm^t}{1-\beta_2^t} \\
+\hat{\vm}^t &amp;\gets \frac{\vm^t}{1-\beta_1^t},\ \hat{\vv}^t \gets \frac{\vm^t}{1-\beta_2^t} \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\hat{\vm}^t}{\sqrt{\hat{\vv}^t}+\epsilon} \textcolor{red}{- \eta_t\lambda \vw^{t}}
 \end{split}\end{split}\]</div>
 <ul class="simple">
