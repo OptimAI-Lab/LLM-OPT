@@ -651,7 +651,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\vm^t}{\sqrt{\vv^t}+\epsilon}
 \end{align}\end{split}\]</div>
 <p>this is almost the Adam algorithm that people use in practice.</p>
-<p>The real Adam further improve <a class="reference internal" href="#equation-eq-adam-proto-chap4">(4.11)</a> via the so-called bias-correction technique. If we assume that each <span class="math notranslate nohighlight">\(\nabla \ell(\vw^t, \xi_{i_{j,t}})\)</span> is an unbiased estimator of a fix gradient vector <span class="math notranslate nohighlight">\(\vg\)</span> (which could be achieved if we sample each index <span class="math notranslate nohighlight">\(i_{j,t}\)</span> independently and with sample distribution), one could calculate</p>
+<p>The real Adam further improve <a class="reference internal" href="#equation-eq-adam-proto-chap4">(4.11)</a> via the so-called bias-correction technique. If we assume that each <span class="math notranslate nohighlight">\(\nabla \ell(\vw^t, \xi_{i_{j,t}})\)</span> is an unbiased estimator of a fix gradient vector <span class="math notranslate nohighlight">\(\vg\)</span> (which would be the case if we sample each index <span class="math notranslate nohighlight">\(i_{j,t}\)</span> independently and with sample distribution), one could calculate</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \EE\vm^t &amp;=\beta_1\EE\vm^{t-1} + (1-\beta_1)\vg \\
@@ -682,7 +682,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 \vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
 \vm^t &amp;\leftarrow \beta_1\vm^{t-1} + (1-\beta_1)\vg^t \\
 \vv^t &amp;\leftarrow \beta_2\vv^{t-1} + (1-\beta_2)\vg^t\odot \vg^t \\
-\hat{\vm}^t &amp;= \frac{\vm^t}{1-\beta_1^t},\ \hat{\vv}^t = \frac{\vm^t}{1-\beta_2^t} \\
+\hat{\vm}^t &amp;\gets \frac{\vm^t}{1-\beta_1^t},\ \hat{\vv}^t \gets \frac{\vm^t}{1-\beta_2^t} \\
 \vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\hat{\vm}^t}{\sqrt{\hat{\vv}^t}+\epsilon}
 \end{split}\end{split}\]</div>
 <ul class="simple">
