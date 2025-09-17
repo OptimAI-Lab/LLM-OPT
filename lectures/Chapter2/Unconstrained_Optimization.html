@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2.1. Unconstrained Optimization &#8212; ML Optimization (Grad)</title>
+    <title>2.1. Unconstrained Optimization &#8212; Optimization for ML &amp; LLMs</title>
   
   
   
@@ -152,7 +152,7 @@
   
   
   
-    <p class="title logo__title">ML Optimization (Grad)</p>
+    <p class="title logo__title">Optimization for ML & LLMs</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -689,8 +689,9 @@ g(\vw) = a f_1(\vw) + b f_2(\vw), \quad a,b\ge 0
 \quad \forall\, \vw,\vv \in \RR^d.\]</div>
 </section>
 </div><p>Note that  <a class="reference internal" href="#equation-eq-convex-first-order">(2.1)</a> is a very useful characterization of a convex function. It essentially says that if we approximate a convex function <span class="math notranslate nohighlight">\(f(\cdot)\)</span> at a given point <span class="math notranslate nohighlight">\(vx\)</span>, then the entire function will stays above such a linear approximation. Please see the proof below.</p>
-<div class="proof admonition" id="proof">
-<p>Proof. <strong>(Only if).</strong> Suppose <span class="math notranslate nohighlight">\(f\)</span> is convex. For any <span class="math notranslate nohighlight">\(\vw,\vv\in\RR^d\)</span> and <span class="math notranslate nohighlight">\(\alpha\in(0,1)\)</span>,</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof (First-order property of convex functions)</p>
+<p><strong>(Only if).</strong> Suppose <span class="math notranslate nohighlight">\(f\)</span> is convex. For any <span class="math notranslate nohighlight">\(\vw,\vv\in\RR^d\)</span> and <span class="math notranslate nohighlight">\(\alpha\in(0,1)\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
 f(\alpha\vv + (1-\alpha)\vw) \ \le\ \alpha f(\vv) + (1-\alpha)f(\vw).
