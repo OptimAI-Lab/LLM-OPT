@@ -22,7 +22,7 @@ chapters:
       - file: lectures/Chapter2/Constrained_Optimization
         title: Constrained Optimization
       - file: lectures/Chapter2/Examples
-        title: Examples
+        title: Extension and Application of Gradient Descent Based Algorithms
       - file: lectures/Chapter2/Duality
         title: Duality, Lagrangian Multiplier Theorem, and KKT Conditions
   - file: lectures/Chapter3/LLM
