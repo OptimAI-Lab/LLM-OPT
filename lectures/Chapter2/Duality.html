@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Duality, Lagrangian Multiplier Theorem, and KKT Conditions &#8212; Optimization for ML &amp; LLMs</title>
+    <title>2.5. Duality, Lagrangian Multiplier Theorem, and KKT Conditions &#8212; Optimization for ML &amp; LLMs</title>
   
   
   
@@ -58,9 +58,11 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/Duality, Lagrangian Multiplier Theorem, and KKT Conditions';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/Duality';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3. Introduction to Large Language Models" href="../Chapter3/LLM.html" />
+    <link rel="prev" title="2.4. Examples" href="Examples.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,8 +125,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -166,17 +166,18 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter1/course_intro.html">1. Introduction to the Course</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Chapter1/intro_to_optimization.html">1.1. Course Outline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Chapter1/notations.html">1.2. Notations</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="optimization.html">2. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization.html">2. Classical Optimization Theory</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gradient.html">2.2. Gradient Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Examples.html">2.4. Examples</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.5. Duality, Lagrangian Multiplier Theorem, and KKT Conditions</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
@@ -242,7 +243,7 @@
       
       
       
-      <li><a href="../../_sources/lectures/Chapter2/Duality, Lagrangian Multiplier Theorem, and KKT Conditions.ipynb" target="_blank"
+      <li><a href="../../_sources/lectures/Chapter2/Duality.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -339,7 +340,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="duality-lagrangian-multiplier-theorem-and-kkt-conditions">
-<span id="sec-kkt"></span><h1>Duality, Lagrangian Multiplier Theorem, and KKT Conditions<a class="headerlink" href="#duality-lagrangian-multiplier-theorem-and-kkt-conditions" title="Link to this heading">#</a></h1>
+<span id="sec-kkt"></span><h1><span class="section-number">2.5. </span>Duality, Lagrangian Multiplier Theorem, and KKT Conditions<a class="headerlink" href="#duality-lagrangian-multiplier-theorem-and-kkt-conditions" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -372,6 +373,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.4. </span>Examples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Chapter3/LLM.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Introduction to Large Language Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
