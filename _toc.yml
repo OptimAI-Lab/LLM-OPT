@@ -23,7 +23,7 @@ chapters:
         title: Constrained Optimization
       - file: lectures/Chapter2/Examples
         title: Examples
-      - file: lectures/Chapter2/Duality, Lagrangian Multiplier Theorem
+      - file: lectures/Chapter2/Duality
         title: Duality, Lagrangian Multiplier Theorem, and KKT Conditions
   - file: lectures/Chapter3/LLM
     title: Introduction to Large Language Models
