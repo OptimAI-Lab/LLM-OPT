@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/Constrained_Optimization';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. Introduction to Large Language Models" href="../Chapter3/LLM.html" />
+    <link rel="next" title="2.4. Examples" href="Examples.html" />
     <link rel="prev" title="2.2. Gradient Methods" href="gradient.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -178,6 +178,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gradient.html">2.2. Gradient Methods</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2.3. Constrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Examples.html">2.4. Examples</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
@@ -405,7 +406,7 @@ The optimization problem seeks the feasible point with the smallest objective va
 \langle \nabla f(\vw^*),\, \vv-\vw^* \rangle \ \ge\ 0.
 \end{align}\]</div>
 <p>That is, <span class="math notranslate nohighlight">\(\nabla f(\vw^*)\)</span> has <strong>no negative component</strong> along any feasible direction at <span class="math notranslate nohighlight">\(\vw^*\)</span>.</p>
-<p>(b) Further, if <span class="math notranslate nohighlight">\(f\)</span> is <strong>convex</strong>, then <a class="reference internal" href="#equation-eq-constrained-opt-condition">(2.3)</a> is also *<em>suffient</em> *for global optimality.</p>
+<p>(b) Further, if <span class="math notranslate nohighlight">\(f\)</span> is <strong>convex</strong>, then <a class="reference internal" href="#equation-eq-constrained-opt-condition">(2.3)</a> is also <strong>suffient</strong> for global optimality.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. <strong>(a) Necessity.</strong> Since <span class="math notranslate nohighlight">\(\vw^*\)</span> is a local minimizer, there exists <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span> such that</p>
@@ -447,7 +448,7 @@ f(\vv)\ \ge\ f(\vw^*) \quad \forall\, \vv\in\mathcal F,
 \]</div>
 <p>so <span class="math notranslate nohighlight">\(\vw^*\)</span> minimizes <span class="math notranslate nohighlight">\(f\)</span> over <span class="math notranslate nohighlight">\(\mathcal F\)</span>.</p>
 </div>
-<p>At this point, the optimality condition stated in Theorem <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> may still be abstract. Let us go over a few examples and see how this condition can be used in practice.</p>
+<p>At this point, the optimality condition stated in <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> may still be abstract. Let us go over a few examples and see how this condition can be used in practice.</p>
 <div class="proof example admonition" id="ex-fon-suff">
 <p class="admonition-title"><span class="caption-number">Example 2.6 </span> (Convex problem with Nonnegative Constraints)</p>
 <section class="example-content" id="proof-content">
@@ -462,7 +463,7 @@ f(\vv)\ \ge\ f(\vw^*) \quad \forall\, \vv\in\mathcal F,
 \[
 \langle (1,0),\ (w_1,w_2) \rangle = w_1 \ \ge\ 0.
 \]</div>
-<p>Therefore, by Theorem <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm-fon-convex-both</span></code> (b) and convexity of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\vw^*\)</span> is the <strong>global minimizer</strong>.</p>
+<p>Therefore, by <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> (b) and convexity of <span class="math notranslate nohighlight">\(f\)</span>, <span class="math notranslate nohighlight">\(\vw^*\)</span> is the <strong>global minimizer</strong>.</p>
 </section>
 </div><div class="proof example admonition" id="ex-box-constraint">
 <p class="admonition-title"><span class="caption-number">Example 2.7 </span> (Simple Box-Constrained Minimization)</p>
@@ -473,7 +474,7 @@ f(\vv)\ \ge\ f(\vw^*) \quad \forall\, \vv\in\mathcal F,
 \min_{w \in [0,1]} \quad f(w) = (w - 0.3)^2.
 \]</div>
 <p>Note that the feasible set is <span class="math notranslate nohighlight">\(\mathcal{F} = [0,1]\)</span>, which is convex.  Also <span class="math notranslate nohighlight">\(f'(w) = 2(w - 0.3)\)</span>.</p>
-<p>From Theorem <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm-fon-convex-both</span></code> (a), if <span class="math notranslate nohighlight">\(w^*\)</span> is optimal:</p>
+<p>From <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> (a), if <span class="math notranslate nohighlight">\(w^*\)</span> is optimal:</p>
 <div class="math notranslate nohighlight">
 \[
 f'(w^*) \cdot (v - w^*) \ \ge\ 0 \quad \forall v \in [0,1].
@@ -497,7 +498,7 @@ In addition, since <span class="math notranslate nohighlight">\(f\)</span> is co
 \quad \text{s.t.} \quad \mathbf{1}^\top \vw = 1.
 \]</div>
 <p>First let us know that the feasible set is given by <span class="math notranslate nohighlight">\(\mathcal{F} = \{\vw\in\RR^2 \mid w_1+w_2=1\}\)</span>, which is a straight line in <span class="math notranslate nohighlight">\(\RR^2\)</span>. Further, the gradient of <span class="math notranslate nohighlight">\(f\)</span> is given by  <span class="math notranslate nohighlight">\(\nabla f(\vw) = \vw\)</span>.</p>
-<p>From Theorem <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">thm-fon-convex-both</span></code> (a), if <span class="math notranslate nohighlight">\(\vw^*\)</span> is optimal then the following holds:</p>
+<p>From <a class="reference internal" href="#thm-fon-geom">Theorem 2.9</a> (a), if <span class="math notranslate nohighlight">\(\vw^*\)</span> is optimal then the following holds:</p>
 <div class="math notranslate nohighlight">
 \[
 \langle \nabla f(\vw^*),\ \vv - \vw^* \rangle \ \ge\ 0 \quad \forall \vv \in \mathcal{F}.
@@ -816,11 +817,11 @@ w^* = {\rm Proj}_{\mathcal{F}}(w^*- \alpha \nabla f(w^*)), \quad \forall~\alpha 
       </div>
     </a>
     <a class="right-next"
-       href="../Chapter3/LLM.html"
+       href="Examples.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Introduction to Large Language Models</p>
+        <p class="prev-next-title"><span class="section-number">2.4. </span>Examples</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
