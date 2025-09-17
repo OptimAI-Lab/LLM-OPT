@@ -21,6 +21,10 @@ chapters:
         title: Gradient Methods
       - file: lectures/Chapter2/Constrained_Optimization
         title: Constrained Optimization
+      - file: lectures/Chapter2/Examples
+        title: Examples
+      - file: lectures/Chapter2/Duality, Lagrangian Multiplier Theorem
+        title: Duality, Lagrangian Multiplier Theorem, and KKT Conditions
   - file: lectures/Chapter3/LLM
     title: Introduction to Large Language Models
   - file: lectures/Chapter4/stochastic_opt
