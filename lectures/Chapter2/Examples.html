@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>2.4. Examples &#8212; Optimization for ML &amp; LLMs</title>
+    <title>2.4. Extension and Application of Gradient Descent Based Algorithms &#8212; Optimization for ML &amp; LLMs</title>
   
   
   
@@ -176,7 +176,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gradient.html">2.2. Gradient Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.4. Examples</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.4. Extension and Application of Gradient Descent Based Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Duality.html">2.5. Duality, Lagrangian Multiplier Theorem, and KKT Conditions</a></li>
 </ul>
 </details></li>
@@ -314,7 +314,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -325,11 +327,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Examples</h1>
+    <h1>Extension and Application of Gradient Descent Based Algorithms</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-algorithms-beyond-gradient-descent">2.4.1. First-Order Algorithms Beyond Gradient Descent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-logistic-regression">2.4.2. Example: Logistic Regression</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -339,8 +350,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="examples">
-<span id="sec-examples"></span><h1><span class="section-number">2.4. </span>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="extension-and-application-of-gradient-descent-based-algorithms">
+<span id="sec-examples"></span><h1><span class="section-number">2.4. </span>Extension and Application of Gradient Descent Based Algorithms<a class="headerlink" href="#extension-and-application-of-gradient-descent-based-algorithms" title="Link to this heading">#</a></h1>
+<p>In this section, we present several examples to extend the concepts introduced so far. The section is divided into two parts. The first part highlights practical extensions of the gradient descent algorithm, by introducing a wider class of algorithm called <strong>first-order</strong> algorithms. The second part provides a more detailed case study demonstrating how gradient descent can be applied in practice.</p>
+<section id="first-order-algorithms-beyond-gradient-descent">
+<span id="sec-extension-algorithms"></span><h2><span class="section-number">2.4.1. </span>First-Order Algorithms Beyond Gradient Descent<a class="headerlink" href="#first-order-algorithms-beyond-gradient-descent" title="Link to this heading">#</a></h2>
+</section>
+<section id="example-logistic-regression">
+<span id="sec-logistic-regression"></span><h2><span class="section-number">2.4.2. </span>Example: Logistic Regression<a class="headerlink" href="#example-logistic-regression" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -397,6 +415,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-algorithms-beyond-gradient-descent">2.4.1. First-Order Algorithms Beyond Gradient Descent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-logistic-regression">2.4.2. Example: Logistic Regression</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
