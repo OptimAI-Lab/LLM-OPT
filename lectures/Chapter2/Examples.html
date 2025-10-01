@@ -58,6 +58,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter2/Examples';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -338,7 +340,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-algorithms-beyond-gradient-descent">2.4.1. First-Order Algorithms Beyond Gradient Descent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-logistic-regression">2.4.2. Example: Logistic Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-logistic-regression">2.4.2. Example: Logistic Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">2.4.2.1. Problem Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-algorithm">2.4.2.2. Gradient Descent Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-example">2.4.2.3. One-Dimensional Example</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -358,6 +365,112 @@ document.write(`
 </section>
 <section id="example-logistic-regression">
 <span id="sec-logistic-regression"></span><h2><span class="section-number">2.4.2. </span>Example: Logistic Regression<a class="headerlink" href="#example-logistic-regression" title="Link to this heading">#</a></h2>
+<p>In this section, we present a detailed case study applying gradient descent to solve a logistic regression (LR) problem. This example illustrates how the optimization techniques introduced earlier can be applied to real-world machine learning tasks. We will focus on key issues that may arise during the optimization process, and demonstrate how the theory developed so far can help resolve these challenges and provide practical insights.</p>
+<section id="problem-setup">
+<h3><span class="section-number">2.4.2.1. </span>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
+<p>We are given a binary classification task with input-label pairs <span class="math notranslate nohighlight">\((\vx_i, y_i)\)</span> where <span class="math notranslate nohighlight">\(\vx_i \in \RR^d\)</span> and <span class="math notranslate nohighlight">\(y_i \in \{-1, +1\}\)</span>. The logistic regression model aims to estimate the conditional probability that a data point belongs to the positive class:</p>
+<div class="math notranslate nohighlight">
+\[
+P(y_i = 1 \mid \vx_i) = h_\vw(\vx_i) := \frac{1}{1 + \exp(-\vw^\top \vx_i)}.
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\vw \in \RR^d\)</span> is the vector of parameters to be learned. This model uses the <strong>logistic (sigmoid)</strong> function:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta(s) = \frac{1}{1 + \exp(-s)}.
+\]</div>
+<p>This prediction function can be compactly expressed for any label using:</p>
+<div class="math notranslate nohighlight">
+\[
+P(y_i \mid \vx_i) = \theta(y_i \cdot \vw^\top \vx_i).
+\]</div>
+<p>To estimate <span class="math notranslate nohighlight">\(\vw\)</span>, we minimize the <strong>empirical logistic loss</strong>:</p>
+<div class="math notranslate nohighlight" id="equation-eq-logistic-loss">
+<span class="eqno">(2.5)<a class="headerlink" href="#equation-eq-logistic-loss" title="Link to this equation">#</a></span>\[L(\vw) = \frac{1}{n} \sum_{i=1}^n \log\left(1 + \exp(-y_i \vw^\top \vx_i)\right).\]</div>
+<p>This function is <strong>convex</strong>, differentiable, and commonly used in binary classification tasks. The key point is that <span class="math notranslate nohighlight">\(L(\vw)\)</span> penalizes the model when <span class="math notranslate nohighlight">\(y_i \vw^\top \vx_i\)</span> is small (i.e., when the margin is small or negative).</p>
+</section>
+<section id="gradient-descent-algorithm">
+<h3><span class="section-number">2.4.2.2. </span>Gradient Descent Algorithm<a class="headerlink" href="#gradient-descent-algorithm" title="Link to this heading">#</a></h3>
+<p>We now apply gradient descent to minimize the loss function in Equation <a class="reference internal" href="#equation-eq-logistic-loss">(2.5)</a>. The gradient is given by:</p>
+<div class="math notranslate nohighlight">
+\[\nabla L(\vw) = -\frac{1}{n} \sum_{i=1}^n \frac{y_i \vx_i}{1 + \exp(y_i \vw^\top \vx_i)}.\]</div>
+<p>Thus, the update rule at iteration $<span class="math notranslate nohighlight">\(r\)</span>$ becomes:</p>
+<div class="math notranslate nohighlight">
+\[\vw^{(r+1)} = \vw^{(r)} - \alpha \nabla L(\vw^{(r)}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> is the step size (learning rate).</p>
+</section>
+<section id="one-dimensional-example">
+<h3><span class="section-number">2.4.2.3. </span>One-Dimensional Example<a class="headerlink" href="#one-dimensional-example" title="Link to this heading">#</a></h3>
+<p>To better visualize the optimization dynamics, consider a 1-dimension example where the optimization variable <span class="math notranslate nohighlight">\(w\)</span> is a scalar. Consider a problem with <strong>two data points</strong>:</p>
+<ul class="simple">
+<li><p>data point 1: <span class="math notranslate nohighlight">\(x_1 = 1, \quad y_1 = +1\)</span></p></li>
+<li><p>data point 2: <span class="math notranslate nohighlight">\(x_2 = 2, \quad y_2 = -1\)</span></p></li>
+</ul>
+<p>Letting <span class="math notranslate nohighlight">\(w \in \RR\)</span> be the scalar weight (since <span class="math notranslate nohighlight">\(d = 1\)</span>), the loss becomes:</p>
+<div class="math notranslate nohighlight">
+\[L(w) = \frac{1}{2} \log(1 + \exp(-w)) + \frac{1}{2} \log(1 + \exp(2w)).\]</div>
+<p>This is a univariate convex function. Its gradient is:</p>
+<div class="math notranslate nohighlight">
+\[\nabla L(w) = -\frac{1}{2} \cdot \frac{1}{1 + \exp(w)} + \frac{1}{2} \cdot \frac{2}{1 + \exp(-2w)}.\]</div>
+<p>Gradient descent proceeds via:</p>
+<div class="math notranslate nohighlight">
+\[w^{(r+1)} = w^{(r)} - \alpha \nabla L(w^{(r)}).\]</div>
+<p>We can simulate this numerically or plot the function and its iterates to illustrate the convergence behavior.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Logistic loss and its gradient</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_loss</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">w</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_grad</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">term1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+    <span class="n">term2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">term1</span> <span class="o">+</span> <span class="n">term2</span>
+
+<span class="c1"># Gradient descent parameters</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>      <span class="c1"># step size</span>
+<span class="n">w0</span> <span class="o">=</span> <span class="mf">0.0</span>         <span class="c1"># initial point</span>
+<span class="n">num_iters</span> <span class="o">=</span> <span class="mi">20</span>   <span class="c1"># number of iterations</span>
+
+<span class="c1"># Store iterates</span>
+<span class="n">w_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">w0</span><span class="p">]</span>
+<span class="n">loss_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">logistic_loss</span><span class="p">(</span><span class="n">w0</span><span class="p">)]</span>
+
+<span class="c1"># Run gradient descent</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">w0</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iters</span><span class="p">):</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">logistic_grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">grad</span>
+    <span class="n">w_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">loss_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logistic_loss</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">w_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">loss_grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">logistic_loss</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span> <span class="k">for</span> <span class="n">wi</span> <span class="ow">in</span> <span class="n">w_grid</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w_grid</span><span class="p">,</span> <span class="n">loss_grid</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Logistic Loss&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w_vals</span><span class="p">,</span> <span class="n">loss_vals</span><span class="p">,</span> <span class="s1">&#39;ro--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;GD Iterates&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$w$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$L(w)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Gradient Descent on Logistic Regression (1D)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="id1">
+<img alt="../../_images/fig_LR_case_1.png" src="../../_images/fig_LR_case_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Projection of two points <span class="math notranslate nohighlight">\(z_1, z_2\)</span> onto the convex unit ball.<br />
+Iteration for applying GD to the logistic regression problem with data point 1.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 </section>
 
@@ -426,7 +539,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-order-algorithms-beyond-gradient-descent">2.4.1. First-Order Algorithms Beyond Gradient Descent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-logistic-regression">2.4.2. Example: Logistic Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-logistic-regression">2.4.2. Example: Logistic Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">2.4.2.1. Problem Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-algorithm">2.4.2.2. Gradient Descent Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-example">2.4.2.3. One-Dimensional Example</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
