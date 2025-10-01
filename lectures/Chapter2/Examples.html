@@ -344,6 +344,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">2.4.2.1. Problem Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-algorithm">2.4.2.2. Gradient Descent Algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-example">2.4.2.3. One-Dimensional Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-under-linearly-separable-data">2.4.2.4. Behavior Under Linearly Separable Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-and-gradient-descent-update">2.4.2.5. Gradient and Gradient Descent Update</a></li>
 </ul>
 </li>
 </ul>
@@ -466,8 +468,109 @@ P(y_i \mid \vx_i) = \theta(y_i \cdot \vw^\top \vx_i).
 <figure class="align-default" id="id1">
 <img alt="../../_images/fig_LR_case_1.png" src="../../_images/fig_LR_case_1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Projection of two points <span class="math notranslate nohighlight">\(z_1, z_2\)</span> onto the convex unit ball.<br />
-Iteration for applying GD to the logistic regression problem with data point 1.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Iteration for applying GD to the logistic regression problem with non-separable data points.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="behavior-under-linearly-separable-data">
+<h3><span class="section-number">2.4.2.4. </span>Behavior Under Linearly Separable Data<a class="headerlink" href="#behavior-under-linearly-separable-data" title="Link to this heading">#</a></h3>
+<p>An interesting phenomenon arises when the dataset is <strong>linearly separable</strong> — that is, when there exists a vector <span class="math notranslate nohighlight">\( \vw \)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i (\vw^\top \vx_i) &gt; 0 \quad \text{for all } i.
+\]</div>
+<p>In this case, the empirical logistic loss:</p>
+<div class="math notranslate nohighlight">
+\[
+L(\vw) = \frac{1}{n} \sum_{i=1}^n \log(1 + \exp(-y_i \vw^\top \vx_i))
+\]</div>
+<p>has <strong>no finite minimizer</strong>. The loss can be made arbitrarily small by increasing the magnitude of <span class="math notranslate nohighlight">\( \|\vw\| \)</span>, while maintaining the sign of <span class="math notranslate nohighlight">\( y_i \vw^\top \vx_i \)</span>.</p>
+<div class="tip admonition">
+<p class="admonition-title">Proposition: No Finite Minimizer Under Linear Separability</p>
+<p>If the dataset is linearly separable, then the logistic loss satisfies:</p>
+<div class="math notranslate nohighlight">
+\[
+\inf_{\vw \in \mathbb{R}^d} L(\vw) = 0,
+\]</div>
+<p>but the infimum is not attained by any finite <span class="math notranslate nohighlight">\( \vw \)</span>.</p>
+</div>
+<p>To better understand the behavior of gradient descent under <strong>linearly separable</strong> data, we revisit a simple 1D example with the following data point:</p>
+<ul class="simple">
+<li><p>data point 1: <span class="math notranslate nohighlight">\(x_1 = -1\)</span>, <span class="math notranslate nohighlight">\(y_1 = +1\)</span></p></li>
+<li><p>data point 2: <span class="math notranslate nohighlight">\(x_2 = +1\)</span>, <span class="math notranslate nohighlight">\(y_2 = -1\)</span></p></li>
+</ul>
+<p>Let <span class="math notranslate nohighlight">\(w \in \mathbb{R}\)</span> be the scalar weight. The logistic regression loss becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+L(w) = \frac{1}{2} \log\left(1 + \exp(w)\right) + \frac{1}{2} \log\left(1 + \exp(w)\right) = \log(1 + \exp(w)).
+\]</div>
+<p>This is a <strong>linearly separable</strong> dataset in 1D: the classifier <span class="math notranslate nohighlight">\(\text{sign}(w x)\)</span> correctly classifies both points when <span class="math notranslate nohighlight">\(w &lt; 0\)</span>.</p>
+</section>
+<hr class="docutils" />
+<section id="gradient-and-gradient-descent-update">
+<h3><span class="section-number">2.4.2.5. </span>Gradient and Gradient Descent Update<a class="headerlink" href="#gradient-and-gradient-descent-update" title="Link to this heading">#</a></h3>
+<p>The derivative of the logistic loss is:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla L(w) = \frac{\exp(w)}{1 + \exp(w)} = \frac{1}{1 + \exp(-w)} = \theta(w),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta(\cdot)\)</span> is the sigmoid function.</p>
+<p>Gradient descent proceeds as:</p>
+<div class="math notranslate nohighlight">
+\[
+w^{(r+1)} = w^{(r)} - \alpha \cdot \theta(w^{(r)}).
+\]</div>
+<p>We simulate the algorithm below and observe the <strong>monotonic decrease</strong> of the loss and <strong>divergence of the iterates</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Logistic loss and gradient for separable case</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_loss</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_grad</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">w</span><span class="p">))</span>  <span class="c1"># sigmoid(w)</span>
+
+<span class="c1"># Gradient descent settings</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">w0</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">num_iters</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="c1"># Store iterates</span>
+<span class="n">w_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">w0</span><span class="p">]</span>
+<span class="n">loss_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">logistic_loss</span><span class="p">(</span><span class="n">w0</span><span class="p">)]</span>
+
+<span class="c1"># Run gradient descent</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">w0</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iters</span><span class="p">):</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">logistic_grad</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">grad</span>
+    <span class="n">w_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">loss_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logistic_loss</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">w_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">loss_grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">logistic_loss</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span> <span class="k">for</span> <span class="n">wi</span> <span class="ow">in</span> <span class="n">w_grid</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w_grid</span><span class="p">,</span> <span class="n">loss_grid</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Logistic Loss&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w_vals</span><span class="p">,</span> <span class="n">loss_vals</span><span class="p">,</span> <span class="s1">&#39;ro--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;GD Iterates&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$w$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$L(w)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Gradient Descent on Separable 1D Logistic Regression&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<figure class="align-default" id="id2">
+<img alt="../../_images/fig_LR_case_2.png" src="../../_images/fig_LR_case_2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Iteration for applying GD to the logistic regression problem with separable data points.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -543,6 +646,8 @@ Iteration for applying GD to the logistic regression problem with data point 1.<
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setup">2.4.2.1. Problem Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-algorithm">2.4.2.2. Gradient Descent Algorithm</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-example">2.4.2.3. One-Dimensional Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-under-linearly-separable-data">2.4.2.4. Behavior Under Linearly Separable Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-and-gradient-descent-update">2.4.2.5. Gradient and Gradient Descent Update</a></li>
 </ul>
 </li>
 </ul>
