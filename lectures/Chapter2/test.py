@@ -1,19 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Logistic loss and its gradient
+# Logistic loss and gradient for separable case
 def logistic_loss(w):
-    return 0.5 * np.log(1 + np.exp(-w)) + 0.5 * np.log(1 + np.exp(2 * w))
+    return np.log(1 + np.exp(w))
 
 def logistic_grad(w):
-    term1 = -0.5 / (1 + np.exp(w))
-    term2 = 0.5 * 2 / (1 + np.exp(-2 * w))
-    return term1 + term2
+    return 1 / (1 + np.exp(-w))  # sigmoid(w)
 
-# Gradient descent parameters
-alpha = 0.1      # step size
-w0 = 0.0         # initial point
-num_iters = 20   # number of iterations
+# Gradient descent settings
+alpha = 0.1
+w0 = 0.0
+num_iters = 30
 
 # Store iterates
 w_vals = [w0]
@@ -28,7 +26,7 @@ for _ in range(num_iters):
     loss_vals.append(logistic_loss(w))
 
 # Plotting
-w_grid = np.linspace(-3, 3, 300)
+w_grid = np.linspace(-8, 2, 300)
 loss_grid = [logistic_loss(wi) for wi in w_grid]
 
 plt.figure(figsize=(8, 5))
@@ -36,7 +34,7 @@ plt.plot(w_grid, loss_grid, label="Logistic Loss", linewidth=2)
 plt.plot(w_vals, loss_vals, 'ro--', label="GD Iterates")
 plt.xlabel("$w$")
 plt.ylabel("$L(w)$")
-plt.title("Gradient Descent on Logistic Regression (1D)")
+plt.title("Gradient Descent on Separable 1D Logistic Regression")
 plt.legend()
 plt.grid(True)
 plt.show()
