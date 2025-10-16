@@ -346,6 +346,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-example">2.4.2.3. One-Dimensional Example</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-under-linearly-separable-data">2.4.2.4. Behavior Under Linearly Separable Data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-and-gradient-descent-update">2.4.2.5. Gradient and Gradient Descent Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-with-l2-regularization">2.4.2.6. Logistic Regression with L2 Regularization</a></li>
 </ul>
 </li>
 </ul>
@@ -367,7 +368,7 @@ document.write(`
 </section>
 <section id="example-logistic-regression">
 <span id="sec-logistic-regression"></span><h2><span class="section-number">2.4.2. </span>Example: Logistic Regression<a class="headerlink" href="#example-logistic-regression" title="Link to this heading">#</a></h2>
-<p>In this section, we present a detailed case study applying gradient descent to solve a logistic regression (LR) problem. This example illustrates how the optimization techniques introduced earlier can be applied to real-world machine learning tasks. We will focus on key issues that may arise during the optimization process, and demonstrate how the theory developed so far can help resolve these challenges and provide practical insights.</p>
+<p>In this section, we present a detailed case study applying gradient descent to solve a logistic regression (LR) problem. This example illustrates how the optimization techniques introduced earlier can be applied to real-world machine learning tasks and it will also help us understand practical algorithm behaviors. We will focus on key issues that may arise during the optimization process, and demonstrate how the theory developed so far can help resolve these challenges and provide practical insights.</p>
 <section id="problem-setup">
 <h3><span class="section-number">2.4.2.1. </span>Problem Setup<a class="headerlink" href="#problem-setup" title="Link to this heading">#</a></h3>
 <p>We are given a binary classification task with input-label pairs <span class="math notranslate nohighlight">\((\vx_i, y_i)\)</span> where <span class="math notranslate nohighlight">\(\vx_i \in \RR^d\)</span> and <span class="math notranslate nohighlight">\(y_i \in \{-1, +1\}\)</span>. The logistic regression model aims to estimate the conditional probability that a data point belongs to the positive class:</p>
@@ -395,7 +396,7 @@ P(y_i \mid \vx_i) = \theta(y_i \cdot \vw^\top \vx_i).
 <p>We now apply gradient descent to minimize the loss function in Equation <a class="reference internal" href="#equation-eq-logistic-loss">(2.5)</a>. The gradient is given by:</p>
 <div class="math notranslate nohighlight">
 \[\nabla L(\vw) = -\frac{1}{n} \sum_{i=1}^n \frac{y_i \vx_i}{1 + \exp(y_i \vw^\top \vx_i)}.\]</div>
-<p>Thus, the update rule at iteration $<span class="math notranslate nohighlight">\(r\)</span>$ becomes:</p>
+<p>Thus, the update rule at iteration <span class="math notranslate nohighlight">\(r\)</span> becomes:</p>
 <div class="math notranslate nohighlight">
 \[\vw^{(r+1)} = \vw^{(r)} - \alpha \nabla L(\vw^{(r)}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> is the step size (learning rate).</p>
@@ -574,6 +575,29 @@ w^{(r+1)} = w^{(r)} - \alpha \cdot \theta(w^{(r)}).
 </figcaption>
 </figure>
 </section>
+<section id="logistic-regression-with-l2-regularization">
+<h3><span class="section-number">2.4.2.6. </span>Logistic Regression with L2 Regularization<a class="headerlink" href="#logistic-regression-with-l2-regularization" title="Link to this heading">#</a></h3>
+<p>To address the issue of unbounded iterates in the linearly separable setting, and to improve generalization, we often add <strong>L2 regularization</strong> to the logistic regression loss:</p>
+<div class="math notranslate nohighlight">
+\[
+L_\lambda(\vw) = \frac{1}{n} \sum_{i=1}^n \log(1 + e^{-y_i \vw^\top \vx_i}) + \frac{\lambda}{2} \|\vw\|^2.
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span> is the regularization parameter that balances the trade-off between minimizing training loss and controlling model complexity (via the norm of <span class="math notranslate nohighlight">\(\vw\)</span>).</p>
+<hr class="docutils" />
+<p>The regularized Logistic Regression problem has the following properties:</p>
+<ul class="simple">
+<li><p>The function <span class="math notranslate nohighlight">\(L_\lambda(\vw)\)</span> is <strong>strongly convex</strong> if <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>.</p></li>
+<li><p>The problem admits a <strong>unique global minimizer</strong> for all datasets (including linearly separable ones).</p></li>
+<li><p>The solution satisfies <span class="math notranslate nohighlight">\(\|\vw_\lambda^*\| &lt; \infty\)</span>.</p></li>
+<li><p>Gradient descent applied to <span class="math notranslate nohighlight">\(L_\lambda(\vw)\)</span> converges <strong>globally</strong> and at a <strong>linear rate</strong> (under smoothness assumptions).</p></li>
+</ul>
+<p>In particular, the gradient of <span class="math notranslate nohighlight">\(L_\lambda(\vw)\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla L_\lambda(\vw) = -\frac{1}{n} \sum_{i=1}^n \frac{y_i \vx_i}{1 + e^{y_i \vw^\top \vx_i}} + \lambda \vw.
+\]</div>
+<p>The regularization term <span class="math notranslate nohighlight">\(\lambda \vw\)</span> encourages smaller weight norms and stabilizes optimization.</p>
+</section>
 </section>
 </section>
 
@@ -648,6 +672,7 @@ w^{(r+1)} = w^{(r)} - \alpha \cdot \theta(w^{(r)}).
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-example">2.4.2.3. One-Dimensional Example</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-under-linearly-separable-data">2.4.2.4. Behavior Under Linearly Separable Data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-and-gradient-descent-update">2.4.2.5. Gradient and Gradient Descent Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-with-l2-regularization">2.4.2.6. Logistic Regression with L2 Regularization</a></li>
 </ul>
 </li>
 </ul>
