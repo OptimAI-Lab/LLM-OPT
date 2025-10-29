@@ -251,7 +251,7 @@ data = load_dataset(
         )
 val_data = load_dataset(
             "allenai/c4", "en", split="validation", streaming=True
-        ) 
+        )
 
 class PreprocessedIterableDataset(IterableDataset):
     def __init__(self, data, tokenizer, batch_size, max_length):
@@ -393,9 +393,12 @@ for batch_idx, batch in enumerate(dataloader):
         )
         break
 
+
     input_ids = batch.to(device)
     labels = input_ids.clone()
-    labels[labels == pad_idx] = -100
+    labels[:, :-1] = input_ids[:, 1:]   # shift left
+    labels[:, -1] = pad_idx             # pad the last token
+    labels[labels == pad_idx] = -100    # mask out padding
     labels = labels.to(device)
     tokens_seen += (input_ids != pad_idx).sum().item() * world_size
 
