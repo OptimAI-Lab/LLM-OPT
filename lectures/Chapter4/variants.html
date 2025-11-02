@@ -409,7 +409,7 @@ document.write(`
 \vW_{l}^{t+1}&amp;\gets \vW_{l}^{t}+\vDelta_{l}^{t}
 \end{align}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(U\Sigma V^\top = \nabla\ell(\vW^t,\xi_t)\)</span> is the singular value decoposition, and <span class="math notranslate nohighlight">\(*\)</span> stands for the dual norm of spectral norm, namely the nuclear norm (sum of all the singular values, or <span class="math notranslate nohighlight">\(\mathrm{tr}(\Sigma)\)</span>).</p>
-<p>This motivates us to develop a matrix version Adam by just considering the EMA for <a class="reference internal" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4">(4.19)</a>. The resulting algorithm appears to be one of the strongest candidate to replace Adam for modern LLM training, name the Muon algorithm <span style="color:red">[cite muon here]</span></p>
+<p>This motivates us to develop a matrix version Adam by just considering the EMA for <a class="reference internal" href="#equation-eq-steepest-descent-matrix-ortho-sgd-chap4">(4.19)</a>. The resulting algorithm appears to be one of the strongest candidate to replace Adam for modern LLM training, name the Muon algorithm <span id="id1">[<a class="reference internal" href="../../references.html#id17" title="Keller Jordan, Yuchen Jin, Vlado Boza, Jiacheng You, Franz Cesista, Laker Newhouse, and Jeremy Bernstein. Muon: an optimizer for hidden layers in neural networks. 2024. URL: https://kellerjordan.github.io/posts/muon/.">Jordan <em>et al.</em>, 2024</a>]</span>.</p>
 <div class="proof algorithm admonition" id="alg:muon">
 <p class="admonition-title"><span class="caption-number">Algorithm 4.6 </span> (Muon for matrix variable optimization)</p>
 <section class="algorithm-content" id="proof-content">
@@ -428,25 +428,25 @@ document.write(`
 <li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vW^T\)</span>, or the solution sequence (checkpoints) <span class="math notranslate nohighlight">\(\{ \vW^t \}_{t=1}^T\)</span>.</p></li>
 </ul>
 </section>
-</div><p>Muon performs surprisingly well for pre-training of LLMs with faster speed. For details see this blog <span style="color:red">[cite muon blog here]</span> or this technical report <span style="color:red">[cite kimi muon paper here]</span>.</p>
+</div><p>Muon performs surprisingly well for pre-training of LLMs with faster speed. For details see this blog <span id="id2">[<a class="reference internal" href="../../references.html#id17" title="Keller Jordan, Yuchen Jin, Vlado Boza, Jiacheng You, Franz Cesista, Laker Newhouse, and Jeremy Bernstein. Muon: an optimizer for hidden layers in neural networks. 2024. URL: https://kellerjordan.github.io/posts/muon/.">Jordan <em>et al.</em>, 2024</a>]</span> or this technical report <span id="id3">[<a class="reference internal" href="../../references.html#id18" title="Jingyuan Liu, Jianlin Su, Xingcheng Yao, Zhejun Jiang, Guokun Lai, Yulun Du, Yidao Qin, Weixin Xu, Enzhe Lu, Junjie Yan, and others. Muon is scalable for llm training. arXiv preprint arXiv:2502.16982, 2025.">Liu <em>et al.</em>, 2025</a>]</span>.</p>
 </section>
 <section id="approximate-hessian-point-of-view-for-shampoo-and-muon">
 <h2><span class="section-number">4.3.2. </span>Approximate Hessian point of view for Shampoo and Muon<a class="headerlink" href="#approximate-hessian-point-of-view-for-shampoo-and-muon" title="Link to this heading">#</a></h2>
-<p>Yet another line of work inspect the choice of optimizers in a different way, via approximating second order information. Next, we first discuss how Adam could be derived in a different perspective, then discuss how this new Hessian-approximation perspective can derive a brand new algorithm called Shampoo <span style="color:red">[cite shampoo paper here]</span>.</p>
+<p>Yet another line of work inspect the choice of optimizers in a different way, via approximating second order information. Next, we first discuss how Adam could be derived in a different perspective, then discuss how this new Hessian-approximation perspective can derive a brand new algorithm called Shampoo <span id="id4">[<a class="reference internal" href="../../references.html#id21" title="Rohan Anil, Vineet Gupta, Tomer Koren, Kevin Regan, and Yoram Singer. Scalable second order optimization for deep learning. arXiv preprint arXiv:2002.09018, 2020.">Anil <em>et al.</em>, 2020</a>, <a class="reference internal" href="../../references.html#id19" title="Vineet Gupta, Tomer Koren, and Yoram Singer. Shampoo: preconditioned stochastic tensor optimization. In International Conference on Machine Learning, 1842–1850. PMLR, 2018.">Gupta <em>et al.</em>, 2018</a>, <a class="reference internal" href="../../references.html#id20" title="Hao-Jun Michael Shi, Tsung-Hsien Lee, Shintaro Iwasaki, Jose Gallego-Posada, Zhijing Li, Kaushik Rangadurai, Dheevatsa Mudigere, and Michael Rabbat. A distributed data-parallel pytorch implementation of the distributed shampoo optimizer for training neural networks at-scale. arXiv preprint arXiv:2309.06497, 2023.">Shi <em>et al.</em>, 2023</a>]</span>.</p>
 <p>Consider the situation where we are trying to solve a binary classification problem using cross entropy loss (i.e. a logistic regression. In fact, the following derivation also works for multi-class classification such as LLM pre-training):</p>
 <div class="math notranslate nohighlight" id="equation-eq-cross-entropy-chap4">
-<span class="eqno">(4.20)<a class="headerlink" href="#equation-eq-cross-entropy-chap4" title="Link to this equation">#</a></span>\[\min_{\theta} \ell(\theta):= \EE_{(x,y)\sim\mathcal{D}} [-\log(\pi(y|x;\theta))]\]</div>
+<span class="eqno">(4.20)<a class="headerlink" href="#equation-eq-cross-entropy-chap4" title="Link to this equation">#</a></span>\[\min_{\vw} \ell(\vw):= \EE_{(x,y)\sim\mathcal{D}} [-\log(\pi(y|x;\vw))]\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the data distribution. We know that it would benefit the convergence if we can access the Hessian information. The hessian of <a class="reference internal" href="#equation-eq-cross-entropy-chap4">(4.20)</a> is</p>
 <div class="math notranslate nohighlight">
-\[\nabla_{\theta}^2\ell(\theta) = -\EE_{(x,y)\sim\mathcal{D}} [\nabla_{\theta}^2\log(\pi(y|x;\theta))]\]</div>
+\[\nabla_{\vw}^2\ell(\vw) = -\EE_{(x,y)\sim\mathcal{D}} [\nabla_{\vw}^2\log(\pi(y|x;\vw))]\]</div>
 <p>Note that (verify this simply by property of <span class="math notranslate nohighlight">\(\log\)</span> function)</p>
 <div class="math notranslate nohighlight">
 \[\nabla^2\log\pi = \frac{\nabla^2\pi}{\pi} - \nabla\log\pi (\nabla\log\pi)^\top,\]</div>
 <p>therefore we get</p>
 <div class="math notranslate nohighlight">
-\[\nabla_{\theta}^2\ell(\theta) = \EE_{(x,y)\sim\mathcal{D}} [\nabla\log\pi(y|x;\theta) (\nabla\log\pi(y|x;\theta))^\top] - \EE_{(x,y)\sim\mathcal{D}} [\frac{\nabla^2\pi(y|x;\theta)}{\pi(y|x;\theta)}].\]</div>
-<p>Note that the first term <span class="math notranslate nohighlight">\(I(\theta):=\EE_{(x,y)\sim\mathcal{D}} [\nabla\log\pi(y|x;\theta) (\nabla\log\pi(y|x;\theta))^\top]\)</span> is also called the Fisher information matrix. Also, if the data distribution is identical to the model output distribution, i.e. <span class="math notranslate nohighlight">\((x,y)\sim\mathcal{D}\)</span> is the same distribution as <span class="math notranslate nohighlight">\((x,y)\sim\mu\times\pi(\cdot|\cdot;\theta)\)</span>, then the second term will vanish (<span style="color:red">[should be a simple homework]</span>).</p>
-<p>Therefore we can legitimately approximate the second-order information via the Fisher information matrix <span class="math notranslate nohighlight">\(I(\theta)\)</span>. We can even apply the Newton’s method approximately as follows!</p>
+\[\nabla_{\vw}^2\ell(\vw) = \EE_{(x,y)\sim\mathcal{D}} [\nabla\log\pi(y|x;\vw) (\nabla\log\pi(y|x;\vw))^\top] - \EE_{(x,y)\sim\mathcal{D}} [\frac{\nabla^2\pi(y|x;\vw)}{\pi(y|x;\vw)}].\]</div>
+<p>Note that the first term <span class="math notranslate nohighlight">\(I(\vw):=\EE_{(x,y)\sim\mathcal{D}} [\nabla\log\pi(y|x;\vw) (\nabla\log\pi(y|x;\vw))^\top]\)</span> is also called the Fisher information matrix. Also, if the data distribution is identical to the model output distribution, i.e. <span class="math notranslate nohighlight">\((x,y)\sim\mathcal{D}\)</span> is the same distribution as <span class="math notranslate nohighlight">\((x,y)\sim\mu\times\pi(\cdot|\cdot;\vw)\)</span>, then the second term will vanish (<span style="color:red">left as a homework</span>).</p>
+<p>Therefore we can legitimately approximate the second-order information via the Fisher information matrix <span class="math notranslate nohighlight">\(I(\vw)\)</span>. We can even apply the Newton’s method approximately as follows!</p>
 <div class="proof algorithm admonition" id="alg:prototype-second-order-method">
 <p class="admonition-title"><span class="caption-number">Algorithm 4.7 </span> (Prototype of a second order method via Fisher information)</p>
 <section class="algorithm-content" id="proof-content">
@@ -457,23 +457,27 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{split}
 &amp; \text{draw sample}~\xi^{T+1} \sim {\cal D} \\
-&amp; \text{update}~\vw^{T+1} = \vw^T - \gamma_k I(\theta)^{-1} \nabla \ell( \vw^T, \xi_{t} ).
+&amp; \text{update}~\vw^{T+1} = \vw^T - \gamma_k I(\vw)^{-1} \nabla \ell( \vw^T, \xi_{t} ).
 \end{split}\end{split}\]</div>
 <ul class="simple">
 <li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
 </ul>
 </section>
-</div><p>Now, there are two main issues for <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>: the first is that it is not clear how <span class="math notranslate nohighlight">\(I(\theta)\)</span> can be estimated, and the second is how to compute its inverse efficiently.</p>
-<p>There is one solution that can solve both problem once: using a diagonal approximation! If we only keep the diagonal element of <span class="math notranslate nohighlight">\(I(\theta)\)</span>, the computation should be simplified greatly via the current iteration’s stochastic gradient, and the inverse is simply taking the inverse of each of the diagonal numbers! Now that we only keep the diagonal element, we will arrive at this update rule</p>
+</div><p>Now, there are two main issues for <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>: the first is that it is not clear how <span class="math notranslate nohighlight">\(I(\vw)\)</span> can be estimated, and the second is how to compute its inverse efficiently.</p>
+<p>There is one solution that can solve both problem once: using a diagonal approximation! If we only keep the diagonal element of <span class="math notranslate nohighlight">\(I(\vw)\)</span>, the computation should be simplified greatly via the current iteration’s stochastic gradient, and the inverse is simply taking the inverse of each of the diagonal numbers! Now that we only keep the diagonal element, we will arrive at this update rule</p>
 <div class="math notranslate nohighlight" id="equation-alg-diagonal-ngd">
-<span class="eqno">(4.21)<a class="headerlink" href="#equation-alg-diagonal-ngd" title="Link to this equation">#</a></span>\[\vw^{t+1} = \vw^t - \gamma_t \mathrm{diag}(\nabla \ell( \vw^t, \xi_t )^{-1}\nabla \ell( \vw^t, \xi_t )^\top)^{-1} \nabla \ell( \vw^t, \xi_t )\]</div>
+<span class="eqno">(4.21)<a class="headerlink" href="#equation-alg-diagonal-ngd" title="Link to this equation">#</a></span>\[\vw^{t+1} = \vw^t - \gamma_t \mathrm{diag}(\nabla \ell( \vw^t, \xi_t )\nabla \ell( \vw^t, \xi_t )^\top)^{-1} \nabla \ell( \vw^t, \xi_t )\]</div>
 <p>and it is very straightforward to verify that</p>
 <div class="math notranslate nohighlight">
-\[\mathrm{diag}(\nabla \ell( \vw^t, \xi_t )^{-1}\nabla \ell( \vw^t, \xi_t )^\top)^{-1} \nabla \ell( \vw^t, \xi_t ) = \frac{\nabla \ell( \vw^t, \xi_t )}{\nabla \ell( \vw^t, \xi_t )\odot \nabla \ell( \vw^t, \xi_t )}\]</div>
+\[\mathrm{diag}(\nabla \ell( \vw^t, \xi_t )\nabla \ell( \vw^t, \xi_t )^\top)^{-1} \nabla \ell( \vw^t, \xi_t ) = \frac{\nabla \ell( \vw^t, \xi_t )}{\nabla \ell( \vw^t, \xi_t )\odot \nabla \ell( \vw^t, \xi_t )}\]</div>
 <p>where the right-hand-side uses element-wise multiplication and division.</p>
 <p>If you still remember the update form of Adam (<a class="reference internal" href="training_algorithms.html#alg:adam">Algorithm 4.4</a>), also how we derived it from sign SGD, this is actually almost identical! The only difference is that in sign SGD we take the square root of the denominator in <a class="reference internal" href="#equation-alg-diagonal-ngd">(4.21)</a>, which can be think as a “whitening” process (i.e. each number will be dragged to be closer to <span class="math notranslate nohighlight">\(1\)</span>). This is the reason why Adam/AdamW is sometimes called a “second-order” method although it’s not actually calculating Hessian directly.</p>
-<p>Now it’s move to the matrix variables and discuss how Shampoo is proposed.
-(TODO: continue the discussion)</p>
+<p>Now it’s move to the matrix variables and discuss how Shampoo is proposed. The idea is the same as <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>, but this time we have matrix variables. For a matrix weight <span class="math notranslate nohighlight">\(W\in\mathbb{R}^{m\times n}\)</span> and gradient <span class="math notranslate nohighlight">\(\nabla \ell(W)=:G\in\mathbb{R}^{m\times n}\)</span>, to compute the Fisher information matrix, we need to flatten the matrix to <span class="math notranslate nohighlight">\(\vg=\mathrm{vec}(G)\in\mathbb{R}^{m n}\)</span> and compute</p>
+<div class="math notranslate nohighlight">
+\[I = \mathrm{diag}(\vg \vg^\top)\in \mathbb{R}^{m n\times m n}\]</div>
+<p>However this is too tedious! imagine that we have a matrix of dimension <span class="math notranslate nohighlight">\((m,n)=(4096,4096)\)</span> (this is common for attention matrices), then the Fisher information matrix will be <span class="math notranslate nohighlight">\(\mathbb{R}^{16777216\times 16777216}\)</span> (<span class="math notranslate nohighlight">\(4096^2=16777216\)</span>) which is too huge to be computed!</p>
+<p>However we have an efficient way to approximate the Fisher Information without vectorizing the gradient <span class="math notranslate nohighlight">\(G\)</span>.</p>
+<p>(TODO: continue the discussion)</p>
 </section>
 </section>
 
