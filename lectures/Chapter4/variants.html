@@ -341,6 +341,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-design-as-steepest-descent-with-different-norms">4.3.1. Optimizer design as steepest descent with different norms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximate-hessian-point-of-view-for-shampoo-and-muon">4.3.2. Approximate Hessian point of view for Shampoo and Muon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">4.3.3. Possible homeworks:</a></li>
 </ul>
             </nav>
         </div>
@@ -356,7 +357,7 @@ document.write(`
 <h1><span class="section-number">4.3. </span>Variants and discussions of modern optimizers<a class="headerlink" href="#variants-and-discussions-of-modern-optimizers" title="Link to this heading">#</a></h1>
 <p>In this section we discuss some modern optimizers that have strong potentials of replacing Adam/AdamW as the future default optimizer.</p>
 <section id="optimizer-design-as-steepest-descent-with-different-norms">
-<h2><span class="section-number">4.3.1. </span>Optimizer design as steepest descent with different norms<a class="headerlink" href="#optimizer-design-as-steepest-descent-with-different-norms" title="Link to this heading">#</a></h2>
+<span id="subsec-steepest-descent-muon"></span><h2><span class="section-number">4.3.1. </span>Optimizer design as steepest descent with different norms<a class="headerlink" href="#optimizer-design-as-steepest-descent-with-different-norms" title="Link to this heading">#</a></h2>
 <p>Recall that SGD can be formulated as minimizing local quadratic approximations of</p>
 <div class="math notranslate nohighlight" id="equation-eq-steepest-descent-proto-chap4">
 <span class="eqno">(4.13)<a class="headerlink" href="#equation-eq-steepest-descent-proto-chap4" title="Link to this equation">#</a></span>\[\begin{split}\begin{align}
@@ -456,14 +457,15 @@ document.write(`
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{split}
-&amp; \text{draw sample}~\xi^{T+1} \sim {\cal D} \\
-&amp; \text{update}~\vw^{T+1} = \vw^T - \gamma_k I(\vw)^{-1} \nabla \ell( \vw^T, \xi_{t} ).
+&amp; \text{draw sample}~\xi_{t} \sim {\cal D} \\
+&amp; \text{update}~\vw^{t+1} = \vw^t - \gamma_k I(\vw)^{-1/2} \nabla \ell( \vw^t, \xi_{t} ).
 \end{split}\end{split}\]</div>
 <ul class="simple">
 <li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
 </ul>
 </section>
-</div><p>Now, there are two main issues for <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>: the first is that it is not clear how <span class="math notranslate nohighlight">\(I(\vw)\)</span> can be estimated, and the second is how to compute its inverse efficiently.</p>
+</div><p>Note that we use the <span class="math notranslate nohighlight">\(I(\vw)^{-1/2}\)</span> instead of the inverse <span class="math notranslate nohighlight">\(I(\vw)^{-1}\)</span>, which is common in practice. This operation can be think as a “whitening” process (i.e. each eigenvalue will be dragged to be closer to <span class="math notranslate nohighlight">\(1\)</span>) so that we make sure that this inverse can be more heterogeneous and stable. Another practice people adopt is to add an <span class="math notranslate nohighlight">\(\epsilon I\)</span> (<span class="math notranslate nohighlight">\(\epsilon\)</span> is a small constant and <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix) to <span class="math notranslate nohighlight">\(I(\vw)\)</span> before taking the inverse, also to maintain nuemrical stability.</p>
+<p>Now, there are two main issues for <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>: the first is that it is not clear how <span class="math notranslate nohighlight">\(I(\vw)\)</span> can be estimated, and the second is how to compute its inverse efficiently.</p>
 <p>There is one solution that can solve both problem once: using a diagonal approximation! If we only keep the diagonal element of <span class="math notranslate nohighlight">\(I(\vw)\)</span>, the computation should be simplified greatly via the current iteration’s stochastic gradient, and the inverse is simply taking the inverse of each of the diagonal numbers! Now that we only keep the diagonal element, we will arrive at this update rule</p>
 <div class="math notranslate nohighlight" id="equation-alg-diagonal-ngd">
 <span class="eqno">(4.21)<a class="headerlink" href="#equation-alg-diagonal-ngd" title="Link to this equation">#</a></span>\[\vw^{t+1} = \vw^t - \gamma_t \mathrm{diag}(\nabla \ell( \vw^t, \xi_t )\nabla \ell( \vw^t, \xi_t )^\top)^{-1} \nabla \ell( \vw^t, \xi_t )\]</div>
@@ -471,13 +473,58 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\mathrm{diag}(\nabla \ell( \vw^t, \xi_t )\nabla \ell( \vw^t, \xi_t )^\top)^{-1} \nabla \ell( \vw^t, \xi_t ) = \frac{\nabla \ell( \vw^t, \xi_t )}{\nabla \ell( \vw^t, \xi_t )\odot \nabla \ell( \vw^t, \xi_t )}\]</div>
 <p>where the right-hand-side uses element-wise multiplication and division.</p>
-<p>If you still remember the update form of Adam (<a class="reference internal" href="training_algorithms.html#alg:adam">Algorithm 4.4</a>), also how we derived it from sign SGD, this is actually almost identical! The only difference is that in sign SGD we take the square root of the denominator in <a class="reference internal" href="#equation-alg-diagonal-ngd">(4.21)</a>, which can be think as a “whitening” process (i.e. each number will be dragged to be closer to <span class="math notranslate nohighlight">\(1\)</span>). This is the reason why Adam/AdamW is sometimes called a “second-order” method although it’s not actually calculating Hessian directly.</p>
+<p>If you still remember the update form of Adam (<a class="reference internal" href="training_algorithms.html#alg:adam">Algorithm 4.4</a>), also how we derived it from sign SGD, this is actually almost identical! This is the reason why Adam/AdamW is sometimes called a “second-order” method although it’s not actually calculating Hessian directly.</p>
 <p>Now it’s move to the matrix variables and discuss how Shampoo is proposed. The idea is the same as <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>, but this time we have matrix variables. For a matrix weight <span class="math notranslate nohighlight">\(W\in\mathbb{R}^{m\times n}\)</span> and gradient <span class="math notranslate nohighlight">\(\nabla \ell(W)=:G\in\mathbb{R}^{m\times n}\)</span>, to compute the Fisher information matrix, we need to flatten the matrix to <span class="math notranslate nohighlight">\(\vg=\mathrm{vec}(G)\in\mathbb{R}^{m n}\)</span> and compute</p>
 <div class="math notranslate nohighlight">
 \[I = \mathrm{diag}(\vg \vg^\top)\in \mathbb{R}^{m n\times m n}\]</div>
-<p>However this is too tedious! imagine that we have a matrix of dimension <span class="math notranslate nohighlight">\((m,n)=(4096,4096)\)</span> (this is common for attention matrices), then the Fisher information matrix will be <span class="math notranslate nohighlight">\(\mathbb{R}^{16777216\times 16777216}\)</span> (<span class="math notranslate nohighlight">\(4096^2=16777216\)</span>) which is too huge to be computed!</p>
-<p>However we have an efficient way to approximate the Fisher Information without vectorizing the gradient <span class="math notranslate nohighlight">\(G\)</span>.</p>
-<p>(TODO: continue the discussion)</p>
+<p>However this is too tedious! Imagine that we have a matrix of dimension <span class="math notranslate nohighlight">\((m,n)=(4096,4096)\)</span> (this is common for attention matrices), then the Fisher information matrix will be <span class="math notranslate nohighlight">\(\mathbb{R}^{16777216\times 16777216}\)</span> (<span class="math notranslate nohighlight">\(4096^2=16777216\)</span>) which is too huge to be computed! In practice, such huge memory overhead is usually not tolerable.</p>
+<p>However we have an efficient way to approximate the Fisher Information without vectorizing the gradient <span class="math notranslate nohighlight">\(G\)</span>. <span id="id5">[<a class="reference internal" href="../../references.html#id21" title="Rohan Anil, Vineet Gupta, Tomer Koren, Kevin Regan, and Yoram Singer. Scalable second order optimization for deep learning. arXiv preprint arXiv:2002.09018, 2020.">Anil <em>et al.</em>, 2020</a>]</span> provides the followign useful lemma.</p>
+<div class="note admonition">
+<p class="admonition-title">Lemma</p>
+<p>Let <span class="math notranslate nohighlight">\(G_1,\ldots,G_t \in \mathbb{R}^{m\times n}\)</span> be matrices of rank at most <span class="math notranslate nohighlight">\(r\)</span>.
+Let <span class="math notranslate nohighlight">\(g_s=\operatorname{vec}(G_s)\)</span> and define</p>
+<div class="math notranslate nohighlight">
+\[\widehat H_t \;=\; \epsilon I_{mn}+\sum_{s=1}^t g_s g_s^\top \text{ (approximate Fisher Information).}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(L_t,R_t\)</span> be defined as</p>
+<div class="math notranslate nohighlight">
+\[L_t=\epsilon I_m+\sum_{s=1}^t G_s G_s^\top,
+\qquad
+R_t=\epsilon I_n+\sum_{s=1}^t G_s^\top G_s .\]</div>
+<p>Then for any <span class="math notranslate nohighlight">\(p,q&gt;0\)</span> such that <span class="math notranslate nohighlight">\(1/p+1/q=1\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\widehat H_t \;\preceq\; r\, L_t^{1/p}\otimes R_t^{1/q}.\]</div>
+<p>(see Lemma 1 in <span id="id6">[<a class="reference internal" href="../../references.html#id21" title="Rohan Anil, Vineet Gupta, Tomer Koren, Kevin Regan, and Yoram Singer. Scalable second order optimization for deep learning. arXiv preprint arXiv:2002.09018, 2020.">Anil <em>et al.</em>, 2020</a>]</span>)</p>
+</div>
+<p>In above lemma, <span class="math notranslate nohighlight">\(I_m\)</span> refers to identity matrix of size <span class="math notranslate nohighlight">\(\mathbb{R}^{m\times m}\)</span>, similar for <span class="math notranslate nohighlight">\(I_n\)</span> and <span class="math notranslate nohighlight">\(I_{mn}\)</span>. Also <span class="math notranslate nohighlight">\(\epsilon\)</span> is a small constant just to keep <span class="math notranslate nohighlight">\(\widehat H_t\)</span> invertible (note that for <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>, we also need such a safeguard to make the Fisher information invertible, but I omit it for simplicity.)</p>
+<p>Also here <span class="math notranslate nohighlight">\(\otimes\)</span> stands for the <a class="reference external" href="https://en.wikipedia.org/wiki/Kronecker_product">Kronecker product</a>. This Lemma indicates that instead of calculating the full Fisher Information, we can calcualte two small matrices <span class="math notranslate nohighlight">\(L\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{n\times n}\)</span> to efficiently calculate the update in <a class="reference internal" href="#alg:prototype-second-order-method">Algorithm 4.7</a>. Another useful property of Kronecker product is that, <span class="math notranslate nohighlight">\((A\otimes B)^{-1/2} \mathrm{vec}(G) = A^{-1/2} G B^{-1/2}\)</span>. Therefore combining all these approximation and identities, we can design an algorithm that effectively approximate second-order information of a matrix variable, without significantly increase the memory overhead</p>
+<p>The resulting algorithm is so called Shampoo algorithm (<a class="reference internal" href="#alg:shampoo">Algorithm 4.8</a>)</p>
+<div class="proof algorithm admonition" id="alg:shampoo">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.8 </span> (Shampoo for matrix variable optimization)</p>
+<section class="algorithm-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(W^0\)</span>, stepsize/lr sequence <span class="math notranslate nohighlight">\(\{ \gamma_t \}_{t \geq 0}\)</span>, momentum parameter <span class="math notranslate nohighlight">\(\beta\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
+<li><p>Initialize <span class="math notranslate nohighlight">\(L_t=\epsilon I_m\in\mathbb{R}^{m\times m}\)</span> and <span class="math notranslate nohighlight">\(R_t=\epsilon I_n\in\mathbb{R}^{n\times n}\)</span></p></li>
+<li><p>For <span class="math notranslate nohighlight">\(T=0,1,2,..., T-1\)</span>,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+&amp; \text{draw sample}~\xi_{t} \sim {\cal D} \\
+&amp; \text{compute}~ G^t = \nabla \ell(W^T, \xi_{t}) \\
+&amp; \text{update}~ L_t = \beta L_{t-1} + G^t (G^t)^\top,\ R_t = \beta  R_{t-1} + (G^t)^\top G^t \\
+&amp; \text{update}~ W^{t+1} = W^t - \gamma_k L_{t}^{-1/4} G^t R_{t}^{-1/4}.
+\end{split}\end{split}\]</div>
+<ul class="simple">
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
+</ul>
+</section>
+</div><p>The reader may verify that <a class="reference internal" href="#alg:muon">Algorithm 4.6</a> and <a class="reference internal" href="#alg:shampoo">Algorithm 4.8</a> are identitcal if we take <span class="math notranslate nohighlight">\(\beta=0\)</span> for both of the algorithms. This indicate that by carefully choosing the matrix norm in the steepest descent <a class="reference internal" href="#equation-eq-steepest-descent-proto-chap4">(4.13)</a>, the second-order information can be partially recovered and our optimization can be even more efficient.</p>
+</section>
+<section id="possible-homeworks">
+<h2><span class="section-number">4.3.3. </span>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>implement muon and Shampoo</p></li>
+<li><p>discuss the efficient implementation of muon: in particular, NS step and pther approximations</p></li>
+</ol>
 </section>
 </section>
 
@@ -547,6 +594,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizer-design-as-steepest-descent-with-different-norms">4.3.1. Optimizer design as steepest descent with different norms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximate-hessian-point-of-view-for-shampoo-and-muon">4.3.2. Approximate Hessian point of view for Shampoo and Muon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-homeworks">4.3.3. Possible homeworks:</a></li>
 </ul>
   </nav></div>
 
