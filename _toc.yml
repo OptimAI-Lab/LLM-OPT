@@ -39,6 +39,6 @@ chapters:
         title: Practical guidance on training stability
       - file: lectures/Chapter4/zeroth_order
         title: Zeroth-order optimization for LLM
-  - file: references
+  - file: references.bib
     title: References
 
