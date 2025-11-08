@@ -16,7 +16,6 @@ jobs:
           python-version: '3.10'
       - run: pip install -r requirements.txt
       - name: Build Jupyter Book
-        working-directory: ${{ github.workspace }} 
         run: jupyter-book build .
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
