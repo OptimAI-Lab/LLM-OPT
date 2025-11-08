@@ -11,3 +11,33 @@ chapters:
         title: Course Outline
       - file: lectures/Chapter1/notations
         title: Notations
+  - file: lectures/Chapter2/optimization
+    title: Classical Optimization Theory
+    sections:
+      - file: lectures/Chapter2/Unconstrained_Optimization
+        title: Unconstrained Optimization
+      - file: lectures/Chapter2/gradient
+        title: Gradient Methods
+      - file: lectures/Chapter2/Constrained_Optimization
+        title: Constrained Optimization
+      - file: lectures/Chapter2/Examples
+        title: Extension and Application of Gradient Descent Based Algorithms
+      - file: lectures/Chapter2/Duality
+        title: Duality, Lagrangian Multiplier Theorem, and KKT Conditions
+  - file: lectures/Chapter3/LLM
+    title: Introduction to Large Language Models
+  - file: lectures/Chapter4/stochastic_opt
+    title: Stochastic Optimization for Large Language Models
+    sections:
+      - file: lectures/Chapter4/sgd
+        title: Stochastic Gradient Descent
+      - file: lectures/Chapter4/training_algorithms
+        title: Adaptive algorithms
+      - file: lectures/Chapter4/variants
+        title: Discussions on modern adaptive methods
+      - file: lectures/Chapter4/lr_mup
+        title: Practical guidance on training stability
+      - file: lectures/Chapter4/zeroth_order
+        title: Zeroth-order optimization for LLM
+  - file: references.bib
+    title: References
