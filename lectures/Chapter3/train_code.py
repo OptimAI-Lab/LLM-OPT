@@ -14,7 +14,7 @@ from transformers import AutoTokenizer
 
 from torch.utils.data import IterableDataset, get_worker_info
 
-###
+### ###
 # Pytorch implementation of causal self-attention (multi-head)
 
 class CausalSelfAttention(nn.Module):
