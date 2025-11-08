@@ -8,7 +8,6 @@ chapters:
     title: Introduction to the Course
     sections:
       - file: lectures/Chapter1/intro_to_optimization
-        title: Introduction to Optimization
         title: Course Outline
       - file: lectures/Chapter1/notations
         title: Notations
