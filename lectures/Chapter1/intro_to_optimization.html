@@ -1,0 +1,770 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1.1. Introduction to Optimization &#8212; Optimization for ML &amp; LLMs</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter1/intro_to_optimization';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.2. Notations" href="notations.html" />
+    <link rel="prev" title="1. Introduction to Optimization" href="course_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Optimization for ML & LLMs</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="course_intro.html">1. Introduction to the Course</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1. Course Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notations.html">1.2. Notations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter2/optimization.html">2. Classical Optimization Theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html">2.1. Unconstrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/gradient.html">2.2. Gradient Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Constrained_Optimization.html">2.3. Constrained Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Examples.html">2.4. Extension and Application of Gradient Descent Based Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter2/Duality.html">2.5. Duality, Lagrangian Multiplier Theorem, and KKT Conditions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter3/LLM.html">3. Introduction to Large Language Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter4/stochastic_opt.html">4. Stochastic Optimization for Large Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/sgd.html">4.1. Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/training_algorithms.html">4.2. Adaptive algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/variants.html">4.3. Discussions on modern adaptive methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/lr_mup.html">4.4. Practical guidance on training stability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter4/zeroth_order.html">4.5. Zeroth-order optimization for LLM</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/lectures/Chapter1/intro_to_optimization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Optimization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">1.1.1. Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">1.1.2. Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">1.1.3. Elements of an Optimization Problem</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="introduction-to-optimization">
+<h1><span class="section-number">1.1. </span>Introduction to Optimization<a class="headerlink" href="#introduction-to-optimization" title="Link to this heading">#</a></h1>
+<section id="why-optimization">
+<h2><span class="section-number">1.1.1. </span>Why Optimization?<a class="headerlink" href="#why-optimization" title="Link to this heading">#</a></h2>
+<p>Optimization appears everywhere in almost all Science and Engineering disciplines such as Electrical/Mechanical/Aerospace/Systems/Mechanical… Engineering, Computer/Physical/Data… Science. In particular, in machine learning/ artificial intelligence, which are the main application area of this course, optimization theory and algorithms are used in many different problems:</p>
+<ul class="simple">
+<li><p>Training a linear regression model: minimizing squared error</p></li>
+<li><p>Training neural networks: minimizing a cross-entropy loss</p></li>
+<li><p>Aligning LLMs: optimizing reward functions under preference constraints</p></li>
+<li><p>Adversarial robustness: maximizing model loss with respect to small input perturbations</p></li>
+</ul>
+<p>These problems differ in their structure, but they all boil down to choosing parameters to minimize a loss (or maximize a reward), possibly under various constraints.</p>
+<p>We start the lecture with a couple of concrete examples of problem <a class="reference internal" href="course_intro.html#equation-eq-general-optimization">(1.1)</a>.</p>
+</section>
+<section id="examples">
+<h2><span class="section-number">1.1.2. </span>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<div class="proof example admonition" id="example-0">
+<p class="admonition-title"><span class="caption-number">Example 1.1 </span> (Example 1: Least Squares Regression)</p>
+<section class="example-content" id="proof-content">
+<p>One of the most fundamental optimization problems in machine learning is linear regression, where the goal is to fit a linear model to observed data.</p>
+<p><strong>Problem Setup.</strong> We are given a dataset <span class="math notranslate nohighlight">\({(\va_i, b_i)}_{i=1}^n\)</span> where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\va_i \in \RR^d\)</span> is the feature vector for the <span class="math notranslate nohighlight">\(i\)</span>-th data point;</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_i \in \RR\)</span> is the corresponding label or response;</p></li>
+</ul>
+<p>We aim to find a weight vector <span class="math notranslate nohighlight">\(\vw \in \RR^d\)</span> that minimizes the average squared prediction error:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\vw \in \RR^d} \quad \frac{1}{2n} \sum_{i=1}^n (\vw^\top \va_i - b_i)^2.\]</div>
+<p>This is an unconstrained, smooth, convex optimization problem. That is, it is an “easy” problem where both theory and algorithms are well-understood.</p>
+<p><strong>Vectorized Formulation.</strong> Let us define the matrix and vector notation:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A \in \RR^{n \times d}\)</span>: the data matrix whose <span class="math notranslate nohighlight">\(i\)</span>-th row is <span class="math notranslate nohighlight">\(\va_i^\top\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vb \in \RR^n\)</span>: the label vector, whose <span class="math notranslate nohighlight">\(i\)</span>-th entry is <span class="math notranslate nohighlight">\(b_i\)</span>;</p></li>
+</ul>
+<p>Then the objective becomes:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\vw \in \RR^d} \quad \frac{1}{2n} \|A\vw - \vb\|^2.\]</div>
+<p>This compact form makes derivation and implementation more efficient.</p>
+<p><strong>Closed-form Solution.</strong> To find the optimal <span class="math notranslate nohighlight">\(\vw^*\)</span>, we take the gradient of the objective and set it to zero (we will shortly see why we should do this in Section <a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html#sec-unconstrained"><span class="std std-ref">Unconstrained Optimization</span></a>):</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{\vw} \left( \frac{1}{2n} \|A\vw - \vb\|^2 \right)
+= \frac{1}{n} A^\top (A\vw - \vb)
+= 0.\]</div>
+<p>Solving for <span class="math notranslate nohighlight">\(\vw\)</span> gives the normal equations:</p>
+<div class="math notranslate nohighlight">
+\[A^\top A \vw = A^\top \vb.\]</div>
+<p>Assuming <span class="math notranslate nohighlight">\(A^\top A\)</span> is invertible, the solution is:</p>
+<div class="math notranslate nohighlight">
+\[\vw^* = (A^\top A)^{-1} A^\top \vb.\]</div>
+<p>This closed-form solution is efficient when <span class="math notranslate nohighlight">\(d\)</span> is small and <span class="math notranslate nohighlight">\(A^\top A\)</span> is well-conditioned. In large-scale or ill-conditioned settings, iterative methods like gradient descent or conjugate gradient are preferred (to be discussed in  Section <a class="reference internal" href="../Chapter2/gradient.html#sec-gradient"><span class="std std-ref">Gradient Methods</span></a>).</p>
+<p><strong>Augmented Form (with Intercept).</strong> If we wish to fit an intercept term <span class="math notranslate nohighlight">\(w_0\)</span> (bias), we can augment the input as follows:</p>
+<p>Define <span class="math notranslate nohighlight">\(\tilde{\va}_i := [\va_i^\top, 1]^\top \in \RR^{d+1}\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\tilde{\vw} := [\vw^\top, w_0]^\top \in \RR^{d+1}\)</span></p>
+<p>Then the problem becomes:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\tilde{\vw} \in \RR^{d+1}} \quad \frac{1}{2n} \sum_{i=1}^n (\tilde{\vw}^\top \tilde{\va}_i - b_i)^2.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\tilde{A} \in \RR^{n \times (d+1)}\)</span> be the matrix with rows <span class="math notranslate nohighlight">\(\tilde{\va}_i^\top\)</span>, and the closed-form solution becomes:</p>
+<div class="math notranslate nohighlight">
+\[\tilde{\vw}^* = (\tilde{A}^\top \tilde{A})^{-1} \tilde{A}^\top \vb.\]</div>
+</section>
+</div><p>Some remarks about the above examples are ready:</p>
+<ul class="simple">
+<li><p>Least squares regression is a <em>convex</em>, <em>quadratic</em> problem, and its solution is <em>globally optimal</em> (the notion of convexity will be introduced in Section <a class="reference internal" href="../Chapter2/Unconstrained_Optimization.html#sec-unconstrained"><span class="std std-ref">Unconstrained Optimization</span></a>).</p></li>
+<li><p>It provides a clean entry point to gradient-based optimization and regularization techniques (e.g., ridge regression).</p></li>
+<li><p>It forms the foundation for more advanced models like logistic regression, support vector machines, and neural networks.</p></li>
+</ul>
+<p>Next, we consider a classical formulation of the <em>classification</em> problem, where the</p>
+<div class="proof example admonition" id="example-1">
+<p class="admonition-title"><span class="caption-number">Example 1.2 </span> (Support Vector Machine (SVM))</p>
+<section class="example-content" id="proof-content">
+<p>Consider a binary classification task, where each data point is labeled with <span class="math notranslate nohighlight">\(b_i \in \{-1, +1\}\)</span> and described by a feature vector <span class="math notranslate nohighlight">\(\va_i \in \RR^d\)</span>.</p>
+<p>Our goal is to learn a linear classifier of the form:</p>
+<div class="math notranslate nohighlight">
+\[f(\va) = \sign(\vw^\top \va + w_0)\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\vw\)</span> is the weight vector that <em>linearly</em> combines the feature vector, and defines the orientation of the decision boundary,</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_0\)</span> is the intercept (bias or offset term),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sign(\cdot)\)</span> is the sign function that maps outputs to <span class="math notranslate nohighlight">\(\pm 1\)</span>.</p></li>
+</ul>
+<p><strong>Hard-Margin SVM Formulation</strong>. Suppose the data is linearly separable, that is, there exists a hyperplane that separates the two classes without error. If there are many hyperplanes that can separate the data, which one should we prefer? We prefer the one that maximizes the “margin”, defined as the <em>distance</em> between the decision boundary and the closest data points.</p>
+<p>This leads to the following hard-margin SVM problem:</p>
+<div class="math notranslate nohighlight" id="equation-eq-svm-constrained">
+<span class="eqno">(1.2)<a class="headerlink" href="#equation-eq-svm-constrained" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\min_{\vw \in \RR^d,\, w_0 \in \RR} \quad &amp; \frac{1}{2} \|\vw\|^2 \\
+\text{s.t.} \quad &amp; b_i (\vw^\top \va_i + w_0) \ge 1, \quad \forall i = 1,\ldots,n
+\end{aligned}\end{split}\]</div>
+<p>The objective <span class="math notranslate nohighlight">\(\frac{1}{2} \|\vw\|^2\)</span> minimizes the norm of the weight vector, which is inversely related to the margin width. The constraints ensure that all data points are classified correctly with a margin of at least 1. Below, we explain the intuition behind setting the constraint this way.</p>
+<p><strong>Geometric Intuition</strong>. The inequality constraint <span class="math notranslate nohighlight">\(b_i(\vw^\top \va_i + w_0) \ge 1\)</span> enforces:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+b_i &amp; = +1 \Rightarrow \vw^\top \va_i + w_0 \ge 1 \\
+b_i &amp; = -1 \Rightarrow \vw^\top \va_i + w_0 \le -1.
+\end{aligned}\end{split}\]</div>
+<p>Hence, the points lie on the margin boundaries satisfies:</p>
+<div class="math notranslate nohighlight">
+\[\vw^\top \va + w_0 = \pm 1.\]</div>
+<p>The distance from a point to the decision boundary <span class="math notranslate nohighlight">\(\vw^\top \va + w_0 = 0\)</span> is (how to calculate the distance between two parallel lines?):</p>
+<div class="math notranslate nohighlight">
+\[\frac{| \vw^\top \va + w_0 |}{\| \vw \|}.\]</div>
+<p>The margin is therefore: <span class="math notranslate nohighlight">\(2 / \|\vw\|\)</span>, so minimizing <span class="math notranslate nohighlight">\(\|\vw\|^2\)</span> corresponds to maximizing the margin.</p>
+<p><strong>Why the “1” in the Constraint?</strong> In the hard-margin SVM formulation, the constraint for each data point is:</p>
+<div class="math notranslate nohighlight">
+\[b_i(\vw^\top \va_i + w_0) \ge 1\]</div>
+<p>A natural question arises: Why the constant “1”? What happens if we use another constant?</p>
+<p>The key point is that the value “1” is arbitrary — it is a scaling convention, not a fixed physical threshold.
+In fact, we can multiply both sides of the inequality by any positive constant <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span>, and the set of feasible solutions remains the same if we scale <span class="math notranslate nohighlight">\(\vw\)</span> and <span class="math notranslate nohighlight">\(w_0\)</span> accordingly.</p>
+<p>That is we can consider the following set of constraints instead:</p>
+<div class="math notranslate nohighlight">
+\[b_i(\alpha \vw^\top \va_i + \alpha x_0) \ge \alpha.\]</div>
+<p>So, if we allow <span class="math notranslate nohighlight">\(\vw\)</span> and <span class="math notranslate nohighlight">\(w_0\)</span> to scale freely, the numerical value on the right-hand side can be absorbed into their magnitudes.</p>
+<p>Then why do we fix it to 1? We fix the right-hand side to 1 for mathematical convenience and normalization:</p>
+<ul class="simple">
+<li><p>It removes the ambiguity caused by arbitrary scaling of <span class="math notranslate nohighlight">\(\vw\)</span>.</p></li>
+<li><p>It ensures that the margin width becomes well-defined as <span class="math notranslate nohighlight">\(2/\|\vw\|\)</span>.</p></li>
+</ul>
+</section>
+</div><p>Some remarks about the above example is now ready. First, about the optimization structure of the problem. This is a quadratic program (QP): a convex quadratic objective with linear inequality constraints. It has a unique global minimum when the data is linearly separable. Solving it efficiently often involves Lagrangian duality — the dual SVM problem has attractive computational and theoretical properties. We will discuss the issue about duality later in the class.</p>
+<p>Second, real-world data is often not linearly separable, and we must extend the formulation <a class="reference internal" href="#equation-eq-svm-constrained">(1.2)</a> to allow misclassifications using slack variables, which leads to the soft-margin SVM. We will talk about some of its variants in subsequent lectures.</p>
+<div class="proof example admonition" id="example-2">
+<p class="admonition-title"><span class="caption-number">Example 1.3 </span> (Training Neural Networks)</p>
+<section class="example-content" id="proof-content">
+<p>One of the most important applications of optimization in modern machine learning is the training of neural networks — especially deep neural networks used in large-scale models like transformers and LLMs.</p>
+<p>At the core of this task is the optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+\min_{\vw \in \mathcal{W}} \quad f(\vw)
+\end{aligned}\]</div>
+<p>where in the above equation, we have defined:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\vw\)</span> is the collection of model parameters (weights, biases, etc.) across all layers of the network.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(\vw)\)</span> is the objective function, typically defined as the sum of prediction losses over a dataset (e.g., cross-entropy or mean squared error).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{W}\)</span> is the feasible set — it may encode constraints such as: parameter bounds, sparsity structure, architectural constraints (e.g., weight sharing, normalization).</p></li>
+</ul>
+<p><strong>A Typical Supervised Learning Setup.</strong> Let us consider a simple form of neural network optimization problem, Let <span class="math notranslate nohighlight">\({(\va_i, b_i)}_{i=1}^n\)</span> be a training dataset:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\va_i \in \RR^d\)</span>: input feature vector (e.g., tokens, pixels)</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_i\)</span>: target label (e.g., a class, a next token, a regression value)</p></li>
+</ul>
+<p>Let <span class="math notranslate nohighlight">\(g(\vw; \va_i)\)</span> denote the neural network output for input <span class="math notranslate nohighlight">\(\va_i\)</span> with parameters <span class="math notranslate nohighlight">\(\vw\)</span>. The typical loss is:</p>
+<div class="math notranslate nohighlight">
+\[f(\vw) = \sum_{i=1}^n \ell(g(\vw; \va_i), b_i)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ell(\cdot, \cdot)\)</span> is the loss function measuring the error between prediction and label (e.g., cross-entropy for classification, squared loss for regression).</p>
+<p>At this point, it is not clear what the <span class="math notranslate nohighlight">\(g\)</span> function looks like. This is ok, but the key point we need to note here is that, as compared with the previous two examples, here the optimization variable <span class="math notranslate nohighlight">\(\vw\)</span> no longer linearly combines the feature <span class="math notranslate nohighlight">\(\va_i\)</span>’s. Therefore, the learning problem becomes <em>nonlinear</em>. In addition, the loss function is a highly complicated function w.r.t. the optimization variable <span class="math notranslate nohighlight">\(\vw\)</span>.</p>
+<p><strong>A 2-Layer Neural Network.</strong> Let’s consider a simple fully connected network with one hidden layer:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\vz &amp;= \sigma(W_1 \va + \vv_1) \\
+\hat{y} &amp;= W_2 \vz + v_2
+\end{aligned}\end{split}\]</div>
+<p>where we have defined:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(W_1, W_2\)</span>: weight matrices (part of the optimization variables to be optimized);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vv_1, \vv_2\)</span>: bias vectors (part of the optimization variables to be optimized);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma(\cdot)\)</span>: element-wise nonlinearity (e.g., ReLU);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vw = \{W_1, \vv_1, W_2, \vv_2\}\)</span>: optimization variables.</p></li>
+</ul>
+<p>The training objective becomes:</p>
+<div class="math notranslate nohighlight">
+\[\min_{W_1, \vv_1, W_2, \vv_2} \quad \sum_{i=1}^n \ell\left( W_2 \sigma(W_1 \va_i + \vv_1) + \vv_2,\, b_i \right)
+\]</div>
+</section>
+</div><p>Next, we provide an example about LLM training.</p>
+<div class="proof example admonition" id="example-3">
+<p class="admonition-title"><span class="caption-number">Example 1.4 </span> (LLM training)</p>
+<section class="example-content" id="proof-content">
+<p>When training an LLM (e.g. GPT or LLaMA decoder-only transformer models), the objective is typically causal next-token prediction using the cross-entropy (CE) loss. More specifically,
+Given an input sequence of tokens:</p>
+<div class="math notranslate nohighlight">
+\[ x = [x_1, x_2, \dots, x_L] \]</div>
+<p>The model is trained to predict the probability distribution over the next token <span class="math notranslate nohighlight">\(x_{t+1}\)</span>, conditioned on the tokens before it (hence causal):</p>
+<div class="math notranslate nohighlight">
+\[P_{\theta}( \cdot \mid x_{\leq t})   = \text{softmax}(f_\theta(x_{\leq t})) \in \mathbb{R}^{|V|}, \textrm{ for } t=1,...,L-1 \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_{\leq t} = [x_1, x_2, \dots, x_t]\)</span> are the previous tokens,</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_\theta(x_{\leq t})\)</span> represents the output logits from the transformer (having trainable weights <span class="math notranslate nohighlight">\(\theta\)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\({\rm softmax}()\)</span> converts the logits (a vector of raw scores)  into a probability distribution over the vocabulary of size <span class="math notranslate nohighlight">\(|V|\)</span>.</p></li>
+</ul>
+<p><strong>More on the Softmax Operator</strong> Given a vector of logits <span class="math notranslate nohighlight">\(\mathbf{z} = [z_1, z_2, \dots, z_{|V|}] \in \mathbb{R}^{|V|} \)</span>, where <span class="math notranslate nohighlight">\(|V| \)</span> is the vocabulary size, the softmax function is defined component-wise as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{|V|} e^{z_j}}, \quad \text{for } i = 1, \dots, |V|.
+\]</div>
+<p>The output is a probability vector  <span class="math notranslate nohighlight">\(\mathbf{p} = \text{softmax}(\mathbf{z}) \in \mathbb{R}^{|V|} \)</span> such that:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( p_i &gt; 0 \)</span> for all <span class="math notranslate nohighlight">\( i \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \sum_{i=1}^{|V|} p_i = 1 \)</span></p></li>
+</ul>
+<p>Thus, <span class="math notranslate nohighlight">\(\mathbf{p} \in \Delta^{|V|-1} \)</span>, the probability simplex.</p>
+<p>Suppose:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{z} = [2.0,\ 1.0,\ 0.1]
+\]</div>
+<p>Then we compute:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+e^{2.0} &amp;\approx 7.39, \\
+e^{1.0} &amp;\approx 2.72, \\
+e^{0.1} &amp;\approx 1.105, \\
+\text{sum} &amp;= 7.39 + 2.72 + 1.105 \approx 11.215
+\end{aligned}\end{split}\]</div>
+<p>So the softmax operator computes:</p>
+<div class="math notranslate nohighlight">
+\[\text{softmax}(\mathbf{z}) =
+\left[ \frac{7.39}{11.215},\ \frac{2.72}{11.215},\ \frac{1.105}{11.215} \right]
+\approx [0.659,\ 0.243,\ 0.098]\]</div>
+<p><strong>Training Objective.</strong> So far, we know that the scalar probability of the correct next token is given by:</p>
+<div class="math notranslate nohighlight">
+\[P_{\theta}( x_{t+1} \mid x_{\leq t}).\]</div>
+<p>During training, the loss is computed using <strong>cross-entropy</strong> between the predicted distribution and the ground truth distribution, i.e. a one-hot vector for the correct token.
+Note that the typical cross-entropy definition is:</p>
+<div class="math notranslate nohighlight">
+\[ H(q, p) = - \sum_{x \in \textrm{ classes}} q(x) \log p(x) \]</div>
+<p>where <span class="math notranslate nohighlight">\(q(\cdot)\)</span> is the true probability distribution and <span class="math notranslate nohighlight">\(p(\cdot)\)</span> the predicted probability distribution.
+In our case we have:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x \in \{0,1,2, \dots, |V|-1\}\)</span> the token indices,</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(i) = P_\theta(x = i \mid x_{\leq t})\)</span> is the predicted probability of token <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(q(i)\)</span> is the true probability of token <span class="math notranslate nohighlight">\(i\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+q(i) =
+  \begin{cases}
+  1 &amp; \text{if } i = x_{t+1} \\
+  0 &amp; \text{otherwise}
+  \end{cases}
+\end{split}\]</div>
+<p>Therefore we can write the loss as:</p>
+<div class="math notranslate nohighlight">
+\[ L_t(\theta) = - \sum_{i=0}^{|V|-1} q(i) \log p(i) = - \log p_{x_{t+1}} = -\log P_\theta(x_{t+1} \mid x_{\leq t}) \]</div>
+<p>This loss then is optimized by adjusting the model’s weights using gradient-based optimizers, such as Adam.</p>
+</section>
+</div><p><strong>Optimization Challenges.</strong> Neural network training raises several fundamental questions in optimization:</p>
+<ul class="simple">
+<li><p>Existence: Does a minimizer <span class="math notranslate nohighlight">\(\vw^*\)</span> exist?</p></li>
+<li><p>Computation: How do we find a good solution efficiently?</p></li>
+<li><p>Convergence: Will gradient-based methods converge to a global or local minimum?</p></li>
+<li><p>Robustness: How sensitive is the solution to noise, overfitting, and adversarial perturbations?</p></li>
+</ul>
+<p>These, and many more related questions, are particularly challenging in large-scale settings such as LLM pretraining, where we may have trillions of tokens and billions of parameters. We will explore many topics related to neural network optimization in the subsequent Chapter <a class="reference internal" href="../Chapter4/stochastic_opt.html#sec-llm-train"><span class="std std-ref">LLM Training as Large-scale Optimization</span></a>.</p>
+<div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 1.5 </span> (Adversarial Attacks)</p>
+<section class="example-content" id="proof-content">
+<p>Modern machine learning models — including deep neural networks — can be surprisingly fragile. Small, imperceptible perturbations to the input can cause a model to misclassify with high confidence. This phenomenon has motivated the study of adversarial attacks and the corresponding field of robust optimization.</p>
+<p><strong>Adversarial Attack Formulation.</strong> Suppose we have a trained model with parameters <span class="math notranslate nohighlight">\(\vw\)</span>, and a loss function <span class="math notranslate nohighlight">\(\ell(\vw; \va, b)\)</span> defined over input <span class="math notranslate nohighlight">\(\va\)</span> and label <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>An adversarial example is a perturbed version of the input:</p>
+<div class="math notranslate nohighlight">
+\[\va_{\text{adv}} = \va + \vdelta\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vdelta\)</span> is crafted intentionally to increase the model’s loss while remaining small in magnitude. The attack is formulated as an optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\max_{\vdelta} \quad &amp; \ell(\vw; \va + \vdelta, y) \\
+\text{s.t.} \quad &amp; \|\vdelta\| \le \epsilon
+\end{aligned}\end{split}\]</div>
+<p>where in the above we have defined:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\ell\)</span> is the model’s loss function (e.g., quadratic loss, cross-entropy)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdelta\)</span> is the adversarial perturbation</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> is a bound on the perturbation (perturbation cannot be too large).</p></li>
+</ul>
+<p>This problem seeks a perturbation within a ball of radius <span class="math notranslate nohighlight">\(\epsilon\)</span> that maximizes model error; it represents a <em>worst-case</em> perturbation.</p>
+<p><strong>A Robust Optimization Viewpoint.</strong> From a robust learning perspective, we are interested in training models that perform well under worst-case perturbations. This motivates a minimax formulation:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\vw} \; \max_{\|\vdelta\| \le \epsilon} \; \ell(\vw; \va + \vdelta, b)\]</div>
+<p>This nested optimization problem describes adversarial training, where the inner maximization finds harmful perturbations, and the outer minimization adapts the model to defend against them.</p>
+<p><strong>Interpretation.</strong> The adversarial attack is a local search in input space for points that lie near the input data (often times images) <span class="math notranslate nohighlight">\(\va\)</span> but cause the model to fail (by maximizing the loss). The constraint <span class="math notranslate nohighlight">\(\|\vdelta\| \le \epsilon\)</span> ensures imperceptibility — the perturbed input looks similar to the original one. The magnitude <span class="math notranslate nohighlight">\(\epsilon\)</span> controls the strength of the attack.</p>
+</section>
+</div></section>
+<section id="elements-of-an-optimization-problem">
+<h2><span class="section-number">1.1.3. </span>Elements of an Optimization Problem<a class="headerlink" href="#elements-of-an-optimization-problem" title="Link to this heading">#</a></h2>
+<p>Every optimization problem is characterized by:</p>
+<ul class="simple">
+<li><p>The type of variables: continuous, discrete, mixed</p></li>
+<li><p>The objective function: smooth/nonsmooth, convex/nonconvex, deterministic/stochastic</p></li>
+<li><p>The constraints: equalities, inequalities, box, norm, combinatorial</p></li>
+<li><p>The scale: number of variables and data points (relevant to LLMs!)</p></li>
+<li><p>The desired accuracy and computation budget</p></li>
+</ul>
+<p>Understanding these factors helps guide both the modeling and the algorithm selection process.</p>
+<p>In the rest of this course, we will explore:</p>
+<ul class="simple">
+<li><p>Core theoretical tools: optimality conditions, convexity, duality</p></li>
+<li><p>Algorithms: gradient descent, Newton methods, proximal methods, ADMM</p></li>
+<li><p>Modern extensions: stochastic optimization, large-scale methods, distributed training</p></li>
+<li><p>Applications to LLM training: pretraining, fine-tuning, RLHF, unlearning, and personalization</p></li>
+</ul>
+<p>Optimization is the common thread that binds these concepts; mastering it is essential for building scalable, robust, and aligned AI systems.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures/Chapter1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="course_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Introduction to Optimization</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="notations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.2. </span>Notations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-optimization">1.1.1. Why Optimization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">1.1.2. Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-an-optimization-problem">1.1.3. Elements of an Optimization Problem</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By OptimAI-Lab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
