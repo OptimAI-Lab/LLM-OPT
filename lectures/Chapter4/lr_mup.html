@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.4. Practical guidance on training stability &#8212; Optimization for ML &amp; LLMs</title>
+    <title>4.4. Practical concerns on training stability &#8212; Optimization for ML &amp; LLMs</title>
   
   
   
@@ -58,6 +58,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"RR": "\\mathbb{R}", "EE": "\\mathbb{E}", "CC": "\\mathbb{C}", "ZZ": "\\mathbb{Z}", "Var": "\\mathrm{Var}", "sign": "\\mathrm{sign}", "argmin": "\\mathrm{argmin}", "KL": ["\\mathrm{KL}\\left(#1 \\middle\\| #2\\right)", 2], "vA": "\\mathbf{A}", "vB": "\\mathbf{B}", "vC": "\\mathbf{C}", "vD": "\\mathbf{D}", "vE": "\\mathbf{E}", "vF": "\\mathbf{F}", "vG": "\\mathbf{G}", "vH": "\\mathbf{H}", "vI": "\\mathbf{I}", "vJ": "\\mathbf{J}", "vK": "\\mathbf{K}", "vL": "\\mathbf{L}", "vM": "\\mathbf{M}", "vN": "\\mathbf{N}", "vO": "\\mathbf{O}", "vP": "\\mathbf{P}", "vQ": "\\mathbf{Q}", "vR": "\\mathbf{R}", "vS": "\\mathbf{S}", "vT": "\\mathbf{T}", "vU": "\\mathbf{U}", "vV": "\\mathbf{V}", "vW": "\\mathbf{W}", "vX": "\\mathbf{X}", "vY": "\\mathbf{Y}", "vZ": "\\mathbf{Z}", "va": "\\mathbf{a}", "vb": "\\mathbf{b}", "vc": "\\mathbf{c}", "vd": "\\mathbf{d}", "ve": "\\mathbf{e}", "vf": "\\mathbf{f}", "vg": "\\mathbf{g}", "vh": "\\mathbf{h}", "vi": "\\mathbf{i}", "vj": "\\mathbf{j}", "vk": "\\mathbf{k}", "vl": "\\mathbf{l}", "vm": "\\mathbf{m}", "vn": "\\mathbf{n}", "vo": "\\mathbf{o}", "vp": "\\mathbf{p}", "vq": "\\mathbf{q}", "vr": "\\mathbf{r}", "vs": "\\mathbf{s}", "vt": "\\mathbf{t}", "vu": "\\mathbf{u}", "vv": "\\mathbf{v}", "vw": "\\mathbf{w}", "vx": "\\mathbf{x}", "vy": "\\mathbf{y}", "vz": "\\mathbf{z}", "vnull": "\\mathbf{\\emptyset}", "SS": "\\mathbb{S}", "SSp": "\\mathbb{S}_{+}", "SSpp": "\\mathbb{S}_{++}", "vzero": "\\mathbf{0}", "vone": "\\mathbf{1}", "v0": "\\mathbf{0}", "v1": "\\mathbf{1}", "valpha": "\\boldsymbol{\\alpha}", "vAlpha": "\\boldsymbol{\\Alpha}", "vbeta": "\\boldsymbol{\\beta}", "vBeta": "\\boldsymbol{\\Beta}", "vgamma": "\\boldsymbol{\\gamma}", "vGamma": "\\boldsymbol{\\Gamma}", "vdelta": "\\boldsymbol{\\delta}", "vDelta": "\\boldsymbol{\\Delta}", "vepsilon": "\\boldsymbol{\\epsilon}", "vtheta": "\\boldsymbol{\\theta}", "vphi": "\\boldsymbol{\\phi}", "vpsi": "\\boldsymbol{\\psi}", "vomega": "\\boldsymbol{\\omega}", "vmu": "\\boldsymbol{\\mu}", "vsigma": "\\boldsymbol{\\sigma}", "vSigma": "\\boldsymbol{\\Sigma}", "vLambda": "\\boldsymbol{\\Lambda}", "vTheta": "\\boldsymbol{\\Theta}", "vPhi": "\\boldsymbol{\\Phi}", "vPsi": "\\boldsymbol{\\Psi}", "vOmega": "\\boldsymbol{\\Omega}", "vxi": "\\boldsymbol{\\xi}", "vXi": "\\boldsymbol{\\Xi}", "vzeta": "\\boldsymbol{\\zeta}", "veta": "\\boldsymbol{\\eta}", "vupsilon": "\\boldsymbol{\\upsilon}", "vTau": "\\boldsymbol{\\Tau}", "Proj": "\\mathrm{Proj}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/Chapter4/lr_mup';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -185,7 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sgd.html">4.1. Stochastic Gradient Descent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="training_algorithms.html">4.2. Adaptive algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="variants.html">4.3. Discussions on modern adaptive methods</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.4. Practical guidance on training stability</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.4. Practical concerns on training stability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zeroth_order.html">4.5. Zeroth-order optimization for LLM</a></li>
 </ul>
 </details></li>
@@ -314,7 +316,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -325,11 +329,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Practical guidance on training stability</h1>
+    <h1>Practical concerns on training stability</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lr-scheduler">4.4.1. lr scheduler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mup-and-hyper-parameter-transfer">4.4.2. <span class="math notranslate nohighlight">\(\mu\)</span>P and hyper parameter transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infra-discussions-distributed-training">4.4.3. Infra discussions: distributed training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-precision-training">4.4.4. Mixed precision training</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -339,21 +354,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="practical-guidance-on-training-stability">
-<h1><span class="section-number">4.4. </span>Practical guidance on training stability<a class="headerlink" href="#practical-guidance-on-training-stability" title="Link to this heading">#</a></h1>
-<p>test submitting</p>
-<ul class="simple">
-<li><p>loss spikes, SPAM and stable-SPAM?</p></li>
-<li><p>precision concerns</p></li>
-<li><p>lr scheduler</p></li>
-<li><p>muP</p></li>
-</ul>
-<div class="proof lemma admonition" id="lem:descent">
-<p class="admonition-title"><span class="caption-number">Lemma 4.1 </span> (Descent lemma)</p>
-<section class="lemma-content" id="proof-content">
-<p>this is a descent lemma</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="practical-concerns-on-training-stability">
+<h1><span class="section-number">4.4. </span>Practical concerns on training stability<a class="headerlink" href="#practical-concerns-on-training-stability" title="Link to this heading">#</a></h1>
+<p>So far we have witnessed quite some modern optimizers, are we ready to go ahead and apply them directly on training extreme large models? The answer is no. For example, we still don’t know how to choose learning rate, how to make it efficient on multiple (sometimes hundred or thousands of) GPUs, etc. In this section we briefly discuss several techniques popular in practice. We will not be able to provide all techincal details but will introduce related concepts and references for further readings.</p>
+<section id="lr-scheduler">
+<h2><span class="section-number">4.4.1. </span>lr scheduler<a class="headerlink" href="#lr-scheduler" title="Link to this heading">#</a></h2>
+<p>Constant schedule</p>
+<p>Linear and Cosine decay</p>
+<p>warmup</p>
+<p>WSD schedule and river-valley landscape</p>
 </section>
-</div><p>check <a class="reference internal" href="#lem:descent">Lemma 4.1</a></p>
+<section id="mup-and-hyper-parameter-transfer">
+<h2><span class="section-number">4.4.2. </span><span class="math notranslate nohighlight">\(\mu\)</span>P and hyper parameter transfer<a class="headerlink" href="#mup-and-hyper-parameter-transfer" title="Link to this heading">#</a></h2>
+</section>
+<section id="infra-discussions-distributed-training">
+<h2><span class="section-number">4.4.3. </span>Infra discussions: distributed training<a class="headerlink" href="#infra-discussions-distributed-training" title="Link to this heading">#</a></h2>
+</section>
+<section id="mixed-precision-training">
+<h2><span class="section-number">4.4.4. </span>Mixed precision training<a class="headerlink" href="#mixed-precision-training" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -410,6 +429,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lr-scheduler">4.4.1. lr scheduler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mup-and-hyper-parameter-transfer">4.4.2. <span class="math notranslate nohighlight">\(\mu\)</span>P and hyper parameter transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infra-discussions-distributed-training">4.4.3. Infra discussions: distributed training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-precision-training">4.4.4. Mixed precision training</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
