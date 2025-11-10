@@ -36,7 +36,7 @@ chapters:
       - file: lectures/Chapter4/variants
         title: Discussions on modern adaptive methods
       - file: lectures/Chapter4/lr_mup
-        title: Practical guidance on training stability
+        title: Practical concerns on training stability
       - file: lectures/Chapter4/zeroth_order
         title: Zeroth-order optimization for LLM
   - file: references.bib
