@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.4. Practical concerns on training stability &#8212; Optimization for ML &amp; LLMs</title>
+    <title>4.4. Practical concerns on large-scale training &#8212; Optimization for ML &amp; LLMs</title>
   
   
   
@@ -329,7 +329,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Practical concerns on training stability</h1>
+    <h1>Practical concerns on large-scale training</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -354,12 +354,33 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="practical-concerns-on-training-stability">
-<h1><span class="section-number">4.4. </span>Practical concerns on training stability<a class="headerlink" href="#practical-concerns-on-training-stability" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="practical-concerns-on-large-scale-training">
+<h1><span class="section-number">4.4. </span>Practical concerns on large-scale training<a class="headerlink" href="#practical-concerns-on-large-scale-training" title="Link to this heading">#</a></h1>
 <p>So far we have witnessed quite some modern optimizers, are we ready to go ahead and apply them directly on training extreme large models? The answer is no. For example, we still don’t know how to choose learning rate, how to make it efficient on multiple (sometimes hundred or thousands of) GPUs, etc. In this section we briefly discuss several techniques popular in practice. We will not be able to provide all techincal details but will introduce related concepts and references for further readings.</p>
 <section id="lr-scheduler">
 <h2><span class="section-number">4.4.1. </span>lr scheduler<a class="headerlink" href="#lr-scheduler" title="Link to this heading">#</a></h2>
-<p>Constant schedule</p>
+<p>Let’s begin with the first topic: how to choose the most important hyperparameter, namely the learning rate. Let’s take a look at the AdamW algorithm again.</p>
+<div class="proof algorithm admonition" id="alg:adamw_again">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.9 </span> (AdamW)</p>
+<section class="algorithm-content" id="proof-content">
+<ul class="simple">
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>, weight decay parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(t=0,1,2,..., T-1\)</span>,</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+\xi_{i_{j,t}} &amp;\sim {\cal D} \text{ (draw i.i.d. samples)} \\
+\vg^t &amp;\leftarrow \frac{1}{B}\sum_{j=1}^{B}\nabla \ell(\vw^t, \xi_{i_{j,t}}) \\
+\vm^t &amp;\leftarrow \beta_1\vm^{t-1} + (1-\beta_1)\vg^t \\
+\vv^t &amp;\leftarrow \beta_2\vv^{t-1} + (1-\beta_2)\vg^t\odot \vg^t \\
+\hat{\vm}^t &amp;\gets \frac{\vm^t}{1-\beta_1^t},\ \hat{\vv}^t \gets \frac{\vm^t}{1-\beta_2^t} \\
+\vw^{t+1} &amp;\leftarrow \vw^{t} - \eta_t \frac{\hat{\vm}^t}{\sqrt{\hat{\vv}^t}+\epsilon} - \eta_t\lambda \vw^{t}
+\end{split}\end{split}\]</div>
+<ul class="simple">
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
+</ul>
+</section>
+</div><p>Constant schedule</p>
 <p>Linear and Cosine decay</p>
 <p>warmup</p>
 <p>WSD schedule and river-valley landscape</p>
