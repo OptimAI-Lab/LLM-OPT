@@ -489,27 +489,27 @@ Attention Mask:
  tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
         [   32,  2068,  7586, 21831, 18045,   625,   262, 16931,  3290,     0]])
 Embedding vectors:
- tensor([[[-1.0736, -0.7281,  0.1029],
-         [-0.8888,  1.1557, -0.5544],
-         [ 0.0290, -1.3116, -1.5070],
-         [-0.0681, -0.2067,  0.0807],
-         [ 0.4419, -0.8059,  0.4619],
-         [-0.2737, -0.5914,  0.4631],
-         [-0.5108, -2.5607, -1.8196],
-         [-0.5108, -2.5607, -1.8196],
-         [-0.5108, -2.5607, -1.8196],
-         [-0.5108, -2.5607, -1.8196]],
+ tensor([[[-0.4164, -1.5847, -0.0935],
+         [-0.5062, -0.6840,  1.3727],
+         [-0.3711, -0.3681, -0.1439],
+         [ 0.2766,  1.5376,  0.6383],
+         [-0.4157,  1.2191,  0.8738],
+         [ 0.7730,  1.0508, -2.1609],
+         [-2.1011, -1.1915, -0.5690],
+         [-2.1011, -1.1915, -0.5690],
+         [-2.1011, -1.1915, -0.5690],
+         [-2.1011, -1.1915, -0.5690]],
 
-        [[ 0.0183,  0.1764,  0.7690],
-         [-3.0579, -1.7760,  1.1248],
-         [-0.2245,  0.2790, -0.5734],
-         [ 0.5728, -0.3706, -0.1836],
-         [-1.6566, -1.5300, -0.7999],
-         [-0.3949,  1.3910, -2.4633],
-         [ 0.4419, -0.8059,  0.4619],
-         [-1.1096,  1.1262,  1.0012],
-         [ 1.1262,  1.1175, -0.8062],
-         [ 1.4627,  0.2061,  0.7825]]], grad_fn=&lt;EmbeddingBackward0&gt;)
+        [[-0.1665, -2.4668, -0.0832],
+         [-2.3755, -2.0561, -1.6784],
+         [-0.4130, -0.3469, -0.2332],
+         [ 1.5042,  0.2899, -1.3644],
+         [-0.1906,  0.9747,  0.1134],
+         [ 0.6153,  0.2227,  0.6732],
+         [-0.4157,  1.2191,  0.8738],
+         [-1.1751,  0.6244, -0.2968],
+         [-1.3181,  0.5104,  0.1781],
+         [-0.0822,  0.3074, -1.7683]]], grad_fn=&lt;EmbeddingBackward0&gt;)
 Embedding Layer output shape: torch.Size([2, 10, 3])
 </pre></div>
 </div>
@@ -757,34 +757,34 @@ v_L
  [0.9 1.  1.1 1.2]]
 
 Query Matrix (Q):
- [[0.17588497 0.29151943 0.41334625 0.79335209]
- [0.40035579 0.73369694 1.26753072 1.8303119 ]
- [0.62482662 1.17587446 2.12171518 2.86727172]]
+ [[0.47936569 0.47431097 0.53658004 0.58413783]
+ [1.34409511 1.03131028 1.42398417 1.56427499]
+ [2.20882453 1.58830958 2.3113883  2.54441215]]
 
 Key Matrix (K):
- [[0.62908608 0.34903813 0.21893009 0.4334398 ]
- [1.4502847  0.94714496 0.74369581 1.09671956]
- [2.27148332 1.54525179 1.26846152 1.75999931]]
+ [[0.44987406 0.25516474 0.8225177  0.26225417]
+ [1.03988204 0.71455583 2.02895422 0.6656076 ]
+ [1.62989002 1.17394692 3.23539074 1.06896104]]
 
 Value Matrix (V):
- [[0.40429809 0.41884626 0.64498203 0.61827689]
- [1.0866981  1.04020841 1.53790224 1.66053382]
- [1.76909812 1.66157057 2.43082244 2.70279075]]
+ [[0.49025521 0.74982885 0.24025407 0.59306227]
+ [1.27040796 1.92023586 0.77132684 1.44299896]
+ [2.05056071 3.09064286 1.30239961 2.29293564]]
 
 Attention Logits (Q K^T / sqrt(d_k)):
- [[0.32338124 0.85434153 1.38530181]
- [0.78938855 2.11277169 3.43615482]
- [1.25539586 3.37120185 5.48700784]]
+ [[0.46561039 1.15745418 1.84929797]
+ [1.22465868 3.03251058 4.84036247]
+ [1.98370697 4.90756697 7.83142697]]
 
 Attention Weights (Softmax of Logits):
- [[0.17881141 0.30408034 0.51710825]
- [0.05300976 0.19911036 0.74787988]
- [0.0128001  0.10619312 0.88100677]]
+ [[0.14312332 0.2858738  0.57100288]
+ [0.02258619 0.1377156  0.83969821]
+ [0.00273182 0.05084732 0.94642087]]
 
 Output Z (Weighted Sum of Values):
- [[1.31755188 1.25041327 1.83997432 2.01312605]
- [1.56087748 1.47197441 2.1583658  2.38476701]
- [1.67916235 1.57967918 2.31314151 2.56542824]]
+ [[1.60421937 2.42102908 0.99856202 1.80666948]
+ [1.90788015 2.87658949 1.20527278 2.13749244]
+ [2.00662957 3.02473613 1.2724944  2.2450749 ]]
 </pre></div>
 </div>
 </div>
@@ -897,24 +897,24 @@ Z_\text{masked}  \in  \mathbb{R}^{L \times d_v}
  [0.9 1.  1.1 1.2]]
 
 Query Matrix (Q):
- [[0.52783152 0.48807587 0.57262512 0.38486994]
- [1.2959738  1.21678495 1.43508446 1.07342674]
- [2.06411608 1.94549402 2.29754379 1.76198354]]
+ [[0.66207644 0.36188542 0.58317426 0.44210761]
+ [1.66887824 0.92135278 1.49270796 1.2735353 ]
+ [2.67568005 1.48082014 2.40224167 2.10496298]]
 
 Key Matrix (K):
- [[0.80555186 0.62625036 0.41424768 0.59049322]
- [2.0906586  1.74439089 1.09438126 1.48327285]
- [3.37576534 2.86253142 1.77451485 2.37605248]]
+ [[0.41098752 0.45764532 0.17125093 0.39267896]
+ [1.1627092  1.0582795  0.58009062 1.11117012]
+ [1.91443089 1.65891368 0.98893031 1.82966128]]
 
 Value Matrix (V):
- [[0.67947572 0.78413184 0.7969328  0.56042959]
- [1.77840936 1.89996698 1.88041654 1.28209095]
- [2.877343   3.01580212 2.96390028 2.00375231]]
+ [[0.56351854 0.41783206 0.5191325  0.45421445]
+ [1.61356368 1.18861948 1.0962039  1.0673341 ]
+ [2.66360883 1.9594069  1.67327531 1.68045375]]
 
 Attention Logits (Q K^T / sqrt(d_k)):
- [[ 0.59766253  1.57622397  2.55478541]
- [ 1.51715887  3.99735082  6.47754276]
- [ 2.4366552   6.41847766 10.40030012]]
+ [[0.3555979  0.99116449 1.62673107]
+ [0.93162952 2.59824455 4.26485958]
+ [1.50766114 4.20532462 6.90298809]]
 
 Mask (1=keep, 0=mask):
  [[1. 0. 0.]
@@ -922,19 +922,19 @@ Mask (1=keep, 0=mask):
  [1. 1. 1.]]
 
 Masked Attention Logits:
- [[ 5.97662535e-01 -1.00000000e+09 -1.00000000e+09]
- [ 1.51715887e+00  3.99735082e+00 -1.00000000e+09]
- [ 2.43665520e+00  6.41847766e+00  1.04003001e+01]]
+ [[ 3.55597904e-01 -1.00000000e+09 -1.00000000e+09]
+ [ 9.31629523e-01  2.59824455e+00 -1.00000000e+09]
+ [ 1.50766114e+00  4.20532462e+00  6.90298809e+00]]
 
 Attention Weights (Softmax of Masked Logits):
- [[1.00000000e+00 0.00000000e+00 0.00000000e+00]
- [7.72585172e-02 9.22741483e-01 0.00000000e+00]
- [3.41396439e-04 1.83038525e-02 9.81354751e-01]]
+ [[1.         0.         0.        ]
+ [0.15887601 0.84112399 0.        ]
+ [0.00423336 0.0628442  0.93292245]]
 
 Output Z (Weighted Sum of Values):
- [[0.67947572 0.78413184 0.7969328  0.56042959]
- [1.69350738 1.81375922 1.79670819 1.22633646]
- [2.85647794 2.99461616 2.94332856 1.99005039]]
+ [[0.56351854 0.41783206 0.5191325  0.45421445]
+ [1.4467367  1.06615985 1.0045211  0.9699241 ]
+ [2.58872915 1.90444135 1.63212382 1.63673163]]
 </pre></div>
 </div>
 </div>
@@ -1172,7 +1172,7 @@ W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{array}{c}
-\text{Input Tokens (indices)} \quad (B \times T) \\
+\text{Input Tokens (indices)} \quad (B \times L) \\
 \downarrow \\
 \boxed{
 \begin{array}{c}
@@ -1186,7 +1186,7 @@ W^O \in \mathbb{R}^{h d_v \times d_{\text{model}}}
 \end{array}
 } \\
 \downarrow \\
-\text{Token Embeddings + Positional Embeddings (with Dropout)} \quad (B \times T \times d_{\text{model}}) \\
+\text{Token Embeddings + Positional Embeddings (with Dropout)} \quad (B \times L \times d_{\text{model}}) \\
 \downarrow \\
 \boxed{
 \begin{array}{c}
@@ -1227,7 +1227,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 \end{array}
 } \\
 \downarrow \\
-\text{Output Logits} \quad (B \times T \times |V|) \\
+\text{Output Logits} \quad (B \times L \times |V|) \\
 \downarrow \\
 \boxed{
 \begin{array}{c}
@@ -1235,7 +1235,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 \end{array}
 } \\
 \downarrow \\
-\text{Output Probabilities} \quad (B \times T \times |V|)
+\text{Output Probabilities} \quad (B \times L \times |V|)
 \end{array}
 \end{split}\]</div>
 <div class="cell docutils container">
@@ -1404,10 +1404,12 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 <span class="c1"># LR scheduler parameters</span>
 <span class="n">warmup_steps</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="c1"># Training parameters:</span>
-<span class="n">num_training_steps</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># 38_000</span>
+<span class="n">num_training_steps</span> <span class="o">=</span> <span class="mi">5_000</span> <span class="c1"># 38_000</span>
 <span class="n">total_batch_size</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">grad_clipping</span> <span class="o">=</span> <span class="mf">0.0</span> 
-<span class="n">print_freq</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">print_freq</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="c1"># Evaluation parameters</span>
+<span class="n">eval_every</span> <span class="o">=</span> <span class="mi">1000</span> 
 </pre></div>
 </div>
 </div>
@@ -1507,7 +1509,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5275eb972c544bbfb4b2cb3b36a0fb9a", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "af306fe1c78c46b9962a3be23957dbc9", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "90f73c63baf2445589142aefa5b8e59e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "38f45258268b47edbc5886afac406969", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "64df802eec5540638a40331accf9c1cf", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "20deb424d7e645a0bb94cd8254b37234", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f1e2be25e14a4da4b395bc5f23cb4ab8", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f65acb3077ff4223a47ff56eec6650a0", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="model-parameters-and-loading">
@@ -1529,6 +1531,8 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 
 <span class="n">gptconf</span> <span class="o">=</span> <span class="n">GPTConfig</span><span class="p">(</span><span class="o">**</span><span class="n">model_args</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">GPT</span><span class="p">(</span><span class="n">gptconf</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="c1"># for faster training</span>
 
 <span class="n">n_total_params</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
 <span class="n">trainable_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">]</span>
@@ -1631,6 +1635,80 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluation code</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">collate_fn</span><span class="p">(</span><span class="n">batch_list</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span>  <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">long</span><span class="p">()</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">batch_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">batch</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">batch_fn</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+        <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="n">batch_size</span><span class="p">:</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="n">collate_fn</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">batch</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">batch</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">preprocess_batched</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span>
+        <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>
+        <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;max_length&quot;</span><span class="p">,</span>
+        <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">batch</span>
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">val_data</span><span class="p">,</span> <span class="n">preprocess_batched</span><span class="p">,</span> <span class="n">pad_idx</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">batch_size</span>
+<span class="p">):</span>
+    
+    <span class="n">val_data</span> <span class="o">=</span> <span class="n">val_data</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+    <span class="n">val_data_mapped</span> <span class="o">=</span> <span class="n">val_data</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+        <span class="n">preprocess_batched</span><span class="p">,</span>
+        <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">remove_columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">val_data_mapped</span><span class="o">.</span><span class="n">batch</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">batch_size</span><span class="p">:</span> <span class="n">batch_fn</span><span class="p">(</span>
+        <span class="n">val_data_mapped</span><span class="p">,</span> <span class="n">batch_size</span>
+    <span class="p">)</span>
+
+    <span class="n">target_eval_tokens</span> <span class="o">=</span> <span class="mi">1_000_000</span> <span class="c1">#10_000_000</span>
+    <span class="n">evaluated_on_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">total_batches</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">val_data_mapped</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">evaluated_on_tokens</span> <span class="o">&gt;</span> <span class="n">target_eval_tokens</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">total_batches</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">input_ids</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">input_ids</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">labels</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>   <span class="c1"># shift left</span>
+        <span class="n">labels</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pad_idx</span>             <span class="c1"># pad the last token</span>
+        <span class="n">labels</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">pad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>    <span class="c1"># mask out padding</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+        <span class="n">evaluated_on_tokens</span> <span class="o">+=</span> <span class="p">(</span><span class="n">batch</span> <span class="o">!=</span> <span class="n">pad_idx</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span> <span class="o">/</span> <span class="n">total_batches</span>
+
+    <span class="k">return</span> <span class="n">total_loss</span><span class="p">,</span> <span class="n">evaluated_on_tokens</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ##############################</span>
 <span class="c1"># Initialization</span>
 <span class="c1"># ##############################</span>
@@ -1640,6 +1718,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 <span class="n">tokens_seen</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># = global_step / gradient_accumulation</span>
 <span class="n">tokens_seen_before</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">world_size</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># The number of GPUs we will use, here is set to 1 as multi-GPU training is not implemented.</span>
+
 
 <span class="n">pad_idx</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span>
 
@@ -1666,6 +1745,9 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 <span class="c1"># START of training loop</span>
 <span class="c1"># ##############################</span>
 
+<span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">eval_losses</span> <span class="o">=</span> <span class="p">[]</span>
+
 <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloader</span><span class="p">):</span>
     <span class="n">global_step</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -1681,11 +1763,14 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
     <span class="n">labels</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pad_idx</span>             <span class="c1"># pad the last token</span>
     <span class="n">labels</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">pad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>    <span class="c1"># mask out padding</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-    <span class="n">tokens_seen</span> <span class="o">+=</span> <span class="p">(</span><span class="n">input_ids</span> <span class="o">!=</span> <span class="n">pad_idx</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">world_size</span>
+    <span class="n">tokens_seen</span> <span class="o">+=</span> <span class="p">(</span><span class="n">input_ids</span> <span class="o">!=</span> <span class="n">pad_idx</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
-    <span class="n">logits</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
-    
-    <span class="n">scaled_loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">/</span> <span class="n">gradient_accumulation</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">):</span> <span class="c1"># Automatic mixed precision</span>
+        <span class="n">logits</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">scaled_loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">/</span> <span class="n">gradient_accumulation</span>
+        
+    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">update_step</span><span class="p">))</span>
+        
     <span class="n">scaled_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">global_step</span> <span class="o">%</span> <span class="n">gradient_accumulation</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1703,7 +1788,17 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
     <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         
     <span class="n">update_step</span> <span class="o">+=</span> <span class="mi">1</span>
- 
+    
+    <span class="k">if</span> <span class="n">eval_every</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">((</span><span class="n">update_step</span> <span class="o">%</span> <span class="n">eval_every</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">update_step</span> <span class="o">==</span> <span class="n">num_training_steps</span><span class="p">)</span> <span class="p">):</span> 
+        <span class="n">total_loss</span><span class="p">,</span> <span class="n">evaluated_on_tokens</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span>
+                    <span class="n">model</span><span class="p">,</span> <span class="n">val_data</span><span class="p">,</span> <span class="n">preprocess_batched</span><span class="p">,</span> <span class="n">pad_idx</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">device_batch_size</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">eval_losses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">update_step</span><span class="p">))</span>
+            
+    
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Eval Step </span><span class="si">{</span><span class="n">update_step</span><span class="si">}</span><span class="s2">] Loss: </span><span class="si">{</span><span class="n">total_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, PPL: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">total_loss</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Eval tokens </span><span class="si">{</span><span class="n">evaluated_on_tokens</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">)</span>
 
 <span class="c1"># ##############################</span>
 <span class="c1"># END of training loop</span>
@@ -1713,25 +1808,98 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 0/100 | loss: 10.992097854614258
-Update step: 10/100 | loss: 9.969904899597168
-Update step: 20/100 | loss: 9.68118953704834
-Update step: 30/100 | loss: 9.312026977539062
-Update step: 40/100 | loss: 9.08871078491211
-Update step: 50/100 | loss: 8.668562889099121
-Update step: 60/100 | loss: 8.390461921691895
-Update step: 70/100 | loss: 8.031908988952637
-Update step: 80/100 | loss: 7.666968822479248
-Update step: 90/100 | loss: 7.534152030944824
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 0/5000 | loss: 10.994383811950684
+Update step: 100/5000 | loss: 7.435319423675537
+Update step: 200/5000 | loss: 6.517599582672119
+Update step: 300/5000 | loss: 6.231418132781982
+Update step: 400/5000 | loss: 5.811738014221191
+Update step: 500/5000 | loss: 5.649332046508789
+Update step: 600/5000 | loss: 5.2958879470825195
+Update step: 700/5000 | loss: 5.111880302429199
+Update step: 800/5000 | loss: 4.908886909484863
+Update step: 900/5000 | loss: 4.83159065246582
+[Eval Step 1000] Loss: 4.6987, PPL: 109.81, Eval tokens 1002149
+Update step: 1000/5000 | loss: 4.576042652130127
+Update step: 1100/5000 | loss: 4.5741047859191895
+Update step: 1200/5000 | loss: 4.512861728668213
+Update step: 1300/5000 | loss: 4.513453960418701
+Update step: 1400/5000 | loss: 4.465023040771484
+Update step: 1500/5000 | loss: 4.391408920288086
+Update step: 1600/5000 | loss: 4.33909797668457
+Update step: 1700/5000 | loss: 4.264087677001953
+Update step: 1800/5000 | loss: 4.145863056182861
+Update step: 1900/5000 | loss: 4.156435966491699
+[Eval Step 2000] Loss: 4.1987, PPL: 66.60, Eval tokens 1002149
+Update step: 2000/5000 | loss: 4.319227695465088
+Update step: 2100/5000 | loss: 4.0493035316467285
+Update step: 2200/5000 | loss: 4.043957233428955
+Update step: 2300/5000 | loss: 4.287087917327881
+Update step: 2400/5000 | loss: 4.249317646026611
+Update step: 2500/5000 | loss: 4.114783763885498
+Update step: 2600/5000 | loss: 3.8443987369537354
+Update step: 2700/5000 | loss: 4.0508131980896
+Update step: 2800/5000 | loss: 4.0023722648620605
+Update step: 2900/5000 | loss: 3.6896564960479736
+[Eval Step 3000] Loss: 3.9704, PPL: 53.00, Eval tokens 1002149
+Update step: 3000/5000 | loss: 3.9380502700805664
+Update step: 3100/5000 | loss: 4.038853168487549
+Update step: 3200/5000 | loss: 3.8953123092651367
+Update step: 3300/5000 | loss: 3.875169038772583
+Update step: 3400/5000 | loss: 4.029504776000977
+Update step: 3500/5000 | loss: 3.8752076625823975
+Update step: 3600/5000 | loss: 3.8427069187164307
+Update step: 3700/5000 | loss: 3.905010938644409
+Update step: 3800/5000 | loss: 4.018843173980713
+Update step: 3900/5000 | loss: 3.7683029174804688
+[Eval Step 4000] Loss: 3.8168, PPL: 45.46, Eval tokens 1002149
+Update step: 4000/5000 | loss: 3.9677164554595947
+Update step: 4100/5000 | loss: 3.695934534072876
+Update step: 4200/5000 | loss: 3.8809094429016113
+Update step: 4300/5000 | loss: 3.899531841278076
+Update step: 4400/5000 | loss: 3.7091481685638428
+Update step: 4500/5000 | loss: 3.900308132171631
+Update step: 4600/5000 | loss: 3.7744944095611572
+Update step: 4700/5000 | loss: 3.800339460372925
+Update step: 4800/5000 | loss: 3.7875709533691406
+Update step: 4900/5000 | loss: 3.6415772438049316
+[Eval Step 5000] Loss: 3.7639, PPL: 43.12, Eval tokens 1002149
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-09 23:09:22.722</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;module&gt;</span>:<span class=" -Color -Color-Cyan">40</span> - <span class=" -Color -Color-Bold">Reached max number of update steps (f100). Stopping training.</span>
-<span class=" -Color -Color-Green">2025-11-09 23:09:22.867</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;module&gt;</span>:<span class=" -Color -Color-Cyan">78</span> - <span class=" -Color -Color-Bold">Training finished</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-15 02:54:45.890</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;cell line: 41&gt;</span>:<span class=" -Color -Color-Cyan">45</span> - <span class=" -Color -Color-Bold">Reached max number of update steps (f5000). Stopping training.</span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 100/100 | loss: 7.436328411102295
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 5000/5000 | loss: 3.789992332458496
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-15 02:54:46.213</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;cell line: 96&gt;</span>:<span class=" -Color -Color-Cyan">96</span> - <span class=" -Color -Color-Bold">Training finished</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">losses_</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">losses</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;step x gradient accumulation&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">eval_losses_</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">eval_losses</span><span class="p">]</span>
+<span class="n">eval_steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">eval_losses</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eval_steps</span><span class="p">,</span> <span class="n">eval_losses_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2e84c6eb35d75c5780d7fba09e6d8b1a254754a8bd52d4704f8f9789f213cfed.png" src="../../_images/2e84c6eb35d75c5780d7fba09e6d8b1a254754a8bd52d4704f8f9789f213cfed.png" />
+<img alt="../../_images/154128b1554adae15cc348598bfe840149cd1d6a0632e978e289429a3e1e063f.png" src="../../_images/154128b1554adae15cc348598bfe840149cd1d6a0632e978e289429a3e1e063f.png" />
 </div>
 </div>
 </section>
