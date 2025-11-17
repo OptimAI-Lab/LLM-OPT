@@ -490,27 +490,27 @@ Attention Mask:
  tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
         [   32,  2068,  7586, 21831, 18045,   625,   262, 16931,  3290,     0]])
 Embedding vectors:
- tensor([[[-0.2269, -1.3154, -0.8781],
-         [ 0.4097,  0.7299, -1.2866],
-         [-2.0804,  0.2751, -0.4685],
-         [ 1.0650,  1.2453, -0.8493],
-         [-1.1411, -1.1746,  0.7640],
-         [ 0.8388,  0.1431,  2.1709],
-         [ 0.5737,  0.2327, -1.0295],
-         [ 0.5737,  0.2327, -1.0295],
-         [ 0.5737,  0.2327, -1.0295],
-         [ 0.5737,  0.2327, -1.0295]],
+ tensor([[[-1.2959,  1.1001,  0.0517],
+         [ 0.0559,  0.5397,  1.3118],
+         [-1.6884, -0.0172, -0.0680],
+         [ 0.6226, -0.2761, -0.2921],
+         [-0.5190, -0.6476, -0.2988],
+         [-1.5228,  0.5229,  0.0332],
+         [-1.4930,  1.0943, -2.0135],
+         [-1.4930,  1.0943, -2.0135],
+         [-1.4930,  1.0943, -2.0135],
+         [-1.4930,  1.0943, -2.0135]],
 
-        [[ 0.6941,  0.1440, -0.4423],
-         [ 0.1010, -0.0038,  1.2674],
-         [-0.0197, -0.8341, -1.6839],
-         [ 1.1719,  0.9504,  0.6717],
-         [-0.4452,  1.4763,  1.7452],
-         [ 0.2733, -0.1610,  0.2069],
-         [-1.1411, -1.1746,  0.7640],
-         [ 0.4177,  0.0844, -0.2095],
-         [ 0.7863,  0.3566,  1.4629],
-         [ 1.3301, -1.9364,  0.2304]]], grad_fn=&lt;EmbeddingBackward0&gt;)
+        [[-0.5203, -0.1618,  1.1561],
+         [ 0.4259, -1.4042, -0.0132],
+         [-0.2340, -0.5839, -0.6909],
+         [-1.4637, -0.5112,  0.4132],
+         [-0.1768, -0.6902, -0.5625],
+         [ 0.6028, -0.0063, -0.2933],
+         [-0.5190, -0.6476, -0.2988],
+         [ 0.3882, -2.2415, -0.6846],
+         [-0.2044,  0.2900,  0.1939],
+         [ 0.5053, -0.3499, -0.9881]]], grad_fn=&lt;EmbeddingBackward0&gt;)
 Embedding Layer output shape: torch.Size([2, 10, 3])
 </pre></div>
 </div>
@@ -758,34 +758,34 @@ v_L
  [0.9 1.  1.1 1.2]]
 
 Query Matrix (Q):
- [[0.60250161 0.36674995 0.24640393 0.72423492]
- [1.61766817 0.91837104 0.79321915 1.83483311]
- [2.63283473 1.46999213 1.34003437 2.9454313 ]]
+ [[0.53347836 0.27715543 0.66731099 0.57934004]
+ [1.23817608 0.76681887 1.75295159 1.50164135]
+ [1.94287379 1.2564823  2.83859219 2.42394267]]
 
 Key Matrix (K):
- [[0.51281894 0.30184433 0.42777485 0.60629524]
- [1.14065916 0.81977213 1.15239387 1.68271565]
- [1.76849938 1.33769993 1.87701289 2.75913606]]
+ [[0.25299281 0.46047254 0.42366925 0.62252355]
+ [0.86344061 1.07663492 1.17315066 1.46137659]
+ [1.47388841 1.6927973  1.92263208 2.30022962]]
 
 Value Matrix (V):
- [[0.20271158 0.36559833 0.7271484  0.62311081]
- [0.71714923 1.06823392 1.86490504 1.73165121]
- [1.23158687 1.7708695  3.00266168 2.84019162]]
+ [[0.71686614 0.48664897 0.51774474 0.36683614]
+ [1.83740465 1.25044093 1.36988635 1.00871034]
+ [2.95794316 2.01423289 2.22202796 1.65058454]]
 
 Attention Logits (Q K^T / sqrt(d_k)):
- [[0.48209061 1.24526809 2.00844556]
- [1.27927287 3.29983314 5.3203934 ]
- [2.07645514 5.35439819 8.63234123]]
+ [[0.45298031 1.1942562  1.93553209]
+ [1.17191374 3.07280766 4.97370158]
+ [1.89084716 4.95135911 8.01187107]]
 
 Attention Weights (Softmax of Logits):
- [[0.1290913  0.27691134 0.59399736]
- [0.0152829  0.11527204 0.86944506]
- [0.00136819 0.03628596 0.96234585]]
+ [[0.13328391 0.27971113 0.58700496]
+ [0.0190574  0.12752973 0.85341287]
+ [0.0020935  0.04467209 0.95323441]]
 
 Output Z (Weighted Sum of Values):
- [[0.9563144  1.39489346 2.39385499 2.24701836]
- [1.1565624  1.66839865 2.83673371 2.67852448]
- [1.21151232 1.74345102 2.95826376 2.79693378]]
+ [[2.34581656 1.59698943 1.75652094 1.29994218]
+ [2.77233207 1.88771493 2.08087536 1.54426159]
+ [2.90319467 1.97691471 2.1803931  1.61922315]]
 </pre></div>
 </div>
 </div>
@@ -898,24 +898,24 @@ Z_\text{masked}  \in  \mathbb{R}^{L \times d_v}
  [0.9 1.  1.1 1.2]]
 
 Query Matrix (Q):
- [[0.70903804 0.49568832 0.8137792  0.35079152]
- [1.70179318 1.32530912 2.00462305 0.93849637]
- [2.69454831 2.15492991 3.19546689 1.52620123]]
+ [[0.40681885 0.67351456 0.54536208 0.40241099]
+ [1.26264317 1.87904402 1.23194717 1.11728042]
+ [2.1184675  3.08457347 1.91853226 1.83214984]]
 
 Key Matrix (K):
- [[0.71990295 0.50047871 0.51495844 0.64981291]
- [1.84607246 1.30017933 1.43696213 1.77917627]
- [2.97224197 2.09987994 2.35896583 2.90853962]]
+ [[0.21216995 0.1847136  0.65009458 0.69214268]
+ [0.60212113 0.6539137  1.63990299 1.55899753]
+ [0.99207231 1.12311379 2.62971141 2.42585238]]
 
 Value Matrix (V):
- [[0.68039705 0.51087528 0.19946785 0.19847332]
- [1.83037467 1.38248491 0.5141459  0.63733349]
- [2.98035228 2.25409455 0.82882395 1.07619365]]
+ [[0.13417439 0.42064507 0.2735804  0.41325233]
+ [0.34031497 1.18195098 0.83348587 1.03225912]
+ [0.54645556 1.94325689 1.39339134 1.65126591]]
 
 Attention Logits (Q K^T / sqrt(d_k)):
- [[ 0.70276568  1.87345457  3.04414347]
- [ 1.76527976  4.70754545  7.64981114]
- [ 2.82779385  7.54163633 12.2554788 ]]
+ [[0.42189239 1.10353663 1.78518087]
+ [1.09458978 2.87555401 4.65651823]
+ [1.76728717 4.64757138 7.52785559]]
 
 Mask (1=keep, 0=mask):
  [[1. 0. 0.]
@@ -923,19 +923,19 @@ Mask (1=keep, 0=mask):
  [1. 1. 1.]]
 
 Masked Attention Logits:
- [[ 7.02765675e-01 -1.00000000e+09 -1.00000000e+09]
- [ 1.76527976e+00  4.70754545e+00 -1.00000000e+09]
- [ 2.82779385e+00  7.54163633e+00  1.22554788e+01]]
+ [[ 4.21892392e-01 -1.00000000e+09 -1.00000000e+09]
+ [ 1.09458978e+00  2.87555401e+00 -1.00000000e+09]
+ [ 1.76728717e+00  4.64757138e+00  7.52785559e+00]]
 
 Attention Weights (Softmax of Masked Logits):
- [[1.00000000e+00 0.00000000e+00 0.00000000e+00]
- [5.01033324e-02 9.49896668e-01 0.00000000e+00]
- [7.97435302e-05 8.88978449e-03 9.91030472e-01]]
+ [[1.         0.         0.        ]
+ [0.14418411 0.85581589 0.        ]
+ [0.00297311 0.05297885 0.94404804]]
 
 Output Z (Weighted Sum of Values):
- [[0.68039705 0.51087528 0.19946785 0.19847332]
- [1.77275695 1.33881437 0.49837948 0.61534513]
- [2.96994583 2.24620712 0.82597634 1.07222229]]
+ [[0.13417439 0.42064507 0.2735804  0.41325233]
+ [0.31059278 1.07218276 0.7527564  0.94300817]
+ [0.53430871 1.89839688 1.36039887 1.61479089]]
 </pre></div>
 </div>
 </div>
@@ -1510,7 +1510,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0b35f77ae3924dbb9f2c6503398131fd", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "945b36647ab742479b924f324768f9cf", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "84be6f9b76e147338e9a59cb95274107", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "801422033f4548bda4969d0cdb9358f8", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f2f05f1d2c784de4a4b24debccb50f9b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "3298d7e18cd14fadb8c6cc8f592c93da", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "06f48ec22068432c9e5ccf5c8a9c0b64", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "97fca3f83d5042c5b30ab7b96eace5ab", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="model-parameters-and-loading">
@@ -1907,7 +1907,6 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 
         <span class="n">total_loss</span> <span class="o">=</span> <span class="n">total_loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
         <span class="n">eval_losses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">total_loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">update_step</span><span class="p">))</span>
-            
     
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Eval Step </span><span class="si">{</span><span class="n">update_step</span><span class="si">}</span><span class="s2">] Loss: </span><span class="si">{</span><span class="n">total_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, PPL: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">total_loss</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Eval tokens </span><span class="si">{</span><span class="n">evaluated_on_tokens</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">)</span>
 
@@ -1919,70 +1918,76 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 0/5000 | loss: 10.994383811950684
-Update step: 100/5000 | loss: 7.435319423675537
-Update step: 200/5000 | loss: 6.517599582672119
-Update step: 300/5000 | loss: 6.231418132781982
-Update step: 400/5000 | loss: 5.811738014221191
-Update step: 500/5000 | loss: 5.649332046508789
-Update step: 600/5000 | loss: 5.2958879470825195
-Update step: 700/5000 | loss: 5.111880302429199
-Update step: 800/5000 | loss: 4.908886909484863
-Update step: 900/5000 | loss: 4.83159065246582
-[Eval Step 1000] Loss: 4.6987, PPL: 109.81, Eval tokens 1002149
-Update step: 1000/5000 | loss: 4.576042652130127
-Update step: 1100/5000 | loss: 4.5741047859191895
-Update step: 1200/5000 | loss: 4.512861728668213
-Update step: 1300/5000 | loss: 4.513453960418701
-Update step: 1400/5000 | loss: 4.465023040771484
-Update step: 1500/5000 | loss: 4.391408920288086
-Update step: 1600/5000 | loss: 4.33909797668457
-Update step: 1700/5000 | loss: 4.264087677001953
-Update step: 1800/5000 | loss: 4.145863056182861
-Update step: 1900/5000 | loss: 4.156435966491699
-[Eval Step 2000] Loss: 4.1987, PPL: 66.60, Eval tokens 1002149
-Update step: 2000/5000 | loss: 4.319227695465088
-Update step: 2100/5000 | loss: 4.0493035316467285
-Update step: 2200/5000 | loss: 4.043957233428955
-Update step: 2300/5000 | loss: 4.287087917327881
-Update step: 2400/5000 | loss: 4.249317646026611
-Update step: 2500/5000 | loss: 4.114783763885498
-Update step: 2600/5000 | loss: 3.8443987369537354
-Update step: 2700/5000 | loss: 4.0508131980896
-Update step: 2800/5000 | loss: 4.0023722648620605
-Update step: 2900/5000 | loss: 3.6896564960479736
-[Eval Step 3000] Loss: 3.9704, PPL: 53.00, Eval tokens 1002149
-Update step: 3000/5000 | loss: 3.9380502700805664
-Update step: 3100/5000 | loss: 4.038853168487549
-Update step: 3200/5000 | loss: 3.8953123092651367
-Update step: 3300/5000 | loss: 3.875169038772583
-Update step: 3400/5000 | loss: 4.029504776000977
-Update step: 3500/5000 | loss: 3.8752076625823975
-Update step: 3600/5000 | loss: 3.8427069187164307
-Update step: 3700/5000 | loss: 3.905010938644409
-Update step: 3800/5000 | loss: 4.018843173980713
-Update step: 3900/5000 | loss: 3.7683029174804688
-[Eval Step 4000] Loss: 3.8168, PPL: 45.46, Eval tokens 1002149
-Update step: 4000/5000 | loss: 3.9677164554595947
-Update step: 4100/5000 | loss: 3.695934534072876
-Update step: 4200/5000 | loss: 3.8809094429016113
-Update step: 4300/5000 | loss: 3.899531841278076
-Update step: 4400/5000 | loss: 3.7091481685638428
-Update step: 4500/5000 | loss: 3.900308132171631
-Update step: 4600/5000 | loss: 3.7744944095611572
-Update step: 4700/5000 | loss: 3.800339460372925
-Update step: 4800/5000 | loss: 3.7875709533691406
-Update step: 4900/5000 | loss: 3.6415772438049316
-[Eval Step 5000] Loss: 3.7639, PPL: 43.12, Eval tokens 1002149
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 0/5000 | loss: 10.952651023864746
+Update step: 100/5000 | loss: 7.476326942443848
+Update step: 200/5000 | loss: 6.552395343780518
+Update step: 300/5000 | loss: 6.281008243560791
+Update step: 400/5000 | loss: 5.8591413497924805
+Update step: 500/5000 | loss: 5.669686317443848
+Update step: 600/5000 | loss: 5.336837291717529
+Update step: 700/5000 | loss: 5.1455979347229
+Update step: 800/5000 | loss: 4.938043117523193
+Update step: 900/5000 | loss: 4.867392539978027
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-15 02:54:45.890</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;cell line: 41&gt;</span>:<span class=" -Color -Color-Cyan">45</span> - <span class=" -Color -Color-Bold">Reached max number of update steps (f5000). Stopping training.</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/users/3/glent007/.conda/envs/pretrain/lib/python3.9/site-packages/torch/_inductor/compile_fx.py:150: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision(&#39;high&#39;)` for better performance.
+  warnings.warn(
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Update step: 5000/5000 | loss: 3.789992332458496
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Eval Step 1000] Loss: 4.7168, PPL: 111.81, Eval tokens 1002149
+Update step: 1000/5000 | loss: 4.580242156982422
+Update step: 1100/5000 | loss: 4.6037421226501465
+Update step: 1200/5000 | loss: 4.505423545837402
+Update step: 1300/5000 | loss: 4.5377726554870605
+Update step: 1400/5000 | loss: 4.495709419250488
+Update step: 1500/5000 | loss: 4.415157318115234
+Update step: 1600/5000 | loss: 4.35715913772583
+Update step: 1700/5000 | loss: 4.266164302825928
+Update step: 1800/5000 | loss: 4.152810573577881
+Update step: 1900/5000 | loss: 4.162186622619629
+[Eval Step 2000] Loss: 4.2067, PPL: 67.13, Eval tokens 1002149
+Update step: 2000/5000 | loss: 4.339847564697266
+Update step: 2100/5000 | loss: 4.061264991760254
+Update step: 2200/5000 | loss: 4.050267219543457
+Update step: 2300/5000 | loss: 4.3048996925354
+Update step: 2400/5000 | loss: 4.263776779174805
+Update step: 2500/5000 | loss: 4.136542320251465
+Update step: 2600/5000 | loss: 3.8340630531311035
+Update step: 2700/5000 | loss: 4.06512451171875
+Update step: 2800/5000 | loss: 4.01227331161499
+Update step: 2900/5000 | loss: 3.698397159576416
+[Eval Step 3000] Loss: 3.9774, PPL: 53.38, Eval tokens 1002149
+Update step: 3000/5000 | loss: 3.9442801475524902
+Update step: 3100/5000 | loss: 4.044785499572754
+Update step: 3200/5000 | loss: 3.902740478515625
+Update step: 3300/5000 | loss: 3.8698809146881104
+Update step: 3400/5000 | loss: 4.043209075927734
+Update step: 3500/5000 | loss: 3.8836166858673096
+Update step: 3600/5000 | loss: 3.841282844543457
+Update step: 3700/5000 | loss: 3.9159064292907715
+Update step: 3800/5000 | loss: 4.0341081619262695
+Update step: 3900/5000 | loss: 3.780771017074585
+[Eval Step 4000] Loss: 3.8240, PPL: 45.78, Eval tokens 1002149
+Update step: 4000/5000 | loss: 3.9799275398254395
+Update step: 4100/5000 | loss: 3.6987831592559814
+Update step: 4200/5000 | loss: 3.8864691257476807
+Update step: 4300/5000 | loss: 3.8983962535858154
+Update step: 4400/5000 | loss: 3.72361159324646
+Update step: 4500/5000 | loss: 3.9271936416625977
+Update step: 4600/5000 | loss: 3.7813913822174072
+Update step: 4700/5000 | loss: 3.794313907623291
+Update step: 4800/5000 | loss: 3.8042850494384766
+Update step: 4900/5000 | loss: 3.6387569904327393
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-15 02:54:46.213</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;cell line: 96&gt;</span>:<span class=" -Color -Color-Cyan">96</span> - <span class=" -Color -Color-Bold">Training finished</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-16 21:13:54.063</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;module&gt;</span>:<span class=" -Color -Color-Cyan">44</span> - <span class=" -Color -Color-Bold">Reached max number of update steps (f5000). Stopping training.</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Eval Step 5000] Loss: 3.7710, PPL: 43.42, Eval tokens 1002149
+Update step: 5000/5000 | loss: 3.786674737930298
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2025-11-16 21:13:54.353</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">__main__</span>:<span class=" -Color -Color-Cyan">&lt;module&gt;</span>:<span class=" -Color -Color-Cyan">95</span> - <span class=" -Color -Color-Bold">Training finished</span>
 </pre></div>
 </div>
 </div>
@@ -1994,7 +1999,7 @@ Update step: 4900/5000 | loss: 3.6415772438049316
 <span class="n">losses_</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">losses</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses_</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;step x gradient accumulation&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Update step&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -2002,15 +2007,15 @@ Update step: 4900/5000 | loss: 3.6415772438049316
 <span class="n">eval_steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">eval_losses</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eval_steps</span><span class="p">,</span> <span class="n">eval_losses_</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Update step&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2e84c6eb35d75c5780d7fba09e6d8b1a254754a8bd52d4704f8f9789f213cfed.png" src="../../_images/2e84c6eb35d75c5780d7fba09e6d8b1a254754a8bd52d4704f8f9789f213cfed.png" />
-<img alt="../../_images/154128b1554adae15cc348598bfe840149cd1d6a0632e978e289429a3e1e063f.png" src="../../_images/154128b1554adae15cc348598bfe840149cd1d6a0632e978e289429a3e1e063f.png" />
+<img alt="../../_images/08822657c9f51f430a2c7191f29c72b8629b4dc49cefad6148a48cc8a1e90a6f.png" src="../../_images/08822657c9f51f430a2c7191f29c72b8629b4dc49cefad6148a48cc8a1e90a6f.png" />
+<img alt="../../_images/0eadeb016b388aba6c4adfac55118d67a067475819d72a4557127cac4166dd72.png" src="../../_images/0eadeb016b388aba6c4adfac55118d67a067475819d72a4557127cac4166dd72.png" />
 </div>
 </div>
 </section>
