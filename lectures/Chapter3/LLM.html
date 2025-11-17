@@ -396,6 +396,7 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span>
 </pre></div>
 </div>
 </div>
@@ -489,27 +490,27 @@ Attention Mask:
  tensor([[  464,  3797,  3332,   319,   262,  2603, 50256, 50256, 50256, 50256],
         [   32,  2068,  7586, 21831, 18045,   625,   262, 16931,  3290,     0]])
 Embedding vectors:
- tensor([[[-0.4164, -1.5847, -0.0935],
-         [-0.5062, -0.6840,  1.3727],
-         [-0.3711, -0.3681, -0.1439],
-         [ 0.2766,  1.5376,  0.6383],
-         [-0.4157,  1.2191,  0.8738],
-         [ 0.7730,  1.0508, -2.1609],
-         [-2.1011, -1.1915, -0.5690],
-         [-2.1011, -1.1915, -0.5690],
-         [-2.1011, -1.1915, -0.5690],
-         [-2.1011, -1.1915, -0.5690]],
+ tensor([[[-0.2269, -1.3154, -0.8781],
+         [ 0.4097,  0.7299, -1.2866],
+         [-2.0804,  0.2751, -0.4685],
+         [ 1.0650,  1.2453, -0.8493],
+         [-1.1411, -1.1746,  0.7640],
+         [ 0.8388,  0.1431,  2.1709],
+         [ 0.5737,  0.2327, -1.0295],
+         [ 0.5737,  0.2327, -1.0295],
+         [ 0.5737,  0.2327, -1.0295],
+         [ 0.5737,  0.2327, -1.0295]],
 
-        [[-0.1665, -2.4668, -0.0832],
-         [-2.3755, -2.0561, -1.6784],
-         [-0.4130, -0.3469, -0.2332],
-         [ 1.5042,  0.2899, -1.3644],
-         [-0.1906,  0.9747,  0.1134],
-         [ 0.6153,  0.2227,  0.6732],
-         [-0.4157,  1.2191,  0.8738],
-         [-1.1751,  0.6244, -0.2968],
-         [-1.3181,  0.5104,  0.1781],
-         [-0.0822,  0.3074, -1.7683]]], grad_fn=&lt;EmbeddingBackward0&gt;)
+        [[ 0.6941,  0.1440, -0.4423],
+         [ 0.1010, -0.0038,  1.2674],
+         [-0.0197, -0.8341, -1.6839],
+         [ 1.1719,  0.9504,  0.6717],
+         [-0.4452,  1.4763,  1.7452],
+         [ 0.2733, -0.1610,  0.2069],
+         [-1.1411, -1.1746,  0.7640],
+         [ 0.4177,  0.0844, -0.2095],
+         [ 0.7863,  0.3566,  1.4629],
+         [ 1.3301, -1.9364,  0.2304]]], grad_fn=&lt;EmbeddingBackward0&gt;)
 Embedding Layer output shape: torch.Size([2, 10, 3])
 </pre></div>
 </div>
@@ -757,34 +758,34 @@ v_L
  [0.9 1.  1.1 1.2]]
 
 Query Matrix (Q):
- [[0.47936569 0.47431097 0.53658004 0.58413783]
- [1.34409511 1.03131028 1.42398417 1.56427499]
- [2.20882453 1.58830958 2.3113883  2.54441215]]
+ [[0.60250161 0.36674995 0.24640393 0.72423492]
+ [1.61766817 0.91837104 0.79321915 1.83483311]
+ [2.63283473 1.46999213 1.34003437 2.9454313 ]]
 
 Key Matrix (K):
- [[0.44987406 0.25516474 0.8225177  0.26225417]
- [1.03988204 0.71455583 2.02895422 0.6656076 ]
- [1.62989002 1.17394692 3.23539074 1.06896104]]
+ [[0.51281894 0.30184433 0.42777485 0.60629524]
+ [1.14065916 0.81977213 1.15239387 1.68271565]
+ [1.76849938 1.33769993 1.87701289 2.75913606]]
 
 Value Matrix (V):
- [[0.49025521 0.74982885 0.24025407 0.59306227]
- [1.27040796 1.92023586 0.77132684 1.44299896]
- [2.05056071 3.09064286 1.30239961 2.29293564]]
+ [[0.20271158 0.36559833 0.7271484  0.62311081]
+ [0.71714923 1.06823392 1.86490504 1.73165121]
+ [1.23158687 1.7708695  3.00266168 2.84019162]]
 
 Attention Logits (Q K^T / sqrt(d_k)):
- [[0.46561039 1.15745418 1.84929797]
- [1.22465868 3.03251058 4.84036247]
- [1.98370697 4.90756697 7.83142697]]
+ [[0.48209061 1.24526809 2.00844556]
+ [1.27927287 3.29983314 5.3203934 ]
+ [2.07645514 5.35439819 8.63234123]]
 
 Attention Weights (Softmax of Logits):
- [[0.14312332 0.2858738  0.57100288]
- [0.02258619 0.1377156  0.83969821]
- [0.00273182 0.05084732 0.94642087]]
+ [[0.1290913  0.27691134 0.59399736]
+ [0.0152829  0.11527204 0.86944506]
+ [0.00136819 0.03628596 0.96234585]]
 
 Output Z (Weighted Sum of Values):
- [[1.60421937 2.42102908 0.99856202 1.80666948]
- [1.90788015 2.87658949 1.20527278 2.13749244]
- [2.00662957 3.02473613 1.2724944  2.2450749 ]]
+ [[0.9563144  1.39489346 2.39385499 2.24701836]
+ [1.1565624  1.66839865 2.83673371 2.67852448]
+ [1.21151232 1.74345102 2.95826376 2.79693378]]
 </pre></div>
 </div>
 </div>
@@ -897,24 +898,24 @@ Z_\text{masked}  \in  \mathbb{R}^{L \times d_v}
  [0.9 1.  1.1 1.2]]
 
 Query Matrix (Q):
- [[0.66207644 0.36188542 0.58317426 0.44210761]
- [1.66887824 0.92135278 1.49270796 1.2735353 ]
- [2.67568005 1.48082014 2.40224167 2.10496298]]
+ [[0.70903804 0.49568832 0.8137792  0.35079152]
+ [1.70179318 1.32530912 2.00462305 0.93849637]
+ [2.69454831 2.15492991 3.19546689 1.52620123]]
 
 Key Matrix (K):
- [[0.41098752 0.45764532 0.17125093 0.39267896]
- [1.1627092  1.0582795  0.58009062 1.11117012]
- [1.91443089 1.65891368 0.98893031 1.82966128]]
+ [[0.71990295 0.50047871 0.51495844 0.64981291]
+ [1.84607246 1.30017933 1.43696213 1.77917627]
+ [2.97224197 2.09987994 2.35896583 2.90853962]]
 
 Value Matrix (V):
- [[0.56351854 0.41783206 0.5191325  0.45421445]
- [1.61356368 1.18861948 1.0962039  1.0673341 ]
- [2.66360883 1.9594069  1.67327531 1.68045375]]
+ [[0.68039705 0.51087528 0.19946785 0.19847332]
+ [1.83037467 1.38248491 0.5141459  0.63733349]
+ [2.98035228 2.25409455 0.82882395 1.07619365]]
 
 Attention Logits (Q K^T / sqrt(d_k)):
- [[0.3555979  0.99116449 1.62673107]
- [0.93162952 2.59824455 4.26485958]
- [1.50766114 4.20532462 6.90298809]]
+ [[ 0.70276568  1.87345457  3.04414347]
+ [ 1.76527976  4.70754545  7.64981114]
+ [ 2.82779385  7.54163633 12.2554788 ]]
 
 Mask (1=keep, 0=mask):
  [[1. 0. 0.]
@@ -922,19 +923,19 @@ Mask (1=keep, 0=mask):
  [1. 1. 1.]]
 
 Masked Attention Logits:
- [[ 3.55597904e-01 -1.00000000e+09 -1.00000000e+09]
- [ 9.31629523e-01  2.59824455e+00 -1.00000000e+09]
- [ 1.50766114e+00  4.20532462e+00  6.90298809e+00]]
+ [[ 7.02765675e-01 -1.00000000e+09 -1.00000000e+09]
+ [ 1.76527976e+00  4.70754545e+00 -1.00000000e+09]
+ [ 2.82779385e+00  7.54163633e+00  1.22554788e+01]]
 
 Attention Weights (Softmax of Masked Logits):
- [[1.         0.         0.        ]
- [0.15887601 0.84112399 0.        ]
- [0.00423336 0.0628442  0.93292245]]
+ [[1.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [5.01033324e-02 9.49896668e-01 0.00000000e+00]
+ [7.97435302e-05 8.88978449e-03 9.91030472e-01]]
 
 Output Z (Weighted Sum of Values):
- [[0.56351854 0.41783206 0.5191325  0.45421445]
- [1.4467367  1.06615985 1.0045211  0.9699241 ]
- [2.58872915 1.90444135 1.63212382 1.63673163]]
+ [[0.68039705 0.51087528 0.19946785 0.19847332]
+ [1.77275695 1.33881437 0.49837948 0.61534513]
+ [2.96994583 2.24620712 0.82597634 1.07222229]]
 </pre></div>
 </div>
 </div>
@@ -1509,7 +1510,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "64df802eec5540638a40331accf9c1cf", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "20deb424d7e645a0bb94cd8254b37234", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f1e2be25e14a4da4b395bc5f23cb4ab8", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f65acb3077ff4223a47ff56eec6650a0", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0b35f77ae3924dbb9f2c6503398131fd", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "945b36647ab742479b924f324768f9cf", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "84be6f9b76e147338e9a59cb95274107", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "801422033f4548bda4969d0cdb9358f8", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="model-parameters-and-loading">
@@ -1548,7 +1549,13 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </section>
 <section id="optimizer-and-lr-scheduler">
 <h3><span class="section-number">3.3.4. </span>Optimizer and LR scheduler<a class="headerlink" href="#optimizer-and-lr-scheduler" title="Link to this heading">#</a></h3>
-<p>Bellow we define the standard Adam optimizer and a learning rate scheduler that consists of a linear warmup and a cosine decay phase.</p>
+<p>Bellow we define the standard Adam optimizer class (code based on transformers.optimization library) and a learning rate scheduler that consists of a linear warmup and a cosine decay phase.</p>
+<p>Note that ee define the optimizer class here so it can serve as a foundation for creating other optimizer classes. Alternatively, you could use a predefined optimizer, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">trainable_params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
 <p>We encourage experimenting with different optimizers and learning rate schedules. You can implement your own or try existing ones, for example from:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.pytorch.org/docs/stable/optim.html">https://docs.pytorch.org/docs/stable/optim.html</a></p></li>
@@ -1556,10 +1563,114 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
-            <span class="n">trainable_params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span>
-        <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Adam</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements Adam algorithm with weight decay fix as introduced in [Decoupled Weight Decay</span>
+<span class="sd">    Regularization](https://arxiv.org/abs/1711.05101).</span>
 
+<span class="sd">    Parameters:</span>
+<span class="sd">        params (`Iterable[nn.parameter.Parameter]`):</span>
+<span class="sd">            Iterable of parameters to optimize or dictionaries defining parameter groups.</span>
+<span class="sd">        lr (`float`, *optional*, defaults to 0.001):</span>
+<span class="sd">            The learning rate to use.</span>
+<span class="sd">        betas (`Tuple[float,float]`, *optional*, defaults to `(0.9, 0.999)`):</span>
+<span class="sd">            Adam&#39;s betas parameters (b1, b2).</span>
+<span class="sd">        eps (`float`, *optional*, defaults to 1e-06):</span>
+<span class="sd">            Adam&#39;s epsilon for numerical stability.</span>
+<span class="sd">        weight_decay (`float`, *optional*, defaults to 0.0):</span>
+<span class="sd">            Decoupled weight decay to apply.</span>
+<span class="sd">        correct_bias (`bool`, *optional*, defaults to `True`):</span>
+<span class="sd">            Whether or not to correct bias in Adam (for instance, in Bert TF repository they use `False`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">Parameter</span><span class="p">],</span>
+        <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+        <span class="n">betas</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span>
+        <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
+        <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">correct_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">lr</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid learning rate: </span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s2"> - should be &gt;= 0.0&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">betas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid beta parameter: </span><span class="si">{</span><span class="n">betas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> - should be in [0.0, 1.0)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid beta parameter: </span><span class="si">{</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> - should be in [0.0, 1.0)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">eps</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid epsilon value: </span><span class="si">{</span><span class="n">eps</span><span class="si">}</span><span class="s2"> - should be &gt;= 0.0&quot;</span><span class="p">)</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;betas&quot;</span><span class="p">:</span> <span class="n">betas</span><span class="p">,</span> <span class="s2">&quot;eps&quot;</span><span class="p">:</span> <span class="n">eps</span><span class="p">,</span> <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="n">weight_decay</span><span class="p">,</span> <span class="s2">&quot;correct_bias&quot;</span><span class="p">:</span> <span class="n">correct_bias</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
+        
+        
+    <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">closure</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs a single optimization step.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            closure (`Callable`, *optional*): A closure that reevaluates the model and returns the loss.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">closure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">grad</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span>
+
+                <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="s2">&quot;step&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="p">:</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        
+                <span class="c1"># State initialization</span>
+                <span class="k">if</span> <span class="s2">&quot;exp_avg&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="p">:</span>
+                    <span class="c1"># Exponential moving average of gradient values</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;exp_avg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+                    <span class="c1"># Exponential moving average of squared gradient values</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;exp_avg_sq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+
+                <span class="n">exp_avg</span><span class="p">,</span> <span class="n">exp_avg_sq</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;exp_avg&quot;</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;exp_avg_sq&quot;</span><span class="p">]</span>
+                <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;betas&quot;</span><span class="p">]</span>
+
+                <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># Decay the first and second moment running average coefficient</span>
+                <span class="c1"># In-place operations to update the averages at the same time</span>
+                <span class="n">exp_avg</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">beta1</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">beta1</span><span class="p">))</span>
+                <span class="n">exp_avg_sq</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">beta2</span><span class="p">)</span><span class="o">.</span><span class="n">addcmul_</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">beta2</span><span class="p">)</span>
+                <span class="n">denom</span> <span class="o">=</span> <span class="n">exp_avg_sq</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">])</span>
+
+                <span class="n">step_size</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;correct_bias&quot;</span><span class="p">]:</span>
+                    <span class="n">bias_correction1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">beta1</span> <span class="o">**</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span>
+                    <span class="n">bias_correction2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">beta2</span> <span class="o">**</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span>
+                    <span class="n">step_size</span> <span class="o">=</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">bias_correction2</span><span class="p">)</span> <span class="o">/</span> <span class="n">bias_correction1</span>
+
+                <span class="c1"># Adam update</span>
+                <span class="n">u</span> <span class="o">=</span> <span class="n">exp_avg</span> <span class="o">/</span> <span class="n">denom</span>
+                
+                <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=-</span><span class="n">step_size</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;weight_decay&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;weight_decay&quot;</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="n">loss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># optimizer using our Adam class defined above</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">trainable_params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
+
+<span class="c1"># learning rate scheduler</span>
 <span class="n">scheduler</span> <span class="o">=</span> <span class="n">get_cosine_schedule_with_warmup</span><span class="p">(</span>
     <span class="n">optimizer</span><span class="p">,</span>
     <span class="n">num_warmup_steps</span><span class="o">=</span><span class="n">warmup_steps</span><span class="p">,</span>
@@ -1768,13 +1879,13 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">autocast</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">):</span> <span class="c1"># Automatic mixed precision</span>
         <span class="n">logits</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
         <span class="n">scaled_loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">/</span> <span class="n">gradient_accumulation</span>
-        
-    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">update_step</span><span class="p">))</span>
-        
+ 
     <span class="n">scaled_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">global_step</span> <span class="o">%</span> <span class="n">gradient_accumulation</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">continue</span>
+
+    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">update_step</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">update_step</span> <span class="o">%</span> <span class="n">print_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Update step: </span><span class="si">{</span><span class="n">update_step</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_training_steps</span><span class="si">}</span><span class="s2"> | loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
