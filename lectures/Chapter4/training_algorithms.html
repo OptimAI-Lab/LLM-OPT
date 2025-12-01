@@ -590,7 +590,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p class="admonition-title"><span class="caption-number">Algorithm 4.2 </span> (AdaGrad)</p>
 <section class="algorithm-content" id="proof-content">
 <ul class="simple">
-<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, learning rate sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t=0,1,2,..., T-1\)</span>,</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -626,7 +626,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p class="admonition-title"><span class="caption-number">Algorithm 4.3 </span> (RMSprop)</p>
 <section class="algorithm-content" id="proof-content">
 <ul class="simple">
-<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, learning rate sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t=0,1,2,..., T-1\)</span>,</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -702,7 +702,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <p class="admonition-title"><span class="caption-number">Algorithm 4.4 </span> (Adam)</p>
 <section class="algorithm-content" id="proof-content">
 <ul class="simple">
-<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>.</p></li>
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, learning rate sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t=0,1,2,..., T-1\)</span>,</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -726,12 +726,12 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <div class="math notranslate nohighlight" id="equation-eq-stoc-opt-weight-decay">
 <span class="eqno">(4.12)<a class="headerlink" href="#equation-eq-stoc-opt-weight-decay" title="Link to this equation">#</a></span>\[\min_{\vw}\ \ell(\vw) := \EE_{\xi\sim\mathcal{D}}[\ell(\vw,\xi)] + \frac{\lambda}{2} \|\vw\|^2\]</div>
 <p>and when taking the gradient, the stochastic gradient becomes <span class="math notranslate nohighlight">\(g^t=\nabla \ell(\vw^t,\xi_t) + \lambda\vw^t\)</span>. One can then conduct the full Adam update with this new stochastic gradient estimator.</p>
-<p>AdamW <span id="id7">[<a class="reference internal" href="../../references.html#id17" title="Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In International Conference on Learning Representations. 2019. URL: https://openreview.net/forum?id=Bkg6RiCqY7.">Loshchilov and Hutter, 2019</a>]</span> propose a different approach. Note that when you do the standard weight decay with <span class="math notranslate nohighlight">\(g^t=\nabla \ell(\vw^t,\xi_t) + \lambda\vw^t\)</span>, later in your Adam update, your <span class="math notranslate nohighlight">\(\hat{\vm}^t\)</span> and <span class="math notranslate nohighlight">\(\hat{\vv}^t\)</span> will both contain the weight decay term <span class="math notranslate nohighlight">\(\lambda\vw^t\)</span>. This is not ideal since <span class="math notranslate nohighlight">\(\hat{\vm}^t\)</span> and <span class="math notranslate nohighlight">\(\hat{\vv}^t\)</span> should be moving average estimates of gradient information. Therefore AdamW simply impose weight decay at the final update step (marked red):</p>
+<p>AdamW <span id="id7">[<a class="reference internal" href="../../references.html#id17" title="Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In International Conference on Learning Representations. 2019. URL: https://openreview.net/forum?id=Bkg6RiCqY7.">Loshchilov and Hutter, 2019</a>]</span> propose a different approach. Note that when you do the standard weight decay with <span class="math notranslate nohighlight">\(g^t=\nabla \ell(\vw^t,\xi_t) + \lambda\vw^t\)</span>, later in the Adam update, the EMAs <span class="math notranslate nohighlight">\(\hat{\vm}^t\)</span> and <span class="math notranslate nohighlight">\(\hat{\vv}^t\)</span> will both contain the weight decay term <span class="math notranslate nohighlight">\(\lambda\vw^t\)</span>. This is not ideal since <span class="math notranslate nohighlight">\(\hat{\vm}^t\)</span> and <span class="math notranslate nohighlight">\(\hat{\vv}^t\)</span> should be moving average estimates of gradient information. Therefore AdamW simply imposes weight decay at the final update step (marked red):</p>
 <div class="proof algorithm admonition" id="alg:adamw">
 <p class="admonition-title"><span class="caption-number">Algorithm 4.5 </span> (AdamW)</p>
 <section class="algorithm-content" id="proof-content">
 <ul class="simple">
-<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>, weight decay parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, learning rate sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>, weight decay parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t=0,1,2,..., T-1\)</span>,</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -747,7 +747,7 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
 </ul>
 </section>
-</div><p>This way the weight decay is completely decoupled from the EMA estimators <span class="math notranslate nohighlight">\(\hat{\vm}^t\)</span> and <span class="math notranslate nohighlight">\(\hat{\vv}^t\)</span>. AdamW (<a class="reference internal" href="#alg:adamw">Algorithm 4.5</a>) is the final complete version of the default optimizer that we are talking about.</p>
+</div><p>This way the weight decay is completely decoupled from the EMA estimators <span class="math notranslate nohighlight">\(\hat{\vm}^t\)</span> and <span class="math notranslate nohighlight">\(\hat{\vv}^t\)</span>. AdamW (<a class="reference internal" href="#alg:adamw">Algorithm 4.5</a>) is the final complete version of the default optimizer that we are talking about for LLM training.</p>
 </section>
 <section id="discussion-of-the-convergence-of-rmsprop-and-adam">
 <h2><span class="section-number">4.2.6. </span>Discussion of the convergence of RMSProp and Adam<a class="headerlink" href="#discussion-of-the-convergence-of-rmsprop-and-adam" title="Link to this heading">#</a></h2>
@@ -765,8 +765,8 @@ Batch size: 512, Raw: 0.833885, EMA: 0.627168
 <h2><span class="section-number">4.2.7. </span>Possible homeworks:<a class="headerlink" href="#possible-homeworks" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>implement sgd and sgd-momentum by hand, compare it with torch’s implementation. Maybe easier: add momentum based on sgd implemented by torch.</p></li>
-<li><p>write code (could use gpt and torch implementation) to test the memory cost by sgd and sgd momentum with different batchsizes, and figure out the maximum batchsize required to training a 1b model</p></li>
-<li><p>imagine each iteration has similar gradients (such as least-squares), what are the effective learning rates of AdaGrad, RMSProp and Adam?</p></li>
+<li><p>write code (could use gpt and torch implementation) to test the memory cost by sgd and sgd momentum with different batchsizes, and figure out the maximum batchsize allowed to training a 1b model (or smaller)</p></li>
+<li><p>imagine each iteration has similar gradients (such as least-squares), what are the effective learning rates (the magnitudes of the updates) of AdaGrad, RMSProp and Adam?</p></li>
 <li><p>for MNIST, implement AdaGrad, RMSProp and Adam and compare their performance. Do a hyperparameter search for optimal learning rates.</p></li>
 </ol>
 </section>

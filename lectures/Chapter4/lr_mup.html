@@ -340,9 +340,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lr-scheduler">4.4.1. lr scheduler</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mup-and-hyper-parameter-transfer">4.4.2. <span class="math notranslate nohighlight">\(\mu\)</span>P and hyper parameter transfer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infra-discussions-distributed-training">4.4.3. Infra discussions: distributed training</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-precision-training">4.4.4. Mixed precision training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mup-and-hyperparameter-transfer">4.4.2. <span class="math notranslate nohighlight">\(\mu\)</span>P and hyperparameter transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infra-discussions-distributed-training-mixed-precision-training-and-more">4.4.3. Infra discussions: distributed training, mixed precision training and more</a></li>
 </ul>
             </nav>
         </div>
@@ -364,7 +363,7 @@ document.write(`
 <p class="admonition-title"><span class="caption-number">Algorithm 4.9 </span> (AdamW)</p>
 <section class="algorithm-content" id="proof-content">
 <ul class="simple">
-<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, stepsize sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>, weight decay parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
+<li><p><strong>Input</strong>: initial point <span class="math notranslate nohighlight">\(\vw^0\)</span>, learning rate sequence <span class="math notranslate nohighlight">\(\{ \eta_t \}_{t \geq 0}\)</span>, max. no. of iterations <span class="math notranslate nohighlight">\(T\)</span>, momentum parameter <span class="math notranslate nohighlight">\((\beta_1,\beta_2)\)</span>, weight decay parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t=0,1,2,..., T-1\)</span>,</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -380,19 +379,128 @@ document.write(`
 <li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
 </ul>
 </section>
-</div><p>Constant schedule</p>
-<p>Linear and Cosine decay</p>
-<p>warmup</p>
-<p>WSD schedule and river-valley landscape</p>
+</div><p>You can see that we did not specify the choice of <span class="math notranslate nohighlight">\(\eta_t\)</span> for a given <span class="math notranslate nohighlight">\(t\)</span>. According to <a class="reference internal" href="sgd.html#thm:sgd-smooth">Theorem 4.1</a>, we need to take <span class="math notranslate nohighlight">\(\eta_t\leq 1/L\)</span>, where <span class="math notranslate nohighlight">\(L\)</span> is the Lipschitz constant of the gradient of the loss function. In the paragraph right after, we gave two concrete choices of <span class="math notranslate nohighlight">\(\eta_t=1/(\sqrt{t} L)\)</span> and <span class="math notranslate nohighlight">\(\eta_t=1/(\sqrt{T} L)\)</span>, which suggests that we take a <strong>diminishing</strong> learning rate: at the beginning the learning rate is large, then it gradually decrease to zero. Such a scheduler for the learning rate is usually called the learning rate (lr) schedule. Below, we will discuss several lr-schedules that people use in practice.</p>
+<p><strong>Constant schedule</strong>. The first is the constant scuedule, which simply takes the lr <span class="math notranslate nohighlight">\(\eta_t=\eta\)</span> being a constant. Ideally this constant should just be <span class="math notranslate nohighlight">\(1/(\sqrt{T} L)\)</span>. However in practice, it is highly un-preferred due to two reasons: First, constant learning rate will result in a less stable training, especially in the late stage of the training (imagine that we are already near optimal, where we have to be very cautious about our updates, but constant lr makes update as fast as the beginning of the training); Second, it is almost impossible to compute <span class="math notranslate nohighlight">\(L\)</span> for large models, leaving a huge computational burden for hyperparameter search.</p>
+<p><strong>Linear, Inverse-sqrt and Cosine decay</strong>. These three lr schedules are the most commonly used in practice. For linear schedule <span id="id1">[<a class="reference internal" href="../../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: pre-training of deep bidirectional transformers for language understanding. In Proceedings of the 2019 conference of the North American chapter of the association for computational linguistics: human language technologies, volume 1 (long and short papers), 4171–4186. 2019.">Devlin <em>et al.</em>, 2019</a>]</span>, the update is</p>
+<div class="math notranslate nohighlight">
+\[\eta_t = (1 - \frac{t}{T})\eta_0,\ \forall t=1,2,...,T\]</div>
+<p>where <span class="math notranslate nohighlight">\(\eta_0\)</span> is the initial (largest) lr. For inverse sqrt schedule <span id="id2">[<a class="reference internal" href="../../references.html#id26" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. Advances in neural information processing systems, 2017.">Vaswani <em>et al.</em>, 2017</a>]</span>, which we have already discussed in our theory, the update is:</p>
+<div class="math notranslate nohighlight">
+\[\eta_t = \eta_0/\sqrt{t},\ \forall t=1,2,...,T\]</div>
+<p>For cosine schedule <span id="id3">[<a class="reference internal" href="../../references.html#id24" title="Ilya Loshchilov and Frank Hutter. SGDR: stochastic gradient descent with warm restarts. In International Conference on Learning Representations. 2017. URL: https://openreview.net/forum?id=Skq89Scxx.">Loshchilov and Hutter, 2017</a>]</span>, the update is</p>
+<div class="math notranslate nohighlight">
+\[\eta_t = \frac{1}{2}\left[ 1+\cos(\pi \frac{t}{T}) \right]\eta_0,\ \forall t=1,2,...,T\]</div>
+<p>In practice, linear and cosine schedules are more popular, since they assign larger lr for the beginning stage of training and smaller lr for the late stage of training, thus make the training more stable in the late stage.</p>
+<p><strong>Warmup</strong>. Warmup is a quite useful notion for the beginning stage of the training, which is adaopted in literally all the mainstream model training. As we discussed, the lr should be small in the late stage of training to ensure stability. However for the very very early stage, say the first few hundred steps, the model is essentially just randomly initialized and the update is taking the model drastically toward fitting the initial data batches if we have very large learning rates. That’s to say, for the very beginning of the training, large learning rate could also harm the training. Therefore a remedy people widely adopt is to increase the lr quickly from zero to the maximum for the first few hundred iterations. Warmup can be easily combined with any lr schedule to form a “increase-then-decrease” schedule, for example, GPT-3 <span id="id4">[<a class="reference internal" href="../../references.html#id27" title="Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, and others. Language models are few-shot learners. Advances in neural information processing systems, 33:1877–1901, 2020.">Brown <em>et al.</em>, 2020</a>]</span> uses warmup-then-cosine-decay schedule in their model training.</p>
+<p><strong>WSD schedule and river-valley landscape</strong>. With warmup, a new type of lr schedule emerge, which is known as the “warmup-stable-decay” or WSD schedule. The notion is that the lr should be a constant after the warmup stage to boost the performance, then start to decay after say 50% of the training steps are consumed. Such a schedule is backed by the so-called “river-valley landscape” <span id="id5">[<a class="reference internal" href="../../references.html#id28" title="Kaiyue Wen, Zhiyuan Li, Jason S. Wang, David Leo Wright Hall, Percy Liang, and Tengyu Ma. Understanding warmup-stable-decay learning rates: a river valley loss landscape view. In The Thirteenth International Conference on Learning Representations. 2025. URL: https://openreview.net/forum?id=m51BgoqvbP.">Wen <em>et al.</em>, 2025</a>]</span>, indicating that the decay phase should be happening only at the later stage of the training to track the “river valley” shaped loss.</p>
+<p>Now, at the end of this subsection, we provide a simple python code showing the shape of different lr schedules.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">eta0</span> <span class="o">=</span> <span class="mf">1e-3</span>         <span class="c1"># base/max learning rate</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">100_000</span>         <span class="c1"># total iterations</span>
+<span class="n">warmup_frac</span> <span class="o">=</span> <span class="mf">0.02</span>  <span class="c1"># 2% warmup</span>
+<span class="n">stable_frac</span> <span class="o">=</span> <span class="mf">0.40</span>  <span class="c1"># WSD: 40% stable period after warmup</span>
+
+<span class="n">t_w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span> <span class="n">warmup_frac</span><span class="p">)</span>
+<span class="n">t_s</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span> <span class="n">stable_frac</span><span class="p">)</span>  <span class="c1"># end of stable region (for WSD)</span>
+
+<span class="c1"># --------------------------</span>
+<span class="c1"># LR SCHEDULE DEFINITIONS</span>
+<span class="c1"># --------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lr_linear</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Linear warmup, then linear decay to 0.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">t_w</span><span class="p">:</span>  <span class="c1"># warmup</span>
+        <span class="k">if</span> <span class="n">t_w</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">eta0</span>
+        <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">t_w</span>
+    <span class="c1"># linear decay from warmup to end</span>
+    <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">T</span> <span class="o">-</span> <span class="n">t_w</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lr_cosine</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Linear warmup, then cosine decay to 0.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">t_w</span><span class="p">:</span>  <span class="c1"># warmup</span>
+        <span class="k">if</span> <span class="n">t_w</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">eta0</span>
+        <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">t_w</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_w</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">T</span> <span class="o">-</span> <span class="n">t_w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lr_wsd</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Warmup -&gt; Stable -&gt; linear Decay.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">t_w</span><span class="p">:</span>  <span class="c1"># warmup</span>
+        <span class="k">if</span> <span class="n">t_w</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">eta0</span>
+        <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">t_w</span>
+    <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">t_s</span><span class="p">:</span>  <span class="c1"># stable phase</span>
+        <span class="k">return</span> <span class="n">eta0</span>
+    <span class="c1"># final decay (linear)</span>
+    <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">t_s</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">T</span> <span class="o">-</span> <span class="n">t_s</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lr_inv_sqrt</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Inverse-sqrt schedule with warmup.</span>
+
+<span class="sd">    Warmup:  LR(t) = eta0 * t / t_w</span>
+<span class="sd">    Decay:   LR(t) = eta0 * sqrt(t_w / t)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">t_w</span> <span class="ow">and</span> <span class="n">t_w</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">t_w</span>
+    <span class="c1"># inverse-sqrt decay after warmup</span>
+    <span class="k">return</span> <span class="n">eta0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">t_w</span> <span class="o">/</span> <span class="n">t</span><span class="p">)</span>
+
+
+<span class="c1"># --------------------------</span>
+<span class="c1"># GENERATE VALUES</span>
+<span class="c1"># --------------------------</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">linear_lrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lr_linear</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">])</span>
+<span class="n">cosine_lrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lr_cosine</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">])</span>
+<span class="n">wsd_lrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lr_wsd</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">])</span>
+<span class="n">inv_sqrt_lrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lr_inv_sqrt</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">])</span>
+
+<span class="c1"># --------------------------</span>
+<span class="c1"># PLOT</span>
+<span class="c1"># --------------------------</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">linear_lrs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Linear Decay&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">cosine_lrs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cosine Decay&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">wsd_lrs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;WSD (Warmup–Stable–Decay)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">inv_sqrt_lrs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Inverse-Sqrt Decay&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Learning Rate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Learning Rate Schedules: Linear, Cosine, WSD, Inverse-Sqrt&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3452c4c5c1c81b688bfbe6408b6868e96c5997bbeb8cfcb1934ed505e91b55ce.png" src="../../_images/3452c4c5c1c81b688bfbe6408b6868e96c5997bbeb8cfcb1934ed505e91b55ce.png" />
+</div>
+</div>
 </section>
-<section id="mup-and-hyper-parameter-transfer">
-<h2><span class="section-number">4.4.2. </span><span class="math notranslate nohighlight">\(\mu\)</span>P and hyper parameter transfer<a class="headerlink" href="#mup-and-hyper-parameter-transfer" title="Link to this heading">#</a></h2>
+<section id="mup-and-hyperparameter-transfer">
+<h2><span class="section-number">4.4.2. </span><span class="math notranslate nohighlight">\(\mu\)</span>P and hyperparameter transfer<a class="headerlink" href="#mup-and-hyperparameter-transfer" title="Link to this heading">#</a></h2>
+<p>Suppose you train a 1B model, searched for the learning rates, and find the optimal one. One simply yet very profound question is that: does this learning rate really carry over to larger models? Say if you want to train a 7B model, are you still able to reuse the same hyperparameter, or if they no longer work?</p>
+<p>Unfortunately, usually the optimal hyperparameters for one model would not be the optimal for the other. There are a lot of efforts of making these hyperparameter transferable <span id="id6">[<a class="reference internal" href="../../references.html#id29" title="Greg Yang, Edward J Hu, Igor Babuschkin, Szymon Sidor, Xiaodong Liu, David Farhi, Nick Ryder, Jakub Pachocki, Weizhu Chen, and Jianfeng Gao. Tensor programs v: tuning large neural networks via zero-shot hyperparameter transfer. arXiv preprint arXiv:2203.03466, 2022.">Yang <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../references.html#id30" title="Greg Yang, James B Simon, and Jeremy Bernstein. A spectral condition for feature learning. arXiv preprint arXiv:2310.17813, 2023.">Yang <em>et al.</em>, 2023</a>]</span>. Below we briefly describe the idea of <span class="math notranslate nohighlight">\(\mu\)</span>P (transferable learning rate) in <span id="id7">[<a class="reference internal" href="../../references.html#id30" title="Greg Yang, James B Simon, and Jeremy Bernstein. A spectral condition for feature learning. arXiv preprint arXiv:2310.17813, 2023.">Yang <em>et al.</em>, 2023</a>]</span>.</p>
+<p>For different model sizes and structures, the training could not use the same learning rate, mainly due to the fact that the dimension of the attention matrices (and other weight matrices) are different. If you use <span class="math notranslate nohighlight">\(\eta=0.001\)</span> for a <span class="math notranslate nohighlight">\(256\)</span> by <span class="math notranslate nohighlight">\(256\)</span> gradient matrix, you will need to scale it down for a <span class="math notranslate nohighlight">\(512\)</span> by <span class="math notranslate nohighlight">\(512\)</span> gradient matrix to make sure that the magnitude of the change at each iteration (<span class="math notranslate nohighlight">\(\|W^{t+1}-W^{t}\|\)</span>) remain roughly the same order. Based on this notion, <strong>the optimal learning rate should be directly dependent on the dimension of the gradient matrices</strong>, and this is exactly the key idea of <span class="math notranslate nohighlight">\(\mu\)</span>P. We refer to <span id="id8">[<a class="reference internal" href="../../references.html#id30" title="Greg Yang, James B Simon, and Jeremy Bernstein. A spectral condition for feature learning. arXiv preprint arXiv:2310.17813, 2023.">Yang <em>et al.</em>, 2023</a>]</span> if you are interested in the details.</p>
 </section>
-<section id="infra-discussions-distributed-training">
-<h2><span class="section-number">4.4.3. </span>Infra discussions: distributed training<a class="headerlink" href="#infra-discussions-distributed-training" title="Link to this heading">#</a></h2>
-</section>
-<section id="mixed-precision-training">
-<h2><span class="section-number">4.4.4. </span>Mixed precision training<a class="headerlink" href="#mixed-precision-training" title="Link to this heading">#</a></h2>
+<section id="infra-discussions-distributed-training-mixed-precision-training-and-more">
+<h2><span class="section-number">4.4.3. </span>Infra discussions: distributed training, mixed precision training and more<a class="headerlink" href="#infra-discussions-distributed-training-mixed-precision-training-and-more" title="Link to this heading">#</a></h2>
+<p>When we get <a class="reference internal" href="#alg:adamw_again">Algorithm 4.9</a></p>
 </section>
 </section>
 
@@ -461,9 +569,8 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lr-scheduler">4.4.1. lr scheduler</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mup-and-hyper-parameter-transfer">4.4.2. <span class="math notranslate nohighlight">\(\mu\)</span>P and hyper parameter transfer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infra-discussions-distributed-training">4.4.3. Infra discussions: distributed training</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-precision-training">4.4.4. Mixed precision training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mup-and-hyperparameter-transfer">4.4.2. <span class="math notranslate nohighlight">\(\mu\)</span>P and hyperparameter transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infra-discussions-distributed-training-mixed-precision-training-and-more">4.4.3. Infra discussions: distributed training, mixed precision training and more</a></li>
 </ul>
   </nav></div>
 

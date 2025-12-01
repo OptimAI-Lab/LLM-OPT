@@ -424,10 +424,13 @@ Under <a class="reference internal" href="#assm:stochastic">Assumption 4.1</a>, 
 \[\frac{\eta_t}{2} \EE[ \| \nabla f( \vw^t ) \|^2 ] \leq \EE[ f( \vw^t ) - f( \vw^{t+1} ) ] + \frac{ \eta_t^2 \sigma^2 L }{2}.\]</div>
 <p>Summing both sides from <span class="math notranslate nohighlight">\(k=0\)</span> to <span class="math notranslate nohighlight">\(k=K-1\)</span> yields the desired result.</p>
 </div>
-<p>From the results in <a class="reference internal" href="#thm:sgd-smooth">Theorem 4.1</a>, we notice that if we set <span class="math notranslate nohighlight">\(\eta_t = 1 / \sqrt{T}\)</span> for all <span class="math notranslate nohighlight">\(t=0,...,T-1\)</span>, then for sufficiently large <span class="math notranslate nohighlight">\(T\)</span>, one has</p>
+<p>From the results in <a class="reference internal" href="#thm:sgd-smooth">Theorem 4.1</a>, we notice that if we set <span class="math notranslate nohighlight">\(\eta_t = 1 / \sqrt{t}\)</span> (to make <span class="math notranslate nohighlight">\(\eta_t \leq 1/L\)</span>, we could take <span class="math notranslate nohighlight">\(\eta_t = 1 / (\sqrt{t}L)\)</span>) for all <span class="math notranslate nohighlight">\(t=0,...,T-1\)</span>, then for sufficiently large <span class="math notranslate nohighlight">\(T\)</span>, one has</p>
 <div class="math notranslate nohighlight">
 \[\min_{ t=0, ..., T-1 } \EE[ \| \nabla f( \vw^t ) \|^2 ] = {\cal O} \left( \frac{1 + \log T}{ \sqrt{T} } \right),\]</div>
-<p>showing the convergence (in expectation) for the SGD method.</p>
+<p>Also if we take <span class="math notranslate nohighlight">\(\eta_t = 1 / \sqrt{T}\)</span> for all <span class="math notranslate nohighlight">\(t=0,...,T-1\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\min_{ t=0, ..., T-1 } \EE[ \| \nabla f( \vw^t ) \|^2 ] = {\cal O} \left( \frac{1}{ \sqrt{T} } \right),\]</div>
+<p>These results show that the convergence (in expectation) to stationary points for the SGD method.</p>
 <section id="a-simple-example-of-running-sgd-in-pytorch">
 <h2><span class="section-number">4.1.1. </span>A simple example of running SGD in PyTorch<a class="headerlink" href="#a-simple-example-of-running-sgd-in-pytorch" title="Link to this heading">#</a></h2>
 <p>In the following code blocks, we use SGD to train the Cifar10 dataset on ResNet. Torch has a module <em>torch.optim</em> which can help you load the SGD optimizer directly. You can change <em>torch.optim.SGD</em> to <em>torch.optim.Adagrad</em>, <em>torch.optim.RMSprop</em> or <em>torch.optim.AdamW</em> to see the effect of different optimizers.</p>

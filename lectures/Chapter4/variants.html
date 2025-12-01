@@ -514,7 +514,7 @@ R_t=\epsilon I_n+\sum_{s=1}^t G_s^\top G_s .\]</div>
 &amp; \text{update}~ W^{t+1} = W^t - \gamma_k L_{t}^{-1/4} G^t R_{t}^{-1/4}.
 \end{split}\end{split}\]</div>
 <ul class="simple">
-<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ \vw^t \}_{t=1}^T\)</span>.</p></li>
+<li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(W^T\)</span>, or the solution sequence <span class="math notranslate nohighlight">\(\{ W^t \}_{t=1}^T\)</span>.</p></li>
 </ul>
 </section>
 </div><p>The reader may verify that <a class="reference internal" href="#alg:muon">Algorithm 4.6</a> and <a class="reference internal" href="#alg:shampoo">Algorithm 4.8</a> are identitcal if we take <span class="math notranslate nohighlight">\(\beta=0\)</span> for both of the algorithms. This indicate that by carefully choosing the matrix norm in the steepest descent <a class="reference internal" href="#equation-eq-steepest-descent-proto-chap4">(4.13)</a>, the second-order information can be partially recovered and our optimization can be even more efficient.</p>
