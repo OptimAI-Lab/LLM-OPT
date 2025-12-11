@@ -1367,8 +1367,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 <p>Next, we will go though our basic pre-training pipeline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span> 
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TOKENIZERS_PARALLELISM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;false&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dataset</span>
@@ -1863,7 +1862,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
     <span class="n">global_step</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">if</span> <span class="n">update_step</span> <span class="o">&gt;</span> <span class="n">num_training_steps</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="nb">print</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Reached max number of update steps (f</span><span class="si">{</span><span class="n">num_training_steps</span><span class="si">}</span><span class="s2">). Stopping training.&quot;</span>
         <span class="p">)</span>
         <span class="k">break</span>
@@ -1913,7 +1912,7 @@ x = x + \text{MLP}(\text{LayerNorm}(x))
 <span class="c1"># ##############################</span>
 <span class="c1"># END of training loop</span>
 <span class="c1"># ##############################</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training finished&quot;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training finished&quot;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
