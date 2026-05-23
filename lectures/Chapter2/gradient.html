@@ -30,9 +30,9 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -51,7 +51,7 @@
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
@@ -521,7 +521,7 @@ document.write(`
 <p>Thus the gradient method converges <strong>linearly</strong> towards the optimal solution.</p>
 <section id="remarks-and-further-readings">
 <h3><span class="section-number">2.2.3.1. </span>Remarks and Further Readings<a class="headerlink" href="#remarks-and-further-readings" title="Link to this heading">#</a></h3>
-<p>The above theorems present the <strong>finite-time</strong> convergence of the gradient method under various cases. For additional information, readers are referred to Chapter 1 &amp; 2 of <span id="id1">[<a class="reference internal" href="../../references.html#id8" title="Dimitri P Bertsekas. Nonlinear programming. Journal of the Operational Research Society, 48(3):334–334, 1997.">Bertsekas, 1997</a>]</span> for a more comprehensive treatment on unconstrained optimization. For recent developments, readers are referred to <span id="id2">[<a class="reference internal" href="../../references.html#id10" title="Guanghui Lan. First-order and stochastic optimization methods for machine learning. Volume 1. Springer, 2020.">Lan, 2020</a>]</span>.</p>
+<p>The above theorems present the <strong>finite-time</strong> convergence of the gradient method under various cases. For additional information, readers are referred to Chapter 1 &amp; 2 of <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../../references.html#id8" title="Dimitri P Bertsekas. Nonlinear programming. Journal of the Operational Research Society, 48(3):334–334, 1997.">Bertsekas, 1997</a>]</span> for a more comprehensive treatment on unconstrained optimization. For recent developments, readers are referred to <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../../references.html#id10" title="Guanghui Lan. First-order and stochastic optimization methods for machine learning. Volume 1. Springer, 2020.">Lan, 2020</a>]</span>.</p>
 </section>
 </section>
 <section id="numerical-examples">
@@ -655,7 +655,7 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 <section id="accelerated-variants-of-gradient-methods">
 <h2><span class="section-number">2.2.5. </span>Accelerated Variants of Gradient Methods<a class="headerlink" href="#accelerated-variants-of-gradient-methods" title="Link to this heading">#</a></h2>
 <p>Besides the plain gradient methods, there exist several accelerated variants that aim to improve convergence rates. These methods are particularly useful for ill-conditioned problems where the landscape of the objective function varies significantly in different directions.</p>
-<p>One of the most well-known accelerated methods is <strong>Nesterov’s Accelerated Gradient (NAG)</strong> method <span id="id3">[<a class="reference internal" href="../../references.html#id6" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, which incorporates momentum into the gradient update. The key idea is to use a combination of the current gradient and the previous update direction to inform the next step. As summarized below:</p>
+<p>One of the most well-known accelerated methods is <strong>Nesterov’s Accelerated Gradient (NAG)</strong> method <span class="bibtex-citation" id="id3">[<a class="reference internal" href="../../references.html#id6" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, which incorporates momentum into the gradient update. The key idea is to use a combination of the current gradient and the previous update direction to inform the next step. As summarized below:</p>
 <div class="proof algorithm admonition" id="alg:agd">
 <p class="admonition-title"><span class="caption-number">Algorithm 2.2 </span> (Nesterov’s Accelerated Gradient (NAG) Method)</p>
 <section class="algorithm-content" id="proof-content">
@@ -676,8 +676,8 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 <div class="math notranslate nohighlight">
 \[\| \vw^k - \vw^\star \|^2 = {\cal O} \left( \left(1 - \sqrt{\frac{\mu}{L}}
  \right)^k \right)\]</div>
-<p>which is faster compared to <a class="reference internal" href="#thm:gd-strconvex">Theorem 2.8</a> which only achieves <span class="math notranslate nohighlight">\({\cal O}( (1-\mu/L)^k )\)</span>. For other settings such as with convex and smooth <span class="math notranslate nohighlight">\(f(\vw)\)</span>, NAG also achieves an improved convergence rate of <span class="math notranslate nohighlight">\({\cal O}(1/k^2)\)</span> compared to the <span class="math notranslate nohighlight">\({\cal O}(1/k)\)</span> rate in <a class="reference internal" href="#thm:gd-convex">Theorem 2.7</a>. In fact, as proven in <span id="id4">[<a class="reference internal" href="../../references.html#id6" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, the NAG method achieves the <em>optimal convergence rate</em> for both convex and strongly convex functions.</p>
-<p>Another popular accelerated gradient method is the <strong>Heavy-Ball Method</strong> <span id="id5">[<a class="reference internal" href="../../references.html#id4" title="Boris T Polyak. Some methods of speeding up the convergence of iteration methods. Ussr computational mathematics and mathematical physics, 4(5):1–17, 1964.">Polyak, 1964</a>]</span>, which also incorporates momentum but in a slightly different manner than the Nesterov’s method. The update rule for the Heavy-Ball method is given by:</p>
+<p>which is faster compared to <a class="reference internal" href="#thm:gd-strconvex">Theorem 2.8</a> which only achieves <span class="math notranslate nohighlight">\({\cal O}( (1-\mu/L)^k )\)</span>. For other settings such as with convex and smooth <span class="math notranslate nohighlight">\(f(\vw)\)</span>, NAG also achieves an improved convergence rate of <span class="math notranslate nohighlight">\({\cal O}(1/k^2)\)</span> compared to the <span class="math notranslate nohighlight">\({\cal O}(1/k)\)</span> rate in <a class="reference internal" href="#thm:gd-convex">Theorem 2.7</a>. In fact, as proven in <span class="bibtex-citation" id="id4">[<a class="reference internal" href="../../references.html#id6" title="Yurii Nesterov. Lectures on convex optimization. Volume 137. Springer, 2018.">Nesterov, 2018</a>]</span>, the NAG method achieves the <em>optimal convergence rate</em> for both convex and strongly convex functions.</p>
+<p>Another popular accelerated gradient method is the <strong>Heavy-Ball Method</strong> <span class="bibtex-citation" id="id5">[<a class="reference internal" href="../../references.html#id4" title="Boris T Polyak. Some methods of speeding up the convergence of iteration methods. Ussr computational mathematics and mathematical physics, 4(5):1–17, 1964.">Polyak, 1964</a>]</span>, which also incorporates momentum but in a slightly different manner than the Nesterov’s method. The update rule for the Heavy-Ball method is given by:</p>
 <div class="proof algorithm admonition" id="alg:heavyball">
 <p class="admonition-title"><span class="caption-number">Algorithm 2.3 </span> (Heavy-Ball Method)</p>
 <section class="algorithm-content" id="proof-content">
@@ -691,7 +691,7 @@ Iteration 21: x = (0.1327, -0.0402), f(x) = 0.0134, gradient = (0.2151, -0.0651)
 <li><p><strong>Output</strong>: last iterate <span class="math notranslate nohighlight">\(\vw^K\)</span>.</p></li>
 </ul>
 </section>
-</div><p>Unlike NAG which computes the gradient at the look-ahead point <span class="math notranslate nohighlight">\({\bf y}^k = \vw^k + \beta_k ( \vw^k - \vw^{k-1} )\)</span>, the Heavy-Ball method computes the gradient at the current point <span class="math notranslate nohighlight">\(\vw^k\)</span>. The Heavy-Ball method has been shown to be effective in practice, although its theoretical convergence properties are not as well-established as those of NAG, where similar acceleration guarantees exist only for quadratic objective functions. An excellent tutorial on the momentum method can be found in <span id="id6">[<a class="reference internal" href="../../references.html#id3" title="Gabriel Goh. Why momentum really works. Distill, 2017. URL: http://distill.pub/2017/momentum, doi:10.23915/distill.00006.">Goh, 2017</a>]</span>.</p>
+</div><p>Unlike NAG which computes the gradient at the look-ahead point <span class="math notranslate nohighlight">\({\bf y}^k = \vw^k + \beta_k ( \vw^k - \vw^{k-1} )\)</span>, the Heavy-Ball method computes the gradient at the current point <span class="math notranslate nohighlight">\(\vw^k\)</span>. The Heavy-Ball method has been shown to be effective in practice, although its theoretical convergence properties are not as well-established as those of NAG, where similar acceleration guarantees exist only for quadratic objective functions. An excellent tutorial on the momentum method can be found in <span class="bibtex-citation" id="id6">[<a class="reference internal" href="../../references.html#id3" title="Gabriel Goh. Why momentum really works. Distill, 2017. URL: http://distill.pub/2017/momentum, doi:10.23915/distill.00006.">Goh, 2017</a>]</span>.</p>
 </section>
 <section id="exercises">
 <h2><span class="section-number">2.2.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
